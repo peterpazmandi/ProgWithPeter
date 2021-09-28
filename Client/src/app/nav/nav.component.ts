@@ -7,6 +7,7 @@ import { ThemeService } from '../_services/theme.service';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
+  collapsed = true;
 
   constructor(private themeService: ThemeService) { }
 
@@ -20,5 +21,9 @@ export class NavComponent implements OnInit {
     } else {
       this.themeService.setTheme('light');
     }
+  }
+  
+  onToggleCollapsed(): void {
+    this.collapsed = !this.collapsed;
   }
 }

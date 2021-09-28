@@ -1,7 +1,114 @@
-<nav class="navbar navbar-expand-md fixed-top shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-light shadow-lg navbar-bg">
     <div class="container-fluid">
-        <a class="navbar-brand" routerLink='/' routerLinkActive='active'>
+        <a class="navbar-brand me-4" routerLink='/' routerLinkActive='active'>
             <img src="assets/svg/PwP_logo.svg" alt="Programming with Peter" (click)="onToggleTheme()">
         </a>
+      <button class="navbar-toggler" type="button" 
+        data-bs-toggle="collapse" 
+        data-bs-target="#navbarSupportedContent" 
+        aria-controls="navbarSupportedContent" 
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="form overlapping-img me-4">
+            <img src="assets/svg/magnifying_glass.svg" alt="Search" style="height: 24px; width: 24px;">
+            <input type="text" class="form-control form-input" placeholder="Search ...">
+        </div>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item dropdown">            
+            <a
+                class="nav-link dropdown-toggle" 
+                href="/" 
+                role="button" 
+                data-bs-toggle="dropdown" 
+                aria-expanded="false">
+                <img
+                    class="me-1" 
+                    src="assets/svg/ic_tutorials.svg" 
+                    alt="Programming with Peter">
+                Tutorials
+            </a>
+          </li>
+          <li class="nav-item dropdown">          
+            <a
+                class="nav-link dropdown-toggle navbar-link" 
+                href="/" 
+                role="button" 
+                data-bs-toggle="dropdown" 
+                aria-expanded="false">
+                <img
+                    class="me-1" 
+                    src="assets/svg/ic_courses.svg" 
+                    alt="Programming with Peter">
+                Courses
+            </a>
+          </li>
+          <li class="nav-item dropdown">          
+            <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img class="me-1" src="assets/svg/ic_content_management.svg" alt="Programming with Peter">
+                Content Management
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li>         
+                <a
+                    class="dropdown-item" 
+                    href="/" 
+                    role="button" 
+                    data-bs-toggle="dropdown" 
+                    aria-expanded="false">
+                    <img
+                        class="me-1" 
+                        src="assets/svg/ic_tutorials_filled.svg" 
+                        alt="Programming with Peter">
+                    Tutorials
+                </a>
+              </li>
+              <li>        
+                <a
+                    class="dropdown-item" 
+                    href="/" 
+                    role="button" 
+                    data-bs-toggle="dropdown" 
+                    aria-expanded="false">
+                    <img
+                        class="me-1" 
+                        src="assets/svg/ic_courses_filled.svg" 
+                        alt="Programming with Peter">
+                    Courses
+                </a>
+              </li>
+              <li>      
+                <a
+                    class="dropdown-item" 
+                    href="/" 
+                    role="button" 
+                    data-bs-toggle="dropdown" 
+                    aria-expanded="false">
+                    <img
+                        class="me-1" 
+                        src="assets/svg/ic_categories_filled.svg" 
+                        alt="Programming with Peter">
+                    Categories
+                </a>
+              </li>
+              <li>      
+                <a
+                    class="dropdown-item" 
+                    href="/" 
+                    role="button" 
+                    data-bs-toggle="dropdown" 
+                    aria-expanded="false">
+                    <img
+                        class="me-1" 
+                        src="assets/svg/ic_tags_filled.svg" 
+                        alt="Programming with Peter">
+                    Tags
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
-</nav>
+  </nav>
