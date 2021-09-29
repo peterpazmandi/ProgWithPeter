@@ -19,8 +19,11 @@
 nav .navbar-nav li a{
   color: white !important;
 }
-nav .dropdown-menu li a{
-  color: black !important;
+nav .navbar-nav li ul a{
+  color: var(--on-primary) !important;
+}
+.nav-dropdown-menu {
+  background: var(--primary);
 }
 
 button {
