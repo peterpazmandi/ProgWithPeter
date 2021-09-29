@@ -23,6 +23,7 @@ export class ThemeService {
   setTheme(name: string) {
     this.theme = name;
     this.themeChange.emit(this.getActiveTheme());
+    localStorage.setItem('theme', name);
   }
 
 }
