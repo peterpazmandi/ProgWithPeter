@@ -22,6 +22,9 @@ nav .navbar-nav li a{
 nav .navbar-nav li ul a{
   color: var(--on-primary) !important;
 }
+nav .navbar-nav li ul a:focus, nav .navbar-nav li ul a:hover{
+  background: var(--background);
+}
 .nav-dropdown-menu {
   background: var(--primary);
 }
