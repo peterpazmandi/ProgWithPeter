@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { ThemeService } from '../_services/theme.service';
 
 @Component({
@@ -7,6 +8,7 @@ import { ThemeService } from '../_services/theme.service';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
+  public isChecked$ = new BehaviorSubject(false);
   collapsed = true;
 
   constructor(private themeService: ThemeService) { }
@@ -18,8 +20,10 @@ export class NavComponent implements OnInit {
     const active = this.themeService.getActiveTheme() ;
     if (active.name === 'light') {
       this.themeService.setTheme('dark');
+      this.isChecked$.next(true)
     } else {
       this.themeService.setTheme('light');
+      this.isChecked$.next(false)
     }
   }
   
