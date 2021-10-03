@@ -1,1 +1,52 @@
-<p>register works!</p>
+<div app-theme class="modaldiv">
+    <div class="modal-header">
+        <div>
+            <h4 class="modal-title pull-left">Sign Up</h4>
+            <p>It’s quick and easy.</p>
+        </div>
+        <img
+            class="me-1" style="cursor: pointer;"
+            (click)="bsModalRef.hide()"
+            src="assets/svg/ic_close.svg" 
+            alt="Programming with Peter">
+    </div>
+    <div class="modal-body">
+        <form [formGroup]='registerForm' (ngSubmit)="registerForm.valid && register()" autocomplete="off">
+            <app-text-input 
+                [formControl]='registerForm.controls["email"]' [label]='"Email"'></app-text-input>
+            <app-text-input 
+                [formControl]='registerForm.controls["username"]' [label]='"Username"'></app-text-input>
+            <app-text-input
+                [formControl]='registerForm.controls["password"]' [label]='"Password"' [type]='"password"'></app-text-input>
+            <app-text-input
+                [formControl]='registerForm.controls["confirmPassword"]' [label]='"Confirm Password"' [type]='"password"'></app-text-input>
+
+            <hr class="bg-secondary mt-4 mb-4">
+
+            <app-text-input 
+                [formControl]='registerForm.controls["firstname"]' [label]='"First Name"'></app-text-input>
+            <app-text-input 
+                [formControl]='registerForm.controls["lastname"]' [label]='"Last Name"'></app-text-input>
+
+            <app-date-input
+                [formControl]='registerForm.controls["dateOfBirth"]' [label]='"Date of Birth"' [maxDate]='maxDate'></app-date-input>
+            
+            <div class="form-group">
+                <label class="control-label ms-1 mt-2 mb-3">I'm a: </label>
+                <label class="radio-inline">
+                    <input class="ms-3" type="radio" value='male' formControlName='gender'> Male
+                </label>
+                <label class="radio-inline">
+                    <input class="ms-3" type="radio" value='female' formControlName='gender'> Female
+                </label>
+            </div>
+
+            <app-text-input 
+                [formControl]='registerForm.controls["country"]' [label]='"Country"'></app-text-input>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" (click)="bsModalRef.hide()">Cancel</button>
+        <button class="btn btn-primary">Sign Up</button>
+    </div>
+</div>
