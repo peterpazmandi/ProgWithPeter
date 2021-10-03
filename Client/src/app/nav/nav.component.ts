@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ThemeService } from '../_services/theme.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { RegisterComponent } from '../register/register.component';
 
 @Component({
   selector: 'app-nav',
@@ -10,8 +12,11 @@ import { ThemeService } from '../_services/theme.service';
 export class NavComponent implements OnInit {
   public isChecked$ = new BehaviorSubject(false);
   collapsed = true;
+  bsModalRef: BsModalRef;
 
-  constructor(private themeService: ThemeService) { }
+  constructor(
+    private themeService: ThemeService,
+    private modalService: BsModalService) { }
 
   ngOnInit(): void {
   }
@@ -29,5 +34,13 @@ export class NavComponent implements OnInit {
   
   onToggleCollapsed(): void {
     this.collapsed = !this.collapsed;
+  }
+
+  onOpenRegisterModal() {
+    const config = {
+      class: 'modal-dialog-centered'
+    }
+
+    this.bsModalRef = this.modalService.show(RegisterComponent, config);
   }
 }

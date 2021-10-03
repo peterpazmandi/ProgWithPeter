@@ -11,17 +11,26 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { ThemeModule } from './_theme/theme.module';
 import { lightTheme } from './_theme/light-theme';
 import { darkTheme } from './_theme/dark-theme';
+import { TextInputComponent } from './_forms/text-input/text-input.component';
+import { DateInputComponent } from './_forms/date-input/date-input.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
-    HomeComponent
+    HomeComponent,
+    TextInputComponent,
+    DateInputComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
     SharedModule,
     NgxSpinnerModule,
     ThemeModule.forRoot({
