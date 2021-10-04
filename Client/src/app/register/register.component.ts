@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
+import { AccountService } from '../_services/account.service';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +15,9 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     public bsModalRef: BsModalRef,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private accountService: AccountService,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -46,6 +50,10 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-
+    this.accountService.register(this.registerForm.value).subscribe(response => {
+      
+    }, error => {
+      this.toastr.error(error.error, error.status);
+    })
   }
 }

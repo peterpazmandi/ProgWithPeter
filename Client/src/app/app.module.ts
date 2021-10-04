@@ -16,6 +16,7 @@ import { DateInputComponent } from './_forms/date-input/date-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
