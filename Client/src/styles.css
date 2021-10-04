@@ -20,6 +20,12 @@
   color: var(--on-primary);
   transition: all 0.3s linear;
 }
+.modaldiv button {
+  color: var(--on-primary);
+}
+.modaldiv .btn-default:hover {
+  color: #1976D2 !important;
+}
 .navbar-bg {
   background-color: #1976D2;
 }
