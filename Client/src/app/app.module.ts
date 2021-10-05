@@ -16,7 +16,8 @@ import { DateInputComponent } from './_forms/date-input/date-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorInterceptor } from './_interceptors/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,9 @@ import { HttpClientModule } from '@angular/common/http';
     }),
     BsDatepickerModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
