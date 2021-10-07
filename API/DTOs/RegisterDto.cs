@@ -19,10 +19,7 @@ namespace API.DTOs
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public DateTime DateOfBirth { get; set; }
         public string Country { get; set; }
         public string Gender { get; set; }
-        
-        public string ClientURI { get; set; }
     }
 }

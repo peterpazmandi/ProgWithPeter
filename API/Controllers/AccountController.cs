@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using EmailService;
 using System.Linq;
+using Microsoft.Extensions.Configuration;
 
 namespace API.Controllers
 {
@@ -23,14 +24,18 @@ namespace API.Controllers
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IEmailSender _emailSender;
+        private readonly IConfiguration _config;
+
+        public Client Client { get; set; }
 
         public AccountController(
             UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
             ITokenService tokenService,
             IMapper mapper,
-            IUnitOfWork unitOfWork, 
-            IEmailSender emailSender)
+            IUnitOfWork unitOfWork,
+            IEmailSender emailSender,
+            IConfiguration config)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -38,6 +43,11 @@ namespace API.Controllers
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _emailSender = emailSender;
+            _config = config;
+
+            Client = _config
+                .GetSection("Client")
+                .Get<Client>();
         }
 
         [HttpPost("register")]
@@ -65,7 +75,7 @@ namespace API.Controllers
                 {"token", token },
                 {"email", user.Email }
             };
-            var callback = QueryHelpers.AddQueryString(registerDto.ClientURI, param);
+            var callback = QueryHelpers.AddQueryString(Client.EmailConfirmationUri, param);
             var message = new Message(new string[] { user.Email }, "Email Confirmation token", callback, null);
             await _emailSender.SendEmailAsync(message);
 
@@ -145,7 +155,7 @@ namespace API.Controllers
                 { "token", token },
                 { "email", forgotPasswordDto.Email }
             };
-            var callback = QueryHelpers.AddQueryString(forgotPasswordDto.ClientURI, param);
+            var callback = QueryHelpers.AddQueryString(Client.ResetPasswordUri, param);
             var message = new Message(new string[] { forgotPasswordDto.Email}, "Reset password token", callback, null);
             await _emailSender.SendEmailAsync(message);
 

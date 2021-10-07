@@ -11,7 +11,16 @@
             alt="Programming with Peter">
     </div>
     <div class="modal-body">
-        <form [formGroup]='registerForm' (ngSubmit)="registerForm.valid && register()" autocomplete="off">
+        <div class="alert alert-success" *ngIf="result">
+            <strong>Confirm your email address </strong>
+            <p>
+                We have sent an email with a confirmation link to your email address. In order to complete the sign-up process, please click the confirmation link.
+            </p>
+            <p>
+                If you do not receive a confirmation email, please check your spam folder. Also, please verify that you entered a valid email address in our sign-up form.
+            </p>
+        </div>
+        <form [formGroup]='registerForm' (ngSubmit)="registerForm.valid && register()" autocomplete="off" *ngIf="!result">
             <app-text-input 
                 [formControl]='registerForm.controls["email"]' [label]='"Email"'></app-text-input>
             <app-text-input 
@@ -28,9 +37,6 @@
             <app-text-input 
                 [formControl]='registerForm.controls["lastname"]' [label]='"Last Name"'></app-text-input>
 
-            <app-date-input
-                [formControl]='registerForm.controls["dateOfBirth"]' [label]='"Date of Birth"' [maxDate]='maxDate'></app-date-input>
-            
             <div class="form-group">
                 <label class="control-label ms-1 mt-2 mb-3">I'm a: </label>
                 <label class="radio-inline">
@@ -45,7 +51,7 @@
                 [formControl]='registerForm.controls["country"]' [label]='"Country"'></app-text-input>
         </form>
     </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" [disabled]='!registerForm.valid' (click)='register()'>Sign Up</button>
+    <div class="modal-footer" *ngIf="!result">
+        <button class="btn btn-primary" *ngIf="!loading" [disabled]='!registerForm.valid' (click)='register()'>Sign Up</button>
     </div>
 </div>

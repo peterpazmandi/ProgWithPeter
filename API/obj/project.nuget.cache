@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "NT8Y3t/5Lqz92WxKZCAYa5ZGGaFbsFYdxo7NZ+pkzaFccEvgPhM5779dhx+teCnTzjhooUAFGF55bMSqT06drg==",
+  "dgSpecHash": "/F7uwPny80c2jK4TefuRSMcuQdrDrhguKewBRLA24xi8QZeCU98FqhmXWlpjFeCC69Hy/Fjl+p10PgwXFldlAA==",
   "success": true,
-  "projectFilePath": "F:\\Angular\\ProgWithPeter\\api\\API.csproj",
+  "projectFilePath": "F:\\Angular\\ProgWithPeter\\API\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pazma\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\pazma\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",

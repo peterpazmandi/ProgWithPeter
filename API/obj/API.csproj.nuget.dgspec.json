@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\Angular\\ProgWithPeter\\api\\API.csproj": {}
+    "F:\\Angular\\ProgWithPeter\\API\\API.csproj": {}
   },
   "projects": {
-    "F:\\Angular\\ProgWithPeter\\api\\API.csproj": {
+    "F:\\Angular\\ProgWithPeter\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Angular\\ProgWithPeter\\api\\API.csproj",
+        "projectUniqueName": "F:\\Angular\\ProgWithPeter\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "F:\\Angular\\ProgWithPeter\\api\\API.csproj",
+        "projectPath": "F:\\Angular\\ProgWithPeter\\API\\API.csproj",
         "packagesPath": "C:\\Users\\pazma\\.nuget\\packages\\",
-        "outputPath": "F:\\Angular\\ProgWithPeter\\api\\obj\\",
+        "outputPath": "F:\\Angular\\ProgWithPeter\\API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
