@@ -120,7 +120,7 @@ namespace API.Controllers
             };
         }
 
-        [HttpPost("email-confirmation")]
+        [HttpGet("email-confirmation")]
         public async Task<ActionResult> EmailConfirmation([FromQuery] string email, [FromQuery] string token)
         {
             var user = await _userManager.FindByEmailAsync(email);

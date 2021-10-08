@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { CustomEncoder } from '../shared/custom-encoder';
 import { User } from '../_models/user';
 
 @Injectable({
@@ -27,6 +28,17 @@ export class AccountService {
     )
   }
 
+  confirmEmail(route: string, token: string, email: string) {
+    let params = new HttpParams({encoder: new CustomEncoder()})
+    params = params.append('token', token);
+    params = params.append('email', email);
+    console.log(route);
+    console.log(token);
+    console.log(email);
+    console.log(params);
+    return this.http.get(this.createCompleteRoute(route), { params: params});
+  }
+
   setCurrentUser(user: User) {
     user.roles = [];
     const roles = this.getDecodedToken(user.token).role;
@@ -37,5 +49,9 @@ export class AccountService {
 
   getDecodedToken(token: string) {
     return JSON.parse(atob(token.split('.')[1]));
+  }
+
+  private createCompleteRoute(route: string) {
+    return `${this.baseUrl}${route}`;
   }
 }

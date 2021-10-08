@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ThemeService } from '../_services/theme.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { RegisterComponent } from '../register/register.component';
+import { RegisterComponent } from '../authentication/register/register.component';
 import { Theme } from '../_theme/symbols';
 
 @Component({

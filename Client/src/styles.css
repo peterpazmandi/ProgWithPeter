@@ -56,13 +56,6 @@ nav .navbar-nav li ul div:focus, nav .navbar-nav li ul div:hover{
 button {
   margin-top: 20px;
 }
-h1 {
-  height: auto;
-  text-align: center;
-  margin: 0;
-  background:rgb(229, 36, 30);
-  color: var(--on-primary);
-}
 .switch {
   position: relative;
   display: inline-block;

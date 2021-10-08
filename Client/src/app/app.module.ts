@@ -14,11 +14,17 @@ import { darkTheme } from './_theme/dark-theme';
 import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { DateInputComponent } from './_forms/date-input/date-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './authentication/register/register.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
+import { EmailConfirmationComponent } from './authentication/email-confirmation/email-confirmation.component';
+import { JwtModule } from '@auth0/angular-jwt';
+
+export function tokenGetter() {
+  return localStorage.getItem("token");
+}
 
 @NgModule({
   declarations: [
@@ -27,7 +33,8 @@ import { LoadingInterceptor } from './_interceptors/loading.interceptor';
     HomeComponent,
     TextInputComponent,
     DateInputComponent,
-    RegisterComponent
+    RegisterComponent,
+    EmailConfirmationComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +49,14 @@ import { LoadingInterceptor } from './_interceptors/loading.interceptor';
       themes: [lightTheme, darkTheme],
       active: 'light'
     }),
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["localhost:5001"],
+        disallowedRoutes : []
+      }
+    })
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
