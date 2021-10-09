@@ -4,6 +4,8 @@ import { ThemeService } from '../_services/theme.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { RegisterComponent } from '../authentication/register/register.component';
 import { Theme } from '../_theme/symbols';
+import { LoginComponent } from '../authentication/login/login.component';
+import { AccountService } from '../_services/account.service';
 
 @Component({
   selector: 'app-nav',
@@ -18,7 +20,8 @@ export class NavComponent implements OnInit {
 
   constructor(
     private themeService: ThemeService,
-    private modalService: BsModalService) { }
+    private modalService: BsModalService,
+    public accountService: AccountService) { }
 
   ngOnInit(): void {
     this.initTheme();
@@ -54,5 +57,17 @@ export class NavComponent implements OnInit {
     }
 
     this.bsModalRef = this.modalService.show(RegisterComponent, config);
+  }
+
+  onOpenLoginModal() {
+    const config = {
+      class: 'modal-dialog-centered'
+    }
+
+    this.bsModalRef = this.modalService.show(LoginComponent, config);
+  }
+
+  onSignOut() {
+    this.accountService.signout();
   }
 }

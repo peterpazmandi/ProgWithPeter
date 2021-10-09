@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -15,7 +16,8 @@ export class AccountService {
   currentUser$ = this.currentUserSource.asObservable();
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private sanitizer: DomSanitizer
   ) { }
 
   register(model: any) {
@@ -26,6 +28,23 @@ export class AccountService {
         }
       })
     )
+  }
+
+  login (model: any) {
+    return this.http.post(this.baseUrl + 'account/login', model).pipe(
+      map((response: User | any) => {
+        const user = response;
+        console.log(user);
+        if(user) {
+          this.setCurrentUser(user);
+        }
+      })
+    )
+  }
+
+  signout() {
+    localStorage.removeItem('user');
+    this.currentUserSource.next(null as any);
   }
 
   confirmEmail(route: string, token: string, email: string) {

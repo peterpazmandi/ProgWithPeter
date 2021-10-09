@@ -48,10 +48,27 @@
             </div>
 
             <app-text-input 
-                [formControl]='registerForm.controls["country"]' [label]='"Country"'></app-text-input>
+                [formControl]='registerForm.controls["country"]' 
+                [label]='"Country"'>
+            </app-text-input>
+            <div *ngIf="!result" class="d-grid col-6 mx-auto">
+                <button 
+                    class="btn btn-primary" 
+                    *ngIf="!loading" 
+                    [disabled]='!registerForm.valid' 
+                    (click)='register()'>
+                    Sign Up
+                </button>
+            </div>
         </form>
     </div>
-    <div class="modal-footer" *ngIf="!result">
-        <button class="btn btn-primary" *ngIf="!loading" [disabled]='!registerForm.valid' (click)='register()'>Sign Up</button>
+    <div class="modal-footer">
+        <div class="d-grid mx-auto">
+            <button 
+                class="btn btn-transparent btn-sm" 
+                (click)="onOpenLoginModal()">
+                Already have an Account? Log in
+            </button>
+        </div>
     </div>
 </div>

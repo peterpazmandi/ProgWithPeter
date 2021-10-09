@@ -1,0 +1,55 @@
+<div app-theme class="modaldiv rounded">
+    <div class="modal-header">
+        <div>
+            <h4 class="modal-title pull-left">Sign In</h4>
+        </div>
+        <img
+            class="me-1" style="cursor: pointer;"
+            (click)="bsModalRef.hide()"
+            src="assets/svg/ic_close.svg" 
+            alt="Programming with Peter">
+    </div>
+    <div class="modal-body">
+        <form 
+            [formGroup]='loginForm' 
+            (ngSubmit)="loginForm.valid && login()"
+            autocomplete="off">
+            <app-text-input 
+                [formControl]='loginForm.controls["username"]' 
+                [label]='"Username"'>
+            </app-text-input>
+            <app-text-input
+                [formControl]='loginForm.controls["password"]' 
+                [label]='"Password"' 
+                [type]='"password"'>
+            </app-text-input>
+        </form>
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <button 
+                class="btn btn-primary" 
+                *ngIf="!loading" 
+                [disabled]='!loginForm.valid' 
+                (click)='login()'>
+                Sign In
+            </button>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="d-grid mx-auto">
+            <button 
+                class="btn btn-transparent btn-sm" 
+                (click)="onOpenRegisterModal()">
+                Create account
+            </button>
+            <button 
+                class="btn btn-transparent btn-sm" 
+                (click)="onOpenForgotPasswordModal()">
+                Forgot your password?
+            </button>
+            <button 
+                class="btn btn-transparent btn-sm">
+                Didn't receive confirmation instructions?
+            </button>
+        </div>
+    </div>
+</div>

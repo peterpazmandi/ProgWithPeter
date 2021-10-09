@@ -21,6 +21,8 @@ import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 import { EmailConfirmationComponent } from './authentication/email-confirmation/email-confirmation.component';
 import { JwtModule } from '@auth0/angular-jwt';
+import { LoginComponent } from './authentication/login/login.component';
+import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -34,7 +36,9 @@ export function tokenGetter() {
     TextInputComponent,
     DateInputComponent,
     RegisterComponent,
-    EmailConfirmationComponent
+    EmailConfirmationComponent,
+    LoginComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,

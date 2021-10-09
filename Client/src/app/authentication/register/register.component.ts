@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from '../../_services/account.service';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-register',
@@ -12,7 +13,6 @@ import { AccountService } from '../../_services/account.service';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-  maxDate: Date;
   loading: boolean = false;
   result: boolean = false;
 
@@ -20,7 +20,7 @@ export class RegisterComponent implements OnInit {
     public bsModalRef: BsModalRef,
     private fb: FormBuilder,
     private accountService: AccountService,
-    private toastr: ToastrService,
+    private modalService: BsModalService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -28,9 +28,6 @@ export class RegisterComponent implements OnInit {
   }
 
   private initializeForm() {
-    this.maxDate = new Date();
-    this.maxDate.setFullYear(this.maxDate.getFullYear() -12);
-
     this.registerForm = this.fb.group({
       email: ['', Validators.required],
       username: ['', Validators.required],
@@ -58,8 +55,16 @@ export class RegisterComponent implements OnInit {
       this.loading = false;
       this.result = true;
     }, error => {
-      this.toastr.error(error.error, error.status);
       this.loading = false;
     })
+  }
+
+  onOpenLoginModal() {
+    this.bsModalRef.hide();
+    const config = {
+      class: 'modal-dialog-centered'
+    }
+
+    this.bsModalRef = this.modalService.show(LoginComponent, config);
   }
 }

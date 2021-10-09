@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using EmailService;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace API.Controllers
 {
@@ -116,7 +117,8 @@ namespace API.Controllers
                 Username = user.UserName,
                 Token = await _tokenService.CreateToken(user),
                 FirstName = user.FirstName,
-                LastName = user.LastName
+                LastName = user.LastName,
+                PhotoUrl = "https://localhost:5001/ProfilePhotos/" + user.Photo.Url
             };
         }
 

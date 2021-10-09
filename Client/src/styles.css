@@ -160,3 +160,22 @@ body .bs-datepicker-container .bs-datepicker-head {
 {
   background-color: #1976D2 !important;
 }
+
+.rounded-img-small {
+  max-height: 30px;
+  border-radius: 50%;
+}
+
+.rounded-img-medium {
+  max-height: 50px;
+  border-radius: 50%;
+}
+
+.btn-transparent {
+  border: transparent;
+  background-color: transparent;
+}
+
+.btn-transparent:hover {
+  color: #1976D2 !important;
+}
