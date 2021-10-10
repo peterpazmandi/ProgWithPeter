@@ -93,6 +93,28 @@ namespace API.Controllers
             };
         }
 
+        [HttpPost("resend-email-confirmation")]
+        public async Task<ActionResult> ResendEmailConfirmation(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if(user is null)
+            {
+                return BadRequest("Account with this email not found!");
+            }
+
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var param = new Dictionary<string, string>
+            {
+                {"token", token },
+                {"email", user.Email }
+            };
+            var callback = QueryHelpers.AddQueryString(Client.EmailConfirmationUri, param);
+            var message = new Message(new string[] { user.Email }, "Email Confirmation token", callback, null);
+            await _emailSender.SendEmailAsync(message);
+
+            return Ok();
+        }
+
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
