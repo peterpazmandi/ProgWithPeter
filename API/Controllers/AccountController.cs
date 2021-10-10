@@ -89,7 +89,8 @@ namespace API.Controllers
                 Username = user.UserName,
                 Token = await _tokenService.CreateToken(user),
                 FirstName = user.FirstName,
-                LastName = user.LastName
+                LastName = user.LastName,
+                EmailConfirmed = user.EmailConfirmed
             };
         }
 
@@ -140,7 +141,8 @@ namespace API.Controllers
                 Token = await _tokenService.CreateToken(user),
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                PhotoUrl = "https://localhost:5001/ProfilePhotos/" + user.Photo.Url
+                PhotoUrl = user.Photo != null ? "https://localhost:5001/ProfilePhotos/" + user.Photo.Url : "",
+                EmailConfirmed = user.EmailConfirmed
             };
         }
 

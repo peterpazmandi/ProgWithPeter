@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private themeService: ThemeService,
-    private accountService: AccountService) {}
+    public accountService: AccountService) {}
 
   ngOnInit(): void {
     const theme = localStorage.getItem('theme');
@@ -28,5 +28,9 @@ export class AppComponent implements OnInit {
     if(user) {
       this.accountService.setCurrentUser(user);
     }
+  }
+
+  resendEmailConfirmation() {
+    console.log("resendEmailConfirmation");
   }
 }

@@ -4,9 +4,18 @@
 
 <div app-theme>
   <app-nav app-theme></app-nav>
-  
+
   <div class="main">
+    <div 
+      *ngIf="(accountService.currentUser$ | async) && !((accountService.currentUser$ | async).emailConfirmed)" 
+      class="alert alert-warning container" role="alert">
+      <p>
+        You're email address is not yet confirmed. <br>
+        Didn't receive the confirmation email? <a (click)="resendEmailConfirmation()" style="color: #1976D2 !important; cursor: pointer;">Resend</a>
+      </p>
+    </div>
     <div class="innerdiv container">
+    
       <router-outlet></router-outlet>
     </div>
   </div>
