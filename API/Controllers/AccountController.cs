@@ -143,7 +143,7 @@ namespace API.Controllers
         }
 
         [HttpPost("forgot-password")]
-        public async Task<ActionResult> ForgotPassword([FromBody] ForgotPasswordDto forgotPasswordDto)
+        public async Task<ActionResult> ForgotPassword(ForgotPasswordDto forgotPasswordDto)
         {
             var user = await _userManager.FindByEmailAsync(forgotPasswordDto.Email);
             if(user is null)
@@ -158,7 +158,7 @@ namespace API.Controllers
                 { "email", forgotPasswordDto.Email }
             };
             var callback = QueryHelpers.AddQueryString(Client.ResetPasswordUri, param);
-            var message = new Message(new string[] { forgotPasswordDto.Email}, "Reset password token", callback, null);
+            var message = new Message(new string[] { forgotPasswordDto.Email }, "Reset password token", callback, null);
             await _emailSender.SendEmailAsync(message);
 
             return Ok();

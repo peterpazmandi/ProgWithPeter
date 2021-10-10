@@ -20,8 +20,7 @@ export class RegisterComponent implements OnInit {
     public bsModalRef: BsModalRef,
     private fb: FormBuilder,
     private accountService: AccountService,
-    private modalService: BsModalService,
-    private router: Router) { }
+    private modalService: BsModalService) { }
 
   ngOnInit(): void {
     this.initializeForm();

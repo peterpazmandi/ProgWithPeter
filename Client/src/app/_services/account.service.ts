@@ -5,6 +5,7 @@ import { ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { CustomEncoder } from '../shared/custom-encoder';
+import { ForgotPasswordDto } from '../_models/forgotPasswordDto';
 import { User } from '../_models/user';
 
 @Injectable({
@@ -47,15 +48,16 @@ export class AccountService {
     this.currentUserSource.next(null as any);
   }
 
-  confirmEmail(route: string, token: string, email: string) {
+  confirmEmail(token: string, email: string) {
     let params = new HttpParams({encoder: new CustomEncoder()})
     params = params.append('token', token);
     params = params.append('email', email);
-    console.log(route);
-    console.log(token);
-    console.log(email);
-    console.log(params);
-    return this.http.get(this.createCompleteRoute(route), { params: params});
+    return this.http.get(this.baseUrl + 'account/email-confirmation', { params: params});
+  }
+
+  forgotPassword(forgotPasswordDto: ForgotPasswordDto) {
+    console.log(forgotPasswordDto);
+    return this.http.post(this.baseUrl + 'account/forgot-password', forgotPasswordDto);
   }
 
   setCurrentUser(user: User) {
