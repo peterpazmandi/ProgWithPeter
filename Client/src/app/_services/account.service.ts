@@ -5,8 +5,9 @@ import { ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { CustomEncoder } from '../shared/custom-encoder';
-import { ForgotPasswordDto } from '../_models/forgotPasswordDto';
-import { User } from '../_models/user';
+import { ForgotPasswordDto } from '../_models/forgotPasswordDto.model';
+import { ResetPasswordDto } from '../_models/resetPasswordDto.model';
+import { User } from '../_models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -56,9 +57,14 @@ export class AccountService {
   }
 
   forgotPassword(forgotPasswordDto: ForgotPasswordDto) {
-    console.log(forgotPasswordDto);
     return this.http.post(this.baseUrl + 'account/forgot-password', forgotPasswordDto);
   }
+
+  resetPassword(resetPasswordDto: ResetPasswordDto) {
+    console.log(resetPasswordDto);
+    return this.http.post(this.baseUrl + 'account/reset-password', resetPasswordDto);
+  }
+
 
   setCurrentUser(user: User) {
     user.roles = [];

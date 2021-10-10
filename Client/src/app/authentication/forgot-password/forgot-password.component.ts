@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { ForgotPasswordDto } from 'src/app/_models/forgotPasswordDto';
+import { ForgotPasswordDto } from 'src/app/_models/forgotPasswordDto.model';
 import { AccountService } from 'src/app/_services/account.service';
 import { LoginComponent } from '../login/login.component';
 

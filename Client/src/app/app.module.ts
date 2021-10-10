@@ -23,6 +23,7 @@ import { EmailConfirmationComponent } from './authentication/email-confirmation/
 import { JwtModule } from '@auth0/angular-jwt';
 import { LoginComponent } from './authentication/login/login.component';
 import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './authentication/reset-password/reset-password.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -38,7 +39,8 @@ export function tokenGetter() {
     RegisterComponent,
     EmailConfirmationComponent,
     LoginComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
