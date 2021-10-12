@@ -56,6 +56,10 @@ export class AccountService {
     return this.http.get(this.baseUrl + 'account/email-confirmation', { params: params});
   }
 
+  resendConfirmEmail() {
+    return this.http.get(this.baseUrl + 'account/resend-email-confirmation');
+  }
+
   forgotPassword(forgotPasswordDto: ForgotPasswordDto) {
     return this.http.post(this.baseUrl + 'account/forgot-password', forgotPasswordDto);
   }

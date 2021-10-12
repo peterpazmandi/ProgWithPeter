@@ -21,6 +21,7 @@ import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 import { EmailConfirmationComponent } from './authentication/email-confirmation/email-confirmation.component';
 import { JwtModule } from '@auth0/angular-jwt';
+import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { LoginComponent } from './authentication/login/login.component';
 import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './authentication/reset-password/reset-password.component';
@@ -66,6 +67,7 @@ export function tokenGetter() {
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]

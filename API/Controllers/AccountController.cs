@@ -94,10 +94,13 @@ namespace API.Controllers
             };
         }
 
-        [HttpPost("resend-email-confirmation")]
-        public async Task<ActionResult> ResendEmailConfirmation(string email)
+        [Authorize]
+        [HttpGet("resend-email-confirmation")]
+        public async Task<ActionResult> ResendEmailConfirmation()
         {
-            var user = await _userManager.FindByEmailAsync(email);
+            string username = User.GetUsername();
+            var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
+
             if(user is null)
             {
                 return BadRequest("Account with this email not found!");

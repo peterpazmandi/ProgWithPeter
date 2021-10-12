@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { User } from './_models/user.model';
 import { AccountService } from './_services/account.service';
 import { ThemeService } from './_services/theme.service';
@@ -13,7 +14,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private themeService: ThemeService,
-    public accountService: AccountService) {}
+    public accountService: AccountService,
+    private toastr: ToastrService) {}
 
   ngOnInit(): void {
     const theme = localStorage.getItem('theme');
@@ -31,6 +33,10 @@ export class AppComponent implements OnInit {
   }
 
   resendEmailConfirmation() {
-    console.log("resendEmailConfirmation");
+    this.accountService.resendConfirmEmail().subscribe(() => {
+      this.toastr.success('Email confirmation has been sent out successfully.');
+    }, error => {
+      console.log(error.errror);
+    })
   }
 }
