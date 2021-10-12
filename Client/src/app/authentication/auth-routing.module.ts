@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { EmailConfirmationComponent } from './email-confirmation/email-confirmation.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { AuthGuard } from '../_guards/auth.guard';
 
 
 
@@ -14,7 +15,11 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     ReactiveFormsModule,
     RouterModule.forChild([
       { path: 'emailconfirmation', component: EmailConfirmationComponent},
-      { path: 'resetpassword', component: ResetPasswordComponent }
+      { 
+        path: 'resetpassword',
+        runGuardsAndResolvers: 'always',
+        canActivate: [AuthGuard],
+        component: ResetPasswordComponent }
     ])
   ]
 })

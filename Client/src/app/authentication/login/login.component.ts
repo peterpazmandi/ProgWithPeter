@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from 'src/app/_services/account.service';
@@ -19,7 +21,8 @@ export class LoginComponent implements OnInit {
     public bsModalRef: BsModalRef,
     private fb: FormBuilder,
     private accountService: AccountService,
-    private modalService: BsModalService) { }
+    private modalService: BsModalService,
+    @Inject(DOCUMENT) private _document: Document) { }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -36,11 +39,17 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.accountService.login(this.loginForm.value).subscribe(response => {
       this.loading = false;
-      this.bsModalRef.hide();
+      this.reload();
+      // this.bsModalRef.hide();
     }, error => {
       this.loading = false;
     })
   }
+  
+  private reload() {
+    this._document.defaultView?.location.reload();
+  }
+
 
   onOpenRegisterModal() {
     this.bsModalRef.hide();

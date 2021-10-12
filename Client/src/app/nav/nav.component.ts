@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ThemeService } from '../_services/theme.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
@@ -6,6 +6,7 @@ import { RegisterComponent } from '../authentication/register/register.component
 import { Theme } from '../_theme/symbols';
 import { LoginComponent } from '../authentication/login/login.component';
 import { AccountService } from '../_services/account.service';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-nav',
@@ -21,7 +22,8 @@ export class NavComponent implements OnInit {
   constructor(
     private themeService: ThemeService,
     private modalService: BsModalService,
-    public accountService: AccountService) { }
+    public accountService: AccountService,
+    @Inject(DOCUMENT) private _document: Document) { }
 
   ngOnInit(): void {
     this.initTheme();
@@ -69,5 +71,10 @@ export class NavComponent implements OnInit {
 
   onSignOut() {
     this.accountService.signout();
+    this.reload();
+  }
+  
+  private reload() {
+    this._document.defaultView?.location.reload();
   }
 }

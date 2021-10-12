@@ -42,7 +42,7 @@
                 Courses
             </a>
           </li>
-          <li class="nav-item dropdown">          
+          <li *appHasRole='["Admmin", "Moderator"]' class="nav-item dropdown">          
             <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <img class="me-1" src="assets/svg/ic_content_management.svg" alt="Programming with Peter">
                 Content Management
