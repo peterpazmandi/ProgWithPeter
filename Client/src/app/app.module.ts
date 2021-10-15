@@ -26,6 +26,7 @@ import { LoginComponent } from './authentication/login/login.component';
 import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './authentication/reset-password/reset-password.component';
 import { HasRoleDirective } from './_directives/has-role.directive';
+import { TutorialListComponent } from './tutorial/tutorial-list/tutorial-list.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -43,7 +44,8 @@ export function tokenGetter() {
     LoginComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
-    HasRoleDirective
+    HasRoleDirective,
+    TutorialListComponent
   ],
   imports: [
     BrowserModule,

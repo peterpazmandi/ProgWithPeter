@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light shadow-lg navbar-bg">
     <div class="container-fluid">
-        <a class="navbar-brand me-4" routerLink='/' routerLinkActive='active'>
+        <a class="navbar-brand me-4" routerLink='/tutorial-list' routerLinkActive='active'>
             <img src="assets/svg/PwP_logo.svg" alt="Programming with Peter">
         </a>
       <button class="navbar-toggler" type="button" 
@@ -19,9 +19,8 @@
           <li class="nav-item dropdown">            
             <a
                 class="nav-link dropdown-toggle" 
-                role="button" 
-                data-bs-toggle="dropdown" 
-                aria-expanded="false">
+                routerLink='/tutorial-list'
+                role="button" >
                 <img
                     class="me-1" 
                     src="assets/svg/ic_tutorials.svg" 
@@ -50,15 +49,13 @@
             <ul class="dropdown-menu nav-dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <li>         
                 <a
-                    class="dropdown-item" 
-                    role="button" 
-                    data-bs-toggle="dropdown" 
-                    aria-expanded="false">
-                    <img
-                        class="me-1" 
-                        src="assets/svg/ic_tutorials_filled.svg" 
-                        alt="Programming with Peter">
-                    Tutorials
+                  routerLink='/tutorial-list'
+                  class="dropdown-item" >
+                  <img
+                      class="me-1" 
+                      src="assets/svg/ic_tutorials_filled.svg" 
+                      alt="Programming with Peter">
+                  Tutorials
                 </a>
               </li>
               <li>        
