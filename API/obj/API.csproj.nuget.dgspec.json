@@ -1,26 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Pazmandi Peter\\Desktop\\Trash\\Angular\\ProgWithPeter\\API\\API.csproj": {}
+    "F:\\Angular\\ProgWithPeter\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Pazmandi Peter\\Desktop\\Trash\\Angular\\ProgWithPeter\\API\\API.csproj": {
+    "F:\\Angular\\ProgWithPeter\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Pazmandi Peter\\Desktop\\Trash\\Angular\\ProgWithPeter\\API\\API.csproj",
+        "projectUniqueName": "F:\\Angular\\ProgWithPeter\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\Pazmandi Peter\\Desktop\\Trash\\Angular\\ProgWithPeter\\API\\API.csproj",
-        "packagesPath": "C:\\Users\\Pazmandi Peter\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Pazmandi Peter\\Desktop\\Trash\\Angular\\ProgWithPeter\\API\\obj\\",
+        "projectPath": "F:\\Angular\\ProgWithPeter\\API\\API.csproj",
+        "packagesPath": "C:\\Users\\pazma\\.nuget\\packages\\",
+        "outputPath": "F:\\Angular\\ProgWithPeter\\API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\Pazmandi Peter\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\pazma\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -35,8 +32,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Pazmandi Peter\\Desktop\\Trash\\Angular\\ProgWithPeter\\EmailService\\EmailService.csproj": {
-                "projectPath": "C:\\Users\\Pazmandi Peter\\Desktop\\Trash\\Angular\\ProgWithPeter\\EmailService\\EmailService.csproj"
+              "F:\\Angular\\ProgWithPeter\\EmailService\\EmailService.csproj": {
+                "projectPath": "F:\\Angular\\ProgWithPeter\\EmailService\\EmailService.csproj"
               }
             }
           }
@@ -100,27 +97,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100-rc.1.21458.32\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100-rc.1.21463.6\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Pazmandi Peter\\Desktop\\Trash\\Angular\\ProgWithPeter\\EmailService\\EmailService.csproj": {
+    "F:\\Angular\\ProgWithPeter\\EmailService\\EmailService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Pazmandi Peter\\Desktop\\Trash\\Angular\\ProgWithPeter\\EmailService\\EmailService.csproj",
+        "projectUniqueName": "F:\\Angular\\ProgWithPeter\\EmailService\\EmailService.csproj",
         "projectName": "EmailService",
-        "projectPath": "C:\\Users\\Pazmandi Peter\\Desktop\\Trash\\Angular\\ProgWithPeter\\EmailService\\EmailService.csproj",
-        "packagesPath": "C:\\Users\\Pazmandi Peter\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Pazmandi Peter\\Desktop\\Trash\\Angular\\ProgWithPeter\\EmailService\\obj\\",
+        "projectPath": "F:\\Angular\\ProgWithPeter\\EmailService\\EmailService.csproj",
+        "packagesPath": "C:\\Users\\pazma\\.nuget\\packages\\",
+        "outputPath": "F:\\Angular\\ProgWithPeter\\EmailService\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\Pazmandi Peter\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\pazma\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -171,7 +165,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100-rc.1.21458.32\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100-rc.1.21463.6\\RuntimeIdentifierGraph.json"
         }
       }
     }

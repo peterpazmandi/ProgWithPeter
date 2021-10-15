@@ -15,18 +15,21 @@ export class AuthGuard implements CanActivate {
     private toastr: ToastrService,
     private router: Router) {}
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> {
-    return this.accountService.currentUser$.pipe(
-      map(user => {
-        console.log("You don't have permission to access this area!");
-        if(user) return true;
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+      this.accountService.currentUser$.pipe(
+        map(user => {
+          if(user) return true;
 
-        this.toastr.error("You don't have permission to access this area!")
-        this.router.parseUrl('');
-        console.log("You don't have permission to access this area!");
+          this.toastr.error("You don't have permission to access this area!")
+          this.router.navigateByUrl('/');
 
-        return false;
-      })
-    );
-  }  
+          return false;
+        })
+      );
+
+      this.toastr.error("You don't have permission to access this area!")
+      this.router.navigateByUrl('/');
+
+      return false;
+    }  
 }
