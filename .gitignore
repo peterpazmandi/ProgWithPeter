@@ -1,3 +1,7 @@
 API/bin/
 EmailService/obj/
 API/obj/
+API/obj/API.csproj.nuget.dgspec.json
+API/obj/API.csproj.nuget.g.props
+API/obj/project.assets.json
+EmailService/obj/EmailService.csproj.nuget.dgspec.json

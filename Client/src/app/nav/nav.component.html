@@ -15,7 +15,7 @@
             <img src="assets/svg/magnifying_glass.svg" alt="Search" style="height: 24px; width: 24px;">
             <input type="text" class="form-control form-input" placeholder="Search ...">
         </div>
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="nav navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item dropdown">            
             <a
                 class="nav-link dropdown-toggle" 
@@ -42,10 +42,10 @@
                 Courses
             </a>
           </li>
-          <li *appHasRole='["Admmin", "Moderator"]' class="nav-item dropdown">          
+          <li *appHasRole='["Admmin", "Moderator"]' class="dropdown">          
             <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <img class="me-1" src="assets/svg/ic_content_management.svg" alt="Programming with Peter">
-                Content Management
+                Content
             </a>
             <ul class="dropdown-menu nav-dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <li>         
@@ -99,6 +99,30 @@
                         alt="Programming with Peter">
                     Tags
                 </a>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li id="sub-dropdown" class="dropdown">
+                <div class="btn-group dropend">
+                  <a
+                    class="dropdown-item dropdown-toggle" 
+                    role="button" 
+                    data-bs-toggle="dropdown" 
+                    aria-expanded="false" >
+                    <img
+                        class="me-1" 
+                        src="assets/svg/ic_user_filled.svg" 
+                        alt="Programming with Peter">
+                    Users
+                </a>
+                <ul id="sub-dropdown-menu" class="dropdown-menu">
+                  <li>
+                    <a routerLink='/' class="dropdown-item">All</a>
+                  </li>
+                  <li>
+                    <a routerLink='/' class="dropdown-item">Photos</a>
+                  </li>
+                </ul>
+                </div>
               </li>
             </ul>
           </li>

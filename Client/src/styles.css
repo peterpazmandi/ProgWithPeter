@@ -179,3 +179,42 @@ body .bs-datepicker-container .bs-datepicker-head {
 .btn-transparent:hover {
   color: #1976D2 !important;
 }
+
+
+
+
+
+
+
+
+.dropdown-menu{
+  /* display: none; */
+  /* position: absolute; */
+  background: var(--primary);
+  box-shadow: 2px 8px 16px 0px rgba(0,0,0,0.2);
+  /* z-index: 1; */
+}
+
+#sub-dropdown-menu{
+  display: none;
+  position:absolute;
+  margin-left: 130px;
+}
+
+#sub-dropdown-menu a , .dropdown-menu a {
+	color: var(--on-background);
+}
+
+.dropdown:hover .dropdown-menu {
+  /* display:flexbox; */
+  transition: all 3s ease-in-out;
+}
+
+.dropdown .dropdown-menu a:hover {
+  background-color: var(--background)
+}
+
+
+#sub-dropdown:hover #sub-dropdown-menu {
+  display: block;
+}
