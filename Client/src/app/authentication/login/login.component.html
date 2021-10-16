@@ -21,7 +21,7 @@
             <app-text-input
                 [formControl]='loginForm.controls["password"]' 
                 [label]='"Password"' 
-                [type]='"password"'>
+                [type]='"password"' >
             </app-text-input>
         </form>
         <div class="d-grid gap-2 col-6 mx-auto">
@@ -43,7 +43,7 @@
             </button>
             <button 
                 class="btn btn-transparent btn-sm" 
-                (click)="onOpenForgotPasswordModal()">
+                (click)="onOpenForgotPasswordModal()" >
                 Forgot your password?
             </button>
             <button 

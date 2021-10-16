@@ -180,6 +180,13 @@ body .bs-datepicker-container .bs-datepicker-head {
   color: #1976D2 !important;
 }
 
+.btn-white {
+  background-color: white;
+}
+.btn-white:hover {
+  background-color: #E7E7E7;
+}
+
 
 
 

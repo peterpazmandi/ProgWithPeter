@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { AccountService } from '../_services/account.service';
 
 @Injectable({
@@ -15,21 +15,19 @@ export class AuthGuard implements CanActivate {
     private toastr: ToastrService,
     private router: Router) {}
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-      this.accountService.currentUser$.pipe(
-        map(user => {
-          if(user) return true;
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): boolean {
+      let isLoggedIn = false;
+      this.accountService.currentUser$.subscribe(user => {
+        if(user) { isLoggedIn = true; }
+      })
 
-          this.toastr.error("You don't have permission to access this area!")
-          this.router.navigateByUrl('/');
+      if(!isLoggedIn) {
+        this.toastr.error("You don't have permission to access this area!")
+        this.router.navigateByUrl('/');
+      }
 
-          return false;
-        })
-      );
-
-      this.toastr.error("You don't have permission to access this area!")
-      this.router.navigateByUrl('/');
-
-      return false;
-    }  
+      return isLoggedIn;
+    }
 }
