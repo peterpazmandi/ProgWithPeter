@@ -1,8 +1,53 @@
 <div class="row">
-    <div class="col-4">
-        <button class="btn btn-white">Create New</button>
+    <div class="col-3 menu">
+        <h3>Tutorial's list</h3>
+        <hr class="dropdown-divider">
+        <button class="btn btn-white shadow" id="createNewBtn">
+            <img src="assets/svg/ic_pen_filled.svg">
+            <span class="ms-3" style="font-weight: bolder;">Create New</span>
+        </button>
+        <hr class="dropdown-divider">
+        Filter
+        <div class="innerdiv">
+            <form [formGroup]='filterForm' (ngSubmit)="filter()" autocomplete="off">
+                <p class="fw-bold">Title</p>
+                <app-text-input 
+                    [formControl]='filterForm.controls["email"]' [label]='"Email"'></app-text-input>
+                <p class="fw-bold">Status</p>
+                <app-text-input 
+                    [formControl]='filterForm.controls["username"]' [label]='"Username"'></app-text-input>
+                <p class="fw-bold">Category</p>
+                <app-text-input
+                    [formControl]='filterForm.controls["password"]' [label]='"Password"' [type]='"password"'></app-text-input>
+                <app-text-input
+                    [formControl]='filterForm.controls["confirmPassword"]' [label]='"Confirm Password"' [type]='"password"'></app-text-input>
+    
+                <hr class="bg-secondary mt-4 mb-4">
+    
+                <app-text-input 
+                    [formControl]='filterForm.controls["firstname"]' [label]='"First Name"'></app-text-input>
+                <app-text-input 
+                    [formControl]='filterForm.controls["lastname"]' [label]='"Last Name"'></app-text-input>
+    
+                <div class="form-group">
+                    I'm a: 
+                    <label class="radio-inline">
+                        <input class="ms-3" type="radio" value='male' formControlName='gender'> Male
+                    </label>
+                    <label class="radio-inline">
+                        <input class="ms-3" type="radio" value='female' formControlName='gender'> Female
+                    </label>
+                </div>
+
+                <hr class="bg-secondary mt-4 mb-4">
+
+                <div class="d-grid col-7 align-right">
+                    <button class="btn btn-primary" type="submit">Apply Filters</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="col-8">
-        <p>Tutorial's list</p>
+    <div class="col-9 innerdiv">
+        <hr class="dropdown-divider">
     </div>
 </div>

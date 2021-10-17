@@ -135,7 +135,6 @@ F:\Angular\ProgWithPeter\api\obj\Debug\net6.0\API.dll
 F:\Angular\ProgWithPeter\api\obj\Debug\net6.0\ref\API.dll
 F:\Angular\ProgWithPeter\api\obj\Debug\net6.0\API.pdb
 F:\Angular\ProgWithPeter\api\obj\Debug\net6.0\API.genruntimeconfig.cache
-F:\Angular\ProgWithPeter\api\obj\Debug\net6.0\API.csproj.CopyComplete
 C:\Users\Pazmandi Peter\Desktop\Trash\Angular\ProgWithPeter\API\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\Pazmandi Peter\Desktop\Trash\Angular\ProgWithPeter\API\bin\Debug\net6.0\appsettings.json
 C:\Users\Pazmandi Peter\Desktop\Trash\Angular\ProgWithPeter\API\bin\Debug\net6.0\API.exe

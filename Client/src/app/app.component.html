@@ -6,6 +6,7 @@
   <app-nav app-theme></app-nav>
 
   <div class="main">
+
     <div 
       *ngIf="(accountService.currentUser$ | async) && !((accountService.currentUser$ | async).emailConfirmed)" 
       class="alert alert-warning container" role="alert">
@@ -14,9 +15,10 @@
         Didn't receive the confirmation email? <a (click)="resendEmailConfirmation()" style="color: #1976D2 !important; cursor: pointer;">Resend</a>
       </p>
     </div>
-    <div class="innerdiv container">
-    
+
+    <div class="container min-100">    
       <router-outlet></router-outlet>
     </div>
+
   </div>
 </div>

@@ -1,17 +1,32 @@
+html, body {
+  height: 100%;
+}
+
+.min-100 {
+  min-height: 90vh;
+}
+
 .main {
     padding: 25px;
     background: var(--background);
     color: var(--on-background);
     transition: all 0.3s linear;
 }
+.menu {
+  padding-left: 25px;
+  padding-right: 25px;
+  color: var(--on-primary);
+  transition: all 0.3s linear;
+  border-radius: 6px;
+}
 .innerdiv {
   padding: 25px;
-  margin-top:30px;
   text-align: left;
   position: relative;
   background: var(--primary);
   color: var(--on-primary);
   transition: all 0.3s linear;
+  border-radius: 6px;
 }
 .modaldiv {
   text-align: left;
@@ -135,14 +150,6 @@ input:checked + .slider:before {
   padding-right:40px;
   min-height:30px;
 }
-.btn-primary {
-  background-color: #00C2FF;
-  font-weight: bold;
-}
-.btn-primary:hover {
-  background-color: #1976D2;
-  font-weight: bold;
-}
 
 
 body .bs-datepicker-container .bs-datepicker-head {
@@ -171,6 +178,19 @@ body .bs-datepicker-container .bs-datepicker-head {
   border-radius: 50%;
 }
 
+
+
+.btn-primary {
+  background-color: #42A5F5;
+  border-color: #42A5F5;
+  font-weight: bold;
+}
+.btn-primary:hover {
+  background-color: #1976D2;
+  border-color: #1976D2;
+  font-weight: bold;
+}
+
 .btn-transparent {
   border: transparent;
   background-color: transparent;
@@ -187,6 +207,21 @@ body .bs-datepicker-container .bs-datepicker-head {
   background-color: #E7E7E7;
 }
 
+#createNewBtn {
+  background-color: #42A5F5;
+  color: white;
+  margin-bottom: 24px;
+  width: 100%;
+}
+#createNewBtn:hover {
+  background-color: #1976D2;
+}
+
+
+.align-right {
+  margin-left: auto; 
+  margin-right: 0;
+}
 
 
 
@@ -195,11 +230,8 @@ body .bs-datepicker-container .bs-datepicker-head {
 
 
 .dropdown-menu{
-  /* display: none; */
-  /* position: absolute; */
   background: var(--primary);
   box-shadow: 2px 8px 16px 0px rgba(0,0,0,0.2);
-  /* z-index: 1; */
 }
 
 #sub-dropdown-menu{
@@ -213,7 +245,6 @@ body .bs-datepicker-container .bs-datepicker-head {
 }
 
 .dropdown:hover .dropdown-menu {
-  /* display:flexbox; */
   transition: all 3s ease-in-out;
 }
 
