@@ -9,7 +9,7 @@ import { ToastrModule } from "ngx-toastr";
         CommonModule,
         ModalModule.forRoot(),
         ToastrModule.forRoot({
-            positionClass: "toast-top-center"
+            positionClass: "toast-bottom-right"
         })
     ],
     exports: [

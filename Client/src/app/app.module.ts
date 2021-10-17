@@ -56,7 +56,7 @@ export function tokenGetter() {
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    // SharedModule,
+    SharedModule,
     NgxSpinnerModule,
     ThemeModule.forRoot({
       themes: [lightTheme, darkTheme],
@@ -69,14 +69,7 @@ export function tokenGetter() {
         allowedDomains: ["localhost:5001"],
         disallowedRoutes : []
       }
-    }),
-    ModalModule.forRoot(),
-    ToastrModule.forRoot({
-        positionClass: "toast-top-center"
     })
-  ],
-  exports: [
-      ModalModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
