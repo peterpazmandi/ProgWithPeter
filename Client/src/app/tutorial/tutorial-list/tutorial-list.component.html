@@ -10,35 +10,22 @@
         Filter
         <div class="innerdiv">
             <form [formGroup]='filterForm' (ngSubmit)="filter()" autocomplete="off">
-                <p class="fw-bold">Title</p>
-                <app-text-input 
-                    [formControl]='filterForm.controls["email"]' [label]='"Email"'></app-text-input>
-                <p class="fw-bold">Status</p>
-                <app-text-input 
-                    [formControl]='filterForm.controls["username"]' [label]='"Username"'></app-text-input>
-                <p class="fw-bold">Category</p>
-                <app-text-input
-                    [formControl]='filterForm.controls["password"]' [label]='"Password"' [type]='"password"'></app-text-input>
-                <app-text-input
-                    [formControl]='filterForm.controls["confirmPassword"]' [label]='"Confirm Password"' [type]='"password"'></app-text-input>
-    
-                <hr class="bg-secondary mt-4 mb-4">
-    
-                <app-text-input 
-                    [formControl]='filterForm.controls["firstname"]' [label]='"First Name"'></app-text-input>
-                <app-text-input 
-                    [formControl]='filterForm.controls["lastname"]' [label]='"Last Name"'></app-text-input>
-    
-                <div class="form-group">
-                    I'm a: 
-                    <label class="radio-inline">
-                        <input class="ms-3" type="radio" value='male' formControlName='gender'> Male
-                    </label>
-                    <label class="radio-inline">
-                        <input class="ms-3" type="radio" value='female' formControlName='gender'> Female
-                    </label>
-                </div>
-
+                <!-- Title -->
+                <span class="fw-bold">Title</span>
+                <input type="text" class="form-control mb-2" [formControl]='filterForm.controls["title"]'>
+                <!-- Status -->
+                <span class="fw-bold">Status</span>
+                <select class="form-select mb-2">
+                    <option value=""></option>
+                    <option *ngFor="let state of statuses | keyvalue" [value]="state">
+                        {{state.value}}
+                    </option>
+                </select>
+                <!-- Category -->
+                <span class="fw-bold">Category</span>
+                <select class="form-select">
+                    <option value=""></option>
+                </select>
                 <hr class="bg-secondary mt-4 mb-4">
 
                 <div class="d-grid col-7 align-right">

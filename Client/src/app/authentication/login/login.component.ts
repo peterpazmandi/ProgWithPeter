@@ -40,7 +40,6 @@ export class LoginComponent implements OnInit {
     this.accountService.login(this.loginForm.value).subscribe(response => {
       this.loading = false;
       this.reload();
-      // this.bsModalRef.hide();
     }, error => {
       this.loading = false;
     })

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Status } from 'src/app/_models/status.enum';
 
 @Component({
   selector: 'app-tutorial-list',
@@ -8,10 +9,17 @@ import { FormGroup } from '@angular/forms';
 })
 export class TutorialListComponent implements OnInit {
   filterForm: FormGroup;
+  public statuses = Status;
 
-  constructor() { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.initializeForm();
+  }
+  private initializeForm() {
+    this.filterForm = this.fb.group({
+      title: ['']
+    })
   }
 
   filter() {
