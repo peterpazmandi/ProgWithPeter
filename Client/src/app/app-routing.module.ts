@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { HomeComponent } from "./home/home.component";
+import { CreateTutorialComponent } from "./tutorial/create-tutorial/create-tutorial.component";
 import { TutorialListComponent } from "./tutorial/tutorial-list/tutorial-list.component";
 import { AuthGuard } from "./_guards/auth.guard";
 
@@ -11,10 +12,14 @@ const routes: Routes = [
         runGuardsAndResolvers: 'always',
         canActivate: [AuthGuard],
         children: [
-            { path: 'tutorial-list', component: TutorialListComponent}
+            { path: 'tutorial-list', component: TutorialListComponent},
+            { path: 'create-tutorial', component: CreateTutorialComponent}
         ]
     },
-    { path: 'authentication', loadChildren: () => import('./authentication/auth-routing.module').then(m => m.AuthenticationModule)},
+    { 
+        path: 'authentication', 
+        loadChildren: () => import('./authentication/auth-routing.module').then(m => m.AuthenticationModule)
+    },
     {path: '', redirectTo: '', pathMatch: 'full'}
 ];
 

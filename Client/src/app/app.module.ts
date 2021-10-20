@@ -29,6 +29,7 @@ import { HasRoleDirective } from './_directives/has-role.directive';
 import { TutorialListComponent } from './tutorial/tutorial-list/tutorial-list.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
+import { CreateTutorialComponent } from './tutorial/create-tutorial/create-tutorial.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -47,7 +48,8 @@ export function tokenGetter() {
     ForgotPasswordComponent,
     ResetPasswordComponent,
     HasRoleDirective,
-    TutorialListComponent
+    TutorialListComponent,
+    CreateTutorialComponent
   ],
   imports: [
     BrowserModule,

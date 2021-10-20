@@ -179,7 +179,7 @@ body .bs-datepicker-container .bs-datepicker-head {
 }
 
 
-
+/* Buttons */
 .btn-primary {
   background-color: #42A5F5;
   border-color: #42A5F5;
@@ -194,6 +194,8 @@ body .bs-datepicker-container .bs-datepicker-head {
 .btn-transparent {
   border: transparent;
   background-color: transparent;
+  color: var(--on-background);
+  font-weight: bold;
 }
 
 .btn-transparent:hover {
@@ -219,6 +221,10 @@ body .bs-datepicker-container .bs-datepicker-head {
 
 
 .align-right {
+  margin-left: auto; 
+  margin-right: 0;
+}
+.align-center {
   margin-left: auto; 
   margin-right: 0;
 }

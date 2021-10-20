@@ -135,7 +135,7 @@ namespace API.Controllers
 
             if(!result.Succeeded)
             {
-                return Unauthorized();
+                return Unauthorized("The username or the password is incorrect!");
             }
 
             return new UserDto
