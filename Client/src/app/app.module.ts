@@ -30,6 +30,7 @@ import { TutorialListComponent } from './tutorial/tutorial-list/tutorial-list.co
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
 import { CreateTutorialComponent } from './tutorial/create-tutorial/create-tutorial.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -71,7 +72,8 @@ export function tokenGetter() {
         allowedDomains: ["localhost:5001"],
         disallowedRoutes : []
       }
-    })
+    }),
+    CKEditorModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
