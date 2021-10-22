@@ -14,12 +14,18 @@
             </button>
         </div>
         <hr class="dropdown-divider">
+        <div class="text-center d-flex flex-column bd-highlight mb-3">
+            <span>Words</span>
+            <span class="fs-1 fw-bold">{{wordCount}}</span>
+            <span>Charachters</span>
+            <span class="fs-1 fw-bold">{{charCount}}</span>
+        </div>
         <div class="innerdiv">
             <form [formGroup]='createTutorialForm' autocomplete="off">
             </form>
         </div>
     </div>
-    <div class="col-9 innerdiv">
-        <ckeditor [config]="editorConfig" [editor]="Editor" data="<p>hello world</p>"></ckeditor>
+    <div class="col-9 ">
+        <ckeditor [config]="editorConfig" [editor]="Editor" data="hello world" style="color: black;"></ckeditor>
     </div>
 </div>

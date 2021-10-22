@@ -10,6 +10,8 @@ import * as Editor from '../../_ckeditor5/build/ckeditor';
 export class CreateTutorialComponent implements OnInit {
   createTutorialForm: FormGroup;
   public Editor = Editor;
+  charCount: number;
+  wordCount: number;
 
   constructor(private fb: FormBuilder) { }
 
@@ -59,8 +61,41 @@ export class CreateTutorialComponent implements OnInit {
     wordCount: {
       onUpdate: (stats: any) => {
           // Prints the current content statistics.
+          this.charCount = stats.characters;
+          this.wordCount = stats.words;
           console.log( `Characters: ${ stats.characters }\nWords: ${ stats.words }` );
       }
+    },
+    fontColor: {
+      colors: [
+          {
+              color: 'hsl(0, 0%, 0%)',
+              label: 'Black'
+          },
+          {
+              color: 'hsl(0, 0%, 30%)',
+              label: 'Dim grey'
+          },
+          {
+              color: 'hsl(0, 0%, 60%)',
+              label: 'Grey'
+          },
+          {
+              color: 'hsl(0, 0%, 90%)',
+              label: 'Light grey'
+          },
+          {
+              color: 'hsl(0, 0%, 100%)',
+              label: 'White',
+              hasBorder: true
+          },
+          {
+              color: '#1976D2',
+              label: 'Nav Blue'
+          },
+
+          // ...
+      ]
     },
     image: {
       // Configure the available styles.
