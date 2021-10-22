@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import * as Editor from '../../_ckeditor5/build/ckeditor';
 
 @Component({
@@ -13,7 +14,9 @@ export class CreateTutorialComponent implements OnInit {
   charCount: number;
   wordCount: number;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.initializeForm();
