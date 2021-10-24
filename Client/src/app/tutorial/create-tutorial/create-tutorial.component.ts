@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as Editor from '../../_ckeditor5/build/ckeditor';
 
@@ -10,6 +10,7 @@ import * as Editor from '../../_ckeditor5/build/ckeditor';
 })
 export class CreateTutorialComponent implements OnInit {
   createTutorialForm: FormGroup;
+  submitted = false;
   public Editor = Editor;
   charCount: number;
   wordCount: number;
@@ -24,9 +25,24 @@ export class CreateTutorialComponent implements OnInit {
 
   private initializeForm() {
     this.createTutorialForm = this.fb.group({
-      title: ['']
+      title: ['', [Validators.required, Validators.minLength(8)]],
+      category: ['', [Validators.required]],
     })
   }
+
+  onSubmit() {
+      this.submitted = true;
+
+      console.log(this.createTutorialForm.invalid);
+      console.log(this.f.title.errors);
+
+      // stop here if form is invalid
+      if (this.createTutorialForm.invalid) {
+          return;
+      }
+  }
+
+  get f() { return this.createTutorialForm.controls; }
 
   editorConfig = {
     toolbar: {

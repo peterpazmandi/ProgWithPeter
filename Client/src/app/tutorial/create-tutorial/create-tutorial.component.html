@@ -3,13 +3,19 @@
         <h3 class="text-center">Create New Tutorial</h3>
         <hr class="dropdown-divider">
         <div class="col-xs-1 text-center">
-            <button class="btn btn-success btn-sm col-8" >
+            <button
+                class="btn btn-success btn-sm col-8"
+                [disabled]='!createTutorialForm.valid' >
                 <span>Publish</span>
             </button>
-            <button class="btn btn-warning btn-sm col-8" >
+            <button
+                class="btn btn-warning btn-sm col-8"
+                [disabled]='!createTutorialForm.valid' >
                 <span>Save as draft</span>
             </button>
-            <button class="btn btn-transparent btn-sm col-8 mb-4" routerLink='/tutorial-list'>
+            <button 
+                class="btn btn-transparent btn-sm col-8 mb-4" 
+                routerLink='/tutorial-list'>
                 <span>Cancel</span>
             </button>
         </div>
@@ -21,7 +27,41 @@
             <span class="fs-1 fw-bold">{{charCount}}</span>
         </div>
         <div class="innerdiv">
-            <form [formGroup]='createTutorialForm' autocomplete="off">
+            <form [formGroup]='createTutorialForm' autocomplete="off" (ngSubmit)="onSubmit()">
+                <!-- Title -->
+                <div class="form-group mb-3">
+                    <span class="fw-bold">Title</span>
+                    <input
+                        [class.is-invalid]="createTutorialForm.controls.title.touched && createTutorialForm.controls.title.invalid"
+                        class="form-control" 
+                        type="text" 
+                        formControlName='title' placeholder="Title">
+                    <div *ngIf="createTutorialForm.controls.title.touched && createTutorialForm.controls.title.invalid">
+                        <div *ngIf="f.title.errors.required" class="invalid-feedback d-block">
+                            Please provide a title!
+                        </div>
+                        <div *ngIf="f.title.errors.minlength" class="invalid-feedback d-block">
+                            Title has to be at least 8 charachters
+                        </div>
+                    </div>
+                </div>
+                <!-- Title -->
+                <div class="form-group mb-3">
+                    <span class="fw-bold">Category</span>
+                    <select
+                        [class.is-invalid]="createTutorialForm.controls.category.touched && createTutorialForm.controls.category.invalid"
+                        class="form-control"
+                        formControlName='category'>
+                        <option value=""></option>
+                        <option value="Angular">Angular</option>
+                        <option value=".NET">.NET</option>
+                    </select>
+                    <div *ngIf="createTutorialForm.controls.category.touched && createTutorialForm.controls.category.invalid">
+                        <div *ngIf="f.category.errors.required" class="invalid-feedback d-block">
+                            Please select a category!
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
