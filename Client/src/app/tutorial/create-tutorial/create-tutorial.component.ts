@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TreeviewConfig, TreeviewItem } from 'ngx-treeview';
 import * as Editor from '../../_ckeditor5/build/ckeditor';
 
 @Component({
@@ -172,4 +173,68 @@ export class CreateTutorialComponent implements OnInit {
 
     language: 'en'
   };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  value = 11;
+  items: TreeviewItem[];
+  config = TreeviewConfig.create({
+    hasCollapseExpand: true
+  });
+
+  onValueChange(value: number): void {
+    console.log('valueChange raised with value: ' + value);
+  }
+
+  itCategory = new TreeviewItem({
+    text: "IT",
+    value: 9,
+    children: [
+      {
+        text: "Programming",
+        value: 91,
+        children: [
+          {
+            text: "Frontend",
+            value: 911,
+            children: [
+              { text: "Angular 1", value: 9111 },
+              { text: "Angular 2", value: 9112 },
+              { text: "ReactJS", value: 9113 },
+            ],
+          },
+          {
+            text: "Backend",
+            value: 912,
+            children: [
+              { text: "C#", value: 9121 },
+              { text: "Java", value: 9122 },
+              { text: "Python", value: 9123, checked: false },
+            ],
+          },
+        ],
+      },
+      {
+        text: "Networking",
+        value: 92,
+        children: [
+          { text: "Internet", value: 921 },
+          { text: "Security", value: 922 },
+        ],
+      },
+    ],
+  });
 }
+

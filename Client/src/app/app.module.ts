@@ -31,6 +31,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
 import { CreateTutorialComponent } from './tutorial/create-tutorial/create-tutorial.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { TreeviewModule } from 'ngx-treeview';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -73,7 +74,8 @@ export function tokenGetter() {
         disallowedRoutes : []
       }
     }),
-    CKEditorModule
+    CKEditorModule,
+    TreeviewModule.forRoot()
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
