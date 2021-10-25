@@ -22,6 +22,9 @@ export class CreateTutorialComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm();
+
+    this.items = [new TreeviewItem({ text: "Angular" as string, value: 123456 }), 
+                  new TreeviewItem({ text: ".NET" as string, value: 123456 })];
   }
 
   private initializeForm() {
@@ -176,6 +179,16 @@ export class CreateTutorialComponent implements OnInit {
 
 
 
+  value = 11;
+  items: TreeviewItem[];
+  config = TreeviewConfig.create({
+    hasFilter: true,
+    hasCollapseExpand: true
+  });
+
+  onValueChange(value: number): void {
+    console.log('valueChange raised with value: ' + value);
+  }
 
 
 
@@ -188,53 +201,5 @@ export class CreateTutorialComponent implements OnInit {
 
 
   
-  value = 11;
-  items: TreeviewItem[];
-  config = TreeviewConfig.create({
-    hasCollapseExpand: true
-  });
-
-  onValueChange(value: number): void {
-    console.log('valueChange raised with value: ' + value);
-  }
-
-  itCategory = new TreeviewItem({
-    text: "IT",
-    value: 9,
-    children: [
-      {
-        text: "Programming",
-        value: 91,
-        children: [
-          {
-            text: "Frontend",
-            value: 911,
-            children: [
-              { text: "Angular 1", value: 9111 },
-              { text: "Angular 2", value: 9112 },
-              { text: "ReactJS", value: 9113 },
-            ],
-          },
-          {
-            text: "Backend",
-            value: 912,
-            children: [
-              { text: "C#", value: 9121 },
-              { text: "Java", value: 9122 },
-              { text: "Python", value: 9123, checked: false },
-            ],
-          },
-        ],
-      },
-      {
-        text: "Networking",
-        value: 92,
-        children: [
-          { text: "Internet", value: 921 },
-          { text: "Security", value: 922 },
-        ],
-      },
-    ],
-  });
 }
 
