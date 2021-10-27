@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TreeviewConfig, TreeviewItem } from 'ngx-treeview';
+import { Category } from 'src/app/_models/categoryDto.model';
+import { CategoryService } from 'src/app/_services/category.service';
 import * as Editor from '../../_ckeditor5/build/ckeditor';
 
 @Component({
@@ -15,16 +17,24 @@ export class CreateTutorialComponent implements OnInit {
   public Editor = Editor;
   charCount: number;
   wordCount: number;
+  categories: Category[] = [];
 
   constructor(
+    private categoryService: CategoryService,
     private fb: FormBuilder,
     private router: Router) { }
 
   ngOnInit(): void {
     this.initializeForm();
 
-    this.items = [new TreeviewItem({ text: "Angular", value: "Angular" }), 
-                  new TreeviewItem({ text: ".NET", value: ".NET" })];
+    this.categoryService.getCategories(null).subscribe((result: any) => {
+      this.categories = result;
+      console.log(this.categories);
+    }, error => {
+      console.log(error);
+    });
+    // this.items = [new TreeviewItem({ text: "Angular", value: "Angular" }), 
+    //               new TreeviewItem({ text: ".NET", value: ".NET" })];
   }
 
   private initializeForm() {
@@ -32,6 +42,10 @@ export class CreateTutorialComponent implements OnInit {
       title: ['', [Validators.required, Validators.minLength(8)]],
       category: ['', [Validators.required]],
     })
+  }
+
+  private populateCategories() {
+
   }
 
   onSubmit() {
