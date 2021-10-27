@@ -50,14 +50,6 @@
                     <span class="fw-bold">Category</span>
                     <ngx-dropdown-treeview-select [items]="items" [(value)]="value" (valueChange)="onValueChange($event)">
                     </ngx-dropdown-treeview-select>
-                    <!-- <select
-                        [class.is-invalid]="createTutorialForm.controls.category.touched && createTutorialForm.controls.category.invalid"
-                        class="form-control"
-                        formControlName='category'>
-                        <option value=""></option>
-                        <option value="Angular">Angular</option>
-                        <option value=".NET">.NET</option>
-                    </select> -->
                     <div *ngIf="createTutorialForm.controls.category.touched && createTutorialForm.controls.category.invalid">
                         <div *ngIf="f.category.errors.required" class="invalid-feedback d-block">
                             Please select a category!

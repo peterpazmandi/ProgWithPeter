@@ -244,21 +244,30 @@ body .bs-datepicker-container .bs-datepicker-head {
   display: none;
   position:absolute;
   margin-left: 130px;
+  color: #1976D2;
 }
 
 #sub-dropdown-menu a , .dropdown-menu a {
 	color: var(--on-background);
+  color: #1976D2;
 }
 
 .dropdown:hover .dropdown-menu {
   transition: all 3s ease-in-out;
+  color: var(--on-primary);
 }
 
 .dropdown .dropdown-menu a:hover {
-  background-color: var(--background)
+  background-color: var(--background);
 }
 
 
 #sub-dropdown:hover #sub-dropdown-menu {
   display: block;
+}
+
+
+.btn-outline-secondary {
+  background-color: white;
+  margin-top: 0px;
 }

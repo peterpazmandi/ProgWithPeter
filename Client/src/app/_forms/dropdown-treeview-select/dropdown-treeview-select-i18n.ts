@@ -14,6 +14,6 @@ export class DropdownTreeviewSelectI18n extends DefaultTreeviewI18n {
   }
 
   getText(selection: TreeviewSelection): string {
-    return this.internalSelectedItem ? this.internalSelectedItem.text : 'Please select';
+    return this.internalSelectedItem ? this.internalSelectedItem.text : 'Select a category';
   }
 }

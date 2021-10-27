@@ -18,8 +18,7 @@ export class AccountService {
   currentUser$ = this.currentUserSource.asObservable();
 
   constructor(
-    private http: HttpClient,
-    private sanitizer: DomSanitizer
+    private http: HttpClient
   ) { }
 
   register(model: any) {
@@ -80,9 +79,5 @@ export class AccountService {
 
   getDecodedToken(token: string) {
     return JSON.parse(atob(token.split('.')[1]));
-  }
-
-  private createCompleteRoute(route: string) {
-    return `${this.baseUrl}${route}`;
   }
 }

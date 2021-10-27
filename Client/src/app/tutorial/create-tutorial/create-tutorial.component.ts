@@ -23,8 +23,8 @@ export class CreateTutorialComponent implements OnInit {
   ngOnInit(): void {
     this.initializeForm();
 
-    this.items = [new TreeviewItem({ text: "Angular" as string, value: 123456 }), 
-                  new TreeviewItem({ text: ".NET" as string, value: 123456 })];
+    this.items = [new TreeviewItem({ text: "Angular", value: "Angular" }), 
+                  new TreeviewItem({ text: ".NET", value: ".NET" })];
   }
 
   private initializeForm() {
@@ -36,9 +36,6 @@ export class CreateTutorialComponent implements OnInit {
 
   onSubmit() {
       this.submitted = true;
-
-      console.log(this.createTutorialForm.invalid);
-      console.log(this.f.title.errors);
 
       // stop here if form is invalid
       if (this.createTutorialForm.invalid) {
@@ -86,7 +83,6 @@ export class CreateTutorialComponent implements OnInit {
           // Prints the current content statistics.
           this.charCount = stats.characters;
           this.wordCount = stats.words;
-          console.log( `Characters: ${ stats.characters }\nWords: ${ stats.words }` );
       }
     },
     fontColor: {
