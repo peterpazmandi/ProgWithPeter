@@ -48,7 +48,7 @@
                 <!-- Title -->
                 <div class="form-group mb-3">
                     <span class="fw-bold">Category</span>
-                    <ngx-dropdown-treeview-select [items]="items" [(value)]="value" (valueChange)="onValueChange($event)">
+                    <ngx-dropdown-treeview-select [items]="categories" [(value)]="value" (valueChange)="onValueChange($event)">
                     </ngx-dropdown-treeview-select>
                     <div *ngIf="createTutorialForm.controls.category.touched && createTutorialForm.controls.category.invalid">
                         <div *ngIf="f.category.errors.required" class="invalid-feedback d-block">

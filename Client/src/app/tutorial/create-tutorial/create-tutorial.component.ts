@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TreeviewConfig, TreeviewItem } from 'ngx-treeview';
+import { TreeItem, TreeviewConfig, TreeviewItem } from 'ngx-treeview';
 import { Category } from 'src/app/_models/categoryDto.model';
 import { CategoryService } from 'src/app/_services/category.service';
 import * as Editor from '../../_ckeditor5/build/ckeditor';
@@ -17,7 +17,6 @@ export class CreateTutorialComponent implements OnInit {
   public Editor = Editor;
   charCount: number;
   wordCount: number;
-  categories: Category[] = [];
 
   constructor(
     private categoryService: CategoryService,
@@ -26,15 +25,14 @@ export class CreateTutorialComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm();
+    
+    this.categories = [new TreeviewItem({ text: "", value: 0 })];
 
     this.categoryService.getCategories(null).subscribe((result: any) => {
-      this.categories = result;
-      console.log(this.categories);
+      this.categories = this.generateTreeviewItemArray(result as Category[]);
     }, error => {
-      console.log(error);
+      console.log('API Error: ' + error);
     });
-    // this.items = [new TreeviewItem({ text: "Angular", value: "Angular" }), 
-    //               new TreeviewItem({ text: ".NET", value: ".NET" })];
   }
 
   private initializeForm() {
@@ -44,8 +42,16 @@ export class CreateTutorialComponent implements OnInit {
     })
   }
 
-  private populateCategories() {
-
+  private generateTreeviewItemArray(categories: Category[]): TreeviewItem[] {
+    let treeViewItems: TreeviewItem[] = [];
+    for (let index = 0; index < categories.length; index++) {
+      treeViewItems.push(new TreeviewItem({
+          text: categories[index].name,
+          value: categories[index].id
+        } as TreeItem
+      ));
+    }
+    return treeViewItems;
   }
 
   onSubmit() {
@@ -190,26 +196,15 @@ export class CreateTutorialComponent implements OnInit {
 
 
   value = 11;
-  items: TreeviewItem[];
+  categories: TreeviewItem[];
   config = TreeviewConfig.create({
     hasFilter: true,
     hasCollapseExpand: true
   });
 
   onValueChange(value: number): void {
-    console.log('valueChange raised with value: ' + value);
+    let selectedItem = this.categories.find(i => i.value === value);
+
   }
-
-
-
-
-
-
-
-
-
-
-
-  
 }
 

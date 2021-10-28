@@ -252,9 +252,11 @@ body .bs-datepicker-container .bs-datepicker-head {
   color: #1976D2;
 }
 
-.dropdown:hover .dropdown-menu {
-  transition: all 3s ease-in-out;
+.dropdown .dropdown-menu {
   color: var(--on-primary);
+}
+.row-item:hover {
+  color: #1976D2;
 }
 
 .dropdown .dropdown-menu a:hover {
