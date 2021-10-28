@@ -17,6 +17,7 @@ export class CreateTutorialComponent implements OnInit {
   public Editor = Editor;
   charCount: number;
   wordCount: number;
+  selectedCategory: TreeviewItem[] = [];
 
   constructor(
     private categoryService: CategoryService,
@@ -25,33 +26,6 @@ export class CreateTutorialComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm();
-    
-    this.categories = [new TreeviewItem({ text: "", value: 0 })];
-
-    this.categoryService.getCategories(null).subscribe((result: any) => {
-      this.categories = this.generateTreeviewItemArray(result as Category[]);
-    }, error => {
-      console.log('API Error: ' + error);
-    });
-  }
-
-  private initializeForm() {
-    this.createTutorialForm = this.fb.group({
-      title: ['', [Validators.required, Validators.minLength(8)]],
-      category: ['', [Validators.required]],
-    })
-  }
-
-  private generateTreeviewItemArray(categories: Category[]): TreeviewItem[] {
-    let treeViewItems: TreeviewItem[] = [];
-    for (let index = 0; index < categories.length; index++) {
-      treeViewItems.push(new TreeviewItem({
-          text: categories[index].name,
-          value: categories[index].id
-        } as TreeItem
-      ));
-    }
-    return treeViewItems;
   }
 
   onSubmit() {
@@ -203,8 +177,53 @@ export class CreateTutorialComponent implements OnInit {
   });
 
   onValueChange(value: number): void {
-    let selectedItem = this.categories.find(i => i.value === value);
+    let selectedItem = this.categories.find(i => i.value === value) as TreeviewItem;
+    this.selectedCategory.push(selectedItem);
+    this.getChildCategories(selectedItem.value);
+  }
 
+  onRemoveCategories() {
+    this.selectedCategory = this.selectedCategory.filter(i => i.value < 0) as TreeviewItem[];
+    this.getChildCategories(null as any);
+  }
+
+  private initializeForm() {
+    this.createTutorialForm = this.fb.group({
+      title: ['', [Validators.required, Validators.minLength(8)]],
+      category: ['', [Validators.required]],
+    })
+
+    this.getInitialCategories();
+  }
+
+  private generateTreeviewItemArray(categories: Category[]): TreeviewItem[] {
+    let treeViewItems: TreeviewItem[] = [];
+    for (let index = 0; index < categories.length; index++) {
+      treeViewItems.push(new TreeviewItem({
+          text: categories[index].name,
+          value: categories[index].id
+        } as TreeItem
+      ));
+    }
+    return treeViewItems;
+  }
+
+  private getInitialCategories() {
+    this.categoryService.getCategories(null).subscribe((result: any) => {
+      this.categories = this.generateTreeviewItemArray(result as Category[]);
+    }, error => {
+      console.log('API Error: ' + error);
+    });
+  }
+
+  private getChildCategories(value: number) {    
+    this.categories = [new TreeviewItem({ text: "", value: 0 })];
+
+    this.categoryService.getCategories(value).subscribe((result: any) => {
+      this.categories = this.generateTreeviewItemArray(result as Category[]);
+    }, error => {
+      console.log('API Error: ' + error);
+    });
   }
 }
 

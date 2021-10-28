@@ -273,3 +273,7 @@ body .bs-datepicker-container .bs-datepicker-head {
   background-color: white;
   margin-top: 0px;
 }
+
+.font-small {
+  font-size: smaller;
+}
