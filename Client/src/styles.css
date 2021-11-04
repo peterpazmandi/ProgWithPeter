@@ -301,3 +301,13 @@ img svg {
   color: orange;
   background-color: orange;
 }
+
+.chip {  
+  margin: 5px;  
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 25px;  
+  border: 2px solid var(--on-primary);
+  width: max-content;
+  display: inline-block;
+} 

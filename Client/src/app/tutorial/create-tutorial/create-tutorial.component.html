@@ -89,6 +89,9 @@
                     <ng-template #notFoundTemplate let-notFound>
                     <div [innerHTML]="notFound"></div>
                     </ng-template>
+                    <div class="font-small chip" *ngFor="let tag of selectedTags">
+                        {{tag.name}} <img src="assets/svg/ic_trash.svg" alt="Remove" style="cursor: pointer;" (click)="onRemoveTag(tag.id)">
+                    </div>
                 </div>
             </form>
         </div>

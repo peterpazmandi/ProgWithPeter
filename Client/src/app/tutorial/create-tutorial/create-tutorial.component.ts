@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { TreeItem, TreeviewConfig, TreeviewItem } from 'ngx-treeview';
 import { Category } from 'src/app/_models/categoryDto.model';
 import { Tag } from 'src/app/_models/tagDto.model';
@@ -26,7 +27,8 @@ export class CreateTutorialComponent implements OnInit {
     private categoryService: CategoryService,
     private tagsService: TagsService,
     private fb: FormBuilder,
-    private router: Router) { }
+    private router: Router,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -243,12 +245,18 @@ export class CreateTutorialComponent implements OnInit {
   keyword = 'name';
   tags = [];
   selectEvent(item: any) {
-    this.selectedTags.push({
-      name: item
-    } as Tag);
-    this.createTutorialForm.patchValue({
-      tags: this.selectedTags
-    })
+    let alreadyAdded = this.selectedTags.filter(_item => _item.id === item.id).length > 0;
+    if(!alreadyAdded) {
+      this.selectedTags.push({
+        id: item.id,
+        name: item.name
+      } as Tag);
+      this.createTutorialForm.patchValue({
+        tags: this.selectedTags
+      })
+    } else {
+      this.toastr.warning('You have already added ' + item.name);
+    }
   }
   onChangeSearch(searchText: string) {
     this.tagsService.searchTags(searchText)?.subscribe(result => {
@@ -256,6 +264,16 @@ export class CreateTutorialComponent implements OnInit {
         this.tags = result as [];
       }
     })
-  }  
+  }
+
+  onRemoveTag(id: number) {
+    this.selectedTags = this.selectedTags.filter(item => item.id !== id);
+
+    if(this.selectedTags.length === 0) {
+      this.createTutorialForm.patchValue({
+        tags: []
+      })
+    }
+  }
 }
 
