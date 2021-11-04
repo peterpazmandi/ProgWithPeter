@@ -6,6 +6,7 @@ namespace API.Interfaces
     {
         IUserRepository UserRepository { get; }
         ICategoriesRepository CategoriesRepository { get; }
+        ITagsRepository TagsRepository { get; }
 
         Task<bool> Complete();
         bool HasChanges();
