@@ -8,7 +8,7 @@ import { Category } from '../_models/categoryDto.model';
   providedIn: 'root'
 })
 export class CategoryService {
-  baseUrl = environment.apiUrl;
+  private baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 

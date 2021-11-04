@@ -27,12 +27,11 @@ import { ForgotPasswordComponent } from './authentication/forgot-password/forgot
 import { ResetPasswordComponent } from './authentication/reset-password/reset-password.component';
 import { HasRoleDirective } from './_directives/has-role.directive';
 import { TutorialListComponent } from './tutorial/tutorial-list/tutorial-list.component';
-import { ModalModule } from 'ngx-bootstrap/modal';
-import { ToastrModule } from 'ngx-toastr';
 import { CreateTutorialComponent } from './tutorial/create-tutorial/create-tutorial.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { TreeviewModule } from 'ngx-treeview';
 import { DropdownTreeviewSelectComponent } from './_forms/dropdown-treeview-select/dropdown-treeview-select.component';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -77,7 +76,8 @@ export function tokenGetter() {
       }
     }),
     CKEditorModule,
-    TreeviewModule.forRoot()
+    TreeviewModule.forRoot(),
+    AutocompleteLibModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

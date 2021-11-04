@@ -3,7 +3,9 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { Router } from '@angular/router';
 import { TreeItem, TreeviewConfig, TreeviewItem } from 'ngx-treeview';
 import { Category } from 'src/app/_models/categoryDto.model';
+import { Tag } from 'src/app/_models/tagDto.model';
 import { CategoryService } from 'src/app/_services/category.service';
+import { TagsService } from 'src/app/_services/tags.service';
 import * as Editor from '../../_ckeditor5/build/ckeditor';
 
 @Component({
@@ -18,9 +20,11 @@ export class CreateTutorialComponent implements OnInit {
   charCount: number;
   wordCount: number;
   selectedCategory: TreeviewItem[] = [];
+  selectedTags: Tag[] = [];
 
   constructor(
     private categoryService: CategoryService,
+    private tagsService: TagsService,
     private fb: FormBuilder,
     private router: Router) { }
 
@@ -179,23 +183,31 @@ export class CreateTutorialComponent implements OnInit {
   onValueChange(value: number): void {
     let selectedItem = this.categories.find(i => i.value === value) as TreeviewItem;
     this.selectedCategory.push(selectedItem);
+    this.createTutorialForm.patchValue({
+      category: selectedItem
+    })
     this.getChildCategories(selectedItem.value);
   }
 
   onRemoveCategories() {
     this.selectedCategory = this.selectedCategory.filter(i => i.value < 0) as TreeviewItem[];
     this.getChildCategories(null as any);
+    this.createTutorialForm.patchValue({
+      category: null
+    })
   }
 
   private initializeForm() {
     this.createTutorialForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(8)]],
       category: ['', [Validators.required]],
+      tags: [[], [Validators.required]]
     })
 
     this.getInitialCategories();
   }
 
+  // Category
   private generateTreeviewItemArray(categories: Category[]): TreeviewItem[] {
     let treeViewItems: TreeviewItem[] = [];
     for (let index = 0; index < categories.length; index++) {
@@ -207,7 +219,6 @@ export class CreateTutorialComponent implements OnInit {
     }
     return treeViewItems;
   }
-
   private getInitialCategories() {
     this.categoryService.getCategories(null).subscribe((result: any) => {
       this.categories = this.generateTreeviewItemArray(result as Category[]);
@@ -215,7 +226,6 @@ export class CreateTutorialComponent implements OnInit {
       console.log('API Error: ' + error);
     });
   }
-
   private getChildCategories(value: number) {    
     this.categories = [new TreeviewItem({ text: "", value: 0 })];
 
@@ -225,5 +235,27 @@ export class CreateTutorialComponent implements OnInit {
       console.log('API Error: ' + error);
     });
   }
+
+
+
+  // AutoComplete
+  historyIdentifier = [];
+  keyword = 'name';
+  tags = [];
+  selectEvent(item: any) {
+    this.selectedTags.push({
+      name: item
+    } as Tag);
+    this.createTutorialForm.patchValue({
+      tags: this.selectedTags
+    })
+  }
+  onChangeSearch(searchText: string) {
+    this.tagsService.searchTags(searchText)?.subscribe(result => {
+      if(result) {
+        this.tags = result as [];
+      }
+    })
+  }  
 }
 

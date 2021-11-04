@@ -69,6 +69,27 @@
                         </div>
                     </div>
                 </div>
+                <!-- Tags -->
+                <div class="form-group mb-3">
+                    <ng-autocomplete 
+                        [data]="tags"
+                        [searchKeyword]="keyword"
+                        (selected)='selectEvent($event)'
+                        (inputChanged)='onChangeSearch($event)'
+                        [itemTemplate]="itemTemplate"
+                        [notFoundTemplate]="notFoundTemplate"
+                        [historyIdentifier]="historyIdentifier"
+                        notFoundText="No tags found">
+                    </ng-autocomplete>
+
+                    <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item.name"></a>
+                    </ng-template>
+                    
+                    <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                    </ng-template>
+                </div>
             </form>
         </div>
     </div>
