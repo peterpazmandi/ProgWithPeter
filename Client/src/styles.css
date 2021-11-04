@@ -277,3 +277,27 @@ body .bs-datepicker-container .bs-datepicker-head {
 .font-small {
   font-size: smaller;
 }
+
+
+#svg {
+  fill: #1976D2; 
+  color: orange;
+  background-color: orange;
+}
+#svg:hover {
+  fill: #1976D2; 
+  color: #1976D2;
+  background-color: #1976D2;
+}
+
+.icon {
+  fill: #FF9900;
+  color: #1976D2;
+  background-color: #1976D2;
+}
+
+img svg {
+  fill: #1976D2; 
+  color: orange;
+  background-color: orange;
+}
