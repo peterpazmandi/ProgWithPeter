@@ -26,7 +26,7 @@
             <span>Charachters</span>
             <span class="fs-1 fw-bold">{{charCount}}</span>
         </div>
-        <div class="innerdiv">
+        <div class="innerdiv mb-3">
             <form [formGroup]='createTutorialForm' autocomplete="off" (ngSubmit)="onSubmit()">
                 <!-- Title -->
                 <div class="form-group mb-3">
@@ -37,10 +37,10 @@
                         type="text" 
                         formControlName='title' placeholder="Title">
                     <div *ngIf="createTutorialForm.controls.title.touched && createTutorialForm.controls.title.invalid">
-                        <div *ngIf="f.title.errors.required" class="invalid-feedback d-block">
+                        <div *ngIf="createTutorialF.title.errors.required" class="invalid-feedback d-block">
                             Please provide a title!
                         </div>
-                        <div *ngIf="f.title.errors.minlength" class="invalid-feedback d-block">
+                        <div *ngIf="createTutorialF.title.errors.minlength" class="invalid-feedback d-block">
                             Title has to be at least 8 charachters
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                     <ngx-dropdown-treeview-select [items]="categories" [(value)]="value" (valueChange)="onValueChange($event)">
                     </ngx-dropdown-treeview-select>
                     <div *ngIf="createTutorialForm.controls.category.touched && createTutorialForm.controls.category.invalid">
-                        <div *ngIf="f.category.errors.required" class="invalid-feedback d-block">
+                        <div *ngIf="createTutorialF.category.errors.required" class="invalid-feedback d-block">
                             Please select a category!
                         </div>
                     </div>
@@ -91,6 +91,67 @@
                     </ng-template>
                     <div class="font-small chip" *ngFor="let tag of selectedTags">
                         {{tag.name}} <img src="assets/svg/ic_trash.svg" alt="Remove" style="cursor: pointer;" (click)="onRemoveTag(tag.id)">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <h4>SEO</h4>
+        <div class="innerdiv">
+            <form [formGroup]='seoForm' autocomplete="off">
+                <!-- Focus keyphrase -->
+                <div class="form-group mb-3">
+                    <span class="fw-bold">Focus keyphrase</span>
+                    <input
+                        [class.is-invalid]="seoForm.controls.focusKeyphrase.touched && seoForm.controls.focusKeyphrase.invalid"
+                        class="form-control" 
+                        type="text" 
+                        formControlName='focusKeyphrase' placeholder="Focus keyphrase">
+                    <div *ngIf="seoForm.controls.focusKeyphrase.touched && seoForm.controls.focusKeyphrase.invalid">
+                        <div *ngIf="seoF.focusKeyphrase.errors.required" class="invalid-feedback d-block">
+                            Focus keyphrase shouldn't be empty!
+                        </div>
+                    </div>
+                </div>
+                <!-- SEO Title -->
+                <div class="form-group mb-3">
+                    <span class="fw-bold">SEO Title</span>
+                    <input
+                        [class.is-invalid]="seoForm.controls.seoTitle.touched && seoForm.controls.seoTitle.invalid"
+                        class="form-control" 
+                        type="text" 
+                        formControlName='seoTitle' placeholder="SEO Title">
+                    <div *ngIf="seoForm.controls.seoTitle.touched && seoForm.controls.seoTitle.invalid">
+                        <div *ngIf="seoF.seoTitle.errors.required" class="invalid-feedback d-block">
+                            SEO Title shouldn't be empty!
+                        </div>
+                    </div>
+                </div>
+                <!-- Slug -->
+                <div class="form-group mb-3">
+                    <span class="fw-bold">Slug</span>
+                    <input
+                        [class.is-invalid]="seoForm.controls.slug.touched && seoForm.controls.slug.invalid"
+                        class="form-control" 
+                        type="text" 
+                        formControlName='slug' placeholder="Slug">
+                    <div *ngIf="seoForm.controls.slug.touched && seoForm.controls.slug.invalid">
+                        <div *ngIf="seoF.slug.errors.required" class="invalid-feedback d-block">
+                            Slug shouldn't be empty!
+                        </div>
+                    </div>
+                </div>
+                <!-- Meta Description -->
+                <div class="form-group mb-3">
+                    <span class="fw-bold">Meta Description</span>
+                    <textarea
+                        [class.is-invalid]="seoForm.controls.metaDescription.touched && seoForm.controls.metaDescription.invalid"
+                        class="form-control" 
+                        rows="4"
+                        formControlName='metaDescription' placeholder="Meta description"></textarea>
+                    <div *ngIf="seoForm.controls.metaDescription.touched && seoForm.controls.metaDescription.invalid">
+                        <div *ngIf="seoF.metaDescription.errors.required" class="invalid-feedback d-block">
+                            Meta Description shouldn't be empty!
+                        </div>
                     </div>
                 </div>
             </form>

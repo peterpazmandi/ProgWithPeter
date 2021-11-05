@@ -16,6 +16,7 @@ import * as Editor from '../../_ckeditor5/build/ckeditor';
 })
 export class CreateTutorialComponent implements OnInit {
   createTutorialForm: FormGroup;
+  seoForm: FormGroup;
   submitted = false;
   public Editor = Editor;
   charCount: number;
@@ -31,7 +32,7 @@ export class CreateTutorialComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.initializeForm();
+    this.initializeForms();
   }
 
   onSubmit() {
@@ -43,7 +44,31 @@ export class CreateTutorialComponent implements OnInit {
       }
   }
 
-  get f() { return this.createTutorialForm.controls; }
+  get createTutorialF() { return this.createTutorialForm.controls; }
+  get seoF() { return this.seoForm.controls; }
+
+  private initializeForms() {
+    this.createTutorialForm = this.fb.group({
+      focusKeyphrase: ['', [Validators.required]],
+      title: ['', [Validators.required, Validators.minLength(8)]],
+      category: ['', [Validators.required]],
+      tags: [[], [Validators.required]]
+    })
+
+    this.seoForm = this.fb.group({
+      focusKeyphrase: ['', [Validators.required]],
+      seoTitle: ['', [Validators.required]],
+      slug: ['', [Validators.required]],
+      metaDescription: ['', [Validators.required]]
+    })
+
+    this.seoForm.get('seoTitle')?.valueChanges.subscribe((value: string) => {
+      this.calculateSeoTitleLengthStrength(value.length);
+    });
+
+    this.getInitialCategories();
+  }
+
 
   editorConfig = {
     toolbar: {
@@ -199,16 +224,6 @@ export class CreateTutorialComponent implements OnInit {
     })
   }
 
-  private initializeForm() {
-    this.createTutorialForm = this.fb.group({
-      title: ['', [Validators.required, Validators.minLength(8)]],
-      category: ['', [Validators.required]],
-      tags: [[], [Validators.required]]
-    })
-
-    this.getInitialCategories();
-  }
-
   // Category
   private generateTreeviewItemArray(categories: Category[]): TreeviewItem[] {
     let treeViewItems: TreeviewItem[] = [];
@@ -274,6 +289,12 @@ export class CreateTutorialComponent implements OnInit {
         tags: []
       })
     }
+  }
+
+
+  // SEO
+  calculateSeoTitleLengthStrength(length: number) {
+    console.dir(length);
   }
 }
 
