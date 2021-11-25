@@ -58,8 +58,8 @@ export class CreateTutorialComponent implements OnInit {
     })
 
     this.seoForm = this.fb.group({
-      focusKeyphrase: ['', [Validators.required, this.nameValidation()]],
-      seoTitle: ['', [Validators.required]],
+      focusKeyphrase: ['', [Validators.required, this.focusKeyPhraseValidation()]],
+      seoTitle: ['', [Validators.required, this.seoTitleValidation()]],
       slug: ['', [Validators.required]],
       metaDescription: ['', [Validators.required]]
     })
@@ -72,27 +72,33 @@ export class CreateTutorialComponent implements OnInit {
   }
 
   // Custom validators
-  nameValidation(): ValidatorFn {
+  focusKeyPhraseValidation(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       var focusKeyPhrase = control.value;
       var splitted: string[] = focusKeyPhrase.split(" ");
 
       // Remove last item, if length is zero
       splitted = splitted.filter(item => item.length !== 0);
-
-      // for(let i = 0; i < splitted.length; i++) {
-      //   console.log(splitted[i]);
-      //   if(functionWords.includes(splitted[i].toLowerCase())) {
-      //     console.log(splitted);
-      //     splitted = splitted.filter(item => item.toLowerCase() !== splitted[i].toLowerCase());
-      //   }
-      // }
       
+      // Remove function words
       splitted = splitted.filter(item => !functionWords.includes(item.toLowerCase()));
-      console.log(splitted);
+
       this.contentWords = splitted.length;
 
       return splitted.length > 3 && splitted.length < 7 ? null : {strongEnough: true};
+    };
+  }
+  seoTitleValidation(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+
+      var seoTitle = control.value as string;
+      var focusKeyPhrase = this.seoForm?.value['focusKeyphrase'] as string;
+
+      if(seoTitle.length === 0 || focusKeyPhrase.length === 0) {
+        return {containsFocusKeyphrase: true};
+      }
+
+      return seoTitle.startsWith(focusKeyPhrase, 0) ? null : {containsFocusKeyphrase: true};
     };
   }
 
