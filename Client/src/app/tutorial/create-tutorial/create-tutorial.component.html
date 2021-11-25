@@ -48,7 +48,7 @@
                 <!-- Title -->
                 <div class="form-group mb-3">
                     <span class="fw-bold">Category</span>
-                    <div class="font-small mt-2">
+                    <div class="font-small">
                         <div *ngFor="let category of selectedCategory; let last = last" style="display: inline;">
                             <span *ngIf="last">
                                 {{category.text}}<span *ngIf="!last"> > </span> 
@@ -61,7 +61,7 @@
                             <img src="assets/svg/ic_trash.svg" alt="Remove categories">
                         </a>
                     </div>
-                    <ngx-dropdown-treeview-select [items]="categories" [(value)]="value" (valueChange)="onValueChange($event)">
+                    <ngx-dropdown-treeview-select [items]="categories" [(value)]="value" (valueChange)="onCategoryValueChange($event)">
                     </ngx-dropdown-treeview-select>
                     <div *ngIf="createTutorialForm.controls.category.touched && createTutorialForm.controls.category.invalid">
                         <div *ngIf="createTutorialF.category.errors.required" class="invalid-feedback d-block">
@@ -71,7 +71,9 @@
                 </div>
                 <!-- Tags -->
                 <div class="form-group mb-3">
-                    <ng-autocomplete 
+                    <span class="fw-bold">Tags</span>
+                    <ng-autocomplete
+                        style="border-radius: 25 !important;"
                         [data]="tags"
                         [searchKeyword]="keyword"
                         (selected)='selectEvent($event)'
@@ -81,13 +83,12 @@
                         [historyIdentifier]="historyIdentifier"
                         notFoundText="No tags found">
                     </ng-autocomplete>
-
                     <ng-template #itemTemplate let-item>
-                    <a [innerHTML]="item.name"></a>
+                        <a [innerHTML]="item.name"></a>
                     </ng-template>
                     
                     <ng-template #notFoundTemplate let-notFound>
-                    <div [innerHTML]="notFound"></div>
+                        <div [innerHTML]="notFound"></div>
                     </ng-template>
                     <div class="font-small chip" *ngFor="let tag of selectedTags">
                         {{tag.name}} <img src="assets/svg/ic_trash.svg" alt="Remove" style="cursor: pointer;" (click)="onRemoveTag(tag.id)">
@@ -106,9 +107,14 @@
                         class="form-control" 
                         type="text" 
                         formControlName='focusKeyphrase' placeholder="Focus keyphrase">
+                    <p *ngIf="!seoF.focusKeyphrase.errors?.strongEnough" class="text-success"><small>Content words: {{contentWords}}</small></p>
+                    <p *ngIf="seoF.focusKeyphrase.errors?.strongEnough" class="text-danger"><small>Content words: {{contentWords}}</small></p>
                     <div *ngIf="seoForm.controls.focusKeyphrase.touched && seoForm.controls.focusKeyphrase.invalid">
                         <div *ngIf="seoF.focusKeyphrase.errors.required" class="invalid-feedback d-block">
                             Focus keyphrase shouldn't be empty!
+                        </div>
+                        <div *ngIf="seoF.focusKeyphrase.errors.strongEnough" class="invalid-feedback d-block">
+                            The focus keyphrase is not strong enough!
                         </div>
                     </div>
                 </div>

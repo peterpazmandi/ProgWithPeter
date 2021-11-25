@@ -310,4 +310,8 @@ img svg {
   border: 2px solid var(--on-primary);
   width: max-content;
   display: inline-block;
-} 
+}
+
+input {
+  border-radius: 3px !important;
+}

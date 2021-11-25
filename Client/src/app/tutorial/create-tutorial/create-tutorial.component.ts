@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TreeItem, TreeviewConfig, TreeviewItem } from 'ngx-treeview';
@@ -8,6 +8,7 @@ import { Tag } from 'src/app/_models/tagDto.model';
 import { CategoryService } from 'src/app/_services/category.service';
 import { TagsService } from 'src/app/_services/tags.service';
 import * as Editor from '../../_ckeditor5/build/ckeditor';
+
 
 @Component({
   selector: 'app-create-tutorial',
@@ -23,6 +24,7 @@ export class CreateTutorialComponent implements OnInit {
   wordCount: number;
   selectedCategory: TreeviewItem[] = [];
   selectedTags: Tag[] = [];
+  contentWords: number = 0;
 
   constructor(
     private categoryService: CategoryService,
@@ -56,7 +58,7 @@ export class CreateTutorialComponent implements OnInit {
     })
 
     this.seoForm = this.fb.group({
-      focusKeyphrase: ['', [Validators.required]],
+      focusKeyphrase: ['', [Validators.required, this.nameValidation()]],
       seoTitle: ['', [Validators.required]],
       slug: ['', [Validators.required]],
       metaDescription: ['', [Validators.required]]
@@ -67,6 +69,31 @@ export class CreateTutorialComponent implements OnInit {
     });
 
     this.getInitialCategories();
+  }
+
+  // Custom validators
+  nameValidation(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      var focusKeyPhrase = control.value;
+      var splitted: string[] = focusKeyPhrase.split(" ");
+
+      // Remove last item, if length is zero
+      splitted = splitted.filter(item => item.length !== 0);
+
+      // for(let i = 0; i < splitted.length; i++) {
+      //   console.log(splitted[i]);
+      //   if(functionWords.includes(splitted[i].toLowerCase())) {
+      //     console.log(splitted);
+      //     splitted = splitted.filter(item => item.toLowerCase() !== splitted[i].toLowerCase());
+      //   }
+      // }
+      
+      splitted = splitted.filter(item => !functionWords.includes(item.toLowerCase()));
+      console.log(splitted);
+      this.contentWords = splitted.length;
+
+      return splitted.length > 3 && splitted.length < 7 ? null : {strongEnough: true};
+    };
   }
 
 
@@ -207,7 +234,7 @@ export class CreateTutorialComponent implements OnInit {
     hasCollapseExpand: true
   });
 
-  onValueChange(value: number): void {
+  onCategoryValueChange(value: number): void {
     let selectedItem = this.categories.find(i => i.value === value) as TreeviewItem;
     this.selectedCategory.push(selectedItem);
     this.createTutorialForm.patchValue({
@@ -297,4 +324,282 @@ export class CreateTutorialComponent implements OnInit {
     console.dir(length);
   }
 }
+
+export const functionWords = ["a", 
+                          "about", 
+                          "above", 
+                          "across", 
+                          "after", 
+                          "afterwards", 
+                          "again", 
+                          "against", 
+                          "all", 
+                          "almost", 
+                          "alone", 
+                          "along", 
+                          "already", 
+                          "also", 
+                          "although", 
+                          "always", 
+                          "am", 
+                          "among", 
+                          "amongst", 
+                          "amoungst", 
+                          "an", 
+                          "and", 
+                          "another", 
+                          "any", 
+                          "anyhow", 
+                          "anyone", 
+                          "anything", 
+                          "anyway", 
+                          "anywhere", 
+                          "are", 
+                          "around", 
+                          "as", 
+                          "at", 
+                          "be", 
+                          "became", 
+                          "because", 
+                          "been", 
+                          "before", 
+                          "beforehand", 
+                          "behind", 
+                          "being", 
+                          "below", 
+                          "beside", 
+                          "besides", 
+                          "between", 
+                          "beyond", 
+                          "both", 
+                          "but", 
+                          "by", 
+                          "can", 
+                          "cannot", 
+                          "could", 
+                          "dare", 
+                          "despite", 
+                          "did", 
+                          "do", 
+                          "does", 
+                          "done", 
+                          "down", 
+                          "during", 
+                          "each", 
+                          "eg", 
+                          "either", 
+                          "else", 
+                          "elsewhere", 
+                          "enough", 
+                          "etc", 
+                          "even", 
+                          "ever", 
+                          "every", 
+                          "everyone", 
+                          "everything", 
+                          "everywhere", 
+                          "except", 
+                          "few", 
+                          "first", 
+                          "for", 
+                          "former", 
+                          "formerly", 
+                          "from", 
+                          "further", 
+                          "furthermore", 
+                          "had", 
+                          "has", 
+                          "have", 
+                          "he", 
+                          "hence", 
+                          "her", 
+                          "here", 
+                          "hereabouts", 
+                          "hereafter", 
+                          "hereby", 
+                          "herein", 
+                          "hereinafter", 
+                          "heretofore", 
+                          "hereunder", 
+                          "hereupon", 
+                          "herewith", 
+                          "hers", 
+                          "herself", 
+                          "him", 
+                          "himself", 
+                          "his", 
+                          "how", 
+                          "however", 
+                          "i", 
+                          "ie", 
+                          "if", 
+                          "in", 
+                          "indeed", 
+                          "inside", 
+                          "instead", 
+                          "into", 
+                          "is", 
+                          "it", 
+                          "its", 
+                          "itself", 
+                          "last", 
+                          "latter", 
+                          "latterly", 
+                          "least", 
+                          "less", 
+                          "lot", 
+                          "lots", 
+                          "many", 
+                          "may", 
+                          "me", 
+                          "meanwhile", 
+                          "might", 
+                          "mine", 
+                          "more", 
+                          "moreover", 
+                          "most", 
+                          "mostly", 
+                          "much", 
+                          "must", 
+                          "my", 
+                          "myself", 
+                          "namely", 
+                          "near", 
+                          "need", 
+                          "neither", 
+                          "never", 
+                          "nevertheless", 
+                          "next", 
+                          "no", 
+                          "nobody", 
+                          "none", 
+                          "noone", 
+                          "nor", 
+                          "not", 
+                          "nothing", 
+                          "now", 
+                          "nowhere", 
+                          "of", 
+                          "off", 
+                          "often", 
+                          "oftentimes", 
+                          "on", 
+                          "once", 
+                          "one", 
+                          "only", 
+                          "onto", 
+                          "or", 
+                          "other", 
+                          "others", 
+                          "otherwise", 
+                          "ought", 
+                          "our", 
+                          "ours", 
+                          "ourselves", 
+                          "out", 
+                          "outside", 
+                          "over", 
+                          "per", 
+                          "perhaps", 
+                          "rather", 
+                          "re", 
+                          "same", 
+                          "second", 
+                          "several", 
+                          "shall", 
+                          "she", 
+                          "should", 
+                          "since", 
+                          "so", 
+                          "some", 
+                          "somehow", 
+                          "someone", 
+                          "something", 
+                          "sometime", 
+                          "sometimes", 
+                          "somewhat", 
+                          "somewhere", 
+                          "still", 
+                          "such", 
+                          "than", 
+                          "that", 
+                          "the", 
+                          "their", 
+                          "theirs", 
+                          "them", 
+                          "themselves", 
+                          "then", 
+                          "thence", 
+                          "there", 
+                          "thereabouts", 
+                          "thereafter", 
+                          "thereby", 
+                          "therefore", 
+                          "therein", 
+                          "thereof", 
+                          "thereon", 
+                          "thereupon", 
+                          "these", 
+                          "they", 
+                          "third", 
+                          "this", 
+                          "those", 
+                          "though", 
+                          "through", 
+                          "throughout", 
+                          "thru", 
+                          "thus", 
+                          "to", 
+                          "together", 
+                          "too", 
+                          "top", 
+                          "toward", 
+                          "towards", 
+                          "under", 
+                          "until", 
+                          "up", 
+                          "upon", 
+                          "us", 
+                          "used", 
+                          "very", 
+                          "via", 
+                          "was", 
+                          "we", 
+                          "well", 
+                          "were", 
+                          "what", 
+                          "whatever", 
+                          "when", 
+                          "whence", 
+                          "whenever", 
+                          "where", 
+                          "whereafter", 
+                          "whereas", 
+                          "whereby", 
+                          "wherein", 
+                          "whereupon", 
+                          "wherever", 
+                          "whether", 
+                          "which", 
+                          "while", 
+                          "whither", 
+                          "who", 
+                          "whoever", 
+                          "whole", 
+                          "whom", 
+                          "whose", 
+                          "why", 
+                          "whyever", 
+                          "will", 
+                          "with", 
+                          "within", 
+                          "without", 
+                          "would", 
+                          "yes", 
+                          "yet", 
+                          "you", 
+                          "your", 
+                          "yours", 
+                          "yourself", 
+                          "yourselves"]
 
