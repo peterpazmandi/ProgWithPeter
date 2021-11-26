@@ -25,6 +25,7 @@ export class CreateTutorialComponent implements OnInit {
   selectedCategory: TreeviewItem[] = [];
   selectedTags: Tag[] = [];
   contentWords: number = 0;
+  metaDescLength: number = 0;
 
   constructor(
     private categoryService: CategoryService,
@@ -64,11 +65,19 @@ export class CreateTutorialComponent implements OnInit {
       metaDescription: ['', [Validators.required, this.fieldContainsFocusKeyphrase(), this.metaDescriptionLength()]]
     })
 
-    this.seoForm.get('seoTitle')?.valueChanges.subscribe((value: string) => {
-      this.calculateSeoTitleLengthStrength(value.length);
+    this.seoForm.get('focusKeyphrase')?.valueChanges.subscribe((value: string) => {
+      this.updateSlug(value);
     });
 
     this.getInitialCategories();
+  }
+
+  updateSlug(value: string) {
+    let re = /\ /gi;
+    var slug = value.replace(re, '-');
+    this.seoForm.patchValue({
+      slug: slug.toLocaleLowerCase()
+    })
   }
 
   // Custom validators
@@ -91,40 +100,36 @@ export class CreateTutorialComponent implements OnInit {
   fieldStartsWithFocusKeyphrase(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
 
-      var seoTitle = control.value as string;
-      var focusKeyPhrase = this.seoForm?.value['focusKeyphrase'] as string;
+      var fieldContent = (control.value as string).toLocaleLowerCase();
+      var focusKeyPhrase = (this.seoForm?.value['focusKeyphrase'] as string)?.toLocaleLowerCase();
 
-      if(seoTitle.length === 0 || focusKeyPhrase.length === 0) {
+      if(fieldContent.length === 0 || focusKeyPhrase.length === 0) {
         return {startsWithFocusKeyphrase: true};
       }
 
-      return seoTitle.startsWith(focusKeyPhrase, 0) ? null : {startsWithFocusKeyphrase: true};
+      return fieldContent.startsWith(focusKeyPhrase, 0) ? null : {startsWithFocusKeyphrase: true};
     };
   }
   fieldContainsFocusKeyphrase(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
 
-      var seoTitle = control.value as string;
-      var focusKeyPhrase = this.seoForm?.value['focusKeyphrase'] as string;
+      var fieldContent = (control.value as string).toLocaleLowerCase();
+      var focusKeyPhrase = (this.seoForm?.value['focusKeyphrase'] as string)?.toLocaleLowerCase();
 
-      if(seoTitle.length === 0 || focusKeyPhrase.length === 0) {
+      if(fieldContent.length === 0 || focusKeyPhrase.length === 0) {
         return {containsFocusKeyphrase: true};
       }
 
-      return seoTitle.includes(focusKeyPhrase, 0) ? null : {containsFocusKeyphrase: true};
+      return fieldContent.includes(focusKeyPhrase, 0) ? null : {containsFocusKeyphrase: true};
     };
   }
   metaDescriptionLength(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
 
-      var seoTitle = control.value as string;
-      var focusKeyPhrase = this.seoForm?.value['focusKeyphrase'] as string;
+      var metaDesc = control.value as string;
+      this.metaDescLength = metaDesc.length;
 
-      if(seoTitle.length === 0 || focusKeyPhrase.length === 0) {
-        return {containsFocusKeyphrase: true};
-      }
-
-      return seoTitle.includes(focusKeyPhrase, 0) ? null : {metaDescriptionLength: true};
+      return metaDesc.length > 119 && metaDesc.length < 157 ? null : {metaDescriptionLength: true};
     };
   }
 
@@ -348,12 +353,6 @@ export class CreateTutorialComponent implements OnInit {
         tags: []
       })
     }
-  }
-
-
-  // SEO
-  calculateSeoTitleLengthStrength(length: number) {
-    console.dir(length);
   }
 }
 

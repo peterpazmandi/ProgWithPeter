@@ -132,8 +132,9 @@
                     <textarea
                         [class.is-invalid]="seoForm.controls.metaDescription.touched && seoForm.controls.metaDescription.invalid"
                         class="form-control" 
-                        rows="4"
+                        rows="8"
                         formControlName='metaDescription' placeholder="Meta description"></textarea>
+                    <small>Length: {{metaDescLength}}</small>
                 </div>
                 <hr class="dropdown-divider">
                 <span class="fw-bold mb-2">SEO Results</span>
@@ -165,6 +166,10 @@
                         <img src="assets/svg/ic_nok.svg" alt="Not OK">
                         <small class="ms-1">The <span class="fw-bold">Meta Description</span> doesn't contain the focus keyphrase.</small>
                     </p>
+                    <p *ngIf="seoF.metaDescription.errors?.metaDescriptionLength" class="text-danger">
+                        <img src="assets/svg/ic_nok.svg" alt="Not OK">
+                        <small class="ms-1">The <span class="fw-bold">Meta Description's</span> length has to be between 120 and 156 characters!</small>
+                    </p>
                 <!-- OK -->
                     <!-- Focus keyphrase -->
                     <p *ngIf="!seoF.focusKeyphrase.errors?.strongEnough" class="text-success">
@@ -180,6 +185,10 @@
                     <p *ngIf="!seoF.metaDescription.errors?.containsFocusKeyphrase" class="text-success">
                         <img src="assets/svg/ic_ok.svg" alt="OK">
                         <small class="ms-1">The exact match of the focus keyphrase appears in the <span class="fw-bold">Meta Description.</span></small>
+                    </p>
+                    <p *ngIf="!seoF.metaDescription.errors?.metaDescriptionLength" class="text-success">
+                        <img src="assets/svg/ic_ok.svg" alt="Not OK">
+                        <small class="ms-1">The <span class="fw-bold">Meta Description's</span> length is {{metaDescLength}}.</small>
                     </p>
             </form>
         </div>
