@@ -18,14 +18,15 @@ import * as Editor from '../../_ckeditor5/build/ckeditor';
 export class CreateTutorialComponent implements OnInit {
   createTutorialForm: FormGroup;
   seoForm: FormGroup;
-  submitted = false;
   public Editor = Editor;
-  charCount: number;
-  wordCount: number;
   selectedCategory: TreeviewItem[] = [];
   selectedTags: Tag[] = [];
-  contentWords: number = 0;
+  textCharCount: number;
+  textWordCount: number;
   metaDescLength: number = 0;
+  submitted = false;
+  keyPhraseContentWords: string[] = [];
+  keyPhraseContentWordsCount: number = 0;
 
   constructor(
     private categoryService: CategoryService,
@@ -92,7 +93,8 @@ export class CreateTutorialComponent implements OnInit {
       // Remove function words
       splitted = splitted.filter(item => !functionWords.includes(item.toLowerCase()));
 
-      this.contentWords = splitted.length;
+      this.keyPhraseContentWords = splitted;
+      this.keyPhraseContentWordsCount = splitted.length;
 
       return splitted.length > 3 && splitted.length < 7 ? null : {strongEnough: true};
     };
@@ -170,8 +172,8 @@ export class CreateTutorialComponent implements OnInit {
     wordCount: {
       onUpdate: (stats: any) => {
           // Prints the current content statistics.
-          this.charCount = stats.characters;
-          this.wordCount = stats.words;
+          this.textCharCount = stats.characters;
+          this.textWordCount = stats.words;
       }
     },
     fontColor: {

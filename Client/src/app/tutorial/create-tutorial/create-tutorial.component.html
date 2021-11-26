@@ -22,9 +22,9 @@
         <hr class="dropdown-divider">
         <div class="text-center d-flex flex-column bd-highlight mb-3">
             <span>Words</span>
-            <span class="fs-1 fw-bold">{{wordCount}}</span>
+            <span class="fs-1 fw-bold">{{textWordCount}}</span>
             <span>Charachters</span>
-            <span class="fs-1 fw-bold">{{charCount}}</span>
+            <span class="fs-1 fw-bold">{{textCharCount}}</span>
         </div>
         <div class="innerdiv mb-3">
             <form [formGroup]='createTutorialForm' autocomplete="off" (ngSubmit)="onSubmit()">
@@ -146,7 +146,7 @@
                     </p>
                     <p *ngIf="seoF.focusKeyphrase.errors?.strongEnough" class="text-danger mt-2">
                         <img src="assets/svg/ic_nok.svg" alt="Not OK">
-                        <small class="ms-1">Content words in <span class="fw-bold">focus keyphrase</span>: {{contentWords}}</small>
+                        <small class="ms-1">Content words in <span class="fw-bold">focus keyphrase</span>: {{keyPhraseContentWordsCount}}</small>
                     </p>
                     <!-- SEO title -->
                     <p *ngIf="seoF.seoTitle.errors?.required" class="text-danger mt-2">
@@ -170,6 +170,11 @@
                         <img src="assets/svg/ic_nok.svg" alt="Not OK">
                         <small class="ms-1">The <span class="fw-bold">Meta Description's</span> length has to be between 120 and 156 characters!</small>
                     </p>
+                    <!-- Text -->
+                    <p *ngIf="textWordCount < 300" class="text-danger">
+                        <img src="assets/svg/ic_nok.svg" alt="Not OK">
+                        <small class="ms-1">The <span class="fw-bold">Text</span> contains less then 300 characters</small>
+                    </p>
                 <!-- OK -->
                     <!-- Focus keyphrase -->
                     <p *ngIf="!seoF.focusKeyphrase.errors?.strongEnough" class="text-success">
@@ -189,6 +194,10 @@
                     <p *ngIf="!seoF.metaDescription.errors?.metaDescriptionLength" class="text-success">
                         <img src="assets/svg/ic_ok.svg" alt="Not OK">
                         <small class="ms-1">The <span class="fw-bold">Meta Description's</span> length is {{metaDescLength}}.</small>
+                    </p>
+                    <p *ngIf="textWordCount > 299" class="text-success">
+                        <img src="assets/svg/ic_ok.svg" alt="Not OK">
+                        <small class="ms-1">The <span class="fw-bold">Text</span> contains {{textWordCount}} words.</small>
                     </p>
             </form>
         </div>
