@@ -107,16 +107,6 @@
                         class="form-control" 
                         type="text" 
                         formControlName='focusKeyphrase' placeholder="Focus keyphrase">
-                    <p *ngIf="!seoF.focusKeyphrase.errors?.strongEnough" class="text-success"><small>Content words: {{contentWords}}</small></p>
-                    <p *ngIf="seoF.focusKeyphrase.errors?.strongEnough" class="text-danger"><small>Content words: {{contentWords}}</small></p>
-                    <div *ngIf="seoForm.controls.focusKeyphrase.touched && seoForm.controls.focusKeyphrase.invalid">
-                        <div *ngIf="seoF.focusKeyphrase.errors.required" class="invalid-feedback d-block">
-                            Focus keyphrase shouldn't be empty!
-                        </div>
-                        <div *ngIf="seoF.focusKeyphrase.errors.strongEnough" class="invalid-feedback d-block">
-                            The focus keyphrase is not strong enough!
-                        </div>
-                    </div>
                 </div>
                 <!-- SEO Title -->
                 <div class="form-group mb-3">
@@ -126,13 +116,6 @@
                         class="form-control" 
                         type="text" 
                         formControlName='seoTitle' placeholder="SEO Title">
-                    <p *ngIf="!seoF.seoTitle.errors?.containsFocusKeyphrase" class="text-success"><small>The exact match of the focus keyphrase appears at the beginning of the SEO title.</small></p>
-                    <p *ngIf="seoF.seoTitle.errors?.containsFocusKeyphrase" class="text-danger"><small>The SEO title doesn't contain at the beginning the focus keyphrase.</small></p>
-                    <div *ngIf="seoForm.controls.seoTitle.touched && seoForm.controls.seoTitle.invalid">
-                        <div *ngIf="seoF.seoTitle.errors.required" class="invalid-feedback d-block">
-                            SEO Title shouldn't be empty!
-                        </div>
-                    </div>
                 </div>
                 <!-- Slug -->
                 <div class="form-group mb-3">
@@ -142,11 +125,6 @@
                         class="form-control" 
                         type="text" 
                         formControlName='slug' placeholder="Slug">
-                    <div *ngIf="seoForm.controls.slug.touched && seoForm.controls.slug.invalid">
-                        <div *ngIf="seoF.slug.errors.required" class="invalid-feedback d-block">
-                            Slug shouldn't be empty!
-                        </div>
-                    </div>
                 </div>
                 <!-- Meta Description -->
                 <div class="form-group mb-3">
@@ -156,12 +134,53 @@
                         class="form-control" 
                         rows="4"
                         formControlName='metaDescription' placeholder="Meta description"></textarea>
-                    <div *ngIf="seoForm.controls.metaDescription.touched && seoForm.controls.metaDescription.invalid">
-                        <div *ngIf="seoF.metaDescription.errors.required" class="invalid-feedback d-block">
-                            Meta Description shouldn't be empty!
-                        </div>
-                    </div>
                 </div>
+                <hr class="dropdown-divider">
+                <span class="fw-bold mb-2">SEO Results</span>
+                <!-- NOK -->
+                    <!-- Focus keyphrase -->
+                    <p *ngIf="seoF.focusKeyphrase.errors?.required" class="text-danger mt-2">
+                        <img src="assets/svg/ic_nok.svg" alt="Not OK">
+                        <small class="ms-1"><span class="fw-bold">Focus keyphrase</span> shouldn't be empty!</small>
+                    </p>
+                    <p *ngIf="seoF.focusKeyphrase.errors?.strongEnough" class="text-danger mt-2">
+                        <img src="assets/svg/ic_nok.svg" alt="Not OK">
+                        <small class="ms-1">Content words in <span class="fw-bold">focus keyphrase</span>: {{contentWords}}</small>
+                    </p>
+                    <!-- SEO title -->
+                    <p *ngIf="seoF.seoTitle.errors?.required" class="text-danger mt-2">
+                        <img src="assets/svg/ic_nok.svg" alt="Not OK">
+                        <small class="ms-1"><span class="fw-bold">SEO title</span> shouldn't be empty!</small>
+                    </p>
+                    <p *ngIf="seoF.seoTitle.errors?.startsWithFocusKeyphrase" class="text-danger">
+                        <img src="assets/svg/ic_nok.svg" alt="Not OK">
+                        <small class="ms-1">The <span class="fw-bold">SEO title</span> doesn't contain at the beginning the focus keyphrase.</small>
+                    </p>
+                    <!-- Meta Description -->
+                    <p *ngIf="seoF.seoTitle.errors?.required" class="text-danger mt-2">
+                        <img src="assets/svg/ic_nok.svg" alt="Not OK">
+                        <small class="ms-1"><span class="fw-bold">Meta Description</span> shouldn't be empty!</small>
+                    </p>
+                    <p *ngIf="seoF.metaDescription.errors?.containsFocusKeyphrase" class="text-danger">
+                        <img src="assets/svg/ic_nok.svg" alt="Not OK">
+                        <small class="ms-1">The <span class="fw-bold">Meta Description</span> doesn't contain the focus keyphrase.</small>
+                    </p>
+                <!-- OK -->
+                    <!-- Focus keyphrase -->
+                    <p *ngIf="!seoF.focusKeyphrase.errors?.strongEnough" class="text-success">
+                        <img src="assets/svg/ic_ok.svg" alt="OK">
+                        <small class="ms-1">Content words in <span class="fw-bold">focus keyphrase</span>: {{contentWords}}</small>
+                    </p>
+                    <!-- SEO title -->
+                    <p *ngIf="!seoF.seoTitle.errors?.startsWithFocusKeyphrase" class="text-success">
+                        <img src="assets/svg/ic_ok.svg" alt="OK">
+                        <small class="ms-1">The exact match of the focus keyphrase appears at the beginning of the <span class="fw-bold">SEO title.</span></small>
+                    </p>
+                    <!-- Meta Description -->
+                    <p *ngIf="!seoF.metaDescription.errors?.containsFocusKeyphrase" class="text-success">
+                        <img src="assets/svg/ic_ok.svg" alt="OK">
+                        <small class="ms-1">The exact match of the focus keyphrase appears in the <span class="fw-bold">Meta Description.</span></small>
+                    </p>
             </form>
         </div>
     </div>

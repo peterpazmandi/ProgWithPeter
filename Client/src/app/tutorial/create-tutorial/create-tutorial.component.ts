@@ -59,9 +59,9 @@ export class CreateTutorialComponent implements OnInit {
 
     this.seoForm = this.fb.group({
       focusKeyphrase: ['', [Validators.required, this.focusKeyPhraseValidation()]],
-      seoTitle: ['', [Validators.required, this.seoTitleValidation()]],
+      seoTitle: ['', [Validators.required, this.fieldStartsWithFocusKeyphrase()]],
       slug: ['', [Validators.required]],
-      metaDescription: ['', [Validators.required]]
+      metaDescription: ['', [Validators.required, this.fieldContainsFocusKeyphrase(), this.metaDescriptionLength()]]
     })
 
     this.seoForm.get('seoTitle')?.valueChanges.subscribe((value: string) => {
@@ -88,7 +88,20 @@ export class CreateTutorialComponent implements OnInit {
       return splitted.length > 3 && splitted.length < 7 ? null : {strongEnough: true};
     };
   }
-  seoTitleValidation(): ValidatorFn {
+  fieldStartsWithFocusKeyphrase(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+
+      var seoTitle = control.value as string;
+      var focusKeyPhrase = this.seoForm?.value['focusKeyphrase'] as string;
+
+      if(seoTitle.length === 0 || focusKeyPhrase.length === 0) {
+        return {startsWithFocusKeyphrase: true};
+      }
+
+      return seoTitle.startsWith(focusKeyPhrase, 0) ? null : {startsWithFocusKeyphrase: true};
+    };
+  }
+  fieldContainsFocusKeyphrase(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
 
       var seoTitle = control.value as string;
@@ -98,7 +111,20 @@ export class CreateTutorialComponent implements OnInit {
         return {containsFocusKeyphrase: true};
       }
 
-      return seoTitle.startsWith(focusKeyPhrase, 0) ? null : {containsFocusKeyphrase: true};
+      return seoTitle.includes(focusKeyPhrase, 0) ? null : {containsFocusKeyphrase: true};
+    };
+  }
+  metaDescriptionLength(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+
+      var seoTitle = control.value as string;
+      var focusKeyPhrase = this.seoForm?.value['focusKeyphrase'] as string;
+
+      if(seoTitle.length === 0 || focusKeyPhrase.length === 0) {
+        return {containsFocusKeyphrase: true};
+      }
+
+      return seoTitle.includes(focusKeyPhrase, 0) ? null : {metaDescriptionLength: true};
     };
   }
 
