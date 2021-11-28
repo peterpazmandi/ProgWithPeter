@@ -25,15 +25,13 @@ export class CreateTutorialComponent implements OnInit {
   selectedTags: Tag[] = [];
   textCharCount: number;
   textWordCount: number;
+  internalLinkCount: number = 0;
+  externalLinkCount: number = 0;
   metaDescLength: number = 0;
   submitted = false;
   keyPhraseContentWords: string[] = [];
   keyPhraseContentWordsCount: number = 0;
-  public model = {
-		name: 'John',
-		surname: 'Doe',
-		description: '<p>A <b>really</b> nice fellow.</p>'
-	};
+  
 
   constructor(
     private categoryService: CategoryService,
@@ -82,11 +80,24 @@ export class CreateTutorialComponent implements OnInit {
     });
 
     this.formTextForm.get('text')?.valueChanges.subscribe((value: string) => {
-      console.log(value);
+      this.internalLinkCount = this.countTotalAmountOfSpecificWordInaString(value, 'internalLink');
+      this.externalLinkCount = this.countTotalAmountOfSpecificWordInaString(value, 'externalLink');
     });
 
     this.getInitialCategories();
   }
+
+  countTotalAmountOfSpecificWordInaString(text: string, toFind: string)
+  {
+    let next = 0;
+    let findedword = 0;
+        do {
+            var n = text.indexOf(toFind, next);
+            findedword = findedword +1;
+            next = n + toFind.length;
+            } while (n>=0);
+     return findedword - 1;
+   }
 
   updateSlug(value: string) {
     let re = /\ /gi;
@@ -220,6 +231,40 @@ export class CreateTutorialComponent implements OnInit {
 
           // ...
       ]
+    },
+    link: {
+      decorators: {
+          toggleDownloadable: {
+              mode: 'manual',
+              label: 'Downloadable',
+              attributes: {
+                  download: 'file'
+              }
+          },
+          openInNewTab: {
+              mode: 'manual',
+              label: 'Open in a new tab',
+              defaultValue: true,			// This option will be selected by default.
+              attributes: {
+                  target: '_blank',
+                  rel: 'noopener noreferrer'
+              }
+          },
+          addInternalLink: {
+            mode: 'manual',
+            label: 'Internal link',
+            attributes: {
+                tag: 'internalLink',
+            }
+          },
+          addExternalLink: {
+            mode: 'manual',
+            label: 'External link',
+            attributes: {
+                tag: 'externalLink',
+            }
+          }
+      }
     },
     image: {
       // Configure the available styles.

@@ -176,10 +176,26 @@
                         <img src="assets/svg/ic_nok.svg" alt="Not OK">
                         <small class="ms-1">The <span class="fw-bold">Text</span> contains less then 300 characters</small>
                     </p>
+                    <p *ngIf="internalLinkCount === 0" class="text-danger">
+                        <img src="assets/svg/ic_nok.svg" alt="Not OK">
+                        <small class="ms-1">The <span class="fw-bold">Text</span> doesn't contain any internal links</small>
+                    </p>
+                    <p *ngIf="externalLinkCount === 0" class="text-danger">
+                        <img src="assets/svg/ic_nok.svg" alt="Not OK">
+                        <small class="ms-1">The <span class="fw-bold">Text</span> doesn't contain any external links</small>
+                    </p>
                 <!-- Warning -->
                     <p *ngIf="textWordCount < 1001" class="text-warning">
                         <img src="assets/svg/ic_warning.svg" alt="Warning">
                         <small class="ms-1">The <span class="fw-bold">Text</span> contains less then 1000 characters</small>
+                    </p>
+                    <p *ngIf="internalLinkCount === 1" class="text-warning">
+                        <img src="assets/svg/ic_warning.svg" alt="Warning">
+                        <small class="ms-1">The <span class="fw-bold">Text</span> contains only 1 internal link.</small>
+                    </p>
+                    <p *ngIf="externalLinkCount === 1" class="text-warning">
+                        <img src="assets/svg/ic_warning.svg" alt="Warning">
+                        <small class="ms-1">The <span class="fw-bold">Text</span> contains only 1 external link.</small>
                     </p>
                 <!-- OK -->
                     <!-- Focus keyphrase -->
@@ -204,6 +220,14 @@
                     <p *ngIf="textWordCount > 299" class="text-success">
                         <img src="assets/svg/ic_ok.svg" alt="OK">
                         <small class="ms-1">The <span class="fw-bold">Text</span> contains {{textWordCount}} words.</small>
+                    </p>
+                    <p *ngIf="internalLinkCount > 1" class="text-success">
+                        <img src="assets/svg/ic_ok.svg" alt="OK">
+                        <small class="ms-1">The <span class="fw-bold">Text</span> contains {{internalLinkCount}} internal links.</small>
+                    </p>
+                    <p *ngIf="externalLinkCount > 1" class="text-success">
+                        <img src="assets/svg/ic_ok.svg" alt="OK">
+                        <small class="ms-1">The <span class="fw-bold">Text</span> contains {{externalLinkCount}} external links.</small>
                     </p>
             </form>
         </div>
