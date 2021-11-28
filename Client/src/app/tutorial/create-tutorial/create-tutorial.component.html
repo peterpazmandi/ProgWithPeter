@@ -5,7 +5,8 @@
         <div class="col-xs-1 text-center">
             <button
                 class="btn btn-success btn-sm col-8"
-                [disabled]='!createTutorialForm.valid' >
+                [disabled]='!createTutorialForm.valid'
+                (click)="onSubmit()" >
                 <span>Publish</span>
             </button>
             <button
@@ -45,7 +46,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Title -->
+                <!-- Category -->
                 <div class="form-group mb-3">
                     <span class="fw-bold">Category</span>
                     <div class="font-small">
@@ -175,6 +176,11 @@
                         <img src="assets/svg/ic_nok.svg" alt="Not OK">
                         <small class="ms-1">The <span class="fw-bold">Text</span> contains less then 300 characters</small>
                     </p>
+                <!-- Warning -->
+                    <p *ngIf="textWordCount < 1001" class="text-warning">
+                        <img src="assets/svg/ic_warning.svg" alt="Warning">
+                        <small class="ms-1">The <span class="fw-bold">Text</span> contains less then 1000 characters</small>
+                    </p>
                 <!-- OK -->
                     <!-- Focus keyphrase -->
                     <p *ngIf="!seoF.focusKeyphrase.errors?.strongEnough" class="text-success">
@@ -192,17 +198,19 @@
                         <small class="ms-1">The exact match of the focus keyphrase appears in the <span class="fw-bold">Meta Description.</span></small>
                     </p>
                     <p *ngIf="!seoF.metaDescription.errors?.metaDescriptionLength" class="text-success">
-                        <img src="assets/svg/ic_ok.svg" alt="Not OK">
+                        <img src="assets/svg/ic_ok.svg" alt="OK">
                         <small class="ms-1">The <span class="fw-bold">Meta Description's</span> length is {{metaDescLength}}.</small>
                     </p>
                     <p *ngIf="textWordCount > 299" class="text-success">
-                        <img src="assets/svg/ic_ok.svg" alt="Not OK">
+                        <img src="assets/svg/ic_ok.svg" alt="OK">
                         <small class="ms-1">The <span class="fw-bold">Text</span> contains {{textWordCount}} words.</small>
                     </p>
             </form>
         </div>
     </div>
     <div class="col-9 ">
-        <ckeditor [config]="editorConfig" [editor]="Editor" style="color: black;"></ckeditor>
+        <form [formGroup]='formTextForm' autocomplete='off'>
+            <ckeditor formControlName='text' [config]="editorConfig" [editor]="Editor" style="color: black;"></ckeditor>
+        </form>
     </div>
 </div>

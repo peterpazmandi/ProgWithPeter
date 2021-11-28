@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -17,8 +17,10 @@ import * as Editor from '../../_ckeditor5/build/ckeditor';
 })
 export class CreateTutorialComponent implements OnInit {
   createTutorialForm: FormGroup;
+  formTextForm: FormGroup;
   seoForm: FormGroup;
-  public Editor = Editor;
+  Editor = Editor;
+  @ViewChild('myEditor') myEditor: any;
   selectedCategory: TreeviewItem[] = [];
   selectedTags: Tag[] = [];
   textCharCount: number;
@@ -27,6 +29,11 @@ export class CreateTutorialComponent implements OnInit {
   submitted = false;
   keyPhraseContentWords: string[] = [];
   keyPhraseContentWordsCount: number = 0;
+  public model = {
+		name: 'John',
+		surname: 'Doe',
+		description: '<p>A <b>really</b> nice fellow.</p>'
+	};
 
   constructor(
     private categoryService: CategoryService,
@@ -53,10 +60,14 @@ export class CreateTutorialComponent implements OnInit {
 
   private initializeForms() {
     this.createTutorialForm = this.fb.group({
-      focusKeyphrase: ['', [Validators.required]],
       title: ['', [Validators.required, Validators.minLength(8)]],
       category: ['', [Validators.required]],
       tags: [[], [Validators.required]]
+      
+    })
+
+    this.formTextForm = this.fb.group({
+      text: ['<p>A <b>really</b> nice fellow.</p>']
     })
 
     this.seoForm = this.fb.group({
@@ -68,6 +79,10 @@ export class CreateTutorialComponent implements OnInit {
 
     this.seoForm.get('focusKeyphrase')?.valueChanges.subscribe((value: string) => {
       this.updateSlug(value);
+    });
+
+    this.formTextForm.get('text')?.valueChanges.subscribe((value: string) => {
+      console.log(value);
     });
 
     this.getInitialCategories();
@@ -144,11 +159,10 @@ export class CreateTutorialComponent implements OnInit {
         'bold', 'italic', 'strikethrough', 'underline', 'subscript', 'superscript', '|',
         'link', '|',
         'outdent', 'indent', '|',
-        'bulletedList', 'numberedList', 'todoList', '|',
+        'bulletedList', 'numberedList', '|',
         'code', 'codeBlock', '|',
         'insertTable', '|',
         'imageUpload', 'mediaEmbed', 'blockQuote', '|',
-        'todoList', '|',
         'pageBreak', '|',
         'horizontalLine', 'findAndReplace', '|', 
         'undo', 'redo', '|', 
