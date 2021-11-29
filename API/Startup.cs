@@ -60,8 +60,13 @@ namespace API
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions()
             {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"ProfilePhotos")),
-                RequestPath = new PathString("/ProfilePhotos")
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Photos/ProfilePhotos")),
+                RequestPath = new PathString("/Photos/ProfilePhotos")
+            });
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Photos/PostPhotos")),
+                RequestPath = new PathString("/Photos/PostPhotos")
             });
 
             app.UseRouting();

@@ -46,8 +46,8 @@ namespace API.Controllers
 
                 FileInfo fileInfo = new FileInfo(file.FileName);
                 var fileName = Guid.NewGuid().ToString() + fileInfo.Extension;
-                var folderDirectory = $"\\ProfilePhotos";
-                var path = Path.Combine("ProfilePhotos", fileName);
+                var folderDirectory = $"\\Photos\\ProfilePhotos";
+                var path = Path.Combine("Photos/ProfilePhotos", fileName);
 
                 var memoryStream = new MemoryStream();
                 await file.OpenReadStream().CopyToAsync(memoryStream);
@@ -64,14 +64,14 @@ namespace API.Controllers
 
                 if(user.Photo != null)
                 {
-                    System.IO.File.Delete(Path.Combine("ProfilePhotos", user.Photo.Url));
+                    System.IO.File.Delete(Path.Combine("Photos/ProfilePhotos", user.Photo.Url));
                 }
 
                 var photo = new Photo
                 {
                     Url = fileName
                 };
-
+                
                 user.Photo = photo;
 
                 if(await _unitOfWork.Complete())
