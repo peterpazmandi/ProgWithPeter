@@ -234,7 +234,14 @@
     </div>
     <div class="col-9 ">
         <form [formGroup]='formTextForm' autocomplete='off'>
-            <ckeditor formControlName='text' [config]="editorConfig" [editor]="Editor" style="color: black;"></ckeditor>
+            <ckeditor 
+                formControlName='text' 
+                [config]="editorConfig" 
+                [editor]="Editor" 
+                style="color: black;"
+                name="editor5"
+                (ready)="onReady($event)" >
+            </ckeditor>
         </form>
     </div>
 </div>

@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn,
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TreeItem, TreeviewConfig, TreeviewItem } from 'ngx-treeview';
+import { MyUploadAdapter } from 'src/app/shared/my-upload-adapter';
 import { Category } from 'src/app/_models/categoryDto.model';
 import { Tag } from 'src/app/_models/tagDto.model';
 import { CategoryService } from 'src/app/_services/category.service';
@@ -17,6 +18,9 @@ import * as Editor from '../../_ckeditor5/build/ckeditor';
   styleUrls: ['./create-tutorial.component.css']
 })
 export class CreateTutorialComponent implements OnInit {
+  apiUrl = environment.apiUrl;
+  serverUrl = environment.serverUrl;
+
   createTutorialForm: FormGroup;
   formTextForm: FormGroup;
   seoForm: FormGroup;
@@ -69,7 +73,7 @@ export class CreateTutorialComponent implements OnInit {
     })
 
     this.formTextForm = this.fb.group({
-      text: ['<p>A <b>really</b> nice fellow.</p>']
+      text: ['']
     })
 
     this.seoForm = this.fb.group({
@@ -310,19 +314,6 @@ export class CreateTutorialComponent implements OnInit {
         'imageTextAlternative'
       ]
     },
-    simpleUpload: {
-        // The URL that the images are uploaded to.
-        uploadUrl: 'http://example.com',
-
-        // Enable the XMLHttpRequest.withCredentials property.
-        withCredentials: true,
-
-        // Headers sent along with the XMLHttpRequest to the upload server.
-        headers: {
-            'X-CSRF-TOKEN': 'CSRF-Token',
-            Authorization: 'Bearer <JSON Web Token>'
-        }
-    },
     mediaEmbed: {
 
       // Previews are always enabled if there’s a provider for a URL (below regex catches all URLs)
@@ -359,9 +350,13 @@ export class CreateTutorialComponent implements OnInit {
         ]
     },
 
-    language: 'en'
+    language: 'en',
+    placeholder: 'Type here..'
   };
-
+  
+  onFileUploadRequest(event: any) {
+    console.log(event);
+  }
 
 
   value = 11;
@@ -453,6 +448,12 @@ export class CreateTutorialComponent implements OnInit {
         tags: []
       })
     }
+  }
+
+  onReady($event: any) {
+    $event.plugins.get('FileRepository').createUploadAdapter = (loader: any) => {
+      return new MyUploadAdapter(loader, this.serverUrl, this.apiUrl);
+    };
   }
 }
 
@@ -733,4 +734,4 @@ export const functionWords = ["a",
                           "yours", 
                           "yourself", 
                           "yourselves"]
-
+                          

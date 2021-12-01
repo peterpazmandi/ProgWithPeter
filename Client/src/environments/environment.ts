@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: 'https://localhost:5001/api/',
+  serverUrl: 'https://localhost:5001/',
   iFramelyApiKey: 'd6f7a19a09f00da6a9e90a'
 };
 
