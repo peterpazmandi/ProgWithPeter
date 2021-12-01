@@ -1,3 +1,6 @@
-::ng-deep .ck-editor__editable {
+#excerpt ::ng-deep .ck-editor__editable {
+    min-height: 100px !important;
+}
+#text ::ng-deep .ck-editor__editable {
     min-height: 1500px !important;
 }

@@ -73,7 +73,8 @@ export class CreateTutorialComponent implements OnInit {
     })
 
     this.formTextForm = this.fb.group({
-      text: ['']
+      excerpt: [''],
+      content: ['']
     })
 
     this.seoForm = this.fb.group({
@@ -87,7 +88,7 @@ export class CreateTutorialComponent implements OnInit {
       this.updateSlug(value);
     });
 
-    this.formTextForm.get('text')?.valueChanges.subscribe((value: string) => {
+    this.formTextForm.get('content')?.valueChanges.subscribe((value: string) => {
       this.internalLinkCount = this.countTotalAmountOfSpecificWordInaString(value, 'internalLink');
       this.externalLinkCount = this.countTotalAmountOfSpecificWordInaString(value, 'externalLink');
     });

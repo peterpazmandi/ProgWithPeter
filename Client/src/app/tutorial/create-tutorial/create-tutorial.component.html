@@ -97,7 +97,7 @@
                 </div>
             </form>
         </div>
-        <h4>SEO</h4>
+        <h5>SEO</h5>
         <div class="innerdiv">
             <form [formGroup]='seoForm' autocomplete="off">
                 <!-- Focus keyphrase -->
@@ -234,12 +234,22 @@
     </div>
     <div class="col-9 ">
         <form [formGroup]='formTextForm' autocomplete='off'>
-            <ckeditor 
-                formControlName='text' 
+            <h5>Excerpt</h5>
+            <ckeditor
+                id="excerpt"
+                formControlName='excerpt' 
                 [config]="editorConfig" 
                 [editor]="Editor" 
                 style="color: black;"
-                name="editor5"
+                (ready)="onReady($event)" >
+            </ckeditor>
+            <h5 class="mt-4">Content</h5>
+            <ckeditor 
+                id="text"
+                formControlName='content' 
+                [config]="editorConfig" 
+                [editor]="Editor"
+                style="color: black;"
                 (ready)="onReady($event)" >
             </ckeditor>
         </form>
