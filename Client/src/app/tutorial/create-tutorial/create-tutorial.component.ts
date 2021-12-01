@@ -7,6 +7,7 @@ import { Category } from 'src/app/_models/categoryDto.model';
 import { Tag } from 'src/app/_models/tagDto.model';
 import { CategoryService } from 'src/app/_services/category.service';
 import { TagsService } from 'src/app/_services/tags.service';
+import { environment } from 'src/environments/environment';
 import * as Editor from '../../_ckeditor5/build/ckeditor';
 
 
@@ -31,6 +32,9 @@ export class CreateTutorialComponent implements OnInit {
   submitted = false;
   keyPhraseContentWords: string[] = [];
   keyPhraseContentWordsCount: number = 0;
+  
+  IFRAME_SRC = '//cdn.iframe.ly/api/iframe';
+  IFRAMELY_API_KEY = environment.iFramelyApiKey;
   
 
   constructor(
@@ -318,6 +322,41 @@ export class CreateTutorialComponent implements OnInit {
             'X-CSRF-TOKEN': 'CSRF-Token',
             Authorization: 'Bearer <JSON Web Token>'
         }
+    },
+    mediaEmbed: {
+
+      // Previews are always enabled if there’s a provider for a URL (below regex catches all URLs)
+      // By default `previewsInData` are disabled, but let’s set it to `false` explicitely to be sure
+      previewsInData: false,
+
+      providers: [
+          {
+              // hint: this is just for previews. Get actual HTML codes by making API calls from your CMS
+              name: 'iframely previews', 
+
+              // Match all URLs or just the ones you need:
+              url: /.+/,
+
+              html: (match: any) => {
+                  const url = match[ 0 ];
+                  
+                  var iframeUrl = this.IFRAME_SRC + '?app=1&api_key=' + this.IFRAMELY_API_KEY + '&url=' + encodeURIComponent(url);
+                  // alternatively, use &key= instead of &api_key with the MD5 hash of your api_key
+                  // more about it: https://iframely.com/docs/allow-origins
+
+                  return (
+                      // If you need, set maxwidth and other styles for 'iframely-embed' class - it's yours to customize
+                      '<div class="iframely-embed">' +
+                          '<div class="iframely-responsive">' +
+                              `<iframe src="${ iframeUrl }" ` +
+                                  'frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>' +
+                              '</iframe>' +
+                          '</div>' +
+                      '</div>'
+                  );
+                }
+            }
+        ]
     },
 
     language: 'en'
