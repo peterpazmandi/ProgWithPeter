@@ -356,11 +356,6 @@ export class CreateTutorialComponent implements OnInit {
     language: 'en',
     placeholder: 'Type here..'
   };
-  
-  onFileUploadRequest(event: any) {
-    console.log(event);
-  }
-
 
   value = 11;
   categories: TreeviewItem[];
