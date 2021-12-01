@@ -279,7 +279,6 @@ export class CreateTutorialComponent implements OnInit {
       styles: [
         'alignLeft', 'alignCenter', 'alignRight'
       ],
-
       // Configure the available image resize options.
       resizeOptions: [
         {
@@ -307,11 +306,15 @@ export class CreateTutorialComponent implements OnInit {
       // You need to configure the image toolbar, too, so it shows the new style
       // buttons as well as the resize buttons.
       toolbar: [
-        'imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight',
+        'imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight', 'imageStyle:block', 'imageStyle:side',
         '|',
         'ImageResize',
         '|',
-        'imageTextAlternative'
+        'imageTextAlternative',
+        '|',
+        'toggleImageCaption',
+        '|',
+        'linkImage'
       ]
     },
     mediaEmbed: {
