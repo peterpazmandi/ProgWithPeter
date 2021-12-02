@@ -52,11 +52,6 @@ namespace API.Data
                 .WithOne(u => u.Role)
                 .HasForeignKey(ur => ur.RoleId)
                 .IsRequired();
-
-            // builder.Entity<Category>()
-            //     .HasOne(i => i.ParentCategory)
-            //     .WithMany(i => i.ChildCategories)
-            //     .HasForeignKey(i => i.ParentCategoryId);
         }
     }
 
