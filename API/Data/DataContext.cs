@@ -64,10 +64,12 @@ namespace API.Data
                 .WithOne(p => p.Post);
 
             builder.Entity<Tutorial>()
+                .ToTable("Tutorials")
                 .HasOne(d => d.Post)
                 .WithOne(p => p.Tutorial);
 
             builder.Entity<Course>()
+                .ToTable("Courses")
                 .HasOne(d => d.Post)
                 .WithOne(p => p.Course);
         }
