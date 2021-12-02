@@ -14,6 +14,8 @@ namespace API.Entities
         public DateTime LastActive { get; set; } = DateTime.Now;
         
         public Photo Photo { get; set; }
+
+        public virtual ICollection<Post> Post { get; set; }
         
         public ICollection<AppUserRole> UserRoles { get; set; }
     }

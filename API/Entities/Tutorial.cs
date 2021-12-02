@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 
 namespace API.Entities
 {
-    public class Meta
+    public class Tutorial
     {
         [Key]
         public int Id { get; set; }
 
-        public string KeyPhrase { get; set; }
-        public string SeoTitle { get; set; }
-        public string Slug { get; set; }
-        public string MetaDescription { get; set; }
 
+        public double Price { get; set; }
+        public string Currency { get; set; }
+
+
+        public int PostId { get; set; }
         public virtual Post Post { get; set; }
     }
 }

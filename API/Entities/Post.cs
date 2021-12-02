@@ -19,7 +19,7 @@ namespace API.Entities
 
 
         public int MetaId { get; set; }
-        public Meta Meta { get; set; }
+        public virtual Meta Meta { get; set; }
 
 
         public DateTime CreationDate { get; set; }
@@ -33,5 +33,16 @@ namespace API.Entities
         public string Status { get; set; }
         public string Password { get; set; }
         public long Length { get; set; }
+
+
+        public virtual Course Course { get; set; }
+        public virtual Tutorial Tutorial { get; set; }
+
+
+        public virtual ICollection<Tag> Tags { get; set; }
+
+
+        public int CategoryId { get; set; }
+        public virtual Category Category { get; set; }
     }
 }

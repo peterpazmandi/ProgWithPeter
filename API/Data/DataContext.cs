@@ -27,6 +27,8 @@ namespace API.Data
         public DbSet<Photo> Photos {get;set;}
         public DbSet<Category> Categories {get;set;}
         public DbSet<Tag> Tags {get;set;}
+        public DbSet<Post> Posts {get;set;}
+        public DbSet<Meta> Metas {get;set;}
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -52,6 +54,22 @@ namespace API.Data
                 .WithOne(u => u.Role)
                 .HasForeignKey(ur => ur.RoleId)
                 .IsRequired();
+
+            builder.Entity<Post>()
+                .HasOne(p => p.AppUser)
+                .WithMany(p => p.Post)
+                .HasForeignKey(p => p.AppUserId);
+            builder.Entity<Post>()
+                .HasOne(p => p.Meta)
+                .WithOne(p => p.Post);
+
+            builder.Entity<Tutorial>()
+                .HasOne(d => d.Post)
+                .WithOne(p => p.Tutorial);
+
+            builder.Entity<Course>()
+                .HasOne(d => d.Post)
+                .WithOne(p => p.Course);
         }
     }
 
