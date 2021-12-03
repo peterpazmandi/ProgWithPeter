@@ -12,7 +12,7 @@ namespace API.Helpers
             CreateMap<Photo, PhotoDto>();
             CreateMap<AppUser, MemberDto>();
 
-            CreateMap<Tutorial, CreateTutorialDto>().ReverseMap();
+            CreateMap<Tutorial, UpsertTutorialDto>().ReverseMap();
             CreateMap<Post, CreatePostDto>().ReverseMap();
             CreateMap<Meta, CreateMetaDto>().ReverseMap();
             CreateMap<Category, CategoryDto>().ReverseMap();

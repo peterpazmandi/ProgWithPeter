@@ -8,6 +8,9 @@ namespace API.Interfaces
 {
     public interface ITutorialRepository
     {
-        Task AddTutorial(Tutorial tutorial);
+        Task AddTutorialAsync(Tutorial tutorial);
+        void UpdateTutorial(Tutorial tutorial);
+        Task<Tutorial> GetTutorialByTitleAsync(string title);
+        Task<Tutorial> GetTutorialById(int id);
     }
 }
