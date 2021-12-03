@@ -25,6 +25,9 @@ namespace API.Data
         }
 
         public DbSet<Photo> Photos {get;set;}
+
+        public DbSet<Course> Courses {get;set;}
+        public DbSet<Tutorial> Tutorials {get;set;}
         public DbSet<Category> Categories {get;set;}
         public DbSet<Tag> Tags {get;set;}
         public DbSet<Post> Posts {get;set;}
@@ -57,8 +60,12 @@ namespace API.Data
 
             builder.Entity<Post>()
                 .HasOne(p => p.AppUser)
-                .WithMany(p => p.Post)
+                .WithMany(p => p.Posts)
                 .HasForeignKey(p => p.AppUserId);
+            builder.Entity<Post>()
+                .HasOne(p => p.Category)
+                .WithMany(p => p.Posts)
+                .HasForeignKey(p => p.CategoryId);
             builder.Entity<Post>()
                 .HasOne(p => p.Meta)
                 .WithOne(p => p.Post);

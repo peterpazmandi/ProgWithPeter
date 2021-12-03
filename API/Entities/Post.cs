@@ -30,7 +30,7 @@ namespace API.Entities
         public AppUser AppUser {get;set;}
 
 
-        public string Status { get; set; }
+
         public string Password { get; set; }
         public long Length { get; set; }
 

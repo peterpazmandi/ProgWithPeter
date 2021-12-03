@@ -20,7 +20,7 @@ namespace API.Data
         public IUserRepository UserRepository => new UserRepository(_context, _mapper);
         public ICategoriesRepository CategoriesRepository => new CategoriesRepository(_context);
         public ITagsRepository TagsRepository => new TagsRepository(_context);
-
+        public ITutorialRepository TutorialRepository => new TutorialRepository(_context);
 
         public async Task<bool> Complete()
         {

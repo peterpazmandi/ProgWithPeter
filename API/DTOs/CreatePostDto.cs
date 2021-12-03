@@ -14,8 +14,8 @@ namespace API.DTOs
         public long Length { get; set; }
 
         
-        public ICollection<TagDto> Tags { get; set; }
-        public CategoryDto Category { get; set; }
+        public ICollection<int> Tags { get; set; }
+        public int Category { get; set; }
 
         
 

@@ -23,5 +23,19 @@ namespace API.Data
                             .Where(cat => cat.ParentCategoryId == parentCategoryId)
                             .ToListAsync();
         }
+
+        public async Task<Category> GetCategoryByIdAsync(int id)
+        {
+            return await _context.Categories
+                .Where(x => x.Id == id)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<Category> GetCategoryByNameAsync(string name)
+        {
+            return await _context.Categories
+                .Where(x => x.Name.ToLower().Equals(name.ToLower()))
+                .FirstOrDefaultAsync();
+        }
     }
 }

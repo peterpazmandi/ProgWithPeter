@@ -38,6 +38,13 @@ namespace API.Data
             return inserted;
         }
 
+        public async Task<Tag> GetTagByIdAsync(int id)
+        {
+            return await _context.Tags
+                .Where(t => t.Id == id)
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<IEnumerable<Tag>> SearchTags(string searchText)
         {
             return await _context.Tags

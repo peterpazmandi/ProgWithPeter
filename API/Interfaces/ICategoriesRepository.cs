@@ -9,5 +9,8 @@ namespace API.Interfaces
     public interface ICategoriesRepository
     {
         Task<IEnumerable<Category>> GetCategories(int? parentCategoryId = null);
+        Task<Category> GetCategoryByIdAsync(int id);
+        Task<Category> GetCategoryByNameAsync(string name);
+
     }
 }

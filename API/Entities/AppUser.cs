@@ -15,7 +15,7 @@ namespace API.Entities
         
         public Photo Photo { get; set; }
 
-        public virtual ICollection<Post> Post { get; set; }
+        public virtual ICollection<Post> Posts { get; set; }
         
         public ICollection<AppUserRole> UserRoles { get; set; }
     }
