@@ -6,7 +6,7 @@
             <button
                 class="btn btn-success btn-sm col-8"
                 [disabled]='!createTutorialForm.valid'
-                (click)="onSubmit()" >
+                (click)="onPublishTutorial()" >
                 <span>Publish</span>
             </button>
             <button
@@ -28,7 +28,7 @@
             <span class="fs-1 fw-bold">{{textCharCount}}</span>
         </div>
         <div class="innerdiv mb-3">
-            <form [formGroup]='createTutorialForm' autocomplete="off" (ngSubmit)="onSubmit()">
+            <form [formGroup]='createTutorialForm' autocomplete="off">
                 <!-- Title -->
                 <div class="form-group mb-3">
                     <span class="fw-bold">Title</span>

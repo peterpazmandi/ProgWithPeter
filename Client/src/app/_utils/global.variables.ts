@@ -1,0 +1,1 @@
+export const WORD_PER_MINUTES = 200;

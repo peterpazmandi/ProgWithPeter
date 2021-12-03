@@ -11,11 +11,11 @@ namespace API.DTOs
         public string Excerpt { get; set; }        
         public string Content { get; set; }
         public string Password { get; set; }
-        public long Length { get; set; }
+        public double Length { get; set; }
 
         
         public ICollection<int> Tags { get; set; }
-        public int Category { get; set; }
+        public string Category { get; set; }
 
         
 

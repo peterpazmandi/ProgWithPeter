@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Status } from 'src/app/_models/status.enum';
+import { Status } from 'src/app/_utils/status.enum';
 
 @Component({
   selector: 'app-tutorial-list',

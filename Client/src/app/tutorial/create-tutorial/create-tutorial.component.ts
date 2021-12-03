@@ -4,12 +4,17 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TreeItem, TreeviewConfig, TreeviewItem } from 'ngx-treeview';
 import { MyUploadAdapter } from 'src/app/shared/my-upload-adapter';
-import { Category } from 'src/app/_models/categoryDto.model';
-import { Tag } from 'src/app/_models/tagDto.model';
+import { CategoryDto } from 'src/app/_models/categoryDto.model';
+import { CreatePostDto } from 'src/app/_models/createPostDto.model';
+import { TagDto } from 'src/app/_models/tagDto.model';
+import { UpsertTutorialDto } from 'src/app/_models/UpsertTutorialDto.model';
 import { CategoryService } from 'src/app/_services/category.service';
 import { TagsService } from 'src/app/_services/tags.service';
+import { TutorialService } from 'src/app/_services/tutorial.service';
+import { Status } from '../../_utils/status.enum';
 import { environment } from 'src/environments/environment';
 import * as Editor from '../../_ckeditor5/build/ckeditor';
+import { WORD_PER_MINUTES } from 'src/app/_utils/global.variables';
 
 
 @Component({
@@ -27,7 +32,7 @@ export class CreateTutorialComponent implements OnInit {
   Editor = Editor;
   @ViewChild('myEditor') myEditor: any;
   selectedCategory: TreeviewItem[] = [];
-  selectedTags: Tag[] = [];
+  selectedTags: TagDto[] = [];
   textCharCount: number;
   textWordCount: number;
   internalLinkCount: number = 0;
@@ -39,6 +44,8 @@ export class CreateTutorialComponent implements OnInit {
   
   IFRAME_SRC = '//cdn.iframe.ly/api/iframe';
   IFRAMELY_API_KEY = environment.iFramelyApiKey;
+
+  status: typeof Status;
   
 
   constructor(
@@ -46,19 +53,63 @@ export class CreateTutorialComponent implements OnInit {
     private tagsService: TagsService,
     private fb: FormBuilder,
     private router: Router,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private tutorialService: TutorialService) {
+      this.status = Status;
+  }
 
   ngOnInit(): void {
     this.initializeForms();
   }
 
-  onSubmit() {
+  onSaveTutorial() {
+
+  }
+  onPublishTutorial() {
       this.submitted = true;
 
       // stop here if form is invalid
       if (this.createTutorialForm.invalid) {
           return;
       }
+
+      var tutorial = this.createTutorialDtoFromForms(this.status.Published);
+      console.log(tutorial);
+      this.tutorialService.upsertTutorial(tutorial).subscribe((result: any) => {
+        this.toastr.success(result.message);
+      }, error => {
+        console.log(error);
+      });
+  }
+
+
+  createTutorialDtoFromForms(status: string) {
+    let tagIds: number[] = [];
+    for(let tag of this.selectedTags) {
+      tagIds.push(tag.id);
+    }
+
+    return {
+      status: status,
+      price: 9.9,
+      currency: 'USD',
+      post: {
+        title: (this.createTutorialForm?.value['title'] as string),
+        excerpt: (this.formTextForm?.value['excerpt'] as string),
+        content: (this.formTextForm?.value['content'] as string),
+        password: '',
+        tags: tagIds,
+        category: (this.createTutorialForm?.value['category'] as TreeviewItem).text,
+        meta: {
+          keyPhrase: (this.seoForm?.value['focusKeyphrase'] as string),
+          seoTitle: (this.seoForm?.value['seoTitle'] as string),
+          slug: (this.seoForm?.value['slug'] as string),
+          metaDescription: (this.seoForm?.value['metaDescription'] as string),
+        },
+        length: this.textWordCount / WORD_PER_MINUTES
+      } as CreatePostDto
+    } as UpsertTutorialDto;
+
   }
 
   get createTutorialF() { return this.createTutorialForm.controls; }
@@ -383,7 +434,7 @@ export class CreateTutorialComponent implements OnInit {
   }
 
   // Category
-  private generateTreeviewItemArray(categories: Category[]): TreeviewItem[] {
+  private generateTreeviewItemArray(categories: CategoryDto[]): TreeviewItem[] {
     let treeViewItems: TreeviewItem[] = [];
     for (let index = 0; index < categories.length; index++) {
       treeViewItems.push(new TreeviewItem({
@@ -396,7 +447,7 @@ export class CreateTutorialComponent implements OnInit {
   }
   private getInitialCategories() {
     this.categoryService.getCategories(null).subscribe((result: any) => {
-      this.categories = this.generateTreeviewItemArray(result as Category[]);
+      this.categories = this.generateTreeviewItemArray(result as CategoryDto[]);
     }, error => {
       console.log('API Error: ' + error);
     });
@@ -405,7 +456,7 @@ export class CreateTutorialComponent implements OnInit {
     this.categories = [new TreeviewItem({ text: "", value: 0 })];
 
     this.categoryService.getCategories(value).subscribe((result: any) => {
-      this.categories = this.generateTreeviewItemArray(result as Category[]);
+      this.categories = this.generateTreeviewItemArray(result as CategoryDto[]);
     }, error => {
       console.log('API Error: ' + error);
     });
@@ -423,7 +474,7 @@ export class CreateTutorialComponent implements OnInit {
       this.selectedTags.push({
         id: item.id,
         name: item.name
-      } as Tag);
+      } as TagDto);
       this.createTutorialForm.patchValue({
         tags: this.selectedTags
       })

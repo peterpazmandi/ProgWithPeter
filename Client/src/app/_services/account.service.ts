@@ -34,7 +34,6 @@ export class AccountService {
     return this.http.post(this.baseUrl + 'account/login', model).pipe(
       map((response: User | any) => {
         const user = response;
-        console.log(user);
         if(user) {
           this.setCurrentUser(user);
         }
@@ -63,7 +62,6 @@ export class AccountService {
   }
 
   resetPassword(resetPasswordDto: ResetPasswordDto) {
-    console.log(resetPasswordDto);
     return this.http.post(this.baseUrl + 'account/reset-password', resetPasswordDto);
   }
 

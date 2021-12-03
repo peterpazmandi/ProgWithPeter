@@ -40,7 +40,7 @@ namespace API.Controllers
             var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
 
             // Get category
-            var category = await _unitOfWork.CategoriesRepository.GetCategoryByIdAsync(tutorialDto.Post.Category);
+            var category = await _unitOfWork.CategoriesRepository.GetCategoryByNameAsync(tutorialDto.Post.Category);
 
             // Get tags
             ICollection<Tag> tags = new HashSet<Tag>();
@@ -49,31 +49,30 @@ namespace API.Controllers
                 tags.Add(await _unitOfWork.TagsRepository.GetTagByIdAsync(tagId));
             }
 
-            // Create tutorial entry
-            var tutorial = new Tutorial
-            {
-                Id = tutorialDto.Id,
-                Post = new Post
-                {
-                    Title = tutorialDto.Post.Title,
-                    Excerpt = tutorialDto.Post.Excerpt,
-                    Content = tutorialDto.Post.Content,
-                    Password = tutorialDto.Post.Password,
-                    AppUser = user,
-                    CreationDate = DateTime.Now,
-                    ModificationDate = DateTime.Now,
-                    Category = category,
-                    Tags = tags,
-                    Meta = _mapper.Map<Meta>(tutorialDto.Post.Meta)
-                },
-                Status = tutorialDto.Status,
-                Price = tutorialDto.Price,
-                Currency = tutorialDto.Currency
-            };
-
             if(tutorialDto.Id == 0)
             {
                 // Create new tutorial
+                var tutorial = new Tutorial
+                {
+                    Id = tutorialDto.Id,
+                    Post = new Post
+                    {
+                        Title = tutorialDto.Post.Title,
+                        Excerpt = tutorialDto.Post.Excerpt,
+                        Content = tutorialDto.Post.Content,
+                        Password = tutorialDto.Post.Password,
+                        AppUser = user,
+                        CreationDate = DateTime.Now,
+                        ModificationDate = DateTime.Now,
+                        Category = category,
+                        Tags = tags,
+                        Meta = _mapper.Map<Meta>(tutorialDto.Post.Meta)
+                    },
+                    Status = tutorialDto.Status,
+                    Price = tutorialDto.Price,
+                    Currency = tutorialDto.Currency
+                };
+
                 await _unitOfWork.TutorialRepository.AddTutorialAsync(tutorial);
             }
             else
@@ -106,7 +105,9 @@ namespace API.Controllers
 
             if(await _unitOfWork.Complete())
             {
-                return Ok("Tutorial has been created successfully!");
+                return Ok(new {
+                    message = "Tutorial has been created successfully!"
+                });
             }
 
             return BadRequest("Failed to create tutorial!");
