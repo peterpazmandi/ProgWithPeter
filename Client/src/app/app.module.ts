@@ -35,6 +35,7 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { SocialMediaIconsComponent } from './home/social-media-icons/social-media-icons.component';
 import { CoursesComponent } from './home/courses/courses.component';
 import { TutorialsComponent } from './home/tutorials/tutorials.component';
+import { FooterComponent } from './footer/footer.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -58,7 +59,8 @@ export function tokenGetter() {
     DropdownTreeviewSelectComponent,
     SocialMediaIconsComponent,
     CoursesComponent,
-    TutorialsComponent
+    TutorialsComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
