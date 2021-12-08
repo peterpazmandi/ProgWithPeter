@@ -32,7 +32,9 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { TreeviewModule } from 'ngx-treeview';
 import { DropdownTreeviewSelectComponent } from './_forms/dropdown-treeview-select/dropdown-treeview-select.component';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
-import { SocialMediaIconsComponent } from './social-media-icons/social-media-icons.component';
+import { SocialMediaIconsComponent } from './home/social-media-icons/social-media-icons.component';
+import { CoursesComponent } from './home/courses/courses.component';
+import { TutorialsComponent } from './home/tutorials/tutorials.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -54,7 +56,9 @@ export function tokenGetter() {
     TutorialListComponent,
     CreateTutorialComponent,
     DropdownTreeviewSelectComponent,
-    SocialMediaIconsComponent
+    SocialMediaIconsComponent,
+    CoursesComponent,
+    TutorialsComponent
   ],
   imports: [
     BrowserModule,
