@@ -52,7 +52,7 @@ namespace API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
+        public async Task<ActionResult<LoginUserDto>> Register(RegisterDto registerDto)
         {
             if(await UserExists(registerDto.Username))
             {
@@ -84,7 +84,7 @@ namespace API.Controllers
 
             if(!rolesResults.Succeeded) return BadRequest(result.Errors);
 
-            return new UserDto
+            return new LoginUserDto
             {
                 Username = user.UserName,
                 Token = await _tokenService.CreateToken(user),
@@ -120,7 +120,7 @@ namespace API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
+        public async Task<ActionResult<LoginUserDto>> Login(LoginDto loginDto)
         {
             var user = await _userManager.Users
                 .Include(p => p.Photo)
@@ -138,7 +138,7 @@ namespace API.Controllers
                 return Unauthorized("The username or the password is incorrect!");
             }
 
-            return new UserDto
+            return new LoginUserDto
             {
                 Username = user.UserName,
                 Token = await _tokenService.CreateToken(user),

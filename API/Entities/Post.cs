@@ -22,10 +22,6 @@ namespace API.Entities
         public virtual Meta Meta { get; set; }
 
 
-        public DateTime CreationDate { get; set; }
-        public DateTime ModificationDate { get; set; }
-
-
         public int AppUserId { get; set; }
         public AppUser AppUser {get;set;}
 

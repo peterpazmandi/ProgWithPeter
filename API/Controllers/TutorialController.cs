@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    [Authorize]
     public class TutorialController: PostController
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -22,6 +21,14 @@ namespace API.Controllers
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+        }
+
+        [HttpGet("GetPublishedTutorialsOrderedByPublishDate")]
+        public async Task<ActionResult<IEnumerable<TutorialDto>>> GetPublishedTutorialsOrderedByPublishDate()
+        {
+            IEnumerable<Tutorial> tutorialEntity = await _unitOfWork.TutorialRepository.GetPublishedTutorialsOrderedByPublishDate();
+
+            return Ok(_mapper.Map<IEnumerable<TutorialDto>>(tutorialEntity));
         }
 
         [HttpPost]
@@ -55,6 +62,8 @@ namespace API.Controllers
                 var tutorial = new Tutorial
                 {
                     Id = tutorialDto.Id,
+                    CreationDate = DateTime.Now,
+                    ModificationDate = DateTime.Now,
                     Post = new Post
                     {
                         Title = tutorialDto.Post.Title,
@@ -62,8 +71,6 @@ namespace API.Controllers
                         Content = tutorialDto.Post.Content,
                         Password = tutorialDto.Post.Password,
                         AppUser = user,
-                        CreationDate = DateTime.Now,
-                        ModificationDate = DateTime.Now,
                         Category = category,
                         Tags = tags,
                         Meta = _mapper.Map<Meta>(tutorialDto.Post.Meta)
@@ -85,7 +92,7 @@ namespace API.Controllers
                 tutorialToUpdate.Post.Content = tutorialDto.Post.Content;
                 tutorialToUpdate.Post.Password = tutorialDto.Post.Password;
                 tutorialToUpdate.Post.AppUser = user;
-                tutorialToUpdate.Post.ModificationDate = DateTime.Now;
+                tutorialToUpdate.ModificationDate = DateTime.Now;
 
                 tutorialToUpdate.Post.AppUser = user;
 

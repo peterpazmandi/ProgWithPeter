@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Entities;
+using API.Helpers;
 using API.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -42,6 +43,18 @@ namespace API.Data
                 .Include(m => m.Post.Meta)
                 .Where(t => t.Id == id)
                 .FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<Tutorial>> GetPublishedTutorialsOrderedByPublishDate()
+        {
+            return await _context.Tutorials
+                .Include(c => c.Post.Category)
+                .Include(t => t.Post.Tags)
+                .Include(m => m.Post.Meta)
+                .Include(u => u.Post.AppUser).Include(p => p.Post.AppUser.Photo)
+                .Where(s => s.Status == PostStatus.Published.ToString())
+                .OrderByDescending(p => p.PublishDate)
+                .ToListAsync();
         }
     }
 }

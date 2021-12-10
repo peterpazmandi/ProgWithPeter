@@ -11,6 +11,7 @@ namespace API.Interfaces
         Task AddTutorialAsync(Tutorial tutorial);
         void UpdateTutorial(Tutorial tutorial);
         Task<Tutorial> GetTutorialByTitleAsync(string title);
+        Task<IEnumerable<Tutorial>> GetPublishedTutorialsOrderedByPublishDate();
         Task<Tutorial> GetTutorialById(int id);
     }
 }

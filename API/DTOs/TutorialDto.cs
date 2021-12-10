@@ -1,14 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace API.Entities
+namespace API.DTOs
 {
-    public class Tutorial
+    public class TutorialDto
     {
-        [Key]
         public int Id { get; set; }
 
 
@@ -24,7 +22,6 @@ namespace API.Entities
         public DateTime PublishDate { get; set; }
 
 
-        public int PostId { get; set; }
-        public virtual Post Post { get; set; }
+        public virtual PostDto Post { get; set; }
     }
 }
