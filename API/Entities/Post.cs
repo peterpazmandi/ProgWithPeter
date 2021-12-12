@@ -18,6 +18,9 @@ namespace API.Entities
         public string Content { get; set; }
 
 
+        public string FeaturedImageUrl { get; set; }
+
+
         public int MetaId { get; set; }
         public virtual Meta Meta { get; set; }
 
