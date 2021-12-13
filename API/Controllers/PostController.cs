@@ -9,6 +9,7 @@ using System.IO;
 using System.Drawing;
 using System.Net;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
@@ -44,6 +45,8 @@ namespace API.Controllers
                 return BadRequest(exception.Message);
             }
         }
+        
+        [Authorize]
         [HttpPost("add-featured-post-image")]
         public async Task<ActionResult<string>> AddFeaturedPostImage(IFormFile upload)
         {

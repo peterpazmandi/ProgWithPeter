@@ -7,7 +7,6 @@ import { MyUploadAdapter } from 'src/app/shared/my-upload-adapter';
 import { CategoryDto } from 'src/app/_models/categoryDto.model';
 import { CreatePostDto } from 'src/app/_models/createPostDto.model';
 import { TagDto } from 'src/app/_models/tagDto.model';
-import { UpsertTutorialDto } from 'src/app/_models/UpsertTutorialDto.model';
 import { CategoryService } from 'src/app/_services/category.service';
 import { TagsService } from 'src/app/_services/tags.service';
 import { TutorialService } from 'src/app/_services/tutorial.service';
@@ -15,6 +14,11 @@ import { Status } from '../../_utils/status.enum';
 import { environment } from 'src/environments/environment';
 import * as Editor from '../../_ckeditor5/build/ckeditor';
 import { WORD_PER_MINUTES } from 'src/app/_utils/global.variables';
+import { FileUploader } from 'ng2-file-upload';
+import { UpsertTutorialDto } from 'src/app/_models/UpsertTutorialDto.model';
+import { AccountService } from 'src/app/_services/account.service';
+import { User } from 'src/app/_models/user.model';
+import { take } from 'rxjs/operators';
 
 
 @Component({
@@ -25,6 +29,7 @@ import { WORD_PER_MINUTES } from 'src/app/_utils/global.variables';
 export class CreateTutorialComponent implements OnInit {
   apiUrl = environment.apiUrl;
   serverUrl = environment.serverUrl;
+  uploader:FileUploader;
 
   createTutorialForm: FormGroup;
   formTextForm: FormGroup;
@@ -33,6 +38,7 @@ export class CreateTutorialComponent implements OnInit {
   @ViewChild('myEditor') myEditor: any;
   selectedCategory: TreeviewItem[] = [];
   selectedTags: TagDto[] = [];
+  featuredImageUrl: string;
   textCharCount: number;
   textWordCount: number;
   internalLinkCount: number = 0;
@@ -46,9 +52,12 @@ export class CreateTutorialComponent implements OnInit {
   IFRAMELY_API_KEY = environment.iFramelyApiKey;
 
   status: typeof Status;
+
+  user: User;
   
 
   constructor(
+    private accountService: AccountService,
     private categoryService: CategoryService,
     private tagsService: TagsService,
     private fb: FormBuilder,
@@ -60,6 +69,12 @@ export class CreateTutorialComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForms();
+
+    this.accountService.currentUser$
+      .pipe(take(1))
+      .subscribe(u => this.user = u);
+      
+    this.initFileUploader();
   }
 
   onSaveTutorial() {
@@ -145,6 +160,32 @@ export class CreateTutorialComponent implements OnInit {
     });
 
     this.getInitialCategories();
+  }
+
+  private initFileUploader() {
+    console.log(this.user.token);
+    this.uploader = new FileUploader({
+      url: this.apiUrl,
+      authToken: 'Bearer ' + this.user?.token,
+      isHTML5: true,
+      allowedFileType: ['image'],
+      removeAfterUpload: true,
+      autoUpload: false
+    });
+ 
+    this.uploader.onSuccessItem = (item, response, status, headers) => {
+      if(response) {
+        console.log(response);
+        this.featuredImageUrl = this.serverUrl + response;
+        // const photo: Photo = JSON.parse(response);
+        // this.member.photos.push(photo);
+        // if(photo.isMain) {
+        //   this.user.photoUrl = photo.url;
+        //   this.member.photoUrl = photo.url;
+        //   this.accountService.setCurrentUser(this.user);
+        // }
+      }
+    }
   }
 
   countTotalAmountOfSpecificWordInaString(text: string, toFind: string)

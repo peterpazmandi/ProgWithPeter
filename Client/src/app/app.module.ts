@@ -36,6 +36,7 @@ import { SocialMediaIconsComponent } from './home/social-media-icons/social-medi
 import { CoursesComponent } from './home/courses/courses.component';
 import { TutorialsComponent } from './home/tutorials/tutorials.component';
 import { FooterComponent } from './footer/footer.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -85,7 +86,11 @@ export function tokenGetter() {
     }),
     CKEditorModule,
     TreeviewModule.forRoot(),
-    AutocompleteLibModule
+    AutocompleteLibModule,
+    FileUploadModule
+  ],
+  exports: [
+    FileUploadModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

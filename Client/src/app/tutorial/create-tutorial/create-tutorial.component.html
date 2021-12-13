@@ -30,6 +30,11 @@
             </div>
             <div class="innerdiv mb-3">
                 <form [formGroup]='createTutorialForm' autocomplete="off">
+                    <!-- Featured Image -->                    
+                    <input type="file" ng2FileSelect [uploader]="uploader" />
+                    <div *ngIf="featuredImageUrl !== null">
+                        <img src="{{featuredImageUrl}}" alt="Featured image">
+                    </div>
                     <!-- Title -->
                     <div class="form-group mb-3">
                         <span class="fw-bold">Title</span>
