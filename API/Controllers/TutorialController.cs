@@ -56,10 +56,11 @@ namespace API.Controllers
                 tags.Add(await _unitOfWork.TagsRepository.GetTagByIdAsync(tagId));
             }
 
+            var tutorial = new Tutorial();
             if(tutorialDto.Id == 0)
             {
                 // Create new tutorial
-                var tutorial = new Tutorial
+                tutorial = new Tutorial
                 {
                     Id = tutorialDto.Id,
                     CreationDate = DateTime.Now,
@@ -69,6 +70,7 @@ namespace API.Controllers
                         Title = tutorialDto.Post.Title,
                         Excerpt = tutorialDto.Post.Excerpt,
                         Content = tutorialDto.Post.Content,
+                        FeaturedImageUrl = tutorialDto.Post.FeaturedImageUrl,
                         Password = tutorialDto.Post.Password,
                         AppUser = user,
                         Category = category,
@@ -85,34 +87,35 @@ namespace API.Controllers
             else
             {
                 // Update existing tutorial
-                var tutorialToUpdate = await _unitOfWork.TutorialRepository.GetTutorialById(tutorialDto.Id);
+                tutorial = await _unitOfWork.TutorialRepository.GetTutorialById(tutorialDto.Id);
 
-                tutorialToUpdate.Post.Title = tutorialDto.Post.Title;
-                tutorialToUpdate.Post.Excerpt = tutorialDto.Post.Excerpt;
-                tutorialToUpdate.Post.Content = tutorialDto.Post.Content;
-                tutorialToUpdate.Post.Password = tutorialDto.Post.Password;
-                tutorialToUpdate.Post.AppUser = user;
-                tutorialToUpdate.ModificationDate = DateTime.Now;
+                tutorial.Post.Title = tutorialDto.Post.Title;
+                tutorial.Post.Excerpt = tutorialDto.Post.Excerpt;
+                tutorial.Post.Content = tutorialDto.Post.Content;
+                tutorial.Post.Password = tutorialDto.Post.Password;
+                tutorial.Post.AppUser = user;
+                tutorial.ModificationDate = DateTime.Now;
 
-                tutorialToUpdate.Post.AppUser = user;
+                tutorial.Post.AppUser = user;
 
-                tutorialToUpdate.Post.Category = category;
+                tutorial.Post.Category = category;
 
-                tutorialToUpdate.Post.Tags = tags;
+                tutorial.Post.Tags = tags;
 
-                tutorialToUpdate.Post.Meta.KeyPhrase = tutorialDto.Post.Meta.KeyPhrase;
-                tutorialToUpdate.Post.Meta.SeoTitle = tutorialDto.Post.Meta.SeoTitle;
-                tutorialToUpdate.Post.Meta.Slug = tutorialDto.Post.Meta.Slug;
-                tutorialToUpdate.Post.Meta.MetaDescription = tutorialDto.Post.Meta.MetaDescription;
+                tutorial.Post.Meta.KeyPhrase = tutorialDto.Post.Meta.KeyPhrase;
+                tutorial.Post.Meta.SeoTitle = tutorialDto.Post.Meta.SeoTitle;
+                tutorial.Post.Meta.Slug = tutorialDto.Post.Meta.Slug;
+                tutorial.Post.Meta.MetaDescription = tutorialDto.Post.Meta.MetaDescription;
 
-                tutorialToUpdate.Status = tutorialDto.Status;
-                tutorialToUpdate.Price = tutorialDto.Price;
-                tutorialToUpdate.Currency = tutorialDto.Currency;
+                tutorial.Status = tutorialDto.Status;
+                tutorial.Price = tutorialDto.Price;
+                tutorial.Currency = tutorialDto.Currency;
             }
 
             if(await _unitOfWork.Complete())
             {
                 return Ok(new {
+                    tutorialId = tutorial.Id,
                     message = "Tutorial has been created successfully!"
                 });
             }

@@ -28,55 +28,8 @@
                 <span>Charachters</span>
                 <span class="fs-1 fw-bold">{{textCharCount}}</span>
             </div>
-            <div class="innerdiv mb-3">
-                <form [formGroup]='createTutorialForm' autocomplete="off">
-                    <!-- Featured Image -->                    
-                    <input type="file" ng2FileSelect [uploader]="uploader" />                    
-                    <div class="col-md-9" style="margin-bottom: 40px" *ngIf="uploader?.queue?.length">
-
-                        <h3>Upload queue</h3>
-                        <p>Queue length: {{ uploader?.queue?.length }}</p>
-
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th width="50%">Name</th>
-                                <th>Size</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr *ngFor="let item of uploader.queue">
-                                <td><strong>{{ item?.file?.name }}</strong></td>
-                                <td *ngIf="uploader.options.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
-                            </tr>
-                            </tbody>
-                        </table>
-
-                        <div>
-                            <div>
-                                Queue progress:
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
-                                </div>
-                            </div>
-                            <button type="button" class="btn btn-success btn-s"
-                                    (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
-                                <span class="fa fa-upload"></span> Upload
-                            </button>
-                            <button type="button" class="btn btn-warning btn-s"
-                                    (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
-                                <span class="fa fa-ban"></span> Cancel
-                            </button>
-                            <button type="button" class="btn btn-danger btn-s"
-                                    (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
-                                <span class="fa fa-trash"></span> Remove
-                            </button>
-                        </div>
-
-                    </div>
-                    <div *ngIf="featuredImageUrl !== null">
-                        <img src="{{featuredImageUrl}}" alt="Featured image">
-                    </div>
+            <form [formGroup]='createTutorialForm' autocomplete="off">
+                <div class="innerdiv mb-3">                    
                     <!-- Title -->
                     <div class="form-group mb-3">
                         <span class="fw-bold">Title</span>
@@ -143,8 +96,48 @@
                             {{tag.name}} <img src="assets/svg/ic_trash.svg" alt="Remove" style="cursor: pointer;" (click)="onRemoveTag(tag.id)">
                         </div>
                     </div>
-                </form>
-            </div>
+                </div>    
+                <h5 class="fw-bold">Featured image</h5>
+                <div class="innerdiv mb-3">
+                    <!-- Featured Image -->  
+                    <div class="d-flex justify-content-center">
+                        <input class="mb-2 custom-file-input" type="file" ng2FileSelect [uploader]="uploader" />  
+                    </div>
+                    <div style="margin-bottom: 40px" *ngIf="uploader?.queue?.length">
+                        <hr class="dropdown-divider mb-2">
+
+                        <span class="fw-bold">Name</span>
+                        <p *ngFor="let item of uploader.queue">{{ item?.file?.name }}</p>
+                        <span class="fw-bold">Size</span>
+                        <p *ngFor="let item of uploader.queue">{{ item?.file?.size/1024/1024 | number:'.2' }} MB</p>
+
+                        <hr class="dropdown-divider mb-2">
+
+                        <div>
+                            <div>
+                                Queue progress
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <button type="button" class="btn btn-success btn-s"
+                                        (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                                    <span class="fa fa-upload"></span> Upload
+                                </button>
+                                <button type="button" class="btn btn-warning btn-s ms-2"
+                                        (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+                                    <span class="fa fa-trash"></span> Remove
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div *ngIf="featuredImageUrl.length !== 0">
+                        <img role="presentation" src="{{featuredImageUrl}}" alt="Featured image">
+                    </div>
+                </div>            
+            </form>
             <h5 class="fw-bold">SEO</h5>
             <div class="innerdiv">
                 <form [formGroup]='seoForm' autocomplete="off">

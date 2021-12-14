@@ -8,6 +8,8 @@ export interface CreatePostDto {
     content: string;
     password: string;
 
+    featuredImageUrl: string;
+
     tags: number[];
     category: string;
     meta: CreateMetaDto;

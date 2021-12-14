@@ -10,6 +10,7 @@ namespace API.DTOs
         public string Title { get; set; }
         public string Excerpt { get; set; }        
         public string Content { get; set; }
+        public string FeaturedImageUrl { get; set; }
         public string Password { get; set; }
         public double Length { get; set; }
 

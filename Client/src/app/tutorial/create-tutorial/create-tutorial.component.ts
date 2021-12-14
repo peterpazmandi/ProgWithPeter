@@ -38,7 +38,7 @@ export class CreateTutorialComponent implements OnInit {
   @ViewChild('myEditor') myEditor: any;
   selectedCategory: TreeviewItem[] = [];
   selectedTags: TagDto[] = [];
-  featuredImageUrl: string;
+  featuredImageUrl: string = '';
   textCharCount: number;
   textWordCount: number;
   internalLinkCount: number = 0;
@@ -91,7 +91,11 @@ export class CreateTutorialComponent implements OnInit {
       var tutorial = this.createTutorialDtoFromForms(this.status.Published);
       console.log(tutorial);
       this.tutorialService.upsertTutorial(tutorial).subscribe((result: any) => {
+        console.log(result);
         this.toastr.success(result.message);
+        this.createTutorialForm.patchValue({
+          id: result.tutorialId
+        })
       }, error => {
         console.log(error);
       });
@@ -105,6 +109,7 @@ export class CreateTutorialComponent implements OnInit {
     }
 
     return {
+      id: (this.createTutorialForm?.value['id'] as number),
       status: status,
       price: 9.9,
       currency: 'USD',
@@ -113,6 +118,7 @@ export class CreateTutorialComponent implements OnInit {
         excerpt: (this.formTextForm?.value['excerpt'] as string),
         content: (this.formTextForm?.value['content'] as string),
         password: '',
+        featuredImageUrl: (this.createTutorialForm?.value['featuredImageUrl'] as string),
         tags: tagIds,
         category: (this.createTutorialForm?.value['category'] as TreeviewItem).text,
         meta: {
@@ -132,9 +138,11 @@ export class CreateTutorialComponent implements OnInit {
 
   private initializeForms() {
     this.createTutorialForm = this.fb.group({
+      id: [0],
       title: ['', [Validators.required, Validators.minLength(8)]],
       category: ['', [Validators.required]],
-      tags: [[], [Validators.required]]
+      tags: [[], [Validators.required]],
+      featuredImageUrl: [[], [Validators.required]]
       
     })
 
@@ -175,16 +183,10 @@ export class CreateTutorialComponent implements OnInit {
  
     this.uploader.onSuccessItem = (item, response: any, status, headers) => {
       if(response) {
-        console.log(response);
         this.featuredImageUrl = this.serverUrl + response;
-        console.log(this.featuredImageUrl);
-        // const photo: Photo = JSON.parse(response);
-        // this.member.photos.push(photo);
-        // if(photo.isMain) {
-        //   this.user.photoUrl = photo.url;
-        //   this.member.photoUrl = photo.url;
-        //   this.accountService.setCurrentUser(this.user);
-        // }
+        this.createTutorialForm.patchValue({
+          featuredImageUrl: this.featuredImageUrl
+        })
       }
     }
   }
