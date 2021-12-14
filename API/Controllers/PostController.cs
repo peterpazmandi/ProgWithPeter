@@ -48,17 +48,17 @@ namespace API.Controllers
         
         [Authorize]
         [HttpPost("add-featured-post-image")]
-        public async Task<ActionResult<string>> AddFeaturedPostImage(IFormFile upload)
+        public async Task<ActionResult<string>> AddFeaturedPostImage(IFormFile file)
         {
             try
             {
-                FileInfo fileInfo = new FileInfo(upload.FileName);
-                System.Console.WriteLine(upload.FileName);
+                FileInfo fileInfo = new FileInfo(file.FileName);
+                System.Console.WriteLine(file.FileName);
                 var folderDirectory = $"\\Photos\\PostPhotos\\FeaturedImages";
-                var path = Path.Combine("Photos\\PostPhotos\\FeaturedImages", upload.FileName);
+                var path = Path.Combine("Photos\\PostPhotos\\FeaturedImages", file.FileName);
 
                 var memoryStream = new MemoryStream();
-                await upload.OpenReadStream().CopyToAsync(memoryStream);
+                await file.OpenReadStream().CopyToAsync(memoryStream);
 
                 if (!Directory.Exists(folderDirectory))
                 {
@@ -70,7 +70,7 @@ namespace API.Controllers
                     memoryStream.WriteTo(fs);
                 }
 
-                return Ok(new { Url = path });
+                return Ok(path);
             } 
             catch(Exception exception)
             {

@@ -165,7 +165,7 @@ export class CreateTutorialComponent implements OnInit {
   private initFileUploader() {
     console.log(this.user.token);
     this.uploader = new FileUploader({
-      url: this.apiUrl,
+      url: this.apiUrl + 'Tutorial/add-featured-post-image',
       authToken: 'Bearer ' + this.user?.token,
       isHTML5: true,
       allowedFileType: ['image'],
@@ -173,10 +173,11 @@ export class CreateTutorialComponent implements OnInit {
       autoUpload: false
     });
  
-    this.uploader.onSuccessItem = (item, response, status, headers) => {
+    this.uploader.onSuccessItem = (item, response: any, status, headers) => {
       if(response) {
         console.log(response);
         this.featuredImageUrl = this.serverUrl + response;
+        console.log(this.featuredImageUrl);
         // const photo: Photo = JSON.parse(response);
         // this.member.photos.push(photo);
         // if(photo.isMain) {
