@@ -37,6 +37,7 @@ import { CoursesComponent } from './home/courses/courses.component';
 import { TutorialsComponent } from './home/tutorials/tutorials.component';
 import { FooterComponent } from './footer/footer.component';
 import { FileUploadModule } from 'ng2-file-upload';
+import { TutorialsItemComponent } from './home/tutorials/tutorials-item/tutorials-item.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -61,7 +62,8 @@ export function tokenGetter() {
     SocialMediaIconsComponent,
     CoursesComponent,
     TutorialsComponent,
-    FooterComponent
+    FooterComponent,
+    TutorialsItemComponent
   ],
   imports: [
     BrowserModule,

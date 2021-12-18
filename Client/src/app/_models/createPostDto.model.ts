@@ -1,6 +1,6 @@
-import { CategoryDto as CategoryDto } from "./categoryDto.model";
+import { Category as Category } from "./category.model";
 import { CreateMetaDto } from "./createMetaDto.model";
-import { TagDto } from "./tagDto.model";
+import { Tag } from "./tag.model";
 
 export interface CreatePostDto {
     title: string;

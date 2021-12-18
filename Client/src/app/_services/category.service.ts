@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { CategoryDto } from '../_models/categoryDto.model';
+import { Category } from '../_models/category.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  getCategories(id: any): Observable<CategoryDto> {
-    return this.http.get(this.baseUrl + 'Categories/GetCategories' + ((id === null) ? '' : `?parentCategoryId=${id}`)) as Observable<CategoryDto>;
+  getCategories(id: any): Observable<Category> {
+    return this.http.get(this.baseUrl + 'Categories/GetCategories' + ((id === null) ? '' : `?parentCategoryId=${id}`)) as Observable<Category>;
   }
 }

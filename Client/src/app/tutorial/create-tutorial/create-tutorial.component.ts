@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TreeItem, TreeviewConfig, TreeviewItem } from 'ngx-treeview';
 import { MyUploadAdapter } from 'src/app/shared/my-upload-adapter';
-import { CategoryDto } from 'src/app/_models/categoryDto.model';
+import { Category } from 'src/app/_models/category.model';
 import { CreatePostDto } from 'src/app/_models/createPostDto.model';
-import { TagDto } from 'src/app/_models/tagDto.model';
+import { Tag } from 'src/app/_models/tag.model';
 import { CategoryService } from 'src/app/_services/category.service';
 import { TagsService } from 'src/app/_services/tags.service';
 import { TutorialService } from 'src/app/_services/tutorial.service';
@@ -37,7 +37,7 @@ export class CreateTutorialComponent implements OnInit {
   Editor = Editor;
   @ViewChild('myEditor') myEditor: any;
   selectedCategory: TreeviewItem[] = [];
-  selectedTags: TagDto[] = [];
+  selectedTags: Tag[] = [];
   featuredImageUrl: string = '';
   textCharCount: number;
   textWordCount: number;
@@ -478,7 +478,7 @@ export class CreateTutorialComponent implements OnInit {
   }
 
   // Category
-  private generateTreeviewItemArray(categories: CategoryDto[]): TreeviewItem[] {
+  private generateTreeviewItemArray(categories: Category[]): TreeviewItem[] {
     let treeViewItems: TreeviewItem[] = [];
     for (let index = 0; index < categories.length; index++) {
       treeViewItems.push(new TreeviewItem({
@@ -491,7 +491,7 @@ export class CreateTutorialComponent implements OnInit {
   }
   private getInitialCategories() {
     this.categoryService.getCategories(null).subscribe((result: any) => {
-      this.categories = this.generateTreeviewItemArray(result as CategoryDto[]);
+      this.categories = this.generateTreeviewItemArray(result as Category[]);
     }, error => {
       console.log('API Error: ' + error);
     });
@@ -500,7 +500,7 @@ export class CreateTutorialComponent implements OnInit {
     this.categories = [new TreeviewItem({ text: "", value: 0 })];
 
     this.categoryService.getCategories(value).subscribe((result: any) => {
-      this.categories = this.generateTreeviewItemArray(result as CategoryDto[]);
+      this.categories = this.generateTreeviewItemArray(result as Category[]);
     }, error => {
       console.log('API Error: ' + error);
     });
@@ -518,7 +518,7 @@ export class CreateTutorialComponent implements OnInit {
       this.selectedTags.push({
         id: item.id,
         name: item.name
-      } as TagDto);
+      } as Tag);
       this.createTutorialForm.patchValue({
         tags: this.selectedTags
       })
