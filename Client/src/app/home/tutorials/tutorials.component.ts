@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Tutorial } from 'src/app/_models/tutorialDto.model';
+import { TutorialService } from 'src/app/_services/tutorial.service';
 
 @Component({
   selector: 'app-tutorials',
@@ -6,10 +8,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tutorials.component.css']
 })
 export class TutorialsComponent implements OnInit {
+  tutorials: Tutorial[];
 
-  constructor() { }
+  constructor(private tutorialService: TutorialService) { }
 
   ngOnInit(): void {
+    this.loadTutorials();
+  }
+  loadTutorials() {
+    this.tutorialService.getListOfTutorials().subscribe(response => {
+      console.log(response);
+      this.tutorials = response;
+    })
   }
 
 }

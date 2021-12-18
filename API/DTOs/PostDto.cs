@@ -14,6 +14,8 @@ namespace API.DTOs
         public string Excerpt { get; set; }        
         public string Content { get; set; }
         
+        public string FeaturedImageUrl { get; set; }
+        
         public MetaDto Meta { get; set; }
 
         public UserDto AppUser {get;set;}

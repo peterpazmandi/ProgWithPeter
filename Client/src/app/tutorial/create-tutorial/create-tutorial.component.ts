@@ -15,7 +15,7 @@ import { environment } from 'src/environments/environment';
 import * as Editor from '../../_ckeditor5/build/ckeditor';
 import { WORD_PER_MINUTES } from 'src/app/_utils/global.variables';
 import { FileUploader } from 'ng2-file-upload';
-import { UpsertTutorialDto } from 'src/app/_models/UpsertTutorialDto.model';
+import { UpsertTutorialDto } from 'src/app/_models/upsertTutorialDto.model';
 import { AccountService } from 'src/app/_services/account.service';
 import { User } from 'src/app/_models/user.model';
 import { take } from 'rxjs/operators';

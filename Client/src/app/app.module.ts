@@ -37,7 +37,8 @@ import { CoursesComponent } from './home/courses/courses.component';
 import { TutorialsComponent } from './home/tutorials/tutorials.component';
 import { FooterComponent } from './footer/footer.component';
 import { FileUploadModule } from 'ng2-file-upload';
-import { TutorialsItemComponent } from './home/tutorials/tutorials-item/tutorials-item.component';
+import { TutorialsItemComponent } from './home/tutorials/tutorial-item/tutorial-item.component';
+import { TagItemComponent } from './tags/tag-item/tag-item.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -63,7 +64,8 @@ export function tokenGetter() {
     CoursesComponent,
     TutorialsComponent,
     FooterComponent,
-    TutorialsItemComponent
+    TutorialsItemComponent,
+    TagItemComponent
   ],
   imports: [
     BrowserModule,

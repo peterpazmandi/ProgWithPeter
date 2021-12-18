@@ -1,0 +1,18 @@
+span {
+    background-color: #42A5F5;
+    
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 16px;
+    padding-right: 16px;
+
+    margin-right: 5px;
+    border-radius: 20px;
+
+    color: white;
+}
+
+span:hover {
+    background-color: #1976D2;
+    transition: all 0.2s linear;
+}

@@ -9,6 +9,8 @@ export interface Post {
     excerpt: string,
     content: string,
 
+    featuredImageUrl: string,
+
     meta: Meta,
 
     appUser: User,
