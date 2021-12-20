@@ -50,7 +50,7 @@ namespace API.Data
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<PagedList<TutorialDto>> GetPublishedTutorialsOrderedByPublishDate(TutorialParams tutorialParams)
+        public async Task<PagedList<HomePageTutorialDto>> GetPublishedTutorialsOrderedByPublishDate(TutorialParams tutorialParams)
         {
             var query = _context.Tutorials
                 .Include(c => c.Post.Category)
@@ -59,9 +59,9 @@ namespace API.Data
                 .Include(u => u.Post.AppUser).Include(p => p.Post.AppUser.Photo)
                 .Where(s => s.Status == PostStatus.Published.ToString())
                 .OrderByDescending(p => p.PublishDate)
-                .ProjectTo<TutorialDto>(_mapper.ConfigurationProvider);
+                .ProjectTo<HomePageTutorialDto>(_mapper.ConfigurationProvider);
 
-            return await PagedList<TutorialDto>.CreateAsync(query, tutorialParams.PageNumber, tutorialParams.PageSize);
+            return await PagedList<HomePageTutorialDto>.CreateAsync(query, tutorialParams.PageNumber, tutorialParams.PageSize);
         }
     }
 }

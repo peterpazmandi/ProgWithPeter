@@ -13,7 +13,7 @@ namespace API.Interfaces
         Task AddTutorialAsync(Tutorial tutorial);
         void UpdateTutorial(Tutorial tutorial);
         Task<Tutorial> GetTutorialByTitleAsync(string title);
-        Task<PagedList<TutorialDto>> GetPublishedTutorialsOrderedByPublishDate(TutorialParams tutorialParams);
+        Task<PagedList<HomePageTutorialDto>> GetPublishedTutorialsOrderedByPublishDate(TutorialParams tutorialParams);
         Task<Tutorial> GetTutorialById(int id);
     }
 }

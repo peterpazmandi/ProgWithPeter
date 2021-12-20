@@ -8,7 +8,9 @@
             alt="Programming with Peter">
     </div>
     <div class="col">
-        <h3 class="fw-bold">{{tutorial.post.title}}</h3>
+        <a routerLink='tutorial/{{tutorial.post.meta.slug}}'>
+            <h3 class="fw-bold">{{tutorial.post.title}}</h3>
+        </a>
         <div class="mb-3">
             <svg 
                 width="14" 

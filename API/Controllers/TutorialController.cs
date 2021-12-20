@@ -25,7 +25,7 @@ namespace API.Controllers
         }
 
         [HttpGet("GetPublishedTutorialsOrderedByPublishDate")]
-        public async Task<ActionResult<IEnumerable<TutorialDto>>> GetPublishedTutorialsOrderedByPublishDate([FromQuery] TutorialParams tutorialParams)
+        public async Task<ActionResult<IEnumerable<HomePageTutorialDto>>> GetPublishedTutorialsOrderedByPublishDate([FromQuery] TutorialParams tutorialParams)
         {
             var tutorials = await _unitOfWork.TutorialRepository.GetPublishedTutorialsOrderedByPublishDate(tutorialParams);
 
