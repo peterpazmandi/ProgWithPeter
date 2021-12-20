@@ -80,7 +80,7 @@ export class CreateTutorialComponent implements OnInit {
   onSaveTutorial() {
 
   }
-  onPublishTutorial() {
+  onUploadTutorial(status: string) {
       this.submitted = true;
 
       // stop here if form is invalid
@@ -88,8 +88,7 @@ export class CreateTutorialComponent implements OnInit {
           return;
       }
 
-      var tutorial = this.createTutorialDtoFromForms(this.status.Published);
-      console.log(tutorial);
+      var tutorial = this.createTutorialDtoFromForms(status);
       this.tutorialService.upsertTutorial(tutorial).subscribe((result: any) => {
         console.log(result);
         this.toastr.success(result.message);
@@ -171,7 +170,6 @@ export class CreateTutorialComponent implements OnInit {
   }
 
   private initFileUploader() {
-    console.log(this.user.token);
     this.uploader = new FileUploader({
       url: this.apiUrl + 'Tutorial/add-featured-post-image',
       authToken: 'Bearer ' + this.user?.token,

@@ -7,12 +7,13 @@
                 <button
                     class="btn btn-success btn-sm col-8"
                     [disabled]='!createTutorialForm.valid'
-                    (click)="onPublishTutorial()" >
+                    (click)="onUploadTutorial(status.Published)" >
                     <span>Publish</span>
                 </button>
                 <button
                     class="btn btn-warning btn-sm col-8"
-                    [disabled]='!createTutorialForm.valid' >
+                    [disabled]='!createTutorialForm.valid'
+                    (click)="onUploadTutorial(status.Draft)" >
                     <span>Save as draft</span>
                 </button>
                 <button 

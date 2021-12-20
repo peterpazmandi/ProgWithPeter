@@ -60,9 +60,13 @@ namespace API.Controllers
             }
 
             var tutorial = new Tutorial();
+
             if(tutorialDto.Id == 0)
             {
-                // Create new tutorial
+                if(tutorialDto.Status.Equals(PostStatus.Published.ToString())) {
+                    tutorial.PublishDate = DateTime.Now;
+                }
+
                 tutorial = new Tutorial
                 {
                     Id = tutorialDto.Id,
@@ -98,6 +102,10 @@ namespace API.Controllers
                 tutorial.Post.Password = tutorialDto.Post.Password;
                 tutorial.Post.AppUser = user;
                 tutorial.ModificationDate = DateTime.Now;
+
+                if(tutorialDto.Status.Equals(PostStatus.Published.ToString())) {
+                    tutorial.PublishDate = DateTime.Now;
+                }
 
                 tutorial.Post.AppUser = user;
 
