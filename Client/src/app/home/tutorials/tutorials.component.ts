@@ -11,6 +11,7 @@ export class TutorialsComponent implements OnInit {
   tutorials: Tutorial[] = [];
   pageNumber = 1;
   pageSize = 5;
+  noMoreTutorial: boolean = false;
 
   constructor(private tutorialService: TutorialService) { }
 
@@ -19,7 +20,7 @@ export class TutorialsComponent implements OnInit {
   }
   loadTutorials() {
     this.tutorialService.getListOfTutorials(this.pageNumber, this.pageSize).subscribe(response => {
-      console.log(response);
+      this.noMoreTutorial = response.result.length < 5;
       this.tutorials.push(...response.result);
     })
   }

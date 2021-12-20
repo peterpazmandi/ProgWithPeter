@@ -6,19 +6,16 @@
         <app-tutorial-item [tutorial]="tutorial"></app-tutorial-item>
     </div>
 
-    <div class="row align-items-center">
-        <div class="col">
-            <button 
-                class="btn btn-success float-end fw-bold w-25"
-                (click)="loadMoreTutorials()" >
-                Load more
-            </button>
-        </div>
-        <div class="col">
-            <button 
-                class="btn btn-primary float-start fw-bold w-25" >
-                Search
-            </button>
-        </div>
+    <hr class="dropdown-divider mt-5">      
+    <div class="d-flex justify-content-center">
+        <button *ngIf="!noMoreTutorial"
+            class="btn btn-success float-end fw-bold col-2 me-1"
+            (click)="loadMoreTutorials()" >
+            Load more
+        </button>
+        <button 
+            class="btn btn-primary float-start fw-bold col-2 ms-1" >
+            Search
+        </button>
     </div>
 </div>
