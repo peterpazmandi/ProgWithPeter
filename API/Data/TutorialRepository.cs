@@ -2,9 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.DTOs;
 using API.Entities;
 using API.Helpers;
 using API.Interfaces;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
@@ -12,10 +15,12 @@ namespace API.Data
     public class TutorialRepository : ITutorialRepository
     {
         private readonly DataContext _context;
+        private readonly IMapper _mapper;
 
-        public TutorialRepository(DataContext context)
+        public TutorialRepository(DataContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task AddTutorialAsync(Tutorial tutorial)
@@ -45,16 +50,18 @@ namespace API.Data
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<Tutorial>> GetPublishedTutorialsOrderedByPublishDate()
+        public async Task<PagedList<TutorialDto>> GetPublishedTutorialsOrderedByPublishDate(TutorialParams tutorialParams)
         {
-            return await _context.Tutorials
+            var query = _context.Tutorials
                 .Include(c => c.Post.Category)
                 .Include(t => t.Post.Tags)
                 .Include(m => m.Post.Meta)
                 .Include(u => u.Post.AppUser).Include(p => p.Post.AppUser.Photo)
                 .Where(s => s.Status == PostStatus.Published.ToString())
                 .OrderByDescending(p => p.PublishDate)
-                .ToListAsync();
+                .ProjectTo<TutorialDto>(_mapper.ConfigurationProvider);
+
+            return await PagedList<TutorialDto>.CreateAsync(query, tutorialParams.PageNumber, tutorialParams.PageSize);
         }
     }
 }

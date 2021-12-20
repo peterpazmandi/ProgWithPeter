@@ -8,7 +8,9 @@ import { TutorialService } from 'src/app/_services/tutorial.service';
   styleUrls: ['./tutorials.component.css']
 })
 export class TutorialsComponent implements OnInit {
-  tutorials: Tutorial[];
+  tutorials: Tutorial[] = [];
+  pageNumber = 1;
+  pageSize = 5;
 
   constructor(private tutorialService: TutorialService) { }
 
@@ -16,10 +18,14 @@ export class TutorialsComponent implements OnInit {
     this.loadTutorials();
   }
   loadTutorials() {
-    this.tutorialService.getListOfTutorials().subscribe(response => {
+    this.tutorialService.getListOfTutorials(this.pageNumber, this.pageSize).subscribe(response => {
       console.log(response);
-      this.tutorials = response;
+      this.tutorials.push(...response.result);
     })
   }
 
+  loadMoreTutorials() {
+    this.pageNumber++;
+    this.loadTutorials();
+  }
 }

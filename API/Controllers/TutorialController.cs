@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using API.DTOs;
 using API.Entities;
 using API.Extensions;
+using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -24,11 +25,13 @@ namespace API.Controllers
         }
 
         [HttpGet("GetPublishedTutorialsOrderedByPublishDate")]
-        public async Task<ActionResult<IEnumerable<TutorialDto>>> GetPublishedTutorialsOrderedByPublishDate()
+        public async Task<ActionResult<IEnumerable<TutorialDto>>> GetPublishedTutorialsOrderedByPublishDate([FromQuery] TutorialParams tutorialParams)
         {
-            IEnumerable<Tutorial> tutorialEntity = await _unitOfWork.TutorialRepository.GetPublishedTutorialsOrderedByPublishDate();
+            var tutorials = await _unitOfWork.TutorialRepository.GetPublishedTutorialsOrderedByPublishDate(tutorialParams);
 
-            return Ok(_mapper.Map<IEnumerable<TutorialDto>>(tutorialEntity));
+            Response.AddPaginationHeader(tutorials.CurrentPage, tutorials.PageSize, tutorials.TotalCount, tutorials.TotalPages);
+
+            return tutorials;
         }
 
         [HttpPost]
