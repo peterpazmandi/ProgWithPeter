@@ -34,6 +34,24 @@ namespace API.Controllers
             return tutorials;
         }
 
+        [HttpGet("GetTutorialByTitle")]
+        public async Task<ActionResult<TutorialDto>> GetTutorialByTitle(string title)
+        {
+            if(string.IsNullOrEmpty(title))
+            {
+                return BadRequest("Please provide a valid title!");
+            }
+
+            var tutorial = await _unitOfWork.TutorialRepository.GetTutorialByTitleAsync(title);
+
+            if(tutorial == null) 
+            {
+                return BadRequest($"Tutorial with title \"{title}\" not found!");
+            }
+
+            return _mapper.Map<TutorialDto>(tutorial);
+        }
+
         [HttpPost]
         public async Task<ActionResult> CreateTutorial(UpsertTutorialDto tutorialDto)
         {

@@ -36,6 +36,10 @@ namespace API.Data
         public async Task<Tutorial> GetTutorialByTitleAsync(string title)
         {
             return await _context.Tutorials
+                .Include(c => c.Post.Category)
+                .Include(t => t.Post.Tags)
+                .Include(m => m.Post.Meta)
+                .Include(u => u.Post.AppUser).Include(p => p.Post.AppUser.Photo)
                 .Where(t => t.Post.Title.ToLower().Equals(title.ToLower()))
                 .FirstOrDefaultAsync();
         }
