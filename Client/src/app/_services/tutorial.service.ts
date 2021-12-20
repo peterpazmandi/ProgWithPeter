@@ -20,8 +20,8 @@ export class TutorialService {
     return getPaginatedResult<Tutorial[]>(this.baseUrl + 'Tutorial/GetPublishedTutorialsOrderedByPublishDate', params, this.http);
   }
 
-  getTutorial(id: number) {
-
+  getTutorialByTitle(title: string) {
+    return this.http.get<Tutorial>(this.baseUrl + 'Tutorial/GetTutorialByTitle?title=' + title);
   }
 
   upsertTutorial(upsertTutorialDto: UpsertTutorialDto) {
