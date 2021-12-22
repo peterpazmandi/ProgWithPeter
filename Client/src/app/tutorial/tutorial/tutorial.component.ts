@@ -10,6 +10,8 @@ import { TutorialService } from 'src/app/_services/tutorial.service';
 })
 export class TutorialComponent implements OnInit {
   tutorial: Tutorial;
+  sidebarWidth = 'col-3'
+  sideBarVisible = true;
 
   constructor(
     private route: Router,
@@ -26,5 +28,15 @@ export class TutorialComponent implements OnInit {
     this.tutorialService.getTutorialByTitle(title).subscribe(response => {
       this.tutorial = response;
     })
+  }
+  
+  hideSidebar() {
+    this.sideBarVisible = !this.sideBarVisible;
+
+    if(this.sideBarVisible) {
+      this.sidebarWidth = 'col-3';
+    } else {
+      this.sidebarWidth = 'col-1';
+    }
   }
 }

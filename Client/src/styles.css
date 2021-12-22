@@ -321,3 +321,16 @@ input {
   font-weight: bolder;
   color: #B7B7B7;
 }
+
+
+.icon-background {
+  fill: var(--on-primary);
+  transition: all 0.3s linear;
+}
+
+.icon-content {
+  stroke: var(--primary);
+  stroke-width: 2;
+  stroke-linecap: round;
+  transition: all 0.3s linear;
+}
