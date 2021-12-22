@@ -27,6 +27,10 @@ export class TutorialComponent implements OnInit {
     let title = this.route.url.split('/')[2].replace(re, ' ');
     this.tutorialService.getTutorialByTitle(title).subscribe(response => {
       this.tutorial = response;
+
+      const test = document.getElementById('test');
+      if(!test) return;
+      test.innerHTML = this.tutorial.post.title;
     })
   }
   

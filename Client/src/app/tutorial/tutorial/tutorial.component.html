@@ -1,6 +1,6 @@
 <div class="container pt-5">    
     <div *ngIf="tutorial" class="row">
-        <div id="demo" class="{{sidebarWidth}} menu">
+        <div id="demo" class="{{sidebarWidth}} menu sticky">
             <button class="btn btn-transparent" (click)="hideSidebar()">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path class="icon-background"
@@ -22,4 +22,7 @@
             <app-post [post]="tutorial.post"></app-post>
         </div>
     </div>
+</div>
+<div id="test">
+    <span>test</span>
 </div>
