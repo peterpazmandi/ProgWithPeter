@@ -203,3 +203,4 @@ C:\Users\Pazmandi Peter\Desktop\Trash\Angular\ProgWithPeter\API\obj\Debug\net6.0
 C:\Users\Pazmandi Peter\Desktop\Trash\Angular\ProgWithPeter\API\obj\Debug\net6.0\ref\API.dll
 C:\Users\Pazmandi Peter\Desktop\Trash\Angular\ProgWithPeter\API\obj\Debug\net6.0\API.pdb
 C:\Users\Pazmandi Peter\Desktop\Trash\Angular\ProgWithPeter\API\obj\Debug\net6.0\API.genruntimeconfig.cache
+F:\Angular\ProgWithPeter\api\obj\Debug\net6.0\API.csproj.CopyComplete

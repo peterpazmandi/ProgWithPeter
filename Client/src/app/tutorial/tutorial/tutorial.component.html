@@ -17,12 +17,11 @@
             </button>
             <hr *ngIf="sideBarVisible" class="dropdown-divider">
             <h4 *ngIf="sideBarVisible" class="fw-bold">{{tutorial.post.title}}</h4>
+            <div *ngIf="sideBarVisible" [innerHtml]="toc"></div>
         </div>
         <div class="col">
+            <div id="top9347693847" style="display: none;"></div>
             <app-post [post]="tutorial.post"></app-post>
         </div>
     </div>
-</div>
-<div id="test">
-    <span>test</span>
 </div>
