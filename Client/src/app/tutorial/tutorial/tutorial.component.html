@@ -19,8 +19,7 @@
             <h4 *ngIf="sideBarVisible" class="fw-bold">{{tutorial.post.title}}</h4>
             <div *ngIf="sideBarVisible" [innerHtml]="toc"></div>
         </div>
-        <div class="col">
-            <div id="top9347693847" style="display: none;"></div>
+        <div id="root" class="{{conetentWidth}}">
             <app-post [post]="tutorial.post"></app-post>
         </div>
     </div>

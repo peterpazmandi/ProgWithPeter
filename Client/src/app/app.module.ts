@@ -41,6 +41,8 @@ import { TutorialsItemComponent } from './home/tutorials/tutorial-item/tutorial-
 import { TagItemComponent } from './tags/tag-item/tag-item.component';
 import { TutorialComponent } from './tutorial/tutorial/tutorial.component';
 import { PostComponent } from './post/post/post.component';
+import { IntersectionObserverModule } from '@ng-web-apis/intersection-observer';
+import { DomChangedDirective } from './_directives/dom-changed.directive';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -69,7 +71,8 @@ export function tokenGetter() {
     TutorialsItemComponent,
     TagItemComponent,
     TutorialComponent,
-    PostComponent
+    PostComponent,
+    DomChangedDirective
   ],
   imports: [
     BrowserModule,

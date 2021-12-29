@@ -107,6 +107,10 @@ namespace API.Controllers
                     Currency = tutorialDto.Currency
                 };
 
+                if(tutorialDto.Status.Equals(PostStatus.Published.ToString())) {
+                    tutorial.PublishDate = DateTime.Now;
+                }
+
                 await _unitOfWork.TutorialRepository.AddTutorialAsync(tutorial);
             }
             else

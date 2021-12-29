@@ -20,6 +20,8 @@
     "@angular/router": "~12.2.0",
     "@auth0/angular-jwt": "^5.0.2",
     "@ckeditor/ckeditor5-angular": "^2.0.2",
+    "@ng-web-apis/common": "^1.12.1",
+    "@ng-web-apis/intersection-observer": "^2.1.0",
     "angular-ng-autocomplete": "^2.0.5",
     "bootstrap": "^5.1.1",
     "jquery": "^3.6.0",
