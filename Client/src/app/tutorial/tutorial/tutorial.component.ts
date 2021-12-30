@@ -191,6 +191,19 @@ export class TutorialComponent implements OnInit {
       }
     })
 
+    var root = document.querySelector('#root');
+    if(root) {
+      var position = root.getBoundingClientRect();
+      if(position.bottom < window.innerHeight) {
+        fullyVisibleElements = fullyVisibleElements.filter(_element => _element.id == null);
+        var element = document.querySelector('#' + this.ids[this.ids.length - 1]);
+        if(element) {
+          fullyVisibleElements.push(element);
+        }
+
+      }
+    }
+
     if(fullyVisibleElements.length > 0) {
       this.toc.forEach((tocItem: TocItem) => {
         var firstItem = fullyVisibleElements[0];
