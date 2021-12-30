@@ -14,8 +14,8 @@ export class TutorialComponent implements OnInit {
   sidebarWidth = 'col-3'
   conetentWidth = 'col-9'
   sideBarVisible = true;
-  toc: any = null;
   waIntersectionObserver: IntersectionObserver;
+  toc: TocItem[] = [];
   ids: string[] = [];
 
   constructor(
@@ -56,68 +56,126 @@ export class TutorialComponent implements OnInit {
     }
   }
 
+//   createdTableOfContent(content: any) {
+//     // create div for holding the content
+//     var contentdiv = document.createElement("div");
+//     contentdiv.innerHTML = content;
+
+//     // create an array of headlines:
+//     var myArrayOfHeadlineNodes = [].slice.call(contentdiv.querySelectorAll("h1, h2, h3"));
+
+//     // initialize table of contents (toc):
+//     var toc = document.createElement("ul");
+
+//     // initialize a pointer that points to toc root:
+//     var pointer = toc;
+
+//     // will be appended to the node id to make sure it is unique on the page:
+//     var id_suffix = 0;
+//     var url = this.route.url;
+
+//     var ids: string[] = [];
+
+//     // loop through the array of headlines
+//     myArrayOfHeadlineNodes.forEach(
+//       function(value: Element, key, listObj) { 
+    
+//         // if we have detected a top level headline ...
+//         if ( "H1" == value.tagName) { 
+//             // ... reset the pointer to top level:
+//             pointer = toc;
+//         }
+
+//         // if we are at top level and we have detected a headline level 2 ...
+//         if ( "H2" == value.tagName && pointer == toc ) {
+//           // ... create a nested unordered list within the current list item:
+//           pointer = pointer.appendChild(document.createElement("ul"));
+//         }
+
+//         // if headline has no id, add a unique id
+//         if ("" == value.id) {
+//           value.id = "header_" + ++id_suffix;
+//           ids.push(value.id);
+//         } 
+
+//         // for each headline, create a list item with the corresponding HTML content:
+//         if(!url.includes('#')) {
+//           var li = pointer.appendChild(document.createElement("li"));
+//           li.innerHTML = '<a href="' + url + '#' + value.id + '">' + value.textContent + '</a>';
+//         }
+//       }
+//     );
+
+//     // update the content with the changed contentdiv, which contains IDs for every headline
+//     //   note that we need to use the sanitizer.bypassSecurityTrustHtml function in order to tell angular
+//     //   not to remove the ids, when used as [innerHtml] attribute in the HTML template
+//     this.tutorial.post.content = this.sanitizer.bypassSecurityTrustHtml(contentdiv.innerHTML) as any;
+
+//     this.ids = ids;
+
+//     return(toc.innerHTML);
+//   }
+
   createdTableOfContent(content: any) {
-    // create div for holding the content
     var contentdiv = document.createElement("div");
     contentdiv.innerHTML = content;
 
-    // create an array of headlines:
     var myArrayOfHeadlineNodes = [].slice.call(contentdiv.querySelectorAll("h1, h2, h3"));
 
-    // initialize table of contents (toc):
-    var toc = document.createElement("ul");
+    var toc: TocItem[] = [];
 
-    // initialize a pointer that points to toc root:
-    var pointer = toc;
-
-    // will be appended to the node id to make sure it is unique on the page:
     var id_suffix = 0;
-    var url = this.route.url;
+    if(this.route.url.includes('#')) {
+      var url = this.route.url.split('#')[0];
+    } else {
+      var url = this.route.url;
+    }
 
     var ids: string[] = [];
 
-    // loop through the array of headlines
     myArrayOfHeadlineNodes.forEach(
       function(value: Element, key, listObj) { 
-    
-        // if we have detected a top level headline ...
-        if ( "H1" == value.tagName) { 
-            // ... reset the pointer to top level:
-            pointer = toc;
+        var tocItem: TocItem = new TocItem();
+
+        switch(value.tagName.toLowerCase()) {
+          case 'h1': {
+            tocItem.header = 'h1';
+            break;
+          }
+          case 'h2': {
+            tocItem.header = 'h2';
+            break;
+          }
+          case 'h3': {
+            tocItem.header = 'h3';
+            break;
+          }
         }
 
-        // if we are at top level and we have detected a headline level 2 ...
-        if ( "H2" == value.tagName && pointer == toc ) {
-          // ... create a nested unordered list within the current list item:
-          pointer = pointer.appendChild(document.createElement("ul"));
-        }
-
-        // if headline has no id, add a unique id
         if ("" == value.id) {
-          value.id = "header_" + ++id_suffix;
+          tocItem.id = "header_" + ++id_suffix;
+          value.id = tocItem.id;
           ids.push(value.id);
-        } 
-
-        // for each headline, create a list item with the corresponding HTML content:
-        if(!url.includes('#')) {
-          var li = pointer.appendChild(document.createElement("li"));
-          li.innerHTML = '<a href="' + url + '#' + value.id + '">' + value.textContent + '</a>';
         }
+
+        if(!url.includes('#') && tocItem.url === undefined || tocItem.url === '') {
+          tocItem.url = url + '#' + value.id;
+        }
+
+        tocItem.text = (value.textContent) ? value.textContent : "";
+
+        toc.push(tocItem);
       }
     );
-
-    // update the content with the changed contentdiv, which contains IDs for every headline
-    //   note that we need to use the sanitizer.bypassSecurityTrustHtml function in order to tell angular
-    //   not to remove the ids, when used as [innerHtml] attribute in the HTML template
+    
     this.tutorial.post.content = this.sanitizer.bypassSecurityTrustHtml(contentdiv.innerHTML) as any;
 
     this.ids = ids;
 
-    return(toc.innerHTML);
- }
- 
-  @HostListener('window:scroll', ['$event.target']) // for window scroll events
-  scroll(e: any) {
+    return toc;
+  }
+
+  updateTocPosition() {
     var fullyVisibleElements: Element[] = [];
     this.ids.forEach(value => {
       var element = document.querySelector('#' + value);
@@ -132,28 +190,26 @@ export class TutorialComponent implements OnInit {
         }
       }
     })
-    console.log(fullyVisibleElements);
+
+    if(fullyVisibleElements.length > 0) {
+      this.toc.forEach((tocItem: TocItem) => {
+        var firstItem = fullyVisibleElements[0];
+        tocItem.isChecked = tocItem.id === firstItem.id;
+      })
+    }
   }
+ 
+  @HostListener('window:scroll', ['$event.target']) // for window scroll events
+  scroll(e: any) {
+    this.updateTocPosition();
+  }
+}
 
 
-//  createObserver(element: Element) {
-//   var observeOptions = {
-//     root: null,
-//     margin: '10px',
-//     threshold: 1.0
-//   }
-
-//   var onObserve = function (entries: any, observer: any) {
-//     entries.forEach((entry: any) => {
-//       if(entry.isIntersecting 
-//         && Math.floor(entry.intersectionRatio) === 1){
-//         console.log(entry.target.id + ' - ' + entry.boundingClientRect.y + ' - ' + entry.boundingClientRect.top);
-//       }
-//     })
-//   }
-
-//   var observe = new IntersectionObserver(onObserve, observeOptions)
-
-//   observe.observe(element)
-//  }
+export class TocItem {
+  id: string;
+  header: string;
+  text: string;
+  url: string;
+  isChecked: boolean = false;
 }
