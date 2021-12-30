@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Token } from './_models/token.model';
 import { User } from './_models/user.model';
 import { AccountService } from './_services/account.service';
 import { ThemeService } from './_services/theme.service';
@@ -27,8 +28,12 @@ export class AppComponent implements OnInit {
 
   setCurrentUser() {
     const user: User = JSON.parse(localStorage.getItem('user') as string);
-    if(user) {
+    var token: Token = JSON.parse(atob(user.token.split('.')[1]));
+    var expDate = new Date(token.exp * 1000);
+    if(user && (new Date()) < expDate) {
       this.accountService.setCurrentUser(user);
+    } else {
+      this.accountService.signout();
     }
   }
 
