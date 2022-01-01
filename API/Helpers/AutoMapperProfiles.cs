@@ -28,6 +28,9 @@ namespace API.Helpers
             CreateMap<Meta, HomePageMetaDto>().ReverseMap();
             CreateMap<Tutorial, HomePageTutorialDto>().ReverseMap();
 
+            CreateMap<Post, TutorialListPostDto>().ReverseMap();
+            CreateMap<Tutorial, TutorialListTutorialDto>().ReverseMap();
+
         }
     }
 }

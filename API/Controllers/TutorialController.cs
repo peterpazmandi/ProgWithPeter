@@ -34,6 +34,16 @@ namespace API.Controllers
             return tutorials;
         }
 
+        [HttpGet("GetTutorialsOrderedByModificationDate")]
+        public async Task<ActionResult<IEnumerable<TutorialListTutorialDto>>> GetTutorialsOrderedByModificationDate([FromQuery] TutorialParams tutorialParams)
+        {
+            var tutorials = await _unitOfWork.TutorialRepository.GetTutorialsOrderedByModificationDate(tutorialParams);
+
+            Response.AddPaginationHeader(tutorials.CurrentPage, tutorials.PageSize, tutorials.TotalCount, tutorials.TotalPages);
+
+            return tutorials;
+        }
+
         [HttpGet("GetTutorialByTitle")]
         public async Task<ActionResult<TutorialDto>> GetTutorialByTitle(string title)
         {
