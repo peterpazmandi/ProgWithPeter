@@ -36,26 +36,51 @@
             </div>
         </div>
         <div class="col-9 innerdiv">
-            <!-- <table class="table">
-                <thead class="thead-light">
+            <table class="table innerdiv">
+                <thead>
                     <tr>
-                        <th>Card Owner</th>
-                        <th>Card Number</th>
-                        <th>Exp. Date</th>
+                        <th>Title</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Category</th>
+                        <th>Tags</th>
+                        <th></th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let pd of service.list">
-                        <td (click)="populateForm(pd)">{{pd.cardOwnerName}}</td>
-                        <td (click)="populateForm(pd)">{{pd.cardNumber}}</td>
-                        <td (click)="populateForm(pd)">{{pd.expirationDate}}</td>
+                    <tr *ngFor="let tutorial of tutorials">
+                        <td>{{tutorial.post.title}}</td>
+                        <td *ngIf="tutorial.status === 'Published'" style="color: #02CCBA;">{{tutorial.status}}</td>
+                        <td *ngIf="tutorial.status === 'Draft'" style="color: #BFC200;">{{tutorial.status}}</td>
+                        <td *ngIf="tutorial.status === null" style="color: #BFC200;">{{tutorial.status}}</td>
+                        <td>{{tutorial.modificationDate | date}}</td>
+                        <td>{{tutorial.category}}</td>
                         <td>
-                            <i class="far fa-trash-alt fa-lg text-danger" (click)="onDelete(pd.paymentDetailId)"></i>
+                            <app-tag-item *ngFor="let tag of tutorial.post.tags" [tag]="tag"></app-tag-item>
+                        </td>
+                        <td>
+                            <svg id="edit-icon" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path 
+                                    fill-rule="evenodd" 
+                                    clip-rule="evenodd" 
+                                    d="M6 0C2.68628 0 0 2.68629 0 6V24C0 27.3137 2.68628 30 6 30H24C27.3137 30 30 27.3137 30 24V6C30 2.68629 27.3137 0 24 0H6ZM6 24.0005V20.2505L17.06 9.19055L20.81 12.9406L9.75 24.0005H6ZM23.71 8.63055C24.1 9.02055 24.1 9.65054 23.71 10.0405L21.88 11.8705L18.13 8.12054L19.96 6.29054C20.35 5.90054 20.98 5.90054 21.37 6.29054L23.71 8.63055Z"
+                                    fill="currentColor" />
+                            </svg>
+                        </td>
+                        <td>
+                            <svg id="delete-icon" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path 
+                                    fill-rule="evenodd" 
+                                    clip-rule="evenodd" 
+                                    d="M6 0C2.68629 0 0 2.68629 0 6V24C0 27.3137 2.68629 30 6 30H24C27.3137 30 30 27.3137 30 24V6C30 2.68629 27.3137 0 24 0H6ZM11.0536 24C9.93393 24 9.01786 23.1 9.01786 22V10H21.2321V22C21.2321 23.1 20.3161 24 19.1964 24H11.0536ZM12.957 13.47L11.5218 14.88L13.6898 17L11.532 19.12L12.9671 20.53L15.125 18.41L17.2829 20.53L18.718 19.12L16.5602 17L18.718 14.88L17.2829 13.47L15.125 15.59L12.957 13.47ZM17.6696 6L18.6875 7H22.25V9H8V7H11.5625L12.5804 6H17.6696Z"
+                                    fill="currentColor"/>
+                            </svg>
+                                                            
                         </td>
                     </tr>
                 </tbody>
-            </table> -->
+            </table>
         </div>
     </div>
 </div>

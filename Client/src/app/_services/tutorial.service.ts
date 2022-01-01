@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { UpsertTutorialDto } from 'src/app/_models/upsertTutorialDto.model';
 import { Tutorial } from '../_models/tutorialDto.model';
-import { getPaginatedResult, getPaginationHeaders } from './paginationHelper';
+import { getPaginatedResult, getPaginationHeaders } from './pagination.helper';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +13,14 @@ export class TutorialService {
 
   constructor(private http: HttpClient) { }
 
-  getListOfTutorials(pageNumber: number, pageSize: number) {
+  getPublishedTutorialsOrderedByPublishDate(pageNumber: number, pageSize: number) {
     let params = getPaginationHeaders(pageNumber, pageSize);
-    console.log(params);
-    // return this.http.get<Tutorial[]>(this.baseUrl + 'Tutorial/GetPublishedTutorialsOrderedByPublishDate');
     return getPaginatedResult<Tutorial[]>(this.baseUrl + 'Tutorial/GetPublishedTutorialsOrderedByPublishDate', params, this.http);
+  }
+
+  getTutorialsOrderedByModificationDate(pageNumber: number, pageSize: number) {
+    let params = getPaginationHeaders(pageNumber, pageSize);
+    return getPaginatedResult<Tutorial[]>(this.baseUrl + 'Tutorial/GetTutorialsOrderedByModificationDate', params, this.http);
   }
 
   getTutorialByTitle(title: string) {

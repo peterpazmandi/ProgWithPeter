@@ -335,3 +335,25 @@ input {
   transition: all 0.3s linear;
 }
 
+
+#edit-icon {
+  color: var(--on-primary);
+}
+#edit-icon:hover {
+  color: #42A5F5;
+}
+#delete-icon {
+  color: var(--on-primary);
+}
+#delete-icon:hover {
+  color: #FF0000;
+}
+
+tr:hover {
+  background: var(--background);
+}
+
+thead {
+  background: var(--background);
+  font-size: 1.3rem;
+}
