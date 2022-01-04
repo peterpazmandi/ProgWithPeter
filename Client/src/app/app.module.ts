@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './nav/nav.component';
@@ -27,7 +26,7 @@ import { ForgotPasswordComponent } from './authentication/forgot-password/forgot
 import { ResetPasswordComponent } from './authentication/reset-password/reset-password.component';
 import { HasRoleDirective } from './_directives/has-role.directive';
 import { TutorialListComponent } from './tutorial/tutorial-list/tutorial-list.component';
-import { CreateTutorialComponent } from './tutorial/create-tutorial/create-tutorial.component';
+import { UpsertTutorialComponent } from './tutorial/upsert-tutorial/upsert-tutorial.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { TreeviewModule } from 'ngx-treeview';
 import { DropdownTreeviewSelectComponent } from './_forms/dropdown-treeview-select/dropdown-treeview-select.component';
@@ -41,7 +40,6 @@ import { TutorialsItemComponent } from './home/tutorials/tutorial-item/tutorial-
 import { TagItemComponent } from './tags/tag-item/tag-item.component';
 import { TutorialComponent } from './tutorial/tutorial/tutorial.component';
 import { PostComponent } from './post/post/post.component';
-import { IntersectionObserverModule } from '@ng-web-apis/intersection-observer';
 import { DomChangedDirective } from './_directives/dom-changed.directive';
 
 export function tokenGetter() {
@@ -62,7 +60,7 @@ export function tokenGetter() {
     ResetPasswordComponent,
     HasRoleDirective,
     TutorialListComponent,
-    CreateTutorialComponent,
+    UpsertTutorialComponent,
     DropdownTreeviewSelectComponent,
     SocialMediaIconsComponent,
     CoursesComponent,

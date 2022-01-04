@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TreeItem, TreeviewConfig, TreeviewItem } from 'ngx-treeview';
 import { MyUploadAdapter } from 'src/app/shared/my-upload-adapter';
@@ -19,14 +19,15 @@ import { UpsertTutorialDto } from 'src/app/_models/upsertTutorialDto.model';
 import { AccountService } from 'src/app/_services/account.service';
 import { User } from 'src/app/_models/user.model';
 import { take } from 'rxjs/operators';
+import { Tutorial } from 'src/app/_models/tutorialDto.model';
 
 
 @Component({
-  selector: 'app-create-tutorial',
-  templateUrl: './create-tutorial.component.html',
-  styleUrls: ['./create-tutorial.component.css']
+  selector: 'app-upsert-tutorial',
+  templateUrl: './upsert-tutorial.component.html',
+  styleUrls: ['./upsert-tutorial.component.css']
 })
-export class CreateTutorialComponent implements OnInit {
+export class UpsertTutorialComponent implements OnInit {
   apiUrl = environment.apiUrl;
   serverUrl = environment.serverUrl;
   uploader:FileUploader;
@@ -61,9 +62,9 @@ export class CreateTutorialComponent implements OnInit {
     private categoryService: CategoryService,
     private tagsService: TagsService,
     private fb: FormBuilder,
-    private router: Router,
     private toastr: ToastrService,
-    private tutorialService: TutorialService) {
+    private tutorialService: TutorialService,
+    private route: ActivatedRoute) {
       this.status = Status;
   }
 
@@ -75,11 +76,37 @@ export class CreateTutorialComponent implements OnInit {
       .subscribe(u => this.user = u);
       
     this.initFileUploader();
-  }
 
-  onSaveTutorial() {
-
+    const slug = this.route.snapshot.queryParams['slug'];
+    if(slug) {
+      this.tutorialService.getTutorialByTitle(slug).subscribe(tutorial => {
+        this.updateTutorialForms(tutorial);
+      }, error => {
+        console.log(error);
+      });
+    }
   }
+  updateTutorialForms(tutorial: Tutorial) {
+    this.createTutorialForm.patchValue({
+      id: tutorial.id,
+      title: tutorial.post.title,
+      category: tutorial.post.category,
+      tags: tutorial.post.tags,
+      featuredImageUrl: tutorial.post.featuredImageUrl
+    })
+    this.selectedCategory.push(new TreeviewItem({
+      text: tutorial.post.category.name,
+      value: tutorial.post.category.id
+    } as TreeItem));
+    this.featuredImageUrl = tutorial.post.featuredImageUrl;
+    
+
+    this.formTextForm.patchValue({
+      excerpt: tutorial.post.excerpt,
+      content: tutorial.post.content
+    })
+  }
+  
   onUploadTutorial(status: string) {
       this.submitted = true;
 
@@ -194,10 +221,11 @@ export class CreateTutorialComponent implements OnInit {
     let next = 0;
     let findedword = 0;
         do {
-            var n = text.indexOf(toFind, next);
-            findedword = findedword +1;
-            next = n + toFind.length;
-            } while (n>=0);
+              var n = text.indexOf(toFind, next);
+              findedword = findedword +1;
+              next = n + toFind.length;
+            } 
+        while (n>=0);
      return findedword - 1;
    }
 

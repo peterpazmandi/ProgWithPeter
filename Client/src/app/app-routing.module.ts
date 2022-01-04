@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { HomeComponent } from "./home/home.component";
-import { CreateTutorialComponent } from "./tutorial/create-tutorial/create-tutorial.component";
+import { UpsertTutorialComponent } from "./tutorial/upsert-tutorial/upsert-tutorial.component";
 import { TutorialListComponent } from "./tutorial/tutorial-list/tutorial-list.component";
 import { TutorialComponent } from "./tutorial/tutorial/tutorial.component";
 import { AuthGuard } from "./_guards/auth.guard";
@@ -14,7 +14,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         children: [
             { path: 'tutorial-list', component: TutorialListComponent},
-            { path: 'create-tutorial', component: CreateTutorialComponent}
+            { path: 'upsert-tutorial', component: UpsertTutorialComponent}
         ]
     },
     {
