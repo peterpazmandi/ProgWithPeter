@@ -35,6 +35,7 @@ export class UpsertTutorialComponent implements OnInit {
   createTutorialForm: FormGroup;
   formTextForm: FormGroup;
   seoForm: FormGroup;
+  // status: string = 'Not saved yet';
   Editor = Editor;
   @ViewChild('myEditor') myEditor: any;
   selectedCategory: TreeviewItem[] = [];
@@ -53,6 +54,7 @@ export class UpsertTutorialComponent implements OnInit {
   IFRAMELY_API_KEY = environment.iFramelyApiKey;
 
   status: typeof Status;
+  currentStatus: string;
 
   user: User;
   
@@ -66,6 +68,7 @@ export class UpsertTutorialComponent implements OnInit {
     private tutorialService: TutorialService,
     private route: ActivatedRoute) {
       this.status = Status;
+      this.currentStatus = this.status.NotSavedYet;
   }
 
   ngOnInit(): void {
@@ -87,6 +90,8 @@ export class UpsertTutorialComponent implements OnInit {
     }
   }
   updateTutorialForms(tutorial: Tutorial) {
+    this.currentStatus = tutorial.status;
+
     this.selectedCategory.push(new TreeviewItem({
       text: tutorial.post.category.name,
       value: tutorial.post.category.id
@@ -118,6 +123,7 @@ export class UpsertTutorialComponent implements OnInit {
   
   onUploadTutorial(status: string) {
       this.submitted = true;
+      this.currentStatus = status;
 
       // stop here if form is invalid
       if (this.createTutorialForm.invalid) {

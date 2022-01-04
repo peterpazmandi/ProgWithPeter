@@ -23,6 +23,12 @@
                 </button>
             </div>
             <hr class="dropdown-divider">
+            <div class="text-center mt-4 mb-4" [ngSwitch]="currentStatus">
+                <h2 class="fw-bold text-warning" *ngSwitchCase="status.Draft">{{status.Draft}}</h2>
+                <h2 class="fw-bold text-success" *ngSwitchCase="status.Published">{{status.Published}}</h2>
+                <h2 class="fw-bold text-danger" *ngSwitchCase="status.NotSavedYet">{{status.NotSavedYet}}</h2>
+            </div>
+            <hr class="dropdown-divider">
             <div class="text-center d-flex flex-column bd-highlight mb-3">
                 <span>Words</span>
                 <span class="fs-1 fw-bold">{{textWordCount}}</span>
