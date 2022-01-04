@@ -87,24 +87,33 @@ export class UpsertTutorialComponent implements OnInit {
     }
   }
   updateTutorialForms(tutorial: Tutorial) {
-    this.createTutorialForm.patchValue({
-      id: tutorial.id,
-      title: tutorial.post.title,
-      category: tutorial.post.category,
-      tags: tutorial.post.tags,
-      featuredImageUrl: tutorial.post.featuredImageUrl
-    })
     this.selectedCategory.push(new TreeviewItem({
       text: tutorial.post.category.name,
       value: tutorial.post.category.id
     } as TreeItem));
-    this.featuredImageUrl = tutorial.post.featuredImageUrl;
-    
+    this.createTutorialForm.patchValue({
+      id: tutorial.id,
+      title: tutorial.post.title,
+      category: this.selectedCategory[0],
+      tags: tutorial.post.tags,
+      featuredImageUrl: tutorial.post.featuredImageUrl
+    });
+    console.log(this.selectedCategory);
+    console.log((this.createTutorialForm?.value['category'] as TreeviewItem).text);
+    this.selectedTags = tutorial.post.tags;
+    this.featuredImageUrl = tutorial.post.featuredImageUrl;    
 
     this.formTextForm.patchValue({
       excerpt: tutorial.post.excerpt,
       content: tutorial.post.content
-    })
+    });
+
+    this.seoForm.patchValue({
+      focusKeyphrase: tutorial.post.meta.keyPhrase,
+      seoTitle: tutorial.post.meta.seoTitle,
+      slug: tutorial.post.meta.slug,
+      metaDescription: tutorial.post.meta.metaDescription
+    });
   }
   
   onUploadTutorial(status: string) {
@@ -116,6 +125,7 @@ export class UpsertTutorialComponent implements OnInit {
       }
 
       var tutorial = this.createTutorialDtoFromForms(status);
+      console.log(tutorial);
       this.tutorialService.upsertTutorial(tutorial).subscribe((result: any) => {
         console.log(result);
         this.toastr.success(result.message);

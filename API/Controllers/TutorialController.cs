@@ -131,6 +131,7 @@ namespace API.Controllers
                 tutorial.Post.Title = tutorialDto.Post.Title;
                 tutorial.Post.Excerpt = tutorialDto.Post.Excerpt;
                 tutorial.Post.Content = tutorialDto.Post.Content;
+                tutorial.Post.FeaturedImageUrl = tutorialDto.Post.FeaturedImageUrl;
                 tutorial.Post.Password = tutorialDto.Post.Password;
                 tutorial.Post.AppUser = user;
                 tutorial.ModificationDate = DateTime.Now;
