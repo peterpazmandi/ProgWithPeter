@@ -41,6 +41,7 @@ import { TagItemComponent } from './tags/tag-item/tag-item.component';
 import { TutorialComponent } from './tutorial/tutorial/tutorial.component';
 import { PostComponent } from './post/post/post.component';
 import { DomChangedDirective } from './_directives/dom-changed.directive';
+import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -70,7 +71,8 @@ export function tokenGetter() {
     TagItemComponent,
     TutorialComponent,
     PostComponent,
-    DomChangedDirective
+    DomChangedDirective,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -28,12 +28,14 @@ export class AppComponent implements OnInit {
 
   setCurrentUser() {
     const user: User = JSON.parse(localStorage.getItem('user') as string);
-    var token: Token = JSON.parse(atob(user.token.split('.')[1]));
-    var expDate = new Date(token.exp * 1000);
-    if(user && (new Date()) < expDate) {
-      this.accountService.setCurrentUser(user);
-    } else {
-      this.accountService.signout();
+    if(user) {
+      var token: Token = JSON.parse(atob(user.token.split('.')[1]));
+      var expDate = new Date(token.exp * 1000);
+      if(user && (new Date()) < expDate) {
+        this.accountService.setCurrentUser(user);
+      } else {
+        this.accountService.signout();
+      }
     }
   }
 

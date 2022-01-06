@@ -5,6 +5,7 @@ import { UpsertTutorialComponent } from "./tutorial/upsert-tutorial/upsert-tutor
 import { TutorialListComponent } from "./tutorial/tutorial-list/tutorial-list.component";
 import { TutorialComponent } from "./tutorial/tutorial/tutorial.component";
 import { AuthGuard } from "./_guards/auth.guard";
+import { PreventUnsavedChangesGuard } from "./_guards/prevent-unsaved-changes.guard";
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -14,7 +15,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         children: [
             { path: 'tutorial-list', component: TutorialListComponent},
-            { path: 'upsert-tutorial', component: UpsertTutorialComponent}
+            { path: 'upsert-tutorial', component: UpsertTutorialComponent, canDeactivate: [PreventUnsavedChangesGuard]}
         ]
     },
     {

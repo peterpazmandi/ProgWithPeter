@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -57,6 +57,14 @@ export class UpsertTutorialComponent implements OnInit {
   currentStatus: string;
 
   user: User;
+
+  @HostListener('window:beforeunload', ['$event']) unloadNofitifaction($event: any) {
+    if(this.createTutorialForm.dirty
+      || this.formTextForm.dirty ||
+      this.seoForm.dirty) {
+        $event.returnValue = true;
+      }
+  }
   
 
   constructor(
