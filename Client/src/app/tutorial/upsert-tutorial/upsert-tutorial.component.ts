@@ -58,6 +58,11 @@ export class UpsertTutorialComponent implements OnInit {
 
   user: User;
 
+  // Tags
+  historyIdentifier = [];
+  keyword = 'name';
+  tags = [];
+
   @HostListener('window:beforeunload', ['$event']) unloadNofitifaction($event: any) {
     if(this.createTutorialForm.dirty
       || this.formTextForm.dirty ||
@@ -559,9 +564,6 @@ export class UpsertTutorialComponent implements OnInit {
 
 
   // AutoComplete
-  historyIdentifier = [];
-  keyword = 'name';
-  tags = [];
   selectEvent(item: any) {
     let alreadyAdded = this.selectedTags.filter(_item => _item.id === item.id).length > 0;
     if(!alreadyAdded) {

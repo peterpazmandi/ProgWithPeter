@@ -42,6 +42,7 @@ import { TutorialComponent } from './tutorial/tutorial/tutorial.component';
 import { PostComponent } from './post/post/post.component';
 import { DomChangedDirective } from './_directives/dom-changed.directive';
 import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.component';
+import { PostHeaderComponent } from './post/post/upsert/post-header/post-header.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -72,7 +73,8 @@ export function tokenGetter() {
     TutorialComponent,
     PostComponent,
     DomChangedDirective,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    PostHeaderComponent
   ],
   imports: [
     BrowserModule,
