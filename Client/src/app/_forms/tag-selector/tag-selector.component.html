@@ -1,0 +1,32 @@
+<div class="form-group mb-3">
+    <span class="fw-bold">Tags</span>
+    <ng-autocomplete
+        style="border-radius: 25 !important;"
+        [data]="tags"
+        [searchKeyword]="keyword"
+        (selected)='selectEvent($event)'
+        (inputChanged)='onChangeSearch($event)'
+        [itemTemplate]="itemTemplate"
+        [notFoundTemplate]="notFoundTemplate"
+        [historyIdentifier]="historyIdentifier"
+        notFoundText="No tags found">
+    </ng-autocomplete>
+    <ng-template #itemTemplate let-item>
+        <a [innerHTML]="item.name"></a>
+    </ng-template>
+    
+    <ng-template #notFoundTemplate let-notFound>
+        <div [innerHTML]="notFound"></div>
+    </ng-template>
+    <div class="font-small chip" *ngFor="let tag of this.ngControl?.control?.value">
+        {{tag.name}} <img src="assets/svg/ic_trash.svg" alt="Remove" style="cursor: pointer;" (click)="onRemoveTag(tag.id)">
+    </div>
+    <!-- <div class="font-small chip" *ngFor="let tag of selectedTags">
+        {{tag.name}} <img src="assets/svg/ic_trash.svg" alt="Remove" style="cursor: pointer;" (click)="onRemoveTag(tag.id)">
+    </div> -->
+
+    <div *ngIf="ngControl.control?.errors?.required" class="invalid-feedback d-block">
+        Add at least one tag.
+    </div>
+
+</div>

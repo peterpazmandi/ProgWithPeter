@@ -1,6 +1,6 @@
-import { Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TreeItem, TreeviewConfig, TreeviewItem } from 'ngx-treeview';
 import { MyUploadAdapter } from 'src/app/shared/my-upload-adapter';
@@ -8,7 +8,6 @@ import { Category } from 'src/app/_models/category.model';
 import { CreatePostDto } from 'src/app/_models/createPostDto.model';
 import { Tag } from 'src/app/_models/tag.model';
 import { CategoryService } from 'src/app/_services/category.service';
-import { TagsService } from 'src/app/_services/tags.service';
 import { TutorialService } from 'src/app/_services/tutorial.service';
 import { Status } from '../../_utils/status.enum';
 import { environment } from 'src/environments/environment';
@@ -35,11 +34,9 @@ export class UpsertTutorialComponent implements OnInit {
   createTutorialForm: FormGroup;
   formTextForm: FormGroup;
   seoForm: FormGroup;
-  // status: string = 'Not saved yet';
   Editor = Editor;
   @ViewChild('myEditor') myEditor: any;
   selectedCategory: TreeviewItem[] = [];
-  selectedTags: Tag[] = [];
   featuredImageUrl: string = '';
   textCharCount: number;
   textWordCount: number;
@@ -58,11 +55,6 @@ export class UpsertTutorialComponent implements OnInit {
 
   user: User;
 
-  // Tags
-  historyIdentifier = [];
-  keyword = 'name';
-  tags = [];
-
   @HostListener('window:beforeunload', ['$event']) unloadNofitifaction($event: any) {
     if(this.createTutorialForm.dirty
       || this.formTextForm.dirty ||
@@ -75,7 +67,6 @@ export class UpsertTutorialComponent implements OnInit {
   constructor(
     private accountService: AccountService,
     private categoryService: CategoryService,
-    private tagsService: TagsService,
     private fb: FormBuilder,
     private toastr: ToastrService,
     private tutorialService: TutorialService,
@@ -116,9 +107,6 @@ export class UpsertTutorialComponent implements OnInit {
       tags: tutorial.post.tags,
       featuredImageUrl: tutorial.post.featuredImageUrl
     });
-    console.log(this.selectedCategory);
-    console.log((this.createTutorialForm?.value['category'] as TreeviewItem).text);
-    this.selectedTags = tutorial.post.tags;
     this.featuredImageUrl = tutorial.post.featuredImageUrl;    
 
     this.formTextForm.patchValue({
@@ -159,7 +147,8 @@ export class UpsertTutorialComponent implements OnInit {
 
   createTutorialDtoFromForms(status: string) {
     let tagIds: number[] = [];
-    for(let tag of this.selectedTags) {
+    let tags: Tag[] = this.createTutorialForm?.value['tags'] as Tag[];
+    for(let tag of tags) {
       tagIds.push(tag.id);
     }
 
@@ -559,41 +548,6 @@ export class UpsertTutorialComponent implements OnInit {
     }, error => {
       console.log('API Error: ' + error);
     });
-  }
-
-
-
-  // AutoComplete
-  selectEvent(item: any) {
-    let alreadyAdded = this.selectedTags.filter(_item => _item.id === item.id).length > 0;
-    if(!alreadyAdded) {
-      this.selectedTags.push({
-        id: item.id,
-        name: item.name
-      } as Tag);
-      this.createTutorialForm.patchValue({
-        tags: this.selectedTags
-      })
-    } else {
-      this.toastr.warning('You have already added ' + item.name);
-    }
-  }
-  onChangeSearch(searchText: string) {
-    this.tagsService.searchTags(searchText)?.subscribe(result => {
-      if(result) {
-        this.tags = result as [];
-      }
-    })
-  }
-
-  onRemoveTag(id: number) {
-    this.selectedTags = this.selectedTags.filter(item => item.id !== id);
-
-    if(this.selectedTags.length === 0) {
-      this.createTutorialForm.patchValue({
-        tags: []
-      })
-    }
   }
 
   onReady($event: any) {

@@ -35,7 +35,7 @@
                 <span>Charachters</span>
                 <span class="fs-1 fw-bold">{{textCharCount}}</span>
             </div>
-            <post-header [createTutorialForm]="createTutorialForm"></post-header>
+            <!-- <post-header [createTutorialForm]="createTutorialForm"></post-header> -->
             <form [formGroup]='createTutorialForm' autocomplete="off">
                 <div class="innerdiv mb-3">                    
                     <!-- Title -->
@@ -80,30 +80,7 @@
                         </div>
                     </div>
                     <!-- Tags -->
-                    <div class="form-group mb-3">
-                        <span class="fw-bold">Tags</span>
-                        <ng-autocomplete
-                            style="border-radius: 25 !important;"
-                            [data]="tags"
-                            [searchKeyword]="keyword"
-                            (selected)='selectEvent($event)'
-                            (inputChanged)='onChangeSearch($event)'
-                            [itemTemplate]="itemTemplate"
-                            [notFoundTemplate]="notFoundTemplate"
-                            [historyIdentifier]="historyIdentifier"
-                            notFoundText="No tags found">
-                        </ng-autocomplete>
-                        <ng-template #itemTemplate let-item>
-                            <a [innerHTML]="item.name"></a>
-                        </ng-template>
-                        
-                        <ng-template #notFoundTemplate let-notFound>
-                            <div [innerHTML]="notFound"></div>
-                        </ng-template>
-                        <div class="font-small chip" *ngFor="let tag of selectedTags">
-                            {{tag.name}} <img src="assets/svg/ic_trash.svg" alt="Remove" style="cursor: pointer;" (click)="onRemoveTag(tag.id)">
-                        </div>
-                    </div>
+                    <tag-selector [formControl]='createTutorialForm.controls["tags"]'></tag-selector>
                 </div>    
                 <h5 class="fw-bold">Featured image</h5>
                 <div class="innerdiv mb-3">
