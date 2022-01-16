@@ -39,22 +39,8 @@
             <form [formGroup]='createTutorialForm' autocomplete="off">
                 <div class="innerdiv mb-3">                    
                     <!-- Title -->
-                    <div class="form-group mb-3">
-                        <span class="fw-bold">Title</span>
-                        <input
-                            [class.is-invalid]="createTutorialForm.controls.title.touched && createTutorialForm.controls.title.invalid"
-                            class="form-control" 
-                            type="text" 
-                            formControlName='title' placeholder="Title">
-                        <div *ngIf="createTutorialForm.controls.title.touched && createTutorialForm.controls.title.invalid">
-                            <div *ngIf="createTutorialF.title.errors.required" class="invalid-feedback d-block">
-                                Please provide a title!
-                            </div>
-                            <div *ngIf="createTutorialF.title.errors.minlength" class="invalid-feedback d-block">
-                                Title has to be at least 8 charachters
-                            </div>
-                        </div>
-                    </div>
+                    <span class="fw-bold">Title</span>
+                    <app-text-input [formControl]='createTutorialForm.controls["title"]' [label]='"Title"'></app-text-input>
                     <!-- Category -->
                     <div class="form-group mb-3">
                         <span class="fw-bold">Category</span>

@@ -44,6 +44,7 @@ import { DomChangedDirective } from './_directives/dom-changed.directive';
 import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.component';
 import { PostHeaderComponent } from './post/post/upsert/post-header/post-header.component';
 import { TagSelectorComponent } from './_forms/tag-selector/tag-selector.component';
+import { CategorySelectorComponent } from './_forms/category-selector/category-selector.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -76,7 +77,8 @@ export function tokenGetter() {
     DomChangedDirective,
     ConfirmDialogComponent,
     PostHeaderComponent,
-    TagSelectorComponent
+    TagSelectorComponent,
+    CategorySelectorComponent
   ],
   imports: [
     BrowserModule,

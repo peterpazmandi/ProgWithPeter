@@ -11,7 +11,7 @@
     </div>
 
     <div *ngIf="ngControl.control?.errors?.minlength" class="invalid-feedback">
-        {{label}} must be at least {{ngControl.control?.errors?.minlength['requiredLength']}}
+        {{label}} must be at least {{ngControl.control?.errors?.minlength['requiredLength']}} charachters.
     </div>
 
     <div *ngIf="ngControl.control?.errors?.maxlength" class="invalid-feedback">
