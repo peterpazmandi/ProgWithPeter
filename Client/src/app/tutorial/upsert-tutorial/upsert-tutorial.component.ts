@@ -35,7 +35,6 @@ export class UpsertTutorialComponent implements OnInit {
   seoForm: FormGroup;
   Editor = Editor;
   @ViewChild('myEditor') myEditor: any;
-  featuredImageUrl: string = '';
   textCharCount: number;
   textWordCount: number;
   internalLinkCount: number = 0;
@@ -79,8 +78,6 @@ export class UpsertTutorialComponent implements OnInit {
     this.accountService.currentUser$
       .pipe(take(1))
       .subscribe(u => this.user = u);
-      
-    this.initFileUploader();
 
     const slug = this.route.snapshot.queryParams['slug'];
     if(slug) {
@@ -103,8 +100,7 @@ export class UpsertTutorialComponent implements OnInit {
       } as TreeItem),
       tags: tutorial.post.tags,
       featuredImageUrl: tutorial.post.featuredImageUrl
-    });
-    this.featuredImageUrl = tutorial.post.featuredImageUrl;    
+    });  
 
     this.formTextForm.patchValue({
       excerpt: tutorial.post.excerpt,
@@ -207,26 +203,6 @@ export class UpsertTutorialComponent implements OnInit {
       this.internalLinkCount = this.countTotalAmountOfSpecificWordInaString(value, 'internalLink');
       this.externalLinkCount = this.countTotalAmountOfSpecificWordInaString(value, 'externalLink');
     });
-  }
-
-  private initFileUploader() {
-    this.uploader = new FileUploader({
-      url: this.apiUrl + 'Tutorial/add-featured-post-image',
-      authToken: 'Bearer ' + this.user?.token,
-      isHTML5: true,
-      allowedFileType: ['image'],
-      removeAfterUpload: true,
-      autoUpload: false
-    });
- 
-    this.uploader.onSuccessItem = (item, response: any, status, headers) => {
-      if(response) {
-        this.featuredImageUrl = this.serverUrl + response;
-        this.createTutorialForm.patchValue({
-          featuredImageUrl: this.featuredImageUrl
-        })
-      }
-    }
   }
 
   countTotalAmountOfSpecificWordInaString(text: string, toFind: string)

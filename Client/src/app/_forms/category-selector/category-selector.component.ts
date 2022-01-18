@@ -24,7 +24,6 @@ export class CategorySelectorComponent implements ControlValueAccessor, OnInit {
     this.getChildCategories(null as any);
 
     var sub = this.ngControl.valueChanges?.subscribe((category : TreeviewItem) => {
-      console.log(category);
       this.selectedCategory.push(category);
       this.getInitialCategories(category.value as number);
       sub?.unsubscribe();
@@ -58,12 +57,14 @@ export class CategorySelectorComponent implements ControlValueAccessor, OnInit {
     let selectedItem = this.categories.find(i => i.value === value) as TreeviewItem;
     this.selectedCategory.push(selectedItem);
     this.ngControl?.control?.setValue(selectedItem);
+    this.ngControl?.control?.markAsDirty();
     this.getChildCategories(selectedItem.value);
   }
 
   onRemoveCategories() {
     this.selectedCategory = this.selectedCategory.filter(i => i.value < 0) as TreeviewItem[]; 
     this.ngControl?.control?.setValue(null);
+    this.ngControl?.control?.markAsDirty();
     this.getChildCategories(null as any);   
   }
   private getChildCategories(value: number) {    

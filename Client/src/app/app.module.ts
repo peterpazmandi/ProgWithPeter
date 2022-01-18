@@ -45,6 +45,7 @@ import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.c
 import { PostHeaderComponent } from './post/post/upsert/post-header/post-header.component';
 import { TagSelectorComponent } from './_forms/tag-selector/tag-selector.component';
 import { CategorySelectorComponent } from './_forms/category-selector/category-selector.component';
+import { ImageSelectorComponent } from './_forms/image-selector/image-selector.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -78,7 +79,8 @@ export function tokenGetter() {
     ConfirmDialogComponent,
     PostHeaderComponent,
     TagSelectorComponent,
-    CategorySelectorComponent
+    CategorySelectorComponent,
+    ImageSelectorComponent
   ],
   imports: [
     BrowserModule,

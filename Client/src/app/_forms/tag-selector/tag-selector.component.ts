@@ -39,6 +39,7 @@ export class TagSelectorComponent implements ControlValueAccessor {
         name: item.name
       } as Tag);
       this.ngControl?.control?.setValue(this.selectedTags);
+      this.ngControl?.control?.markAsDirty();
     } else {
       this.toastr.warning('You have already added ' + item.name);
     }
@@ -58,6 +59,7 @@ export class TagSelectorComponent implements ControlValueAccessor {
     }
     this.selectedTags = this.selectedTags.filter(item => item.id !== id);
     this.ngControl?.control?.setValue(this.selectedTags);
+    this.ngControl?.control?.markAsDirty();
   }
 
 }
