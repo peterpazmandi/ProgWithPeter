@@ -55,7 +55,7 @@
                         <td *ngIf="tutorial.status === 'Draft'" style="color: #BFC200;">{{tutorial.status}}</td>
                         <td *ngIf="tutorial.status === null" style="color: #BFC200;">{{tutorial.status}}</td>
                         <td>{{tutorial.modificationDate | date}}</td>
-                        <td>{{tutorial.category}}</td>
+                        <td>{{tutorial.post.category.name}}</td>
                         <td>
                             <app-tag-item *ngFor="let tag of tutorial.post.tags" [tag]="tag"></app-tag-item>
                         </td>

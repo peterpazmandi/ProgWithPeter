@@ -42,6 +42,7 @@
                     <span class="fw-bold">Title</span>
                     <app-text-input [formControl]='createTutorialForm.controls["title"]' [label]='"Title"'></app-text-input>
                     <!-- Category -->
+                    <category-selector [formControl]='createTutorialForm.controls["category"]'></category-selector>
                     <div class="form-group mb-3">
                         <span class="fw-bold">Category</span>
                         <div class="font-small">
