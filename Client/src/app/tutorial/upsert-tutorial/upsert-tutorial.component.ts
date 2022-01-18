@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TreeItem, TreeviewConfig, TreeviewItem } from 'ngx-treeview';
 import { MyUploadAdapter } from 'src/app/shared/my-upload-adapter';
-import { Category } from 'src/app/_models/category.model';
 import { CreatePostDto } from 'src/app/_models/createPostDto.model';
 import { Tag } from 'src/app/_models/tag.model';
 import { CategoryService } from 'src/app/_services/category.service';
@@ -36,7 +35,6 @@ export class UpsertTutorialComponent implements OnInit {
   seoForm: FormGroup;
   Editor = Editor;
   @ViewChild('myEditor') myEditor: any;
-  selectedCategory: TreeviewItem[] = [];
   featuredImageUrl: string = '';
   textCharCount: number;
   textWordCount: number;
@@ -95,15 +93,14 @@ export class UpsertTutorialComponent implements OnInit {
   }
   updateTutorialForms(tutorial: Tutorial) {
     this.currentStatus = tutorial.status;
-
-    this.selectedCategory.push(new TreeviewItem({
-      text: tutorial.post.category.name,
-      value: tutorial.post.category.id
-    } as TreeItem));
+    
     this.createTutorialForm.patchValue({
       id: tutorial.id,
       title: tutorial.post.title,
-      category: this.selectedCategory[0],
+      category: new TreeviewItem({
+        text: tutorial.post.category.name,
+        value: tutorial.post.category.id
+      } as TreeItem),
       tags: tutorial.post.tags,
       featuredImageUrl: tutorial.post.featuredImageUrl
     });
@@ -210,8 +207,6 @@ export class UpsertTutorialComponent implements OnInit {
       this.internalLinkCount = this.countTotalAmountOfSpecificWordInaString(value, 'internalLink');
       this.externalLinkCount = this.countTotalAmountOfSpecificWordInaString(value, 'externalLink');
     });
-
-    this.getInitialCategories();
   }
 
   private initFileUploader() {
@@ -503,52 +498,6 @@ export class UpsertTutorialComponent implements OnInit {
     hasFilter: true,
     hasCollapseExpand: true
   });
-
-  onCategoryValueChange(value: number): void {
-    let selectedItem = this.categories.find(i => i.value === value) as TreeviewItem;
-    this.selectedCategory.push(selectedItem);
-    this.createTutorialForm.patchValue({
-      category: selectedItem
-    })
-    this.getChildCategories(selectedItem.value);
-  }
-
-  onRemoveCategories() {
-    this.selectedCategory = this.selectedCategory.filter(i => i.value < 0) as TreeviewItem[];
-    this.getChildCategories(null as any);
-    this.createTutorialForm.patchValue({
-      category: null
-    })
-  }
-
-  // Category
-  private generateTreeviewItemArray(categories: Category[]): TreeviewItem[] {
-    let treeViewItems: TreeviewItem[] = [];
-    for (let index = 0; index < categories.length; index++) {
-      treeViewItems.push(new TreeviewItem({
-          text: categories[index].name,
-          value: categories[index].id
-        } as TreeItem
-      ));
-    }
-    return treeViewItems;
-  }
-  private getInitialCategories() {
-    this.categoryService.getCategories(null).subscribe((result: any) => {
-      this.categories = this.generateTreeviewItemArray(result as Category[]);
-    }, error => {
-      console.log('API Error: ' + error);
-    });
-  }
-  private getChildCategories(value: number) {    
-    this.categories = [new TreeviewItem({ text: "", value: 0 })];
-
-    this.categoryService.getCategories(value).subscribe((result: any) => {
-      this.categories = this.generateTreeviewItemArray(result as Category[]);
-    }, error => {
-      console.log('API Error: ' + error);
-    });
-  }
 
   onReady($event: any) {
     $event.plugins.get('FileRepository').createUploadAdapter = (loader: any) => {

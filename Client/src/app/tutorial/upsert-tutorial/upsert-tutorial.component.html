@@ -40,32 +40,10 @@
                 <div class="innerdiv mb-3">                    
                     <!-- Title -->
                     <span class="fw-bold">Title</span>
+                    <!-- Title -->
                     <app-text-input [formControl]='createTutorialForm.controls["title"]' [label]='"Title"'></app-text-input>
                     <!-- Category -->
                     <category-selector [formControl]='createTutorialForm.controls["category"]'></category-selector>
-                    <div class="form-group mb-3">
-                        <span class="fw-bold">Category</span>
-                        <div class="font-small">
-                            <div *ngFor="let category of selectedCategory; let last = last" style="display: inline;">
-                                <span *ngIf="last">
-                                    {{category.text}}<span *ngIf="!last"> > </span> 
-                                </span>
-                                <span *ngIf="!last" class="text-muted">
-                                    {{category.text}}<span *ngIf="!last"> > </span> 
-                                </span>
-                            </div>
-                            <a *ngIf="selectedCategory.length > 0" style="cursor: pointer;" (click)="onRemoveCategories()">
-                                <img src="assets/svg/ic_trash.svg" alt="Remove categories">
-                            </a>
-                        </div>
-                        <ngx-dropdown-treeview-select [items]="categories" [(value)]="value" (valueChange)="onCategoryValueChange($event)">
-                        </ngx-dropdown-treeview-select>
-                        <div *ngIf="createTutorialForm.controls.category.touched && createTutorialForm.controls.category.invalid">
-                            <div *ngIf="createTutorialF.category.errors.required" class="invalid-feedback d-block">
-                                Please select a category!
-                            </div>
-                        </div>
-                    </div>
                     <!-- Tags -->
                     <tag-selector [formControl]='createTutorialForm.controls["tags"]'></tag-selector>
                 </div>    

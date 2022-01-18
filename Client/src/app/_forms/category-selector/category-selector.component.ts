@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, Self } from '@angular/core';
+import { Component, OnInit, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { TreeItem, TreeviewItem } from 'ngx-treeview';
 import { Category } from 'src/app/_models/category.model';
@@ -21,13 +21,15 @@ export class CategorySelectorComponent implements ControlValueAccessor, OnInit {
   }
 
   ngOnInit(): void {
-    this.ngControl.valueChanges?.subscribe((category : TreeviewItem) => {
+    this.getChildCategories(null as any);
+
+    var sub = this.ngControl.valueChanges?.subscribe((category : TreeviewItem) => {
       console.log(category);
       this.selectedCategory.push(category);
       this.getInitialCategories(category.value as number);
+      sub?.unsubscribe();
     })
-  }
-  
+  }  
 
   writeValue(obj: any): void { }
   registerOnChange(fn: any): void { }
@@ -55,18 +57,14 @@ export class CategorySelectorComponent implements ControlValueAccessor, OnInit {
   onCategoryValueChange(value: number): void {
     let selectedItem = this.categories.find(i => i.value === value) as TreeviewItem;
     this.selectedCategory.push(selectedItem);
-    this.ngControl?.control?.patchValue({
-      category: selectedItem
-    })
+    this.ngControl?.control?.setValue(selectedItem);
     this.getChildCategories(selectedItem.value);
   }
 
   onRemoveCategories() {
-    this.selectedCategory = this.selectedCategory.filter(i => i.value < 0) as TreeviewItem[];
-    this.getChildCategories(null as any);
-    this.ngControl?.control?.patchValue({
-      category: null
-    })
+    this.selectedCategory = this.selectedCategory.filter(i => i.value < 0) as TreeviewItem[]; 
+    this.ngControl?.control?.setValue(null);
+    this.getChildCategories(null as any);   
   }
   private getChildCategories(value: number) {    
     this.categories = [new TreeviewItem({ text: "", value: 0 })];
