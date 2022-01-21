@@ -103,7 +103,7 @@
                         </p>
                         <p *ngIf="seoF.focusKeyphrase.errors?.strongEnough" class="text-danger mt-2">
                             <img src="assets/svg/ic_nok.svg" alt="Not OK">
-                            <small class="ms-1">Content words in <span class="fw-bold">focus keyphrase</span>: {{keyPhraseContentWordsCount}}</small>
+                            <small class="ms-1">Content words in <span class="fw-bold">focus keyphrase</span>: {{keyPhraseContentWords.length}}</small>
                         </p>
                         <!-- SEO title -->
                         <p *ngIf="seoF.seoTitle.errors?.required" class="text-danger mt-2">

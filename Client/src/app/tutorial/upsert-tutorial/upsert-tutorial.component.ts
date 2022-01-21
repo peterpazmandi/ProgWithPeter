@@ -19,6 +19,7 @@ import { User } from 'src/app/_models/user.model';
 import { take } from 'rxjs/operators';
 import { Tutorial } from 'src/app/_models/tutorialDto.model';
 import { functionWords } from 'src/app/shared/global-variables';
+import { CustomFieldValidators } from 'src/app/shared/field-validators';
 
 
 @Component({
@@ -41,7 +42,6 @@ export class UpsertTutorialComponent implements OnInit {
   metaDescLength: number = 0;
   submitted = false;
   keyPhraseContentWords: string[] = [];
-  keyPhraseContentWordsCount: number = 0;
 
   status: typeof Status;
   currentStatus: string;
@@ -59,7 +59,7 @@ export class UpsertTutorialComponent implements OnInit {
 
   constructor(
     private accountService: AccountService,
-    private categoryService: CategoryService,
+    private customFieldValidators: CustomFieldValidators,
     private fb: FormBuilder,
     private toastr: ToastrService,
     private tutorialService: TutorialService,
@@ -128,6 +128,12 @@ export class UpsertTutorialComponent implements OnInit {
         this.createTutorialForm.patchValue({
           id: result.tutorialId
         })
+
+        // Undirty the forms
+        this.createTutorialForm.markAsPristine();
+        this.formTextForm.markAsPristine();
+        this.seoForm.markAsPristine();
+        
       }, error => {
         console.log(error);
       });
@@ -184,7 +190,7 @@ export class UpsertTutorialComponent implements OnInit {
     })
 
     this.seoForm = this.fb.group({
-      focusKeyphrase: ['', [Validators.required, this.focusKeyPhraseValidation()]],
+      focusKeyphrase: ['', [Validators.required, this.customFieldValidators.focusKeyPhraseValidation(this.keyPhraseContentWords)]],
       seoTitle: ['', [Validators.required, this.fieldStartsWithFocusKeyphrase()]],
       slug: ['', [Validators.required]],
       metaDescription: ['', [Validators.required, this.fieldContainsFocusKeyphrase(), this.metaDescriptionLength()]]
@@ -241,7 +247,6 @@ export class UpsertTutorialComponent implements OnInit {
       splitted = splitted.filter(item => !functionWords.includes(item.toLowerCase()));
 
       this.keyPhraseContentWords = splitted;
-      this.keyPhraseContentWordsCount = splitted.length;
 
       return splitted.length > 3 && splitted.length < 7 ? null : {strongEnough: true};
     };
