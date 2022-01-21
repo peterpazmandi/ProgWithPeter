@@ -191,23 +191,19 @@
         <div class="col-9 ">
             <form [formGroup]='formTextForm' autocomplete='off'>
                 <h5 class="fw-bold">Excerpt</h5>
-                <ckeditor
-                    id="excerpt"
-                    formControlName='excerpt' 
-                    [config]="editorConfig" 
-                    [editor]="Editor" 
-                    style="color: black;"
-                    (ready)="onReady($event)" >
-                </ckeditor>
+                <input-ckeditor
+                    [formControl]='formTextForm.controls["excerpt"]' 
+                    [id]='"excerpt"'
+                    (textCharCount)="updateTextCharCount($event)"
+                    (textWordCount)="updateTextWordCount($event)" >
+                </input-ckeditor>
                 <h5 class="mt-4 fw-bold">Content</h5>
-                <ckeditor 
-                    id="text"
-                    formControlName='content' 
-                    [config]="editorConfig" 
-                    [editor]="Editor"
-                    style="color: black;"
-                    (ready)="onReady($event)" >
-                </ckeditor>
+                <input-ckeditor
+                    [formControl]='formTextForm.controls["content"]' 
+                    [id]='"content"'
+                    (textCharCount)="updateTextCharCount($event)"
+                    (textWordCount)="updateTextWordCount($event)" >
+                </input-ckeditor>
             </form>
         </div>
     </div>

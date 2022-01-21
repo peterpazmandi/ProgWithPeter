@@ -46,6 +46,7 @@ import { PostHeaderComponent } from './post/post/upsert/post-header/post-header.
 import { TagSelectorComponent } from './_forms/tag-selector/tag-selector.component';
 import { CategorySelectorComponent } from './_forms/category-selector/category-selector.component';
 import { ImageSelectorComponent } from './_forms/image-selector/image-selector.component';
+import { InputCkeditorComponent } from './_forms/input-ckeditor/input-ckeditor.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -80,7 +81,8 @@ export function tokenGetter() {
     PostHeaderComponent,
     TagSelectorComponent,
     CategorySelectorComponent,
-    ImageSelectorComponent
+    ImageSelectorComponent,
+    InputCkeditorComponent
   ],
   imports: [
     BrowserModule,
