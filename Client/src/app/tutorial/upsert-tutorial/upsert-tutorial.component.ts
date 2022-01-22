@@ -2,15 +2,12 @@ import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { TreeItem, TreeviewConfig, TreeviewItem } from 'ngx-treeview';
-import { MyUploadAdapter } from 'src/app/shared/my-upload-adapter';
+import { TreeItem, TreeviewItem } from 'ngx-treeview';
 import { CreatePostDto } from 'src/app/_models/createPostDto.model';
 import { Tag } from 'src/app/_models/tag.model';
-import { CategoryService } from 'src/app/_services/category.service';
 import { TutorialService } from 'src/app/_services/tutorial.service';
 import { Status } from '../../_utils/status.enum';
 import { environment } from 'src/environments/environment';
-import * as Editor from '../../_ckeditor5/build/ckeditor';
 import { WORD_PER_MINUTES } from 'src/app/_utils/global.variables';
 import { FileUploader } from 'ng2-file-upload';
 import { UpsertTutorialDto } from 'src/app/_models/upsertTutorialDto.model';
@@ -19,7 +16,6 @@ import { User } from 'src/app/_models/user.model';
 import { take } from 'rxjs/operators';
 import { Tutorial } from 'src/app/_models/tutorialDto.model';
 import { functionWords } from 'src/app/shared/global-variables';
-import { CustomFieldValidators } from 'src/app/shared/field-validators';
 
 
 @Component({
@@ -59,7 +55,6 @@ export class UpsertTutorialComponent implements OnInit {
 
   constructor(
     private accountService: AccountService,
-    private customFieldValidators: CustomFieldValidators,
     private fb: FormBuilder,
     private toastr: ToastrService,
     private tutorialService: TutorialService,
@@ -180,8 +175,7 @@ export class UpsertTutorialComponent implements OnInit {
       title: ['', [Validators.required, Validators.minLength(8)]],
       category: ['', [Validators.required]],
       tags: [[], [Validators.required]],
-      featuredImageUrl: [[], [Validators.required]]
-      
+      featuredImageUrl: [[], [Validators.required]]      
     })
 
     this.formTextForm = this.fb.group({
@@ -190,7 +184,7 @@ export class UpsertTutorialComponent implements OnInit {
     })
 
     this.seoForm = this.fb.group({
-      focusKeyphrase: ['', [Validators.required, this.customFieldValidators.focusKeyPhraseValidation(this.keyPhraseContentWords)]],
+      focusKeyphrase: ['', [Validators.required, this.focusKeyPhraseValidation()]],
       seoTitle: ['', [Validators.required, this.fieldStartsWithFocusKeyphrase()]],
       slug: ['', [Validators.required]],
       metaDescription: ['', [Validators.required, this.fieldContainsFocusKeyphrase(), this.metaDescriptionLength()]]
