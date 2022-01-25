@@ -16,7 +16,7 @@ export class PreventUnsavedChangesGuard implements CanDeactivate<unknown> {
     canDeactivate(component: UpsertTutorialComponent): boolean | Observable<boolean> {
         if(component.createTutorialForm.dirty
             || component.formTextForm.dirty ||
-            component.seoForm.dirty) {
+            component.seoFormService.seoForm.dirty) {
                 return this.confirmService.confirm();
         }
 

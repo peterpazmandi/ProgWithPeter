@@ -1,5 +1,5 @@
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TreeItem, TreeviewItem } from 'ngx-treeview';
@@ -15,7 +15,7 @@ import { AccountService } from 'src/app/_services/account.service';
 import { User } from 'src/app/_models/user.model';
 import { take } from 'rxjs/operators';
 import { Tutorial } from 'src/app/_models/tutorialDto.model';
-import { functionWords } from 'src/app/shared/global-variables';
+import { SeoFormService } from 'src/app/_forms/seo-form/seo-form.service';
 
 
 @Component({
@@ -26,11 +26,10 @@ import { functionWords } from 'src/app/shared/global-variables';
 export class UpsertTutorialComponent implements OnInit {
   apiUrl = environment.apiUrl;
   serverUrl = environment.serverUrl;
-  uploader:FileUploader;
+  uploader: FileUploader;
 
   createTutorialForm: FormGroup;
   formTextForm: FormGroup;
-  seoForm: FormGroup;
   textCharCount: number;
   textWordCount: number;
   internalLinkCount: number = 0;
@@ -47,7 +46,7 @@ export class UpsertTutorialComponent implements OnInit {
   @HostListener('window:beforeunload', ['$event']) unloadNofitifaction($event: any) {
     if(this.createTutorialForm.dirty
       || this.formTextForm.dirty ||
-      this.seoForm.dirty) {
+      this.seoFormService.seoForm.dirty) {
         $event.returnValue = true;
       }
   }
@@ -55,9 +54,10 @@ export class UpsertTutorialComponent implements OnInit {
 
   constructor(
     private accountService: AccountService,
+    public seoFormService: SeoFormService,
+    private tutorialService: TutorialService,
     private fb: FormBuilder,
     private toastr: ToastrService,
-    private tutorialService: TutorialService,
     private route: ActivatedRoute) {
       this.status = Status;
       this.currentStatus = this.status.NotSavedYet;
@@ -98,7 +98,7 @@ export class UpsertTutorialComponent implements OnInit {
       content: tutorial.post.content
     });
 
-    this.seoForm.patchValue({
+    this.seoFormService.seoForm.patchValue({
       focusKeyphrase: tutorial.post.meta.keyPhrase,
       seoTitle: tutorial.post.meta.seoTitle,
       slug: tutorial.post.meta.slug,
@@ -127,7 +127,7 @@ export class UpsertTutorialComponent implements OnInit {
         // Undirty the forms
         this.createTutorialForm.markAsPristine();
         this.formTextForm.markAsPristine();
-        this.seoForm.markAsPristine();
+        this.seoFormService.seoForm.markAsPristine();
         
       }, error => {
         console.log(error);
@@ -155,10 +155,10 @@ export class UpsertTutorialComponent implements OnInit {
         tags: tagIds,
         category: (this.createTutorialForm?.value['category'] as TreeviewItem).text,
         meta: {
-          keyPhrase: (this.seoForm?.value['focusKeyphrase'] as string),
-          seoTitle: (this.seoForm?.value['seoTitle'] as string),
-          slug: (this.seoForm?.value['slug'] as string),
-          metaDescription: (this.seoForm?.value['metaDescription'] as string),
+          keyPhrase: (this.seoFormService.seoForm?.value['focusKeyphrase'] as string),
+          seoTitle: (this.seoFormService.seoForm?.value['seoTitle'] as string),
+          slug: (this.seoFormService.seoForm?.value['slug'] as string),
+          metaDescription: (this.seoFormService.seoForm?.value['metaDescription'] as string),
         },
         length: this.textWordCount / WORD_PER_MINUTES
       } as CreatePostDto
@@ -167,7 +167,7 @@ export class UpsertTutorialComponent implements OnInit {
   }
 
   get createTutorialF() { return this.createTutorialForm.controls; }
-  get seoF() { return this.seoForm.controls; }
+  get seoF() { return this.seoFormService.seoForm.controls; }
 
   private initializeForms() {
     this.createTutorialForm = this.fb.group({
@@ -182,17 +182,6 @@ export class UpsertTutorialComponent implements OnInit {
       excerpt: [''],
       content: ['']
     })
-
-    this.seoForm = this.fb.group({
-      focusKeyphrase: ['', [Validators.required, this.focusKeyPhraseValidation()]],
-      seoTitle: ['', [Validators.required, this.fieldStartsWithFocusKeyphrase()]],
-      slug: ['', [Validators.required]],
-      metaDescription: ['', [Validators.required, this.fieldContainsFocusKeyphrase(), this.metaDescriptionLength()]]
-    })
-
-    this.seoForm.get('focusKeyphrase')?.valueChanges.subscribe((value: string) => {
-      this.updateSlug(value);
-    });
 
     this.formTextForm.get('content')?.valueChanges.subscribe((value: string) => {
       this.internalLinkCount = this.countTotalAmountOfSpecificWordInaString(value, 'internalLink');
@@ -219,67 +208,6 @@ export class UpsertTutorialComponent implements OnInit {
         while (n>=0);
      return findedword - 1;
    }
-
-  updateSlug(value: string) {
-    let re = /\ /gi;
-    var slug = value.replace(re, '-');
-    this.seoForm.patchValue({
-      slug: slug.toLocaleLowerCase()
-    })
-  }
-
-  // Custom validators
-  focusKeyPhraseValidation(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      var focusKeyPhrase = control.value;
-      var splitted: string[] = focusKeyPhrase.split(" ");
-
-      // Remove last item, if length is zero
-      splitted = splitted.filter(item => item.length !== 0);
-      
-      // Remove function words
-      splitted = splitted.filter(item => !functionWords.includes(item.toLowerCase()));
-
-      this.keyPhraseContentWords = splitted;
-
-      return splitted.length > 3 && splitted.length < 7 ? null : {strongEnough: true};
-    };
-  }
-  fieldStartsWithFocusKeyphrase(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-
-      var fieldContent = (control.value as string).toLocaleLowerCase();
-      var focusKeyPhrase = (this.seoForm?.value['focusKeyphrase'] as string)?.toLocaleLowerCase();
-
-      if(fieldContent.length === 0 || focusKeyPhrase.length === 0) {
-        return {startsWithFocusKeyphrase: true};
-      }
-
-      return fieldContent.startsWith(focusKeyPhrase, 0) ? null : {startsWithFocusKeyphrase: true};
-    };
-  }
-  fieldContainsFocusKeyphrase(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-
-      var fieldContent = (control.value as string).toLocaleLowerCase();
-      var focusKeyPhrase = (this.seoForm?.value['focusKeyphrase'] as string)?.toLocaleLowerCase();
-
-      if(fieldContent.length === 0 || focusKeyPhrase.length === 0) {
-        return {containsFocusKeyphrase: true};
-      }
-
-      return fieldContent.includes(focusKeyPhrase, 0) ? null : {containsFocusKeyphrase: true};
-    };
-  }
-  metaDescriptionLength(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-
-      var metaDesc = control.value as string;
-      this.metaDescLength = metaDesc.length;
-
-      return metaDesc.length > 119 && metaDesc.length < 157 ? null : {metaDescriptionLength: true};
-    };
-  }
 }
 
                           

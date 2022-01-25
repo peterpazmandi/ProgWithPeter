@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, Input, OnInit, Self } from '@angular/core';
+import { AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { functionWords } from 'src/app/shared/global-variables';
+import { SeoFormService } from './seo-form.service';
 
 @Component({
   selector: 'seo-form',
@@ -9,32 +10,37 @@ import { functionWords } from 'src/app/shared/global-variables';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SeoFormComponent implements OnInit {
-  @Input() seoForm: FormGroup;
+  //@Input() seoForm: FormGroup;
   @Input() textWordCount: number = 0;
   @Input() internalLinkCount: number = 0;
   @Input() externalLinkCount: number = 0;
   metaDescLength: number = 0;
   keyPhraseContentWords: string[] = [];
 
-  get seoF() { return this.seoForm.controls; }
+  get seoF() { return this.seoFormService.seoForm.controls; }
 
   constructor(
+    public seoFormService: SeoFormService,
     private fb: FormBuilder
     ) { }
 
   ngOnInit(): void {
     this.initializeForms();
+
+    this.seoFormService.seoForm.valueChanges.subscribe(value => {
+      console.log(value);
+    })
   }
 
   private initializeForms() {
-    this.seoForm = this.fb.group({
+    this.seoFormService.seoForm = this.fb.group({
       focusKeyphrase: ['', [Validators.required, this.focusKeyPhraseValidation()]],
       seoTitle: ['', [Validators.required, this.fieldStartsWithFocusKeyphrase()]],
       slug: ['', [Validators.required]],
       metaDescription: ['', [Validators.required, this.fieldContainsFocusKeyphrase(), this.metaDescriptionLength()]]
     })
 
-    this.seoForm.get('focusKeyphrase')?.valueChanges.subscribe((value: string) => {
+    this.seoFormService.seoForm.get('focusKeyphrase')?.valueChanges.subscribe((value: string) => {
       this.updateSlug(value);
     });
   }
@@ -42,7 +48,7 @@ export class SeoFormComponent implements OnInit {
   updateSlug(value: string) {
     let re = /\ /gi;
     var slug = value.replace(re, '-');
-    this.seoForm.patchValue({
+    this.seoFormService.seoForm.patchValue({
       slug: slug.toLocaleLowerCase()
     })
   }
@@ -69,7 +75,7 @@ export class SeoFormComponent implements OnInit {
     return (control: AbstractControl): ValidationErrors | null => {
 
       var fieldContent = (control.value as string).toLocaleLowerCase();
-      var focusKeyPhrase = (this.seoForm?.value['focusKeyphrase'] as string)?.toLocaleLowerCase();
+      var focusKeyPhrase = (this.seoFormService.seoForm?.value['focusKeyphrase'] as string)?.toLocaleLowerCase();
 
       if(fieldContent.length === 0 || focusKeyPhrase.length === 0) {
         return {startsWithFocusKeyphrase: true};
@@ -82,7 +88,7 @@ export class SeoFormComponent implements OnInit {
     return (control: AbstractControl): ValidationErrors | null => {
 
       var fieldContent = (control.value as string).toLocaleLowerCase();
-      var focusKeyPhrase = (this.seoForm?.value['focusKeyphrase'] as string)?.toLocaleLowerCase();
+      var focusKeyPhrase = (this.seoFormService.seoForm?.value['focusKeyphrase'] as string)?.toLocaleLowerCase();
 
       if(fieldContent.length === 0 || focusKeyPhrase.length === 0) {
         return {containsFocusKeyphrase: true};
