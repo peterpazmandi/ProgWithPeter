@@ -1,0 +1,131 @@
+<form [formGroup]='seoForm' autocomplete="off">
+    <!-- Focus keyphrase -->
+    <div class="form-group mb-3">
+        <span class="fw-bold">Focus keyphrase</span>
+        <input
+            [class.is-invalid]="seoForm.controls.focusKeyphrase.touched && seoForm.controls.focusKeyphrase.invalid"
+            class="form-control" 
+            type="text" 
+            formControlName='focusKeyphrase' placeholder="Focus keyphrase">
+    </div>
+    <!-- SEO Title -->
+    <div class="form-group mb-3">
+        <span class="fw-bold">SEO Title</span>
+        <input
+            [class.is-invalid]="seoForm.controls.seoTitle.touched && seoForm.controls.seoTitle.invalid"
+            class="form-control" 
+            type="text" 
+            formControlName='seoTitle' placeholder="SEO Title">
+    </div>
+    <!-- Slug -->
+    <div class="form-group mb-3">
+        <span class="fw-bold">Slug</span>
+        <input
+            [class.is-invalid]="seoForm.controls.slug.touched && seoForm.controls.slug.invalid"
+            class="form-control" 
+            type="text" 
+            formControlName='slug' placeholder="Slug">
+    </div>
+    <!-- Meta Description -->
+    <div class="form-group mb-3">
+        <span class="fw-bold">Meta Description</span>
+        <textarea
+            [class.is-invalid]="seoForm.controls.metaDescription.touched && seoForm.controls.metaDescription.invalid"
+            class="form-control" 
+            rows="8"
+            formControlName='metaDescription' placeholder="Meta description"></textarea>
+        <small>Length: {{metaDescLength}}</small>
+    </div>
+    <hr class="dropdown-divider">
+    <span class="fw-bold mb-2">SEO Results</span>
+    <!-- NOK -->
+        <!-- Focus keyphrase -->
+        <p *ngIf="seoF.focusKeyphrase.errors?.required" class="text-danger mt-2">
+            <img src="assets/svg/ic_nok.svg" alt="Not OK">
+            <small class="ms-1"><span class="fw-bold">Focus keyphrase</span> shouldn't be empty!</small>
+        </p>
+        <p *ngIf="seoF.focusKeyphrase.errors?.strongEnough" class="text-danger mt-2">
+            <img src="assets/svg/ic_nok.svg" alt="Not OK">
+            <small class="ms-1">Content words in <span class="fw-bold">focus keyphrase</span>: {{keyPhraseContentWords.length}}</small>
+        </p>
+        <!-- SEO title -->
+        <p *ngIf="seoF.seoTitle.errors?.required" class="text-danger mt-2">
+            <img src="assets/svg/ic_nok.svg" alt="Not OK">
+            <small class="ms-1"><span class="fw-bold">SEO title</span> shouldn't be empty!</small>
+        </p>
+        <p *ngIf="seoF.seoTitle.errors?.startsWithFocusKeyphrase" class="text-danger">
+            <img src="assets/svg/ic_nok.svg" alt="Not OK">
+            <small class="ms-1">The <span class="fw-bold">SEO title</span> doesn't contain at the beginning the focus keyphrase.</small>
+        </p>
+        <!-- Meta Description -->
+        <p *ngIf="seoF.seoTitle.errors?.required" class="text-danger mt-2">
+            <img src="assets/svg/ic_nok.svg" alt="Not OK">
+            <small class="ms-1"><span class="fw-bold">Meta Description</span> shouldn't be empty!</small>
+        </p>
+        <p *ngIf="seoF.metaDescription.errors?.containsFocusKeyphrase" class="text-danger">
+            <img src="assets/svg/ic_nok.svg" alt="Not OK">
+            <small class="ms-1">The <span class="fw-bold">Meta Description</span> doesn't contain the focus keyphrase.</small>
+        </p>
+        <p *ngIf="seoF.metaDescription.errors?.metaDescriptionLength" class="text-danger">
+            <img src="assets/svg/ic_nok.svg" alt="Not OK">
+            <small class="ms-1">The <span class="fw-bold">Meta Description's</span> length has to be between 120 and 156 characters!</small>
+        </p>
+        <!-- Text -->
+        <p *ngIf="textWordCount < 300" class="text-danger">
+            <img src="assets/svg/ic_nok.svg" alt="Not OK">
+            <small class="ms-1">The <span class="fw-bold">Text</span> contains less then 300 characters</small>
+        </p>
+        <p *ngIf="internalLinkCount === 0" class="text-danger">
+            <img src="assets/svg/ic_nok.svg" alt="Not OK">
+            <small class="ms-1">The <span class="fw-bold">Text</span> doesn't contain any internal links</small>
+        </p>
+        <p *ngIf="externalLinkCount === 0" class="text-danger">
+            <img src="assets/svg/ic_nok.svg" alt="Not OK">
+            <small class="ms-1">The <span class="fw-bold">Text</span> doesn't contain any external links</small>
+        </p>
+    <!-- Warning -->
+        <p *ngIf="textWordCount < 1001" class="text-warning">
+            <img src="assets/svg/ic_warning.svg" alt="Warning">
+            <small class="ms-1">The <span class="fw-bold">Text</span> contains less then 1000 characters</small>
+        </p>
+        <p *ngIf="internalLinkCount === 1" class="text-warning">
+            <img src="assets/svg/ic_warning.svg" alt="Warning">
+            <small class="ms-1">The <span class="fw-bold">Text</span> contains only 1 internal link.</small>
+        </p>
+        <p *ngIf="externalLinkCount === 1" class="text-warning">
+            <img src="assets/svg/ic_warning.svg" alt="Warning">
+            <small class="ms-1">The <span class="fw-bold">Text</span> contains only 1 external link.</small>
+        </p>
+    <!-- OK -->
+        <!-- Focus keyphrase -->
+        <p *ngIf="!seoF.focusKeyphrase.errors?.strongEnough" class="text-success">
+            <img src="assets/svg/ic_ok.svg" alt="OK">
+            <small class="ms-1">Content words in <span class="fw-bold">focus keyphrase</span>: {{keyPhraseContentWords.length}}</small>
+        </p>
+        <!-- SEO title -->
+        <p *ngIf="!seoF.seoTitle.errors?.startsWithFocusKeyphrase" class="text-success">
+            <img src="assets/svg/ic_ok.svg" alt="OK">
+            <small class="ms-1">The exact match of the focus keyphrase appears at the beginning of the <span class="fw-bold">SEO title.</span></small>
+        </p>
+        <!-- Meta Description -->
+        <p *ngIf="!seoF.metaDescription.errors?.containsFocusKeyphrase" class="text-success">
+            <img src="assets/svg/ic_ok.svg" alt="OK">
+            <small class="ms-1">The exact match of the focus keyphrase appears in the <span class="fw-bold">Meta Description.</span></small>
+        </p>
+        <p *ngIf="!seoF.metaDescription.errors?.metaDescriptionLength" class="text-success">
+            <img src="assets/svg/ic_ok.svg" alt="OK">
+            <small class="ms-1">The <span class="fw-bold">Meta Description's</span> length is {{metaDescLength}}.</small>
+        </p>
+        <p *ngIf="textWordCount > 299" class="text-success">
+            <img src="assets/svg/ic_ok.svg" alt="OK">
+            <small class="ms-1">The <span class="fw-bold">Text</span> contains {{textWordCount}} words.</small>
+        </p>
+        <p *ngIf="internalLinkCount > 1" class="text-success">
+            <img src="assets/svg/ic_ok.svg" alt="OK">
+            <small class="ms-1">The <span class="fw-bold">Text</span> contains {{internalLinkCount}} internal links.</small>
+        </p>
+        <p *ngIf="externalLinkCount > 1" class="text-success">
+            <img src="assets/svg/ic_ok.svg" alt="OK">
+            <small class="ms-1">The <span class="fw-bold">Text</span> contains {{externalLinkCount}} external links.</small>
+        </p>
+</form>

@@ -47,6 +47,7 @@ import { TagSelectorComponent } from './_forms/tag-selector/tag-selector.compone
 import { CategorySelectorComponent } from './_forms/category-selector/category-selector.component';
 import { ImageSelectorComponent } from './_forms/image-selector/image-selector.component';
 import { InputCkeditorComponent } from './_forms/input-ckeditor/input-ckeditor.component';
+import { SeoFormComponent } from './_forms/seo-form/seo-form.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -82,7 +83,8 @@ export function tokenGetter() {
     TagSelectorComponent,
     CategorySelectorComponent,
     ImageSelectorComponent,
-    InputCkeditorComponent
+    InputCkeditorComponent,
+    SeoFormComponent
   ],
   imports: [
     BrowserModule,
