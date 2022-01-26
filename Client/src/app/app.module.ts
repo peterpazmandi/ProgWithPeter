@@ -42,7 +42,6 @@ import { TutorialComponent } from './tutorial/tutorial/tutorial.component';
 import { PostComponent } from './post/post/post.component';
 import { DomChangedDirective } from './_directives/dom-changed.directive';
 import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.component';
-import { PostHeaderComponent } from './post/post/upsert/post-header/post-header.component';
 import { TagSelectorComponent } from './_forms/tag-selector/tag-selector.component';
 import { CategorySelectorComponent } from './_forms/category-selector/category-selector.component';
 import { ImageSelectorComponent } from './_forms/image-selector/image-selector.component';
@@ -79,7 +78,6 @@ export function tokenGetter() {
     PostComponent,
     DomChangedDirective,
     ConfirmDialogComponent,
-    PostHeaderComponent,
     TagSelectorComponent,
     CategorySelectorComponent,
     ImageSelectorComponent,
