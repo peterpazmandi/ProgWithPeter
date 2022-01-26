@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Tutorial } from 'src/app/_models/tutorialDto.model';
 import { TutorialService } from 'src/app/_services/tutorial.service';
+import { PostType } from 'src/app/_utils/post-type.enum';
 import { Status } from 'src/app/_utils/status.enum';
 
 @Component({
@@ -16,9 +17,13 @@ export class TutorialListComponent implements OnInit {
   pageNumber = 1;
   pageSize = 20;
 
+  postType: typeof PostType;
+
   constructor(
     private fb: FormBuilder,
-    private tutorialService: TutorialService) { }
+    private tutorialService: TutorialService) {
+      this.postType = PostType;
+     }
 
   ngOnInit(): void {
     this.initializeForm();

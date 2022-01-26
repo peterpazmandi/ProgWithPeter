@@ -16,6 +16,7 @@ import { User } from 'src/app/_models/user.model';
 import { take } from 'rxjs/operators';
 import { Tutorial } from 'src/app/_models/tutorialDto.model';
 import { SeoFormService } from 'src/app/_forms/seo-form/seo-form.service';
+import { PostType } from 'src/app/_utils/post-type.enum';
 
 
 @Component({
@@ -41,6 +42,9 @@ export class UpsertTutorialComponent implements OnInit {
   status: typeof Status;
   currentStatus: string;
 
+  postType: typeof PostType;
+  selectedPostType: string;
+
   user: User;
 
   @HostListener('window:beforeunload', ['$event']) unloadNofitifaction($event: any) {
@@ -60,6 +64,7 @@ export class UpsertTutorialComponent implements OnInit {
     private toastr: ToastrService,
     private route: ActivatedRoute) {
       this.status = Status;
+      this.postType = PostType;
       this.currentStatus = this.status.NotSavedYet;
   }
 
@@ -70,6 +75,7 @@ export class UpsertTutorialComponent implements OnInit {
       .pipe(take(1))
       .subscribe(u => this.user = u);
 
+    this.selectedPostType = this.route.snapshot.queryParams['posttype'];
     const slug = this.route.snapshot.queryParams['slug'];
     if(slug) {
       this.tutorialService.getTutorialByTitle(slug).subscribe(tutorial => {

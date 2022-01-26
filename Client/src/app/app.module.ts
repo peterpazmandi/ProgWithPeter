@@ -47,6 +47,7 @@ import { CategorySelectorComponent } from './_forms/category-selector/category-s
 import { ImageSelectorComponent } from './_forms/image-selector/image-selector.component';
 import { InputCkeditorComponent } from './_forms/input-ckeditor/input-ckeditor.component';
 import { SeoFormComponent } from './_forms/seo-form/seo-form.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -108,7 +109,8 @@ export function tokenGetter() {
     CKEditorModule,
     TreeviewModule.forRoot(),
     AutocompleteLibModule,
-    FileUploadModule
+    FileUploadModule,
+    TabsModule.forRoot()
   ],
   exports: [
     FileUploadModule

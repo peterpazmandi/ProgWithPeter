@@ -62,22 +62,29 @@
             </div>
         </div>
         <div class="col-9 ">
-            <form [formGroup]='formTextForm' autocomplete='off'>
-                <h5 class="fw-bold">Excerpt</h5>
-                <input-ckeditor
-                    [formControl]='formTextForm.controls["excerpt"]' 
-                    [id]='"excerpt"'
-                    (textCharCount)="updateTextCharCount($event)"
-                    (textWordCount)="updateTextWordCount($event)" >
-                </input-ckeditor>
-                <h5 class="mt-4 fw-bold">Content</h5>
-                <input-ckeditor
-                    [formControl]='formTextForm.controls["content"]' 
-                    [id]='"content"'
-                    (textCharCount)="updateTextCharCount($event)"
-                    (textWordCount)="updateTextWordCount($event)" >
-                </input-ckeditor>
-            </form>
+            <tabset class="post-tabset">
+                <tab heading="Contents" class="p-2">
+                    <form [formGroup]='formTextForm' autocomplete='off'>
+                        <h5 class="fw-bold">Excerpt</h5>
+                        <input-ckeditor
+                            [formControl]='formTextForm.controls["excerpt"]' 
+                            [id]='"excerpt"'
+                            (textCharCount)="updateTextCharCount($event)"
+                            (textWordCount)="updateTextWordCount($event)" >
+                        </input-ckeditor>
+                        <h5 class="mt-4 fw-bold">Content</h5>
+                        <input-ckeditor
+                            [formControl]='formTextForm.controls["content"]' 
+                            [id]='"content"'
+                            (textCharCount)="updateTextCharCount($event)"
+                            (textWordCount)="updateTextWordCount($event)" >
+                        </input-ckeditor>
+                    </form>
+                </tab>
+                <tab *ngIf="selectedPostType === postType.Course" heading="Lessons">
+
+                </tab>
+            </tabset>
         </div>
     </div>
 </div>

@@ -359,3 +359,44 @@ thead {
   background: var(--background);
   font-size: 1.3rem;
 }
+
+
+
+
+
+
+
+
+
+.post-tabset > .nav-tabs > li.open > a, .post-tabset > .nav-tabs > li:hover > a {
+  background-color: #1976D2;
+  color: #fff !important;
+}
+
+.post-tabset > .nav-tabs > li.open > a, .post-tabset > .nav-tabs > li > a {
+  color: var(--on-primary);
+}
+
+.post-tabset > .nav-tabs > li.open > a > i, .post-tabset > .nav-tabs > li:hover > a > i {
+  background-color: #B7B7B7;
+  color: #fff;
+}
+
+.post-tabset > .nav-tabs > li.active {
+  border-bottom: 4px solid #1976D2;
+  position: relative;
+}
+
+.post-tabset > .nav-tabs > li.active > a {
+  border: 0 !important;
+  color: #333333;
+}
+
+.post-tabset > .nav-tabs > li.active > a > i {
+  color: #404040;
+}
+
+.post-tabset > .tab-content {
+  background-color: var(--primary);
+  border: 0;
+}

@@ -62,7 +62,7 @@
                         <td>
                             <a
                                 [routerLink]="['/upsert-tutorial']"
-                                [queryParams]="{slug: tutorial.post.title}">
+                                [queryParams]="{slug: tutorial.post.title, posttype: postType.Tutorial}">
                                 <svg id="edit-icon" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <title id="unique-id">Edit tutorial</title>
                                     <path 
@@ -81,8 +81,7 @@
                                     clip-rule="evenodd" 
                                     d="M6 0C2.68629 0 0 2.68629 0 6V24C0 27.3137 2.68629 30 6 30H24C27.3137 30 30 27.3137 30 24V6C30 2.68629 27.3137 0 24 0H6ZM11.0536 24C9.93393 24 9.01786 23.1 9.01786 22V10H21.2321V22C21.2321 23.1 20.3161 24 19.1964 24H11.0536ZM12.957 13.47L11.5218 14.88L13.6898 17L11.532 19.12L12.9671 20.53L15.125 18.41L17.2829 20.53L18.718 19.12L16.5602 17L18.718 14.88L17.2829 13.47L15.125 15.59L12.957 13.47ZM17.6696 6L18.6875 7H22.25V9H8V7H11.5625L12.5804 6H17.6696Z"
                                     fill="currentColor"/>
-                            </svg>
-                                                            
+                            </svg>                                                            
                         </td>
                     </tr>
                 </tbody>
