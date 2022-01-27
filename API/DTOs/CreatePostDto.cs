@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace API.DTOs
 {
-    public class CreatePostDto
+    public class UpsertPostDto
     {
         public string Title { get; set; }
         public string Excerpt { get; set; }        

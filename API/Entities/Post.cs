@@ -36,6 +36,7 @@ namespace API.Entities
 
         public virtual Course Course { get; set; }
         public virtual Tutorial Tutorial { get; set; }
+        public virtual Lecture Lecture { get; set; }
 
 
         public virtual ICollection<Tag> Tags { get; set; }

@@ -6,18 +6,17 @@ using System.Threading.Tasks;
 
 namespace API.Entities
 {
-    public class Course
+    public class Section
     {
         [Key]
         public int Id { get; set; }
 
 
-        public string Status { get; set; }
+        public virtual ICollection<Course> Courses { get; set; }
+        public virtual ICollection<Lecture> Lectures { get; set; }
 
 
-        public double Price { get; set; }
-        public string Currency { get; set; } 
-
-        public virtual ICollection<Section> Tags { get; set; }
+        
+        public string Title { get; set; }
     }
 }
