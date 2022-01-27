@@ -2,3 +2,6 @@
 *\obj
 *\Logs
 .vs
+API/bin
+API/obj
+EmailService/obj
