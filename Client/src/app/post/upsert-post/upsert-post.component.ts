@@ -20,11 +20,11 @@ import { PostType } from 'src/app/_utils/post-type.enum';
 
 
 @Component({
-  selector: 'app-upsert-tutorial',
-  templateUrl: './upsert-tutorial.component.html',
-  styleUrls: ['./upsert-tutorial.component.css']
+  selector: 'upsert-post',
+  templateUrl: './upsert-post.component.html',
+  styleUrls: ['./upsert-post.component.css']
 })
-export class UpsertTutorialComponent implements OnInit {
+export class UpsertPostComponent implements OnInit {
   apiUrl = environment.apiUrl;
   serverUrl = environment.serverUrl;
   uploader: FileUploader;

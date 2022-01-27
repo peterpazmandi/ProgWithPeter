@@ -26,7 +26,7 @@ import { ForgotPasswordComponent } from './authentication/forgot-password/forgot
 import { ResetPasswordComponent } from './authentication/reset-password/reset-password.component';
 import { HasRoleDirective } from './_directives/has-role.directive';
 import { TutorialListComponent } from './tutorial/tutorial-list/tutorial-list.component';
-import { UpsertTutorialComponent } from './tutorial/upsert-tutorial/upsert-tutorial.component';
+import { UpsertPostComponent } from './post/upsert-post/upsert-post.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { TreeviewModule } from 'ngx-treeview';
 import { DropdownTreeviewSelectComponent } from './_forms/dropdown-treeview-select/dropdown-treeview-select.component';
@@ -67,7 +67,7 @@ export function tokenGetter() {
     ResetPasswordComponent,
     HasRoleDirective,
     TutorialListComponent,
-    UpsertTutorialComponent,
+    UpsertPostComponent,
     DropdownTreeviewSelectComponent,
     SocialMediaIconsComponent,
     CoursesComponent,
