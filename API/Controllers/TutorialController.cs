@@ -63,7 +63,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateTutorial(UpsertTutorialDto tutorialDto)
+        public async Task<ActionResult> UpsertTutorial(UpsertTutorialDto tutorialDto)
         {
             if(tutorialDto.Id == 0)
             {
