@@ -1,0 +1,37 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using API.Entities;
+using API.Interfaces;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+
+namespace API.Data
+{
+    public class CourseRepository : ICourseRepository
+    {
+        private readonly DataContext _context;
+        private readonly IMapper _mapper;
+
+
+        public CourseRepository(DataContext context, IMapper mapper)
+        {
+            _context = context;
+            _mapper = mapper;
+        }
+        
+
+        public Task<Course> GetCourseByTitleAsync(string title)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> IsCourseWithTitleAvailable(string title)
+        {
+            return (await _context.Courses
+                .Where(t => t.Post.Title.ToLower().Equals(title.ToLower()))
+                .FirstOrDefaultAsync()) != null;
+        }
+    }
+}

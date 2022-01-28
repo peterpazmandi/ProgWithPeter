@@ -16,8 +16,18 @@ namespace API.Entities
 
 
         public double Price { get; set; }
-        public string Currency { get; set; } 
+        public string Currency { get; set; }
 
-        public virtual ICollection<Section> Tags { get; set; }
+
+        public DateTime CreationDate { get; set; }
+        public DateTime ModificationDate { get; set; }
+        public DateTime PublishDate { get; set; }
+
+
+        public int PostId { get; set; }
+        public virtual Post Post { get; set; }
+
+
+        public virtual ICollection<Section> Sections { get; set; }
     }
 }

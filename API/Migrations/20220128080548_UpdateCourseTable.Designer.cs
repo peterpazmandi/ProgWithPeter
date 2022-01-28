@@ -3,14 +3,16 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220128080548_UpdateCourseTable")]
+    partial class UpdateCourseTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -185,15 +187,10 @@ namespace API.Migrations
                     b.Property<string>("Status")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("TagId")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
 
                     b.HasIndex("PostId")
                         .IsUnique();
-
-                    b.HasIndex("TagId");
 
                     b.ToTable("Courses");
                 });
@@ -525,10 +522,6 @@ namespace API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("API.Entities.Tag", null)
-                        .WithMany("Courses")
-                        .HasForeignKey("TagId");
-
                     b.Navigation("Post");
                 });
 
@@ -704,11 +697,6 @@ namespace API.Migrations
                     b.Navigation("Lecture");
 
                     b.Navigation("Tutorial");
-                });
-
-            modelBuilder.Entity("API.Entities.Tag", b =>
-                {
-                    b.Navigation("Courses");
                 });
 #pragma warning restore 612, 618
         }

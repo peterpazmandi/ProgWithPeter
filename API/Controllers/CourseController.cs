@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.DTOs;
 using API.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
@@ -19,6 +21,18 @@ namespace API.Controllers
         }
 
 
+        [HttpPost]
+        public async Task<ActionResult> UpsertCourse(UpsertCourseDto upsertCourseDto)
+        {
+            if(upsertCourseDto.Id == 0)
+            {
+                if(await _unitOfWork.CourseRepository.IsCourseWithTitleAvailable(upsertCourseDto.Post.Title))
+                {
+                    return BadRequest("A course with this title already exists!");
+                }
+            }
 
+            return Ok();
+        }
     }
 }

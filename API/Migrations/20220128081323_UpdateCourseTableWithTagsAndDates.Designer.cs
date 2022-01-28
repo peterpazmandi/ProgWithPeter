@@ -3,14 +3,16 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220128081323_UpdateCourseTableWithTagsAndDates")]
+    partial class UpdateCourseTableWithTagsAndDates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -185,15 +187,10 @@ namespace API.Migrations
                     b.Property<string>("Status")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("TagId")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
 
                     b.HasIndex("PostId")
                         .IsUnique();
-
-                    b.HasIndex("TagId");
 
                     b.ToTable("Courses");
                 });
@@ -384,6 +381,21 @@ namespace API.Migrations
                     b.ToTable("CourseSection");
                 });
 
+            modelBuilder.Entity("CourseTag", b =>
+                {
+                    b.Property<int>("CoursesId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TagsId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("CoursesId", "TagsId");
+
+                    b.HasIndex("TagsId");
+
+                    b.ToTable("CourseTag");
+                });
+
             modelBuilder.Entity("LectureSection", b =>
                 {
                     b.Property<int>("LecturesId")
@@ -525,10 +537,6 @@ namespace API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("API.Entities.Tag", null)
-                        .WithMany("Courses")
-                        .HasForeignKey("TagId");
-
                     b.Navigation("Post");
                 });
 
@@ -603,6 +611,21 @@ namespace API.Migrations
                     b.HasOne("API.Entities.Section", null)
                         .WithMany()
                         .HasForeignKey("SectionsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CourseTag", b =>
+                {
+                    b.HasOne("API.Entities.Course", null)
+                        .WithMany()
+                        .HasForeignKey("CoursesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -704,11 +727,6 @@ namespace API.Migrations
                     b.Navigation("Lecture");
 
                     b.Navigation("Tutorial");
-                });
-
-            modelBuilder.Entity("API.Entities.Tag", b =>
-                {
-                    b.Navigation("Courses");
                 });
 #pragma warning restore 612, 618
         }

@@ -9,13 +9,15 @@ namespace API.DTOs
     {
         public int Id { get; set; }
 
-        public UpsertPostDto Post { get; set; }
-
-        //public ICollection<UpsertSectionsDto> Sections { get; set; }
-
         public string Status { get; set; }
+
 
         public double Price { get; set; }
         public string Currency { get; set; }
+
+        public UpsertPostDto Post { get; set; }
+
+        public ICollection<UpserSectionDto> Sections { get; set; }
+        public ICollection<int> Tags { get; set; }
     }
 }
