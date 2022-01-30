@@ -61,7 +61,8 @@ namespace API.Controllers
 
             return _mapper.Map<TutorialDto>(tutorial);
         }
-
+        
+        [Authorize(Roles = "Admin, Moderator")]
         [HttpPost]
         public async Task<ActionResult> UpsertTutorial(UpsertTutorialDto tutorialDto)
         {

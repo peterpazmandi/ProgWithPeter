@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using API.DTOs;
 using API.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -21,6 +22,7 @@ namespace API.Controllers
         }
 
 
+        [Authorize(Roles = "Admin, Moderator")]
         [HttpPost]
         public async Task<ActionResult> UpsertCourse(UpsertCourseDto upsertCourseDto)
         {
