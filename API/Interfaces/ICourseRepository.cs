@@ -10,5 +10,6 @@ namespace API.Interfaces
     {
         Task<Course> GetCourseByTitleAsync(string title);
         Task<bool> IsCourseWithTitleAvailable(string title);
+        Task AddCourseAsync(Course course);
     }
 }

@@ -15,8 +15,8 @@ namespace API.DTOs
         public double Length { get; set; }
 
         
-        public ICollection<int> Tags { get; set; }
-        public string Category { get; set; }
+        public ICollection<int> TagIds { get; set; }
+        public string CategoryName { get; set; }
 
         
 

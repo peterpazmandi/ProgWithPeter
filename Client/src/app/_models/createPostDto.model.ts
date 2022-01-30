@@ -10,8 +10,8 @@ export interface CreatePostDto {
 
     featuredImageUrl: string;
 
-    tags: number[];
-    category: string;
+    tagIds: number[];
+    categoryName: string;
     meta: CreateMetaDto;
 
     length: number;

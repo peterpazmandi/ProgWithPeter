@@ -20,7 +20,11 @@ namespace API.Data
             _context = context;
             _mapper = mapper;
         }
-        
+
+        public async Task AddCourseAsync(Course course)
+        {
+            await _context.Courses.AddAsync(course);
+        }
 
         public Task<Course> GetCourseByTitleAsync(string title)
         {

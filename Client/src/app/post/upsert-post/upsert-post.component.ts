@@ -158,8 +158,8 @@ export class UpsertPostComponent implements OnInit {
         content: (this.formTextForm?.value['content'] as string),
         password: '',
         featuredImageUrl: (this.createTutorialForm?.value['featuredImageUrl'] as string),
-        tags: tagIds,
-        category: (this.createTutorialForm?.value['category'] as TreeviewItem).text,
+        tagIds: tagIds,
+        categoryName: (this.createTutorialForm?.value['category'] as TreeviewItem).text,
         meta: {
           keyPhrase: (this.seoFormService.seoForm?.value['focusKeyphrase'] as string),
           seoTitle: (this.seoFormService.seoForm?.value['seoTitle'] as string),

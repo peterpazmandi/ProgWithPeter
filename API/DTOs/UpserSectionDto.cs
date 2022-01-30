@@ -13,5 +13,8 @@ namespace API.DTOs
 
         
         public string Title { get; set; }
+
+
+        public int Position { get; set; }
     }
 }

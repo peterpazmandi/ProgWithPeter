@@ -18,5 +18,8 @@ namespace API.Entities
 
         
         public string Title { get; set; }
+
+
+        public int Position { get; set; }
     }
 }

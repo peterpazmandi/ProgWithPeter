@@ -18,6 +18,5 @@ namespace API.DTOs
         public UpsertPostDto Post { get; set; }
 
         public ICollection<UpserSectionDto> Sections { get; set; }
-        public ICollection<int> Tags { get; set; }
     }
 }

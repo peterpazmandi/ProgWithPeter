@@ -79,11 +79,11 @@ namespace API.Controllers
             var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
 
             // Get category
-            var category = await _unitOfWork.CategoriesRepository.GetCategoryByNameAsync(tutorialDto.Post.Category);
+            var category = await _unitOfWork.CategoriesRepository.GetCategoryByNameAsync(tutorialDto.Post.CategoryName);
 
             // Get tags
             ICollection<Tag> tags = new HashSet<Tag>();
-            foreach(int tagId in tutorialDto.Post.Tags)
+            foreach(int tagId in tutorialDto.Post.TagIds)
             {
                 tags.Add(await _unitOfWork.TagsRepository.GetTagByIdAsync(tagId));
             }
@@ -92,13 +92,13 @@ namespace API.Controllers
 
             if(tutorialDto.Id == 0)
             {
-                if(tutorialDto.Status.Equals(PostStatus.Published.ToString())) {
+                if(tutorialDto.Status.Equals(PostStatus.Published.ToString())) 
+                {
                     tutorial.PublishDate = DateTime.Now;
                 }
 
                 tutorial = new Tutorial
                 {
-                    Id = tutorialDto.Id,
                     CreationDate = DateTime.Now,
                     ModificationDate = DateTime.Now,
                     Post = new Post
@@ -117,10 +117,6 @@ namespace API.Controllers
                     Price = tutorialDto.Price,
                     Currency = tutorialDto.Currency
                 };
-
-                if(tutorialDto.Status.Equals(PostStatus.Published.ToString())) {
-                    tutorial.PublishDate = DateTime.Now;
-                }
 
                 await _unitOfWork.TutorialRepository.AddTutorialAsync(tutorial);
             }
@@ -159,13 +155,23 @@ namespace API.Controllers
 
             if(await _unitOfWork.Complete())
             {
-                return Ok(new {
-                    tutorialId = tutorial.Id,
-                    message = "Tutorial has been created successfully!"
-                });
+                // Creation
+                if(tutorialDto.Id == 0)
+                {
+                    return Ok(new {
+                        tutorialId = tutorial.Id,
+                        message = "Tutorial has been created successfully!"
+                    });
+                }
+
+                // Update
+                    return Ok(new {
+                        tutorialId = tutorial.Id,
+                        message = "Tutorial has been updated successfully!"
+                    });
             }
 
-            return BadRequest("Failed to create tutorial!");
+            return BadRequest("Operation failed!");
         }
     }
 }
