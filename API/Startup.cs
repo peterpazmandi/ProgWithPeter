@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using API.Extensions;
 using API.Middleware;
@@ -33,7 +34,8 @@ namespace API
         {
             services.AddApplicationServices(_config);
 
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
             services.AddCors();
             
             services.AddIdentityServices(_config);

@@ -7,7 +7,7 @@ namespace API.DTOs
 {
     public class UpsertCourseDto
     {
-        public int? Id { get; set; }
+        public int Id { get; set; }
 
         public string Status { get; set; }
 

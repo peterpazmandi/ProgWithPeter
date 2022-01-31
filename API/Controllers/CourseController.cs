@@ -53,7 +53,7 @@ namespace API.Controllers
 
             Course course = _mapper.Map<Course>(upsertCourseDto);
 
-            if(upsertCourseDto.Id == null)
+            if(upsertCourseDto.Id == 0)
             {
                 if(upsertCourseDto.Status.Equals(PostStatus.Published.ToString()))
                 {
@@ -67,30 +67,39 @@ namespace API.Controllers
                 course.Post.Category = category;
                 course.Post.AppUser = user;
 
-                //await _unitOfWork.CourseRepository.AddCourseAsync(course);
+                foreach(Section section in course.Sections)
+                {
+                    foreach(Lecture lecture in section.Lectures)
+                    {
+                        lecture.Post.AppUser = user;
+                    }
+                }
+
+                await _unitOfWork.CourseRepository.AddCourseAsync(course);
             }
             else
             {
 
             }
 
-            // if(await _unitOfWork.Complete())
-            // {
-            //     // Creation
-            //     if(upsertCourseDto.Id == 0)
-            //     {
-            //         return Ok(new {
-            //             tutorialId = course.Id,
-            //             message = "Course has been created successfully!"
-            //         });
-            //     }
+            if(await _unitOfWork.Complete())
+            {
+                // Creation
+                if(upsertCourseDto.Id == 0)
+                {
+                    return Ok(new {
+                        course = course,
+                        courseId = course.Id,
+                        message = "Course has been created successfully!"
+                    });
+                }
 
-            //     // Update
-            //         return Ok(new {
-            //             tutorialId = upsertCourseDto.Id,
-            //             message = "Course has been updated successfully!"
-            //         });
-            // }
+                // Update
+                    return Ok(new {
+                        courseId = upsertCourseDto.Id,
+                        message = "Course has been updated successfully!"
+                    });
+            }
 
             return Ok(course);
             return BadRequest("Operation failed!");

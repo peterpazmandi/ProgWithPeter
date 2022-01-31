@@ -159,6 +159,7 @@ namespace API.Controllers
                 if(tutorialDto.Id == 0)
                 {
                     return Ok(new {
+                        tutorial = tutorial,
                         tutorialId = tutorial.Id,
                         message = "Tutorial has been created successfully!"
                     });

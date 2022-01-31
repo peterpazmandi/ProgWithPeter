@@ -44,13 +44,11 @@ namespace API.Data
                 .IsRequired();
 
             builder.Entity<AppUser>()
-                .HasOne(ur => ur.Photo)
-                .WithOne(u => u.AppUser);
-
-            builder.Entity<AppUser>()
-                .HasOne(u => u.Photo)
-                .WithOne(p => p.AppUser)
+                .HasOne<Photo>(ur => ur.Photo)
+                .WithOne(u => u.AppUser)
                 .HasForeignKey<Photo>(p => p.AppUserId);
+            builder.Entity<Photo>()
+                .HasKey(a => a.Id);
 
             builder.Entity<AppRole>()
                 .HasMany(ur => ur.UserRoles)
