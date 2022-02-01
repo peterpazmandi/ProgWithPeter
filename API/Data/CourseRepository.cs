@@ -26,6 +26,15 @@ namespace API.Data
             await _context.Courses.AddAsync(course);
         }
 
+        public Task<Course> GetCourseByIdAsync(int id)
+        {
+            return _context.Courses
+                .Include(c => c.Post)
+                .Include(c => c.Post.AppUser)
+                .Include(c => c.Post.Meta)
+                .FirstOrDefaultAsync();
+        }
+
         public Task<Course> GetCourseByTitleAsync(string title)
         {
             throw new NotImplementedException();

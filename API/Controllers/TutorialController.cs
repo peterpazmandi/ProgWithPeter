@@ -133,7 +133,8 @@ namespace API.Controllers
                 tutorial.Post.AppUser = user;
                 tutorial.ModificationDate = DateTime.Now;
 
-                if(tutorialDto.Status.Equals(PostStatus.Published.ToString())) {
+                if(tutorialDto.Status.Equals(PostStatus.Published.ToString())) 
+                {
                     tutorial.PublishDate = DateTime.Now;
                 }
 

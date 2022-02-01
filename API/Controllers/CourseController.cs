@@ -79,7 +79,7 @@ namespace API.Controllers
             }
             else
             {
-
+                
             }
 
             if(await _unitOfWork.Complete())
@@ -101,7 +101,6 @@ namespace API.Controllers
                     });
             }
 
-            return Ok(course);
             return BadRequest("Operation failed!");
         }
     }
