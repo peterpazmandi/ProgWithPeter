@@ -51,10 +51,11 @@ namespace API.Controllers
                 tags.Add(await _unitOfWork.TagsRepository.GetTagByIdAsync(tagId));
             }
 
-            Course course = _mapper.Map<Course>(upsertCourseDto);
+            Course course = null;
 
             if(upsertCourseDto.Id == 0)
             {
+                course = _mapper.Map<Course>(upsertCourseDto);
                 if(upsertCourseDto.Status.Equals(PostStatus.Published.ToString()))
                 {
                     course.PublishDate = DateTime.UtcNow;
@@ -79,28 +80,29 @@ namespace API.Controllers
             }
             else
             {
-                
+                course = await _unitOfWork.CourseRepository.GetCourseByIdAsync(upsertCourseDto.Id);
             }
 
-            if(await _unitOfWork.Complete())
-            {
-                // Creation
-                if(upsertCourseDto.Id == 0)
-                {
-                    return Ok(new {
-                        course = course,
-                        courseId = course.Id,
-                        message = "Course has been created successfully!"
-                    });
-                }
+            // if(await _unitOfWork.Complete())
+            // {
+            //     // Creation
+            //     if(upsertCourseDto.Id == 0)
+            //     {
+            //         return Ok(new {
+            //             course = course,
+            //             courseId = course.Id,
+            //             message = "Course has been created successfully!"
+            //         });
+            //     }
 
-                // Update
-                    return Ok(new {
-                        courseId = upsertCourseDto.Id,
-                        message = "Course has been updated successfully!"
-                    });
-            }
+            //     // Update
+            //         return Ok(new {
+            //             courseId = upsertCourseDto.Id,
+            //             message = "Course has been updated successfully!"
+            //         });
+            // }
 
+            return Ok(course);
             return BadRequest("Operation failed!");
         }
     }
