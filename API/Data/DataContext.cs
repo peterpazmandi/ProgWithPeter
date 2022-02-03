@@ -72,6 +72,16 @@ namespace API.Data
                 .ToTable("Tutorials")
                 .HasOne(d => d.Post)
                 .WithOne(p => p.Tutorial);
+
+            builder.Entity<Course>()
+                .ToTable("Courses")
+                .HasOne(d => d.Post)
+                .WithOne(p => p.Course);
+
+            builder.Entity<Lecture>()
+                .ToTable("Lecture")
+                .HasOne(d => d.Post)
+                .WithOne(p => p.Lecture);
                 
                 
         }

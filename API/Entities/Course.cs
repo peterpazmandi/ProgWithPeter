@@ -27,7 +27,6 @@ namespace API.Entities
         public int PostId { get; set; }
         public virtual Post Post { get; set; }
 
-
         public virtual ICollection<Section> Sections { get; set; }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using API.DTOs;
 using API.Entities;
 using AutoMapper;
@@ -25,15 +26,20 @@ namespace API.Helpers
             CreateMap<Tutorial, TutorialDto>().ReverseMap();
 
             CreateMap<Post, HomePagePostDto>().ReverseMap();
-            CreateMap<Meta, HomePageMetaDto>().ReverseMap();
+            CreateMap<Meta, HomePageMetaDto>() .ReverseMap();
             CreateMap<Tutorial, HomePageTutorialDto>().ReverseMap();
 
             CreateMap<Post, TutorialListPostDto>().ReverseMap();
             CreateMap<Tutorial, TutorialListTutorialDto>().ReverseMap();
 
-            CreateMap<Lecture, UpsertLectureDto>().ReverseMap();
-            CreateMap<Section, UpserSectionDto>().ReverseMap();
-            CreateMap<Course, UpsertCourseDto>().ReverseMap();
+            CreateMap<Lecture, UpsertLectureDto>();
+            CreateMap<UpsertLectureDto, Lecture>();
+            CreateMap<Section, UpserSectionDto>();
+            CreateMap<UpserSectionDto, Section>()
+                .ForMember(s => s.Lectures, opt => opt.Ignore());
+            CreateMap<Course, UpsertCourseDto>();
+            CreateMap<UpsertCourseDto, Course>()
+                .ForMember(s => s.Sections, opt => opt.Ignore());
         }
     }
 }

@@ -28,13 +28,20 @@ namespace API.Data
 
         public Task<Course> GetCourseByIdAsync(int id)
         {
-            return _context.Courses
+            var query = _context.Courses
                 .Include(c => c.Post).ThenInclude(p => p.AppUser)
                 .Include(c => c.Post).ThenInclude(p => p.Meta)
+                .Include(c => c.Post).ThenInclude(p => p.Tags)
                 .Include(c => c.Sections)
                     .ThenInclude(s => s.Lectures)
                     .ThenInclude(l => l.Post)
                     .ThenInclude(p => p.Meta)
+                .Include(c => c.Sections)
+                    .ThenInclude(s => s.Lectures)
+                    .ThenInclude(l => l.Post)
+                    .ThenInclude(p => p.Tags);
+                    
+            return query
                 .FirstOrDefaultAsync();
         }
 
