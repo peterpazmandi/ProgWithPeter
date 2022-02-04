@@ -1,6 +1,5 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { FileUploadModule } from "ng2-file-upload";
 import { ModalModule } from "ngx-bootstrap/modal";
 import { ToastrModule } from "ngx-toastr";
 

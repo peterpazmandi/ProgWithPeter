@@ -48,6 +48,8 @@ import { ImageSelectorComponent } from './_forms/image-selector/image-selector.c
 import { InputCkeditorComponent } from './_forms/input-ckeditor/input-ckeditor.component';
 import { SeoFormComponent } from './_forms/seo-form/seo-form.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { UpsertContentListComponent } from './_forms/lists/upsert-content-list/upsert-content-list.component';
+import { UpsertContentListItemComponent } from './_forms/lists/upsert-content-list/upsert-content-list-item/upsert-content-list-item.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -83,7 +85,9 @@ export function tokenGetter() {
     CategorySelectorComponent,
     ImageSelectorComponent,
     InputCkeditorComponent,
-    SeoFormComponent
+    SeoFormComponent,
+    UpsertContentListComponent,
+    UpsertContentListItemComponent
   ],
   imports: [
     BrowserModule,
