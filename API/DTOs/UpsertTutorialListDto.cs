@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace API.DTOs
 {
-    public class TutorialListTutorialDto
+    public class UpsertTutorialListDto
     {
         public int Id { get; set; }
 
@@ -16,6 +16,6 @@ namespace API.DTOs
         public DateTime ModificationDate { get; set; }
 
 
-        public virtual TutorialListPostDto Post { get; set; }
+        public virtual UpsertPostListDto Post { get; set; }
     }
 }

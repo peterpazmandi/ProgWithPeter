@@ -35,7 +35,7 @@ namespace API.Controllers
         }
 
         [HttpGet("GetTutorialsOrderedByModificationDate")]
-        public async Task<ActionResult<IEnumerable<TutorialListTutorialDto>>> GetTutorialsOrderedByModificationDate([FromQuery] TutorialParams tutorialParams)
+        public async Task<ActionResult<IEnumerable<UpsertTutorialListDto>>> GetTutorialsOrderedByModificationDate([FromQuery] TutorialParams tutorialParams)
         {
             var tutorials = await _unitOfWork.TutorialRepository.GetTutorialsOrderedByModificationDate(tutorialParams);
 

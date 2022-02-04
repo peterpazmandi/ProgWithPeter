@@ -29,8 +29,8 @@ namespace API.Helpers
             CreateMap<Meta, HomePageMetaDto>() .ReverseMap();
             CreateMap<Tutorial, HomePageTutorialDto>().ReverseMap();
 
-            CreateMap<Post, TutorialListPostDto>().ReverseMap();
-            CreateMap<Tutorial, TutorialListTutorialDto>().ReverseMap();
+            CreateMap<Post, UpsertPostListDto>().ReverseMap();
+            CreateMap<Tutorial, UpsertTutorialListDto>().ReverseMap();
 
             CreateMap<Lecture, UpsertLectureDto>();
             CreateMap<UpsertLectureDto, Lecture>();
@@ -40,6 +40,8 @@ namespace API.Helpers
             CreateMap<Course, UpsertCourseDto>();
             CreateMap<UpsertCourseDto, Course>()
                 .ForMember(s => s.Sections, opt => opt.Ignore());
+
+            CreateMap<Course, UpsertCourseListDto>().ReverseMap();
         }
     }
 }

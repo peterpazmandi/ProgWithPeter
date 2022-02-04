@@ -14,7 +14,8 @@ namespace API.Interfaces
         void UpdateTutorial(Tutorial tutorial);
         Task<Tutorial> GetTutorialByTitleAsync(string title);
         Task<PagedList<HomePageTutorialDto>> GetPublishedTutorialsOrderedByPublishDate(TutorialParams tutorialParams);
-        Task<PagedList<TutorialListTutorialDto>> GetTutorialsOrderedByModificationDate(TutorialParams tutorialParams);
+        Task<PagedList<UpsertTutorialListDto>> GetTutorialsOrderedByModificationDate(TutorialParams tutorialParams);
         Task<Tutorial> GetTutorialById(int id);
+        
     }
 }

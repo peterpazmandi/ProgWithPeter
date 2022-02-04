@@ -2,9 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.DTOs;
 using API.Entities;
+using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
@@ -48,6 +51,18 @@ namespace API.Data
         public Task<Course> GetCourseByTitleAsync(string title)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<PagedList<UpsertCourseListDto>> GetCoursesOrderedByModificationDate(CourseParams courseParams)
+        {
+            var query = _context.Courses
+                .Include(c => c.Post.Category)
+                .Include(t => t.Post.Tags)
+                .OrderByDescending(p => p.ModificationDate)
+                .ProjectTo<UpsertCourseListDto>(_mapper.ConfigurationProvider);
+
+            return await PagedList<UpsertCourseListDto>
+                .CreateAsync(query, courseParams.PageNumber, courseParams.PageSize);
         }
 
         public async Task<bool> IsCourseWithTitleAvailable(string title)

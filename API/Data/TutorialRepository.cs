@@ -68,15 +68,16 @@ namespace API.Data
             return await PagedList<HomePageTutorialDto>.CreateAsync(query, tutorialParams.PageNumber, tutorialParams.PageSize);
         }
 
-        public async Task<PagedList<TutorialListTutorialDto>> GetTutorialsOrderedByModificationDate(TutorialParams tutorialParams)
+        public async Task<PagedList<UpsertTutorialListDto>> GetTutorialsOrderedByModificationDate(TutorialParams tutorialParams)
         {
             var query = _context.Tutorials
                 .Include(c => c.Post.Category)
                 .Include(t => t.Post.Tags)
                 .OrderByDescending(p => p.ModificationDate)
-                .ProjectTo<TutorialListTutorialDto>(_mapper.ConfigurationProvider);
+                .ProjectTo<UpsertTutorialListDto>(_mapper.ConfigurationProvider);
 
-            return await PagedList<TutorialListTutorialDto>.CreateAsync(query, tutorialParams.PageNumber, tutorialParams.PageSize);
+            return await PagedList<UpsertTutorialListDto>
+                .CreateAsync(query, tutorialParams.PageNumber, tutorialParams.PageSize);
         }
     }
 }

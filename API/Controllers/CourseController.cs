@@ -25,6 +25,19 @@ namespace API.Controllers
         }
 
 
+
+        [Authorize(Roles = "Admin, Moderator")]
+        [HttpGet("GetCoursesOrderedByModificationDate")]
+        public async Task<ActionResult<IEnumerable<UpsertCourseListDto>>> GetCoursesOrderedByModificationDate([FromQuery] CourseParams courseParams)
+        {
+            var courses = await _unitOfWork.CourseRepository.GetCoursesOrderedByModificationDate(courseParams);
+
+            Response.AddPaginationHeader(courses.CurrentPage, courses.PageSize, courses.TotalCount, courses.TotalPages);
+
+            return courses;
+        }
+
+
         [Authorize(Roles = "Admin, Moderator")]
         [HttpPost]
         public async Task<ActionResult> UpsertCourse(UpsertCourseDto upsertCourseDto)
