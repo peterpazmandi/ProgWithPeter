@@ -25,6 +25,8 @@ import { PostType } from 'src/app/_utils/post-type.enum';
   styleUrls: ['./upsert-post.component.css']
 })
 export class UpsertPostComponent implements OnInit {
+  slug: string;
+
   apiUrl = environment.apiUrl;
   serverUrl = environment.serverUrl;
   uploader: FileUploader;
@@ -76,9 +78,9 @@ export class UpsertPostComponent implements OnInit {
       .subscribe(u => this.user = u);
 
     this.selectedPostType = this.route.snapshot.queryParams['posttype'];
-    const slug = this.route.snapshot.queryParams['slug'];
-    if(slug) {
-      this.tutorialService.getTutorialByTitle(slug).subscribe(tutorial => {
+    this.slug = this.route.snapshot.queryParams['slug'];
+    if(this.slug) {
+      this.tutorialService.getTutorialByTitle(this.slug).subscribe(tutorial => {
         this.updateTutorialForms(tutorial);
       }, error => {
         console.log(error);

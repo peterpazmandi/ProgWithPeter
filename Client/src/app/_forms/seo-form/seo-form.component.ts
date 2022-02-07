@@ -26,10 +26,6 @@ export class SeoFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForms();
-
-    this.seoFormService.seoForm.valueChanges.subscribe(value => {
-      console.log(value);
-    })
   }
 
   private initializeForms() {

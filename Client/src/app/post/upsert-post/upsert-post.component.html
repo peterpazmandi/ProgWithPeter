@@ -1,7 +1,8 @@
 <div class="container pt-5">    
     <div class="row">
         <div class="col-3 menu">
-            <h3 class="text-center fw-bold">Create New Tutorial</h3>
+            <h3 *ngIf="!slug" class="text-center fw-bold">Create New {{selectedPostType}}</h3>
+            <h3 *ngIf="slug" class="text-center fw-bold" #elseBlock>Update {{selectedPostType}}</h3>
             <hr class="dropdown-divider">
             <div class="col-xs-1 text-center">
                 <button
@@ -17,9 +18,9 @@
                     <span>Save as draft</span>
                 </button>
                 <button 
-                    class="btn btn-transparent btn-sm col-8 mb-4" 
+                    class="btn btn-outline-info btn-sm col-8 mb-4" 
                     routerLink='/tutorial-list'>
-                    <span>Cancel</span>
+                    <span>Back</span>
                 </button>
             </div>
             <hr class="dropdown-divider">
