@@ -7,10 +7,10 @@ import { Status } from 'src/app/_utils/status.enum';
 
 @Component({
   selector: 'app-tutorial-list',
-  templateUrl: './tutorial-list.component.html',
-  styleUrls: ['./tutorial-list.component.css']
+  templateUrl: './upsert-tutorial-list.component.html',
+  styleUrls: ['./upsert-tutorial-list.component.css']
 })
-export class TutorialListComponent implements OnInit {
+export class UpsertTutorialListComponent implements OnInit {
   filterForm: FormGroup;
   public statuses = Status;
   tutorials: Tutorial[] = [];  

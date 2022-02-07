@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { HomeComponent } from "./home/home.component";
 import { UpsertPostComponent } from "./post/upsert-post/upsert-post.component";
-import { TutorialListComponent } from "./tutorial/tutorial-list/tutorial-list.component";
+import { UpsertTutorialListComponent } from "./tutorial/upsert-tutorial-list/upsert-tutorial-list.component";
 import { TutorialComponent } from "./tutorial/tutorial/tutorial.component";
 import { AuthGuard } from "./_guards/auth.guard";
 import { PreventUnsavedChangesGuard } from "./_guards/prevent-unsaved-changes.guard";
@@ -14,7 +14,7 @@ const routes: Routes = [
         runGuardsAndResolvers: 'always',
         canActivate: [AuthGuard],
         children: [
-            { path: 'tutorial-list', component: TutorialListComponent},
+            { path: 'tutorial-list', component: UpsertTutorialListComponent},
             { path: 'upsert-post', component: UpsertPostComponent, canDeactivate: [PreventUnsavedChangesGuard]}
         ]
     },
