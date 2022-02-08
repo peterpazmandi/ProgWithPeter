@@ -19,6 +19,7 @@ import { SeoFormService } from 'src/app/_forms/seo-form/seo-form.service';
 import { PostType } from 'src/app/_utils/post-type.enum';
 import { CourseService } from 'src/app/_services/course.service';
 import { CreateMetaDto } from 'src/app/_models/createMetaDto.model';
+import { UpsertCourseDto } from 'src/app/_models/upsertCourseDto.model';
 
 
 @Component({
@@ -166,14 +167,20 @@ export class UpsertPostComponent implements OnInit {
   }
 
   private uploadCourse(status: string) {
-    var tutorial = this.createCourseDtoFromForms(status);
+    var course = this.createCourseDtoFromForms(status);
 
   }
-  private createCourseDtoFromForms(status: string) {
-    
+  private createCourseDtoFromForms(status: string): UpsertCourseDto {
+    return {
+      id: (this.createPostForm?.value['id'] as number),
+      status: status,
+      price: 9.9,
+      currency: 'USD',
+      post: this.createPostDtoFromForms(),
+    } as UpsertCourseDto;
   }
 
-  private createTutorialDtoFromForms(status: string) {
+  private createTutorialDtoFromForms(status: string): UpsertTutorialDto {
     return {
       id: (this.createPostForm?.value['id'] as number),
       status: status,
