@@ -9,10 +9,9 @@ import { PostType } from 'src/app/_utils/post-type.enum';
 })
 export class UpsertContentListItemComponent implements OnInit {
   @Input() item: any;
-  @Input() postType: typeof PostType;
+  @Input() postType: string;
 
   constructor() {
-    this.postType = PostType;
   }
 
   ngOnInit(): void {

@@ -17,6 +17,7 @@ import { take } from 'rxjs/operators';
 import { Tutorial } from 'src/app/_models/tutorialDto.model';
 import { SeoFormService } from 'src/app/_forms/seo-form/seo-form.service';
 import { PostType } from 'src/app/_utils/post-type.enum';
+import { CourseService } from 'src/app/_services/course.service';
 
 
 @Component({
@@ -62,6 +63,7 @@ export class UpsertPostComponent implements OnInit {
     private accountService: AccountService,
     public seoFormService: SeoFormService,
     private tutorialService: TutorialService,
+    private courseService: CourseService,
     private fb: FormBuilder,
     private toastr: ToastrService,
     private route: ActivatedRoute) {

@@ -10,9 +10,9 @@
 <td>
     <a
         [routerLink]="['/upsert-post']"
-        [queryParams]="{slug: item.post.title, posttype: postType.Tutorial}">
+        [queryParams]="{slug: item.post.title, posttype: postType}">
         <svg id="edit-icon" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <title id="unique-id">Edit tutorial</title>
+            <title id="unique-id">Edit {{postType}}</title>
             <path 
                 fill-rule="evenodd" 
                 clip-rule="evenodd" 
@@ -23,7 +23,7 @@
 </td>
 <td>
     <svg id="delete-icon" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <title id="unique-id">Delete tutorial</title>
+        <title id="unique-id">Delete {{postType}}</title>
         <path 
             fill-rule="evenodd" 
             clip-rule="evenodd" 

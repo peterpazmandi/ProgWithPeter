@@ -29,7 +29,7 @@ export class UpsertCourseListComponent implements OnInit {
     this.initializeForm();
 
     this.courseService.getPublishedCoursesOrderedByPublishDate(this.pageNumber, this.pageSize).subscribe(response => {
-      console.log(response);
+      this.courses.push(...response.result);
     })
   }
 
