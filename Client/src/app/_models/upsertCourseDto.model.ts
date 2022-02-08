@@ -1,4 +1,5 @@
 import { UpsertPostDto } from "./upsertPostDto.model";
+import { UpsertSectionDto } from "./upsertSectionDto.model";
 
 export interface UpsertCourseDto {
     id: number,
@@ -6,5 +7,7 @@ export interface UpsertCourseDto {
     price: number,
     currency: string,
 
-    post: UpsertPostDto
+    post: UpsertPostDto,
+
+    sections: UpsertSectionDto[]
 }
