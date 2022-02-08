@@ -7,7 +7,7 @@ namespace API.DTOs
 {
     public class UpsertLectureDto
     {
-        public UpsertPostDto Post { get; set; }
+        public UpsertPostOfLectureDto Post { get; set; }
 
 
         public int Position { get; set; }

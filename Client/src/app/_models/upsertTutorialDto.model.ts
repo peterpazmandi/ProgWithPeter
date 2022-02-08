@@ -1,8 +1,8 @@
-import { CreatePostDto } from "./createPostDto.model";
+import { UpsertPostDto } from "./upsertPostDto.model";
 
 export interface UpsertTutorialDto {
     id: number;
-    post: CreatePostDto;
+    post: UpsertPostDto;
     status: string;
     price: number;
     currency: string;

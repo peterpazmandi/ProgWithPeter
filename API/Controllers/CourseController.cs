@@ -108,13 +108,6 @@ namespace API.Controllers
                     for(int j = 0; j < course.Sections.ToList()[i].Lectures.Count(); j++)
                     {
                         _mapper.Map(upsertCourseDto.Sections.ToList()[i].Lectures.ToList()[j], course.Sections.ToList()[i].Lectures.ToList()[j]);
-                        
-                        ICollection<Tag> lectureTags = new HashSet<Tag>();
-                        foreach(int tagId in upsertCourseDto.Sections.ToList()[i].Lectures.ToList()[j].Post.TagIds)
-                        {
-                            lectureTags.Add(await _unitOfWork.TagsRepository.GetTagByIdAsync(tagId));
-                        }
-                        course.Sections.ToList()[i].Lectures.ToList()[j].Post.Tags = lectureTags;
                     }
                     _mapper.Map(upsertCourseDto.Sections.ToList()[i], course.Sections.ToList()[i]);
                 }

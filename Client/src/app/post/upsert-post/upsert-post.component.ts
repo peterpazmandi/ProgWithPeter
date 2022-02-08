@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TreeItem, TreeviewItem } from 'ngx-treeview';
-import { CreatePostDto } from 'src/app/_models/createPostDto.model';
+import { UpsertPostDto } from 'src/app/_models/upsertPostDto.model';
 import { Tag } from 'src/app/_models/tag.model';
 import { TutorialService } from 'src/app/_services/tutorial.service';
 import { Status } from '../../_utils/status.enum';
@@ -18,6 +18,7 @@ import { Tutorial } from 'src/app/_models/tutorialDto.model';
 import { SeoFormService } from 'src/app/_forms/seo-form/seo-form.service';
 import { PostType } from 'src/app/_utils/post-type.enum';
 import { CourseService } from 'src/app/_services/course.service';
+import { CreateMetaDto } from 'src/app/_models/createMetaDto.model';
 
 
 @Component({
@@ -32,7 +33,7 @@ export class UpsertPostComponent implements OnInit {
   serverUrl = environment.serverUrl;
   uploader: FileUploader;
 
-  createTutorialForm: FormGroup;
+  createPostForm: FormGroup;
   formTextForm: FormGroup;
   textCharCount: number;
   textWordCount: number;
@@ -47,11 +48,12 @@ export class UpsertPostComponent implements OnInit {
 
   postType: typeof PostType;
   selectedPostType: string;
+  backRouterLink: string;
 
   user: User;
 
   @HostListener('window:beforeunload', ['$event']) unloadNofitifaction($event: any) {
-    if(this.createTutorialForm.dirty
+    if(this.createPostForm.dirty
       || this.formTextForm.dirty ||
       this.seoFormService.seoForm.dirty) {
         $event.returnValue = true;
@@ -80,19 +82,25 @@ export class UpsertPostComponent implements OnInit {
       .subscribe(u => this.user = u);
 
     this.selectedPostType = this.route.snapshot.queryParams['posttype'];
+    this.backRouterLink = this.createBackRouterLink();
     this.slug = this.route.snapshot.queryParams['slug'];
     if(this.slug) {
       this.tutorialService.getTutorialByTitle(this.slug).subscribe(tutorial => {
-        this.updateTutorialForms(tutorial);
+        this.updatePostForms(tutorial);
       }, error => {
         console.log(error);
       });
     }
   }
-  updateTutorialForms(tutorial: Tutorial) {
+                          
+  createBackRouterLink(): string {
+    return '/' + this.selectedPostType.toLocaleLowerCase() + '-list';
+  }
+  
+  updatePostForms(tutorial: Tutorial) {
     this.currentStatus = tutorial.status;
     
-    this.createTutorialForm.patchValue({
+    this.createPostForm.patchValue({
       id: tutorial.id,
       title: tutorial.post.title,
       category: new TreeviewItem({
@@ -116,71 +124,99 @@ export class UpsertPostComponent implements OnInit {
     });
   }
   
-  onUploadTutorial(status: string) {
+  onUpload(status: string) {
       this.submitted = true;
       this.currentStatus = status;
 
       // stop here if form is invalid
-      if (this.createTutorialForm.invalid) {
+      if (this.createPostForm.invalid) {
           return;
       }
 
-      var tutorial = this.createTutorialDtoFromForms(status);
-      console.log(tutorial);
-      this.tutorialService.upsertTutorial(tutorial).subscribe((result: any) => {
-        console.log(result);
-        this.toastr.success(result.message);
-        this.createTutorialForm.patchValue({
-          id: result.tutorialId
-        })
-
-        // Undirty the forms
-        this.createTutorialForm.markAsPristine();
-        this.formTextForm.markAsPristine();
-        this.seoFormService.seoForm.markAsPristine();
-        
-      }, error => {
-        console.log(error);
-      });
+      switch(this.selectedPostType) {
+        case PostType.Tutorial: { 
+          this.uploadTutorial(status); 
+          break;
+        }
+        case PostType.Course: { 
+          this.uploadCourse(status); 
+          break;
+        }
+      }
   }
 
-  createTutorialDtoFromForms(status: string) {
-    let tagIds: number[] = [];
-    let tags: Tag[] = this.createTutorialForm?.value['tags'] as Tag[];
-    for(let tag of tags) {
-      tagIds.push(tag.id);
-    }
+  private uploadTutorial(status: string) {
+    var tutorial = this.createTutorialDtoFromForms(status);
+    
+    this.tutorialService.upsertTutorial(tutorial).subscribe((result: any) => {
+      console.log(result);
+      this.toastr.success(result.message);
+      this.createPostForm.patchValue({
+        id: result.tutorialId
+      })
 
+      // Undirty the forms
+      this.createPostForm.markAsPristine();
+      this.formTextForm.markAsPristine();
+      this.seoFormService.seoForm.markAsPristine();
+      
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  private uploadCourse(status: string) {
+    var tutorial = this.createCourseDtoFromForms(status);
+
+  }
+  private createCourseDtoFromForms(status: string) {
+    
+  }
+
+  private createTutorialDtoFromForms(status: string) {
     return {
-      id: (this.createTutorialForm?.value['id'] as number),
+      id: (this.createPostForm?.value['id'] as number),
       status: status,
       price: 9.9,
       currency: 'USD',
-      post: {
-        title: (this.createTutorialForm?.value['title'] as string),
-        excerpt: (this.formTextForm?.value['excerpt'] as string),
-        content: (this.formTextForm?.value['content'] as string),
-        password: '',
-        featuredImageUrl: (this.createTutorialForm?.value['featuredImageUrl'] as string),
-        tagIds: tagIds,
-        categoryName: (this.createTutorialForm?.value['category'] as TreeviewItem).text,
-        meta: {
-          keyPhrase: (this.seoFormService.seoForm?.value['focusKeyphrase'] as string),
-          seoTitle: (this.seoFormService.seoForm?.value['seoTitle'] as string),
-          slug: (this.seoFormService.seoForm?.value['slug'] as string),
-          metaDescription: (this.seoFormService.seoForm?.value['metaDescription'] as string),
-        },
-        length: this.textWordCount / WORD_PER_MINUTES
-      } as CreatePostDto
+      post: this.createPostDtoFromForms()
     } as UpsertTutorialDto;
 
   }
 
-  get createTutorialF() { return this.createTutorialForm.controls; }
+  private createPostDtoFromForms(): UpsertPostDto {
+    let tagIds: number[] = [];
+    let tags: Tag[] = this.createPostForm?.value['tags'] as Tag[];
+    for(let tag of tags) {
+      tagIds.push(tag.id);
+    }
+    return {
+      title: (this.createPostForm?.value['title'] as string),
+      excerpt: (this.formTextForm?.value['excerpt'] as string),
+      content: (this.formTextForm?.value['content'] as string),
+      password: '',
+      featuredImageUrl: (this.createPostForm?.value['featuredImageUrl'] as string),
+      tagIds: tagIds,
+      categoryName: (this.createPostForm?.value['category'] as TreeviewItem).text,
+      meta: this.createMetaDtoFromForms(),
+      length: this.textWordCount / WORD_PER_MINUTES
+    } as UpsertPostDto
+  }
+
+  private createMetaDtoFromForms(): CreateMetaDto {
+    return {
+      keyPhrase: (this.seoFormService.seoForm?.value['focusKeyphrase'] as string),
+      seoTitle: (this.seoFormService.seoForm?.value['seoTitle'] as string),
+      slug: (this.seoFormService.seoForm?.value['slug'] as string),
+      metaDescription: (this.seoFormService.seoForm?.value['metaDescription'] as string),
+    }
+  }
+
+  get createTutorialF() { return this.createPostForm.controls; }
   get seoF() { return this.seoFormService.seoForm.controls; }
 
   private initializeForms() {
-    this.createTutorialForm = this.fb.group({
+    this.createPostForm = this.fb.group({
       id: [0],
       title: ['', [Validators.required, Validators.minLength(8)]],
       category: ['', [Validators.required]],
@@ -220,4 +256,3 @@ export class UpsertPostComponent implements OnInit {
    }
 }
 
-                          

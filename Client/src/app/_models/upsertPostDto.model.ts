@@ -2,7 +2,7 @@ import { Category as Category } from "./category.model";
 import { CreateMetaDto } from "./createMetaDto.model";
 import { Tag } from "./tag.model";
 
-export interface CreatePostDto {
+export interface UpsertPostDto {
     title: string;
     excerpt: string;
     content: string;

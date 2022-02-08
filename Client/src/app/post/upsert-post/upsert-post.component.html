@@ -7,19 +7,19 @@
             <div class="col-xs-1 text-center">
                 <button
                     class="btn btn-success btn-sm col-8"
-                    [disabled]='!createTutorialForm.valid'
-                    (click)="onUploadTutorial(status.Published)" >
+                    [disabled]='!createPostForm.valid'
+                    (click)="onUpload(status.Published)" >
                     <span>Publish</span>
                 </button>
                 <button
                     class="btn btn-warning btn-sm col-8"
-                    [disabled]='!createTutorialForm.valid'
-                    (click)="onUploadTutorial(status.Draft)" >
+                    [disabled]='!createPostForm.valid'
+                    (click)="onUpload(status.Draft)" >
                     <span>Save as draft</span>
                 </button>
-                <button 
+                <button
                     class="btn btn-outline-info btn-sm col-8 mb-4" 
-                    routerLink='/tutorial-list'>
+                    routerLink='{{backRouterLink}}'>
                     <span>Back</span>
                 </button>
             </div>
@@ -36,21 +36,21 @@
                 <span>Charachters</span>
                 <span class="fs-1 fw-bold">{{textCharCount}}</span>
             </div>
-            <form [formGroup]='createTutorialForm' autocomplete="off">
+            <form [formGroup]='createPostForm' autocomplete="off">
                 <div class="innerdiv mb-3">                    
                     <!-- Title -->
                     <span class="fw-bold">Title</span>
                     <!-- Title -->
-                    <app-text-input [formControl]='createTutorialForm.controls["title"]' [label]='"Title"'></app-text-input>
+                    <app-text-input [formControl]='createPostForm.controls["title"]' [label]='"Title"'></app-text-input>
                     <!-- Category -->
-                    <category-selector [formControl]='createTutorialForm.controls["category"]'></category-selector>
+                    <category-selector [formControl]='createPostForm.controls["category"]'></category-selector>
                     <!-- Tags -->
-                    <tag-selector [formControl]='createTutorialForm.controls["tags"]'></tag-selector>
+                    <tag-selector [formControl]='createPostForm.controls["tags"]'></tag-selector>
                 </div>
                 <h5 class="fw-bold">Featured image</h5>
                 <div class="innerdiv mb-3">
                     <!-- Featured Image -->
-                    <image-selector [formControl]='createTutorialForm.controls["featuredImageUrl"]' [user]='user'></image-selector>
+                    <image-selector [formControl]='createPostForm.controls["featuredImageUrl"]' [user]='user'></image-selector>
                 </div>
             </form>
             <h5 class="fw-bold">SEO</h5>
