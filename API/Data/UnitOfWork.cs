@@ -23,6 +23,7 @@ namespace API.Data
         public ITutorialRepository TutorialRepository => new TutorialRepository(_context, _mapper);
         public ICourseRepository CourseRepository => new CourseRepository(_context, _mapper);
         public ISectionRepository SectionRepository => new SectionRepository(_context, _mapper);
+        public ILectureRepository LectureRepository => new LectureRepository(_context, _mapper);
 
         public async Task<bool> Complete()
         {

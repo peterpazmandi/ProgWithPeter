@@ -19,9 +19,9 @@ namespace API.Data
             _mapper = mapper;
         }
 
-        public Task<Lecture> AddLectureAsync(Lecture lecture)
+        public async Task<Lecture> AddLectureAsync(Lecture lecture)
         {
-            throw new NotImplementedException();
+            return (await _context.Lectures.AddAsync(lecture)).Entity;
         }
     }
 }

@@ -42,7 +42,8 @@ namespace API.Data
                 .Include(c => c.Sections)
                     .ThenInclude(s => s.Lectures)
                     .ThenInclude(l => l.Post)
-                    .ThenInclude(p => p.Tags);
+                    .ThenInclude(p => p.Tags)
+                .Where(c => c.Id == id);
                     
             return query
                 .FirstOrDefaultAsync();

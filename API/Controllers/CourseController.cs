@@ -98,37 +98,38 @@ namespace API.Controllers
 
                 course.ModificationDate = DateTime.UtcNow;
                 
-                // course.Post.Title = upsertCourseDto.Post.Title;
-                // course.Post.Tags = courseTags;
-                // course.Post.Category = category;
-                // course.Post.AppUser = user;
+                course.Post.Title = upsertCourseDto.Post.Title;
+                course.Post.Tags = courseTags;
+                course.Post.Category = category;
+                course.Post.AppUser = user;
                 
-                // List<Section> sections = _mapper.Map<List<Section>>(upsertCourseDto.Sections);
-                // for(int i = 0; i < sections.Count(); i++)
-                // {
-                //     if(sections[i].Id != 0)
-                //     {
-                //         course.Sections[i].Title = upsertCourseDto.Sections[i].Title;
-                //         course.Sections[i].Position = upsertCourseDto.Sections[i].Position;
-                //         for(int j = 0; j < course.Sections[i].Lectures.Count(); j++)
-                //         {
-                //             if(course.Sections[i].Lectures.ToList()[j].Id != 0)
-                //             {
-                //                 _mapper.Map(upsertCourseDto.Sections[i].Lectures.ToList()[j], course.Sections[i].Lectures.ToList()[j]);
-                //             }
-                //             else
-                //             {
-
-                //             }
-                //         }
-                //     }
-                //     else
-                //     {
-                //         Section section = await _unitOfWork.SectionRepository.AddSectionAsync(sections[i]);
-                //         await _unitOfWork.Complete();
-                //         course.Sections.Add(section);
-                //     }
-                // }
+                List<Section> sections = _mapper.Map<List<Section>>(upsertCourseDto.Sections);
+                for(int i = 0; i < upsertCourseDto.Sections.Count(); i++)
+                {
+                    if(upsertCourseDto.Sections[i].Id != 0)
+                    {
+                        course.Sections[i].Title = upsertCourseDto.Sections[i].Title;
+                        course.Sections[i].Position = upsertCourseDto.Sections[i].Position;
+                        for(int j = 0; j < course.Sections[i].Lectures.Count(); j++)
+                        {
+                            if(course.Sections[i].Lectures.ToList()[j].Id != 0)
+                            {
+                                _mapper.Map(upsertCourseDto.Sections[i].Lectures.ToList()[j], course.Sections[i].Lectures.ToList()[j]);
+                            }
+                            else
+                            {
+                                Lecture lecture = await _unitOfWork.LectureRepository.AddLectureAsync(sections[i].Lectures.ToList()[j]);
+                                course.Sections[i].Lectures.Add(lecture);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Section section = await _unitOfWork.SectionRepository.AddSectionAsync(sections[i]);
+                        // await _unitOfWork.Complete();
+                        course.Sections.Add(section);
+                    }
+                }
                 //course.Sections = sections;
 
                 // for (int i = 0; i < course.Sections.Count(); i++)
@@ -182,7 +183,7 @@ namespace API.Controllers
 
                 // Update
                     return Ok(new {
-                        courseId = upsertCourseDto.Id,
+                        courseId = course.Id,
                         message = "Course has been updated successfully!"
                     });
             }
