@@ -106,15 +106,21 @@ namespace API.Controllers
                 List<Section> sections = _mapper.Map<List<Section>>(upsertCourseDto.Sections);
                 for(int i = 0; i < upsertCourseDto.Sections.Count(); i++)
                 {
+                    if(course.Sections.ElementAtOrDefault(i) != null)
+                    {
+                        course.Sections[i].Lectures.RemoveAll(x => upsertCourseDto.Sections[i].Lectures.Find(y => y.Id == x.Id) == null);
+                    }
+
                     if(upsertCourseDto.Sections[i].Id != 0)
                     {
                         course.Sections[i].Title = upsertCourseDto.Sections[i].Title;
                         course.Sections[i].Position = upsertCourseDto.Sections[i].Position;
+
                         for(int j = 0; j < upsertCourseDto.Sections[i].Lectures.Count(); j++)
                         {
-                            if(upsertCourseDto.Sections[i].Lectures.ToList()[j].Id != 0)
+                            if(upsertCourseDto.Sections[i].Lectures[j].Id != 0)
                             {
-                                _mapper.Map(upsertCourseDto.Sections[i].Lectures.ToList()[j], course.Sections[i].Lectures.ToList()[j]);
+                                _mapper.Map(upsertCourseDto.Sections[i].Lectures[j], course.Sections[i].Lectures.ToList()[j]);
                             }
                             else
                             {
@@ -126,10 +132,10 @@ namespace API.Controllers
                     else
                     {
                         Section section = await _unitOfWork.SectionRepository.AddSectionAsync(sections[i]);
-                        // await _unitOfWork.Complete();
                         course.Sections.Add(section);
                     }
                 }
+
                 //course.Sections = sections;
 
                 // for (int i = 0; i < course.Sections.Count(); i++)

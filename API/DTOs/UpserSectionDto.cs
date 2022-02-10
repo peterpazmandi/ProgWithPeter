@@ -8,7 +8,7 @@ namespace API.DTOs
     public class UpserSectionDto
     {
         public int Id { get; set; }
-        public ICollection<UpsertLectureDto> Lectures { get; set; }
+        public List<UpsertLectureDto> Lectures { get; set; }
 
         
         public string Title { get; set; }

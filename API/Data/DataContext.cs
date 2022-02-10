@@ -68,7 +68,8 @@ namespace API.Data
                 .HasForeignKey(p => p.CategoryId);
             builder.Entity<Post>()
                 .HasOne(p => p.Meta)
-                .WithOne(p => p.Post);
+                .WithOne(p => p.Post)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Tutorial>()
                 .ToTable("Tutorials")
@@ -86,10 +87,13 @@ namespace API.Data
                 .WithOne(p => p.Course)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            // Add Section
+
             builder.Entity<Lecture>()
                 .ToTable("Lectures")
                 .HasOne(d => d.Post)
-                .WithOne(p => p.Lecture);
+                .WithOne(p => p.Lecture)
+                .OnDelete(DeleteBehavior.Cascade);
                 
                 
         }

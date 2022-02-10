@@ -13,7 +13,7 @@ namespace API.Entities
 
 
         public virtual Course Course { get; set; }
-        public virtual ICollection<Lecture> Lectures { get; set; }
+        public virtual List<Lecture> Lectures { get; set; }
 
 
         
