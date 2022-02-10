@@ -8,6 +8,8 @@ namespace API.DTOs
 {
     public class UpsertPostDto
     {
+        public int Id { get; set; }
+        
         public string Title { get; set; }
         public string Excerpt { get; set; }        
         public string Content { get; set; }

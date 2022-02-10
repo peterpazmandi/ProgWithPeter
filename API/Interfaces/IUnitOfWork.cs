@@ -9,6 +9,7 @@ namespace API.Interfaces
         ITagsRepository TagsRepository { get; }
         ITutorialRepository TutorialRepository { get; }
         ICourseRepository CourseRepository { get; }
+        ISectionRepository SectionRepository { get; }
 
         Task<bool> Complete();
         bool HasChanges();

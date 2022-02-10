@@ -94,23 +94,73 @@ namespace API.Controllers
             else
             {
                 course = await _unitOfWork.CourseRepository.GetCourseByIdAsync(upsertCourseDto.Id);
-                // _mapper.Map(upsertCourseDto, course);
+                // //_mapper.Map(upsertCourseDto, course);
 
                 course.ModificationDate = DateTime.UtcNow;
                 
-                course.Post.Title = upsertCourseDto.Post.Title;
-                course.Post.Tags = courseTags;
-                course.Post.Category = category;
-                course.Post.AppUser = user;
+                // course.Post.Title = upsertCourseDto.Post.Title;
+                // course.Post.Tags = courseTags;
+                // course.Post.Category = category;
+                // course.Post.AppUser = user;
+                
+                // List<Section> sections = _mapper.Map<List<Section>>(upsertCourseDto.Sections);
+                // for(int i = 0; i < sections.Count(); i++)
+                // {
+                //     if(sections[i].Id != 0)
+                //     {
+                //         course.Sections[i].Title = upsertCourseDto.Sections[i].Title;
+                //         course.Sections[i].Position = upsertCourseDto.Sections[i].Position;
+                //         for(int j = 0; j < course.Sections[i].Lectures.Count(); j++)
+                //         {
+                //             if(course.Sections[i].Lectures.ToList()[j].Id != 0)
+                //             {
+                //                 _mapper.Map(upsertCourseDto.Sections[i].Lectures.ToList()[j], course.Sections[i].Lectures.ToList()[j]);
+                //             }
+                //             else
+                //             {
 
-                for (int i = 0; i < course.Sections.Count(); i++)
-                {
-                    for(int j = 0; j < course.Sections.ToList()[i].Lectures.Count(); j++)
-                    {
-                        _mapper.Map(upsertCourseDto.Sections.ToList()[i].Lectures.ToList()[j], course.Sections.ToList()[i].Lectures.ToList()[j]);
-                    }
-                    _mapper.Map(upsertCourseDto.Sections.ToList()[i], course.Sections.ToList()[i]);
-                }
+                //             }
+                //         }
+                //     }
+                //     else
+                //     {
+                //         Section section = await _unitOfWork.SectionRepository.AddSectionAsync(sections[i]);
+                //         await _unitOfWork.Complete();
+                //         course.Sections.Add(section);
+                //     }
+                // }
+                //course.Sections = sections;
+
+                // for (int i = 0; i < course.Sections.Count(); i++)
+                // {
+                //     if(course.Sections.ToList()[i].Id != 0)
+                //     {
+                //         course.Sections.ToList()[i].Title = upsertCourseDto.Sections.ToList()[i].Title;
+                //         course.Sections.ToList()[i].Position = upsertCourseDto.Sections.ToList()[i].Position;
+                //         for(int j = 0; j < course.Sections.ToList()[i].Lectures.Count(); j++)
+                //         {
+                //             _mapper.Map(upsertCourseDto.Sections.ToList()[i].Lectures.ToList()[j], course.Sections.ToList()[i].Lectures.ToList()[j]);
+                //         }
+                //     }
+                //     else
+                //     {
+
+                //     }
+                //     //_mapper.Map(upsertCourseDto.Sections.ToList()[i], course.Sections.ToList()[i]);
+                // }
+
+                // if(upsertCourseDto.Sections.Count() > course.Sections.Count())
+                // {
+
+                // }
+                // else if (upsertCourseDto.Sections.Count() < course.Sections.Count())
+                // {
+
+                // }
+                // else
+                // {
+                    
+                // }
 
                 if(upsertCourseDto.Status.Equals(PostStatus.Published.ToString()))
                 {

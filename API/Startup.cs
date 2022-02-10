@@ -34,8 +34,7 @@ namespace API
         {
             services.AddApplicationServices(_config);
 
-            services.AddControllers().AddJsonOptions(x =>
-                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+            services.AddControllers();
             services.AddCors();
             
             services.AddIdentityServices(_config);

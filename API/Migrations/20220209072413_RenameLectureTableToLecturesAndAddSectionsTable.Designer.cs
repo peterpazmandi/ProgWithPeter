@@ -3,14 +3,16 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220209072413_RenameLectureTableToLecturesAndAddSectionsTable")]
+    partial class RenameLectureTableToLecturesAndAddSectionsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -210,15 +212,10 @@ namespace API.Migrations
                     b.Property<int>("PostId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("SectionId")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
 
                     b.HasIndex("PostId")
                         .IsUnique();
-
-                    b.HasIndex("SectionId");
 
                     b.ToTable("Lectures");
                 });
@@ -272,10 +269,10 @@ namespace API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("AppUserId")
+                    b.Property<int>("AppUserId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Content")
@@ -287,10 +284,10 @@ namespace API.Migrations
                     b.Property<string>("FeaturedImageUrl")
                         .HasColumnType("TEXT");
 
-                    b.Property<long?>("Length")
+                    b.Property<long>("Length")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("MetaId")
+                    b.Property<int>("MetaId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Password")
@@ -317,9 +314,6 @@ namespace API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("CourseId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("Position")
                         .HasColumnType("INTEGER");
 
@@ -327,8 +321,6 @@ namespace API.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CourseId");
 
                     b.ToTable("Sections");
                 });
@@ -380,6 +372,36 @@ namespace API.Migrations
                         .IsUnique();
 
                     b.ToTable("Tutorials");
+                });
+
+            modelBuilder.Entity("CourseSection", b =>
+                {
+                    b.Property<int>("CoursesId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("SectionsId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("CoursesId", "SectionsId");
+
+                    b.HasIndex("SectionsId");
+
+                    b.ToTable("CourseSection");
+                });
+
+            modelBuilder.Entity("LectureSection", b =>
+                {
+                    b.Property<int>("LecturesId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("SectionsId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("LecturesId", "SectionsId");
+
+                    b.HasIndex("SectionsId");
+
+                    b.ToTable("LectureSection");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -523,13 +545,7 @@ namespace API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("API.Entities.Section", "Section")
-                        .WithMany("Lectures")
-                        .HasForeignKey("SectionId");
-
                     b.Navigation("Post");
-
-                    b.Navigation("Section");
                 });
 
             modelBuilder.Entity("API.Entities.Photo", b =>
@@ -547,31 +563,27 @@ namespace API.Migrations
                 {
                     b.HasOne("API.Entities.AppUser", "AppUser")
                         .WithMany("Posts")
-                        .HasForeignKey("AppUserId");
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("API.Entities.Category", "Category")
                         .WithMany("Posts")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("API.Entities.Meta", "Meta")
                         .WithOne("Post")
-                        .HasForeignKey("API.Entities.Post", "MetaId");
+                        .HasForeignKey("API.Entities.Post", "MetaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("AppUser");
 
                     b.Navigation("Category");
 
                     b.Navigation("Meta");
-                });
-
-            modelBuilder.Entity("API.Entities.Section", b =>
-                {
-                    b.HasOne("API.Entities.Course", "Course")
-                        .WithMany("Sections")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("API.Entities.Tutorial", b =>
@@ -583,6 +595,36 @@ namespace API.Migrations
                         .IsRequired();
 
                     b.Navigation("Post");
+                });
+
+            modelBuilder.Entity("CourseSection", b =>
+                {
+                    b.HasOne("API.Entities.Course", null)
+                        .WithMany()
+                        .HasForeignKey("CoursesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.Section", null)
+                        .WithMany()
+                        .HasForeignKey("SectionsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LectureSection", b =>
+                {
+                    b.HasOne("API.Entities.Lecture", null)
+                        .WithMany()
+                        .HasForeignKey("LecturesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.Section", null)
+                        .WithMany()
+                        .HasForeignKey("SectionsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -655,11 +697,6 @@ namespace API.Migrations
                     b.Navigation("Posts");
                 });
 
-            modelBuilder.Entity("API.Entities.Course", b =>
-                {
-                    b.Navigation("Sections");
-                });
-
             modelBuilder.Entity("API.Entities.Meta", b =>
                 {
                     b.Navigation("Post");
@@ -672,11 +709,6 @@ namespace API.Migrations
                     b.Navigation("Lecture");
 
                     b.Navigation("Tutorial");
-                });
-
-            modelBuilder.Entity("API.Entities.Section", b =>
-                {
-                    b.Navigation("Lectures");
                 });
 
             modelBuilder.Entity("API.Entities.Tag", b =>

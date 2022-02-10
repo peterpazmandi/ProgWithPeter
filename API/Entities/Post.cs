@@ -21,17 +21,17 @@ namespace API.Entities
         public string FeaturedImageUrl { get; set; }
 
 
-        public int MetaId { get; set; }
+        public int? MetaId { get; set; }
         public virtual Meta Meta { get; set; }
 
 
-        public int AppUserId { get; set; }
+        public int? AppUserId { get; set; }
         public AppUser AppUser {get;set;}
 
 
 
         public string Password { get; set; }
-        public long Length { get; set; }
+        public long? Length { get; set; }
 
 
         public virtual Course Course { get; set; }
@@ -42,7 +42,7 @@ namespace API.Entities
         public virtual ICollection<Tag> Tags { get; set; }
 
 
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
         public virtual Category Category { get; set; }
     }
 }

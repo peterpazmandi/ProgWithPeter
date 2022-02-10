@@ -24,14 +24,16 @@ namespace API.Data
             
         }
 
-        public DbSet<Photo> Photos {get;set;}
+        public DbSet<Photo> Photos { get; set; }
 
-        public DbSet<Course> Courses {get;set;}
-        public DbSet<Tutorial> Tutorials {get;set;}
-        public DbSet<Category> Categories {get;set;}
-        public DbSet<Tag> Tags {get;set;}
-        public DbSet<Post> Posts {get;set;}
-        public DbSet<Meta> Metas {get;set;}
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Tutorial> Tutorials { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<Meta> Metas { get; set; }
+        public DbSet<Section> Sections { get; set; }
+        public DbSet<Lecture> Lectures { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -78,8 +80,14 @@ namespace API.Data
                 .HasOne(d => d.Post)
                 .WithOne(p => p.Course);
 
+            builder.Entity<Course>()
+                .ToTable("Courses")
+                .HasMany(d => d.Sections)
+                .WithOne(p => p.Course)
+                .OnDelete(DeleteBehavior.Cascade);
+
             builder.Entity<Lecture>()
-                .ToTable("Lecture")
+                .ToTable("Lectures")
                 .HasOne(d => d.Post)
                 .WithOne(p => p.Lecture);
                 

@@ -3,14 +3,16 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220209075410_AddDeleteBehaviorCascadeToCoursesSections")]
+    partial class AddDeleteBehaviorCascadeToCoursesSections
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -272,10 +274,10 @@ namespace API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("AppUserId")
+                    b.Property<int>("AppUserId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Content")
@@ -287,10 +289,10 @@ namespace API.Migrations
                     b.Property<string>("FeaturedImageUrl")
                         .HasColumnType("TEXT");
 
-                    b.Property<long?>("Length")
+                    b.Property<long>("Length")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("MetaId")
+                    b.Property<int>("MetaId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Password")
@@ -547,15 +549,21 @@ namespace API.Migrations
                 {
                     b.HasOne("API.Entities.AppUser", "AppUser")
                         .WithMany("Posts")
-                        .HasForeignKey("AppUserId");
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("API.Entities.Category", "Category")
                         .WithMany("Posts")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("API.Entities.Meta", "Meta")
                         .WithOne("Post")
-                        .HasForeignKey("API.Entities.Post", "MetaId");
+                        .HasForeignKey("API.Entities.Post", "MetaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("AppUser");
 

@@ -13,7 +13,7 @@ namespace API.Entities
 
 
 
-        public virtual ICollection<Section> Sections { get; set; }
+        public virtual Section Section { get; set; }
 
 
 
