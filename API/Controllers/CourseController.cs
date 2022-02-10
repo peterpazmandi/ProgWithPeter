@@ -110,9 +110,9 @@ namespace API.Controllers
                     {
                         course.Sections[i].Title = upsertCourseDto.Sections[i].Title;
                         course.Sections[i].Position = upsertCourseDto.Sections[i].Position;
-                        for(int j = 0; j < course.Sections[i].Lectures.Count(); j++)
+                        for(int j = 0; j < upsertCourseDto.Sections[i].Lectures.Count(); j++)
                         {
-                            if(course.Sections[i].Lectures.ToList()[j].Id != 0)
+                            if(upsertCourseDto.Sections[i].Lectures.ToList()[j].Id != 0)
                             {
                                 _mapper.Map(upsertCourseDto.Sections[i].Lectures.ToList()[j], course.Sections[i].Lectures.ToList()[j]);
                             }
