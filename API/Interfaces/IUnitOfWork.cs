@@ -11,6 +11,8 @@ namespace API.Interfaces
         ICourseRepository CourseRepository { get; }
         ISectionRepository SectionRepository { get; }
         ILectureRepository LectureRepository { get; }
+        IPostRepository PostRepository { get; }
+        IMetaRepository MetaRepository { get; }
 
         Task<bool> Complete();
         bool HasChanges();

@@ -94,7 +94,6 @@ namespace API.Controllers
             else
             {
                 course = await _unitOfWork.CourseRepository.GetCourseByIdAsync(upsertCourseDto.Id);
-                // //_mapper.Map(upsertCourseDto, course);
 
                 course.ModificationDate = DateTime.UtcNow;
                 
@@ -108,6 +107,12 @@ namespace API.Controllers
                 {
                     if(course.Sections.ElementAtOrDefault(i) != null)
                     {
+                        var toRemoveLectures = course.Sections[i].Lectures.FindAll(x => upsertCourseDto.Sections[i].Lectures.Find(y => y.Id == x.Id) == null);
+                        foreach(Lecture lecture in toRemoveLectures)
+                        {
+                            _unitOfWork.MetaRepository.Remove(lecture.Post.Meta);
+                            _unitOfWork.PostRepository.Remove(lecture.Post);
+                        }
                         course.Sections[i].Lectures.RemoveAll(x => upsertCourseDto.Sections[i].Lectures.Find(y => y.Id == x.Id) == null);
                     }
 
@@ -135,39 +140,6 @@ namespace API.Controllers
                         course.Sections.Add(section);
                     }
                 }
-
-                //course.Sections = sections;
-
-                // for (int i = 0; i < course.Sections.Count(); i++)
-                // {
-                //     if(course.Sections.ToList()[i].Id != 0)
-                //     {
-                //         course.Sections.ToList()[i].Title = upsertCourseDto.Sections.ToList()[i].Title;
-                //         course.Sections.ToList()[i].Position = upsertCourseDto.Sections.ToList()[i].Position;
-                //         for(int j = 0; j < course.Sections.ToList()[i].Lectures.Count(); j++)
-                //         {
-                //             _mapper.Map(upsertCourseDto.Sections.ToList()[i].Lectures.ToList()[j], course.Sections.ToList()[i].Lectures.ToList()[j]);
-                //         }
-                //     }
-                //     else
-                //     {
-
-                //     }
-                //     //_mapper.Map(upsertCourseDto.Sections.ToList()[i], course.Sections.ToList()[i]);
-                // }
-
-                // if(upsertCourseDto.Sections.Count() > course.Sections.Count())
-                // {
-
-                // }
-                // else if (upsertCourseDto.Sections.Count() < course.Sections.Count())
-                // {
-
-                // }
-                // else
-                // {
-                    
-                // }
 
                 if(upsertCourseDto.Status.Equals(PostStatus.Published.ToString()))
                 {

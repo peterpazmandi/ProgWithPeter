@@ -24,6 +24,8 @@ namespace API.Data
         public ICourseRepository CourseRepository => new CourseRepository(_context, _mapper);
         public ISectionRepository SectionRepository => new SectionRepository(_context, _mapper);
         public ILectureRepository LectureRepository => new LectureRepository(_context, _mapper);
+        public IPostRepository PostRepository => new PostRepository(_context, _mapper);
+        public IMetaRepository MetaRepository => new MetaRepository(_context, _mapper);
 
         public async Task<bool> Complete()
         {

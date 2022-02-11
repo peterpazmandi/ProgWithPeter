@@ -59,14 +59,17 @@ namespace API.Data
                 .IsRequired();
 
             builder.Entity<Post>()
+                .ToTable("Posts")
                 .HasOne(p => p.AppUser)
                 .WithMany(p => p.Posts)
                 .HasForeignKey(p => p.AppUserId);
             builder.Entity<Post>()
+                .ToTable("Posts")
                 .HasOne(p => p.Category)
                 .WithMany(p => p.Posts)
                 .HasForeignKey(p => p.CategoryId);
             builder.Entity<Post>()
+                .ToTable("Posts")
                 .HasOne(p => p.Meta)
                 .WithOne(p => p.Post)
                 .OnDelete(DeleteBehavior.Cascade);
@@ -87,12 +90,21 @@ namespace API.Data
                 .WithOne(p => p.Course)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Add Section
+            builder.Entity<Section>()
+                .ToTable("Sections")
+                .HasMany(s => s.Lectures)
+                .WithOne(l => l.Section)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Lecture>()
                 .ToTable("Lectures")
                 .HasOne(d => d.Post)
                 .WithOne(p => p.Lecture)
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Post>()
+                .ToTable("Posts")
+                .HasOne(p => p.Lecture)
+                .WithOne(l => l.Post)
                 .OnDelete(DeleteBehavior.Cascade);
                 
                 
