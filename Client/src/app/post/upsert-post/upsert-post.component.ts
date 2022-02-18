@@ -20,6 +20,7 @@ import { PostType } from 'src/app/_utils/post-type.enum';
 import { CourseService } from 'src/app/_services/course.service';
 import { CreateMetaDto } from 'src/app/_models/createMetaDto.model';
 import { UpsertCourseDto } from 'src/app/_models/upsertCourseDto.model';
+import { BaseContent } from 'src/app/_models/base-content.model';
 
 
 @Component({
@@ -86,11 +87,28 @@ export class UpsertPostComponent implements OnInit {
     this.backRouterLink = this.createBackRouterLink();
     this.slug = this.route.snapshot.queryParams['slug'];
     if(this.slug) {
-      this.tutorialService.getTutorialByTitle(this.slug).subscribe(tutorial => {
-        this.updatePostForms(tutorial);
-      }, error => {
-        console.log(error);
-      });
+      switch(this.selectedPostType) {
+        case this.postType.Tutorial: {
+          this.tutorialService.getTutorialByTitle(this.slug).subscribe(tutorial => {
+            this.updatePostForms(tutorial);
+          }, error => {
+            console.log(error);
+          });
+          break;
+        }
+        case this.postType.Course: {
+          this.courseService.getCourseByTitle(this.slug).subscribe(course => {
+            this.updatePostForms(course);
+          }, error => {
+            console.log(error);
+          })
+          break;
+        }
+        case this.postType.Lecture: {
+
+          break;
+        }
+      }
     }
   }
                           
@@ -98,30 +116,30 @@ export class UpsertPostComponent implements OnInit {
     return '/' + this.selectedPostType.toLocaleLowerCase() + '-list';
   }
   
-  updatePostForms(tutorial: Tutorial) {
-    this.currentStatus = tutorial.status;
+  updatePostForms(content: BaseContent) {
+    this.currentStatus = content.status;
     
     this.createPostForm.patchValue({
-      id: tutorial.id,
-      title: tutorial.post.title,
+      id: content.id,
+      title: content.post.title,
       category: new TreeviewItem({
-        text: tutorial.post.category.name,
-        value: tutorial.post.category.id
+        text: content.post.category.name,
+        value: content.post.category.id
       } as TreeItem),
-      tags: tutorial.post.tags,
-      featuredImageUrl: tutorial.post.featuredImageUrl
+      tags: content.post.tags,
+      featuredImageUrl: content.post.featuredImageUrl
     });  
 
     this.formTextForm.patchValue({
-      excerpt: tutorial.post.excerpt,
-      content: tutorial.post.content
+      excerpt: content.post.excerpt,
+      content: content.post.content
     });
 
     this.seoFormService.seoForm.patchValue({
-      focusKeyphrase: tutorial.post.meta.keyPhrase,
-      seoTitle: tutorial.post.meta.seoTitle,
-      slug: tutorial.post.meta.slug,
-      metaDescription: tutorial.post.meta.metaDescription
+      focusKeyphrase: content.post.meta.keyPhrase,
+      seoTitle: content.post.meta.seoTitle,
+      slug: content.post.meta.slug,
+      metaDescription: content.post.meta.metaDescription
     });
   }
   

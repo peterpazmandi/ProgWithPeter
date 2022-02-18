@@ -7,6 +7,10 @@ import { getPaginatedResult, getPaginationHeaders } from './pagination.helper';
   providedIn: 'root'
 })
 export class CourseService extends BaseService {
+
+  getCourseByTitle(title: string) {
+    return this.http.get<Course>(this.baseUrl + 'Course/GetCourseByTitle?title=' + title);
+  }
   
   getPublishedCoursesOrderedByPublishDate(pageNumber: number, pageSize: number) {
     let params = getPaginationHeaders(pageNumber, pageSize);

@@ -1,13 +1,7 @@
+import { BaseContent } from "./base-content.model";
 import { Post } from "./post.model";
+import { Section } from "./sectionDto.model";
 
-export interface Course {
-    id: number,
-    status: string,
-    price: number,
-    currency: string,
-    creationDate: Date,
-    modificationDate: Date,
-    publishDate: Date
-
-    post: Post
+export interface Course extends BaseContent {
+    sections: Section[];    
 }

@@ -55,6 +55,7 @@ namespace API.Data
                 .Include(c => c.Post).ThenInclude(p => p.AppUser)
                 .Include(c => c.Post).ThenInclude(p => p.Meta)
                 .Include(c => c.Post).ThenInclude(p => p.Tags)
+                .Include(c => c.Post).ThenInclude(p => p.Category)
                 .Include(c => c.Sections)
                     .ThenInclude(s => s.Lectures)
                     .ThenInclude(l => l.Post)
