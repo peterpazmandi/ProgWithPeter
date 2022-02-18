@@ -34,11 +34,14 @@ namespace API.Helpers
             CreateMap<Post, PostDto>().ReverseMap();
             CreateMap<Post, UpsertPostOfLectureDto>().ReverseMap();            
 
+            CreateMap<Lecture, LectureDto>().ReverseMap();
             CreateMap<Lecture, UpsertLectureDto>().ReverseMap();
             CreateMap<Lecture, LectureTitleDto>().ReverseMap();
 
+            CreateMap<Section, SectionDto>().ReverseMap();
             CreateMap<Section, UpserSectionDto>().ReverseMap();
 
+            CreateMap<Course, CourseDto>().ReverseMap();
             CreateMap<Course, UpsertCourseDto>().ReverseMap();
             CreateMap<Course, UpsertCourseListDto>().ReverseMap();
         }

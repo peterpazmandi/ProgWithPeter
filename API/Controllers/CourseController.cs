@@ -25,6 +25,23 @@ namespace API.Controllers
         }
 
 
+        [HttpGet("GetCourseByTitle")]
+        public async Task<ActionResult<CourseDto>> GetCourseByTitle(string title)
+        {
+            if(string.IsNullOrEmpty(title))
+            {
+                return BadRequest("Please provide a valid title!");
+            }
+
+            Course course = await _unitOfWork.CourseRepository.GetCourseByTitleAsync(title);
+
+            if(course == null) 
+            {
+                return BadRequest($"Course with title \"{title}\" not found!");
+            }
+
+            return _mapper.Map<CourseDto>(course);
+        }
 
         [Authorize(Roles = "Admin, Moderator")]
         [HttpGet("GetCoursesOrderedByModificationDate")]
