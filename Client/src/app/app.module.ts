@@ -51,6 +51,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { UpsertContentListComponent } from './_forms/lists/upsert-content-list/upsert-content-list.component';
 import { UpsertContentListItemComponent } from './_forms/lists/upsert-content-list/upsert-content-list-item/upsert-content-list-item.component';
 import { UpsertCourseListComponent } from './course/upsert-course-list/upsert-course-list.component';
+import { DragDropModule } from "@angular/cdk/drag-drop";
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -116,7 +117,8 @@ export function tokenGetter() {
     TreeviewModule.forRoot(),
     AutocompleteLibModule,
     FileUploadModule,
-    TabsModule.forRoot()
+    TabsModule.forRoot(),
+    DragDropModule
   ],
   exports: [
     FileUploadModule
