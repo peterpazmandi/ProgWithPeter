@@ -13,30 +13,33 @@ namespace API.Helpers
             CreateMap<Photo, PhotoDto>();
             CreateMap<AppUser, MemberDto>();
 
-            CreateMap<Tutorial, UpsertTutorialDto>().ReverseMap();
-            CreateMap<Post, UpsertPostDto>().ReverseMap();
-            CreateMap<Meta, CreateMetaDto>().ReverseMap();
             CreateMap<Category, CategoryDto>().ReverseMap();
             CreateMap<Tag, TagDto>().ReverseMap();
 
-
             CreateMap<AppUser, UserDto>().ReverseMap();
-            CreateMap<Post, PostDto>().ReverseMap();
+
             CreateMap<Meta, MetaDto>().ReverseMap();
-            CreateMap<Tutorial, TutorialDto>().ReverseMap();
-
-            CreateMap<Post, HomePagePostDto>().ReverseMap();
+            CreateMap<Meta, CreateMetaDto>().ReverseMap();
             CreateMap<Meta, HomePageMetaDto>() .ReverseMap();
-            CreateMap<Tutorial, HomePageTutorialDto>().ReverseMap();
 
-            CreateMap<Post, UpsertPostListDto>().ReverseMap();
-            CreateMap<Post, UpsertPostOfLectureDto>().ReverseMap();
+            CreateMap<Tutorial, UpsertTutorialDto>().ReverseMap();
+            CreateMap<Tutorial, TutorialDto>().ReverseMap();
+            CreateMap<Tutorial, HomePageTutorialDto>().ReverseMap();
             CreateMap<Tutorial, UpsertTutorialListDto>().ReverseMap();
 
-            CreateMap<Lecture, UpsertLectureDto>().ReverseMap();
-            CreateMap<Section, UpserSectionDto>().ReverseMap();
-            CreateMap<Course, UpsertCourseDto>().ReverseMap();
+            CreateMap<Post, UpsertPostDto>().ReverseMap();
+            CreateMap<Post, UpsertPostListDto>().ReverseMap();
+            CreateMap<Post, HomePagePostDto>().ReverseMap();
+            CreateMap<Post, PostTitleDto>().ReverseMap();
+            CreateMap<Post, PostDto>().ReverseMap();
+            CreateMap<Post, UpsertPostOfLectureDto>().ReverseMap();            
 
+            CreateMap<Lecture, UpsertLectureDto>().ReverseMap();
+            CreateMap<Lecture, LectureTitleDto>().ReverseMap();
+
+            CreateMap<Section, UpserSectionDto>().ReverseMap();
+
+            CreateMap<Course, UpsertCourseDto>().ReverseMap();
             CreateMap<Course, UpsertCourseListDto>().ReverseMap();
         }
     }

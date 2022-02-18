@@ -29,7 +29,11 @@ namespace API.Controllers
         {
             var tutorials = await _unitOfWork.TutorialRepository.GetPublishedTutorialsOrderedByPublishDate(tutorialParams);
 
-            Response.AddPaginationHeader(tutorials.CurrentPage, tutorials.PageSize, tutorials.TotalCount, tutorials.TotalPages);
+            Response.AddPaginationHeader(
+                tutorials.CurrentPage, 
+                tutorials.PageSize, 
+                tutorials.TotalCount, 
+                tutorials.TotalPages);
 
             return tutorials;
         }
