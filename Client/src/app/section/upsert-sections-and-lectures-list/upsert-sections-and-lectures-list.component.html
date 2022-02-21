@@ -1,9 +1,18 @@
 <h5>Structure of the course</h5>
 <div class="border border-secondary rounded-3">
-    <div *ngFor="let section of sectionsAndLecturesFormService.sectionsAndLecturesFrom.controls.sections.value" class="border border-secondary rounded-3 m-2 ps-2 pt-2">
-        <span class="fw-bold">{{section.title}}</span>
-        <div *ngFor="let lecture of section.lectures" class="border border-secondary rounded-3 ms-5 mt-2 me-5 mb-2 p-2">
-            <span>{{lecture.post.title}}</span>
+    <div *ngFor="let section of sectionsAndLecturesFormService.sectionsAndLecturesFrom.controls.sections.value; index as sectionIndex" 
+        class="border border-3 border-secondary rounded-3 m-3 ps-2 pt-2 pe-2">
+        <input 
+            type="text" 
+            class="form-control fw-bold" 
+            value="{{section.title}}" />
+        <div *ngFor="let lecture of section.lectures; index as lectureIndex" 
+            class="ms-5 mt-1 mb-1">
+            <input 
+                type="text" 
+                class="form-control fw-bold" 
+                value="{{lecture.post.title}}"
+                (keyup)="onLectureChangeEvent($event, sectionIndex, lectureIndex)" />
         </div>
     </div>
 </div>
