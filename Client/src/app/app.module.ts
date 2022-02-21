@@ -53,6 +53,8 @@ import { UpsertContentListItemComponent } from './_forms/lists/upsert-content-li
 import { UpsertCourseListComponent } from './course/upsert-course-list/upsert-course-list.component';
 import { DragDropModule } from "@angular/cdk/drag-drop";
 import { UpsertSectionsAndLecturesComponent } from './section/upsert-sections-and-lectures/upsert-sections-and-lectures.component';
+import { UpsertSectionsAndLecturesListComponent } from './section/upsert-sections-and-lectures-list/upsert-sections-and-lectures-list.component';
+import { FindLectureByTitleComponent } from './lecture/find-lecture-by-title/find-lecture-by-title.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -92,7 +94,9 @@ export function tokenGetter() {
     UpsertContentListComponent,
     UpsertContentListItemComponent,
     UpsertCourseListComponent,
-    UpsertSectionsAndLecturesComponent
+    UpsertSectionsAndLecturesComponent,
+    UpsertSectionsAndLecturesListComponent,
+    FindLectureByTitleComponent
   ],
   imports: [
     BrowserModule,

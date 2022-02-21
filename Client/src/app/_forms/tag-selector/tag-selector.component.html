@@ -21,9 +21,6 @@
     <div class="font-small chip" *ngFor="let tag of this.ngControl?.control?.value">
         {{tag.name}} <img src="assets/svg/ic_trash.svg" alt="Remove" style="cursor: pointer;" (click)="onRemoveTag(tag.id)">
     </div>
-    <!-- <div class="font-small chip" *ngFor="let tag of selectedTags">
-        {{tag.name}} <img src="assets/svg/ic_trash.svg" alt="Remove" style="cursor: pointer;" (click)="onRemoveTag(tag.id)">
-    </div> -->
 
     <div *ngIf="ngControl.control?.errors?.required" class="invalid-feedback d-block">
         Add at least one tag.

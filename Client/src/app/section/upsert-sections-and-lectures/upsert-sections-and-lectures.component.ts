@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Section } from 'src/app/_models/sectionDto.model';
 
 @Component({
   selector: 'upsert-sections-and-lectures',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./upsert-sections-and-lectures.component.css']
 })
 export class UpsertSectionsAndLecturesComponent implements OnInit {
+  @Input() sections: Section[] = [];
 
   constructor() { }
 

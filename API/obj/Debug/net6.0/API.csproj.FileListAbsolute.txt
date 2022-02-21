@@ -207,3 +207,8 @@ C:\Users\Pazmandi Peter\Desktop\Trash\Angular\ProgWithPeter\API\bin\Debug\net6.0
 C:\Users\Pazmandi Peter\Desktop\Trash\Angular\ProgWithPeter\API\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
 C:\Users\Pazmandi Peter\Desktop\Trash\Angular\ProgWithPeter\API\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
 C:\Users\Pazmandi Peter\Desktop\Trash\Angular\ProgWithPeter\API\bin\Debug\net6.0\System.Runtime.CompilerServices.Unsafe.dll
+F:\Angular\ProgWithPeter\api\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+F:\Angular\ProgWithPeter\api\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
+F:\Angular\ProgWithPeter\api\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+F:\Angular\ProgWithPeter\api\bin\Debug\net6.0\System.Runtime.CompilerServices.Unsafe.dll
+F:\Angular\ProgWithPeter\api\obj\Debug\net6.0\API.csproj.CopyComplete
