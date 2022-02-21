@@ -1,4 +1,4 @@
-import { Component, Self } from '@angular/core';
+import { AfterViewInit, Component, OnInit, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Tag } from 'src/app/_models/tag.model';
@@ -9,7 +9,7 @@ import { TagsService } from 'src/app/_services/tags.service';
   templateUrl: './tag-selector.component.html',
   styleUrls: ['./tag-selector.component.css']
 })
-export class TagSelectorComponent implements ControlValueAccessor {  
+export class TagSelectorComponent implements ControlValueAccessor, OnInit {  
   historyIdentifier = [];
   keyword = 'name';
   tags = [];
@@ -20,7 +20,16 @@ export class TagSelectorComponent implements ControlValueAccessor {
     private toastr: ToastrService,
     @Self() public ngControl: NgControl) {
     this.ngControl.valueAccessor = this;
-   }
+  }
+
+  ngOnInit(): void {
+    let sub = this.ngControl?.control?.valueChanges.subscribe(value => {
+      for(let tag of this.ngControl?.control?.value as Tag[]) {
+        this.selectedTags.push(tag);
+      }
+      sub?.unsubscribe();
+    });
+  }
 
   writeValue(obj: any): void { }
   registerOnChange(fn: any): void { }
@@ -33,7 +42,7 @@ export class TagSelectorComponent implements ControlValueAccessor {
       this.selectedTags = this.selectedTags.filter(item => item.id === -1);
       for(let tag of this.ngControl?.control?.value as Tag[]) {
         this.selectedTags.push(tag);
-      }      
+      }
       this.selectedTags.push({
         id: item.id,
         name: item.name

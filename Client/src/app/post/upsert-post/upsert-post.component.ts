@@ -21,6 +21,9 @@ import { CourseService } from 'src/app/_services/course.service';
 import { CreateMetaDto } from 'src/app/_models/createMetaDto.model';
 import { UpsertCourseDto } from 'src/app/_models/upsertCourseDto.model';
 import { BaseContent } from 'src/app/_models/base-content.model';
+import { SectionsAndLecturesFormService } from 'src/app/section/upsert-sections-and-lectures-list/sections-and-lectures-form.service';
+import { Course } from 'src/app/_models/courseDto.model';
+import { Section } from 'src/app/_models/sectionDto.model';
 
 
 @Component({
@@ -57,7 +60,8 @@ export class UpsertPostComponent implements OnInit {
   @HostListener('window:beforeunload', ['$event']) unloadNofitifaction($event: any) {
     if(this.createPostForm.dirty
       || this.formTextForm.dirty ||
-      this.seoFormService.seoForm.dirty) {
+      this.seoFormService.seoForm.dirty ||
+      this.sectionsAndLecturesFormService.sectionsAndLecturesFrom.dirty) {
         $event.returnValue = true;
       }
   }
@@ -66,6 +70,7 @@ export class UpsertPostComponent implements OnInit {
   constructor(
     private accountService: AccountService,
     public seoFormService: SeoFormService,
+    public sectionsAndLecturesFormService: SectionsAndLecturesFormService,
     private tutorialService: TutorialService,
     private courseService: CourseService,
     private fb: FormBuilder,
@@ -141,6 +146,12 @@ export class UpsertPostComponent implements OnInit {
       slug: content.post.meta.slug,
       metaDescription: content.post.meta.metaDescription
     });
+    
+    if(this.selectedPostType === PostType.Course) {
+      this.sectionsAndLecturesFormService.sectionsAndLecturesFrom.patchValue({
+        sections: (content as Course).sections
+      })
+    }
   }
   
   onUpload(status: string) {
@@ -258,6 +269,10 @@ export class UpsertPostComponent implements OnInit {
       this.internalLinkCount = this.countTotalAmountOfSpecificWordInaString(value, 'internalLink');
       this.externalLinkCount = this.countTotalAmountOfSpecificWordInaString(value, 'externalLink');
     });
+    
+    this.sectionsAndLecturesFormService.sectionsAndLecturesFrom = this.fb.group({
+      sections: [[] as Section[]]
+    })
   }
 
   updateTextCharCount(charCount: number) {
