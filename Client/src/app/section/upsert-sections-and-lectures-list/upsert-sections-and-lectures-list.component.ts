@@ -7,7 +7,6 @@ import { Section } from 'src/app/_models/sectionDto.model';
   styleUrls: ['./upsert-sections-and-lectures-list.component.css']
 })
 export class UpsertSectionsAndLecturesListComponent implements OnInit {
-  @Input() sections: Section[] = [];
 
   constructor() { }
 
