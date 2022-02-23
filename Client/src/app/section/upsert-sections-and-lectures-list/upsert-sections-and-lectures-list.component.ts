@@ -1,8 +1,10 @@
+import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Lecture } from 'src/app/_models/lectureDto.model';
 import { Post } from 'src/app/_models/post.model';
 import { Section } from 'src/app/_models/sectionDto.model';
+import { PostType } from 'src/app/_utils/post-type.enum';
 import { Status } from 'src/app/_utils/status.enum';
 import { SectionsAndLecturesFormService } from './sections-and-lectures-form.service';
 
@@ -27,7 +29,6 @@ export class UpsertSectionsAndLecturesListComponent implements OnInit {
 
     let sub = this.sectionsAndLecturesFormService.sectionsAndLecturesFrom.get('sections')?.valueChanges?.subscribe((value: Section[]) => {
       this.sections.push(...(value as Section[]));
-      console.log(value);
       sub?.unsubscribe();
     })
   }
@@ -40,7 +41,6 @@ export class UpsertSectionsAndLecturesListComponent implements OnInit {
 
   onSectionChangeEvent(event: any, sectionIndex: number) {
     this.sections[sectionIndex].title = event.target.value;
-    console.log(this.sections);
     this.updateFormData();
   }
 
@@ -76,6 +76,29 @@ export class UpsertSectionsAndLecturesListComponent implements OnInit {
       position: this.sections[sectionId].lectures.length,
     } as Lecture);
     this.updateFormData();
+  }
+
+  dropSection(event: CdkDragDrop<Section[]>) {
+    transferArrayItem(
+      event.previousContainer.data,
+      event.container.data,
+      event.previousIndex,
+      event.currentIndex
+    )
+
+    this.updateSectionPosition();
+  }
+
+  private updateSectionPosition() {
+    for(let i = 0; i < this.sections.length; i++) {
+      this.sections[i].position = i;
+    }
+  }
+  
+  private updateLecturePosition(sectionId: number) {
+    for(let i = 0; i < this.sections[sectionId].lectures.length; i++) {
+      this.sections[sectionId].lectures[i].position = i;
+    }
   }
 
   private updateFormData() {

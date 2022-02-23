@@ -1,19 +1,38 @@
 <h5>Structure of the course</h5>
-<div class="border border-secondary rounded-3">
-    <div *ngFor="let section of sectionsAndLecturesFormService.sectionsAndLecturesFrom.controls.sections.value; index as sectionIndex" 
-        class="border border-3 border-secondary rounded-3 ms-2 mt-2 me-2 ps-2 pt-2 pe-2">
+<div
+    cdkDropList
+    [cdkDropListData]="sections"
+    (cdkDropListDropped)="dropSection($event)"
+    class="border border-secondary rounded-3">
+    <div 
+        *ngFor="let section of sections; index as sectionIndex" 
+        class="border border-3 border-secondary rounded-3 ms-2 mt-2 me-2 ps-2 pt-2 pe-2"
+        cdkDrag >
         <input 
             type="text" 
             class="form-control fw-bold" 
             value="{{section.title}}"
             (keyup)="onSectionChangeEvent($event, sectionIndex, lectureIndex)" />
-        <div *ngFor="let lecture of section.lectures; index as lectureIndex" 
-            class="ms-5 mt-1">
-            <input 
-                type="text" 
-                class="form-control fw-bold" 
-                value="{{lecture.post.title}}"
-                (keyup)="onLectureChangeEvent($event, sectionIndex, lectureIndex)" />
+        <div
+            *ngFor="let lecture of section.lectures; index as lectureIndex" 
+            class="col-8 ms-5 mt-1">            
+            <div class="row">
+                <div class="col-1 d-flex flex-column">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 9L9 1L17 9" stroke="#1976D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17 1L9 9L1 1" stroke="#1976D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="col">
+                    <input
+                        type="text" 
+                        class="form-control fw-bold"
+                        value="{{lecture.post.title}}"
+                        (keyup)="onLectureChangeEvent($event, sectionIndex, lectureIndex)" />
+                </div>
+            </div>
         </div>
         <div class="text-center">
             <button class="btn btn-primary btn-sm col-3 mb-3" (click)="onAddLecture(sectionIndex)">
