@@ -4,21 +4,23 @@ import { Tag } from "./tag.model";
 import { User } from "./user.model";
 
 export interface Post {
-    id: number,
+    id: Nullable<number>,
     title: string,
     excerpt: string,
     content: string,
 
     featuredImageUrl: string,
 
-    meta: Meta,
+    meta: Nullable<Meta>,
 
-    appUser: User,
+    appUser: Nullable<User>,
 
     password: string,
     length: number,
 
-    tags: Tag[]
+    tags: Nullable<Tag[]>
 
-    category: Category
+    category: Nullable<Category>
 }
+
+type Nullable<T> = T | null;

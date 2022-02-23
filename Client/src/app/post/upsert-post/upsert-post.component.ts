@@ -128,8 +128,8 @@ export class UpsertPostComponent implements OnInit {
       id: content.id,
       title: content.post.title,
       category: new TreeviewItem({
-        text: content.post.category.name,
-        value: content.post.category.id
+        text: content.post.category?.name,
+        value: content.post.category?.id
       } as TreeItem),
       tags: content.post.tags,
       featuredImageUrl: content.post.featuredImageUrl
@@ -141,10 +141,10 @@ export class UpsertPostComponent implements OnInit {
     });
 
     this.seoFormService.seoForm.patchValue({
-      focusKeyphrase: content.post.meta.keyPhrase,
-      seoTitle: content.post.meta.seoTitle,
-      slug: content.post.meta.slug,
-      metaDescription: content.post.meta.metaDescription
+      focusKeyphrase: content.post.meta?.keyPhrase,
+      seoTitle: content.post.meta?.seoTitle,
+      slug: content.post.meta?.slug,
+      metaDescription: content.post.meta?.metaDescription
     });
     
     if(this.selectedPostType === PostType.Course) {

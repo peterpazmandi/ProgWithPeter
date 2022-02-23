@@ -1,18 +1,53 @@
 <h5>Structure of the course</h5>
 <div class="border border-secondary rounded-3">
     <div *ngFor="let section of sectionsAndLecturesFormService.sectionsAndLecturesFrom.controls.sections.value; index as sectionIndex" 
-        class="border border-3 border-secondary rounded-3 m-3 ps-2 pt-2 pe-2">
+        class="border border-3 border-secondary rounded-3 ms-2 mt-2 me-2 ps-2 pt-2 pe-2">
         <input 
             type="text" 
             class="form-control fw-bold" 
-            value="{{section.title}}" />
+            value="{{section.title}}"
+            (keyup)="onSectionChangeEvent($event, sectionIndex, lectureIndex)" />
         <div *ngFor="let lecture of section.lectures; index as lectureIndex" 
-            class="ms-5 mt-1 mb-1">
+            class="ms-5 mt-1">
             <input 
                 type="text" 
                 class="form-control fw-bold" 
                 value="{{lecture.post.title}}"
                 (keyup)="onLectureChangeEvent($event, sectionIndex, lectureIndex)" />
         </div>
+        <div class="text-center">
+            <button class="btn btn-primary btn-sm col-3 mb-3" (click)="onAddLecture(sectionIndex)">
+                <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    xmlns:xlink="http://www.w3.org/1999/xlink" 
+                    aria-hidden="true" 
+                    role="img" 
+                    width="2em" 
+                    height="2em" 
+                    preserveAspectRatio="xMidYMid meet" 
+                    viewBox="0 0 32 32">
+                    <path fill="#fff" d="M16 2A14.172 14.172 0 0 0 2 16a14.172 14.172 0 0 0 14 14a14.172 14.172 0 0 0 14-14A14.172 14.172 0 0 0 16 2Zm8 15h-7v7h-2v-7H8v-2h7V8h2v7h7Z"/>
+                    <path fill="none" d="M24 17h-7v7h-2v-7H8v-2h7V8h2v7h7v2z"/>
+                </svg>
+                <span class="ms-2">Add lesson</span>
+            </button>
+        </div>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary btn-sm col-3 mb-4" (click)="onAddSection()">
+            <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                xmlns:xlink="http://www.w3.org/1999/xlink" 
+                aria-hidden="true" 
+                role="img" 
+                width="2em" 
+                height="2em" 
+                preserveAspectRatio="xMidYMid meet" 
+                viewBox="0 0 32 32">
+                <path fill="#fff" d="M16 2A14.172 14.172 0 0 0 2 16a14.172 14.172 0 0 0 14 14a14.172 14.172 0 0 0 14-14A14.172 14.172 0 0 0 16 2Zm8 15h-7v7h-2v-7H8v-2h7V8h2v7h7Z"/>
+                <path fill="none" d="M24 17h-7v7h-2v-7H8v-2h7V8h2v7h7v2z"/>
+            </svg>
+            <span class="ms-2">Add section</span>
+        </button>
     </div>
 </div>

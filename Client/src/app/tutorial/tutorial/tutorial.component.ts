@@ -46,8 +46,8 @@ export class TutorialComponent implements OnInit {
   }
 
   private updateMeta() {    
-    this.meta.updateTag({name: "title", content: this.tutorial.post.meta.seoTitle})
-    this.meta.updateTag({name: "description", content: this.tutorial.post.meta.metaDescription})
+    this.meta.updateTag({name: "title", content: this.tutorial.post.meta?.seoTitle || ''})
+    this.meta.updateTag({name: "description", content: this.tutorial.post.meta?.metaDescription || ''})
     this.meta.updateTag({name: "image", content: this.tutorial.post.featuredImageUrl})
     this.meta.updateTag({name: "site", content: environment.siteTitle})
   }
