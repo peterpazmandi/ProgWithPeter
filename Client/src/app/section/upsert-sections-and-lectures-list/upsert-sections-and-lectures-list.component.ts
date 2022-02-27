@@ -78,6 +78,24 @@ export class UpsertSectionsAndLecturesListComponent implements OnInit {
     this.updateFormData();
   }
 
+  onLectureUp(sectionIndex: number, lectureIndex: number) {
+    console.log(lectureIndex);
+    if(lectureIndex !== 0) {
+      this.sections[sectionIndex].lectures[lectureIndex].position--;
+      this.sections[sectionIndex].lectures[lectureIndex - 1].position++;
+    }
+
+    console.log(this.sections[sectionIndex].lectures);
+
+    this.reorderLecturesByPosition(sectionIndex);
+
+    console.log(this.sections[sectionIndex].lectures);
+  }
+  
+  private reorderLecturesByPosition(sectionIndex: number) {
+    this.sections[sectionIndex].lectures.sort(function(a, b) { return a.position - b.position });
+  }
+
   dropSection(event: CdkDragDrop<Section[]>) {
     transferArrayItem(
       event.previousContainer.data,
@@ -92,12 +110,6 @@ export class UpsertSectionsAndLecturesListComponent implements OnInit {
   private updateSectionPosition() {
     for(let i = 0; i < this.sections.length; i++) {
       this.sections[i].position = i;
-    }
-  }
-  
-  private updateLecturePosition(sectionId: number) {
-    for(let i = 0; i < this.sections[sectionId].lectures.length; i++) {
-      this.sections[sectionId].lectures[i].position = i;
     }
   }
 
