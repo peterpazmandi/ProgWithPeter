@@ -79,17 +79,21 @@ export class UpsertSectionsAndLecturesListComponent implements OnInit {
   }
 
   onLectureUp(sectionIndex: number, lectureIndex: number) {
-    console.log(lectureIndex);
     if(lectureIndex !== 0) {
       this.sections[sectionIndex].lectures[lectureIndex].position--;
       this.sections[sectionIndex].lectures[lectureIndex - 1].position++;
     }
 
-    console.log(this.sections[sectionIndex].lectures);
+    this.reorderLecturesByPosition(sectionIndex);
+  }
+
+  onLectureDown(sectionIndex: number, lectureIndex: number) {
+    if(this.sections[sectionIndex].lectures.length - 1 !== lectureIndex) {
+      this.sections[sectionIndex].lectures[lectureIndex].position++;
+      this.sections[sectionIndex].lectures[lectureIndex+1].position--;
+    }
 
     this.reorderLecturesByPosition(sectionIndex);
-
-    console.log(this.sections[sectionIndex].lectures);
   }
   
   private reorderLecturesByPosition(sectionIndex: number) {

@@ -1,9 +1,9 @@
 svg {
-    color: var(--on-primary);
-    transition: all 0.3s linear;
-  }
-  svg:hover {
-    color: #1976D2;
-    filter: drop-shadow(0.3em 0.3em 0.1em rgba(0, 0, 30, 0.178));
-    transition: all 0.2s linear;
-  }
+  color: var(--on-primary);
+  transition: all 0.3s linear;
+}
+svg:hover {
+  color: #1976D2;
+  filter: drop-shadow(0.3em 0.3em 0.1em rgba(0, 0, 30, 0.178));
+  transition: all 0.2s linear;
+}
