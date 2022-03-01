@@ -111,13 +111,18 @@ namespace API.Controllers
             else
             {
                 course = await _unitOfWork.CourseRepository.GetCourseByIdAsync(upsertCourseDto.Id);
-
-                course.ModificationDate = DateTime.UtcNow;
                 
                 course.Post.Title = upsertCourseDto.Post.Title;
+                course.Post.Excerpt = upsertCourseDto.Post.Excerpt;
+                course.Post.Content = upsertCourseDto.Post.Content;
+                course.Post.FeaturedImageUrl = upsertCourseDto.Post.FeaturedImageUrl;
+                course.Post.Password = upsertCourseDto.Post.Password;
+                course.Post.AppUser = user;
                 course.Post.Tags = courseTags;
                 course.Post.Category = category;
                 course.Post.AppUser = user;
+
+                course.ModificationDate = DateTime.UtcNow;
                 
                 List<Section> sections = _mapper.Map<List<Section>>(upsertCourseDto.Sections);
                 for(int i = 0; i < upsertCourseDto.Sections.Count(); i++)
@@ -127,8 +132,7 @@ namespace API.Controllers
                         var toRemoveLectures = course.Sections[i].Lectures.FindAll(x => upsertCourseDto.Sections[i].Lectures.Find(y => y.Id == x.Id) == null);
                         foreach(Lecture lecture in toRemoveLectures)
                         {
-                            _unitOfWork.MetaRepository.Remove(lecture.Post.Meta);
-                            _unitOfWork.PostRepository.Remove(lecture.Post);
+                            lecture.Section = null;
                         }
                         course.Sections[i].Lectures.RemoveAll(x => upsertCourseDto.Sections[i].Lectures.Find(y => y.Id == x.Id) == null);
                     }

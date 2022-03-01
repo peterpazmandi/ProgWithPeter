@@ -108,12 +108,11 @@ export class UpsertSectionsAndLecturesListComponent implements OnInit {
   }
 
   onRemoveLecture(sectionIndex: number, lectureIndex: number) {
+    console.log(this.sections);
     this.sections[sectionIndex].lectures = this.sections[sectionIndex].lectures.filter(s => s.position !== lectureIndex);
 
     this.reorderLecturesByPosition(sectionIndex);
     this.updateFormData();
-
-    console.log(this.sections);
   }
 
   onLectureUp(sectionIndex: number, lectureIndex: number) {

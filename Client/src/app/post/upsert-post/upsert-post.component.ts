@@ -199,7 +199,21 @@ export class UpsertPostComponent implements OnInit {
   private uploadCourse(status: string) {
     var course = this.createCourseDtoFromForms(status);
     console.log(course);
+    this.courseService.upsertCourse(course).subscribe((result: any) => {
+      console.log(result);
+      this.toastr.success(result.message);
+      this.createPostForm.patchValue({
+        id: result.courseId
+      })
 
+      // Undirty the forms
+      this.createPostForm.markAsPristine();
+      this.formTextForm.markAsPristine();
+      this.seoFormService.seoForm.markAsPristine();
+      
+    }, error => {
+      console.log(error);
+    })
   }
   private createCourseDtoFromForms(status: string): UpsertCourseDto {
     return {

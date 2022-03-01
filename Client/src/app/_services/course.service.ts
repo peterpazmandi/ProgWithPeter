@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Course } from '../_models/courseDto.model';
+import { UpsertCourseDto } from '../_models/upsertCourseDto.model';
 import { BaseService } from './base.service';
 import { getPaginatedResult, getPaginationHeaders } from './pagination.helper';
 
@@ -18,5 +19,7 @@ export class CourseService extends BaseService {
       this.baseUrl + 'Course/GetCoursesOrderedByModificationDate', params, this.http);
   }
 
-  
+  upsertCourse(course: UpsertCourseDto) {
+    return this.http.post(this.baseUrl + 'Course', course);
+  }
 }
