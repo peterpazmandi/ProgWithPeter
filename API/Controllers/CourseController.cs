@@ -129,11 +129,6 @@ namespace API.Controllers
                 {
                     if(course.Sections.ElementAtOrDefault(i) != null)
                     {
-                        var toRemoveLectures = course.Sections[i].Lectures.FindAll(x => upsertCourseDto.Sections[i].Lectures.Find(y => y.Id == x.Id) == null);
-                        foreach(Lecture lecture in toRemoveLectures)
-                        {
-                            lecture.Section = null;
-                        }
                         course.Sections[i].Lectures.RemoveAll(x => upsertCourseDto.Sections[i].Lectures.Find(y => y.Id == x.Id) == null);
                     }
 
@@ -160,6 +155,11 @@ namespace API.Controllers
                         Section section = await _unitOfWork.SectionRepository.AddSectionAsync(sections[i]);
                         course.Sections.Add(section);
                     }
+                }
+
+                if(course.Sections.Count() > upsertCourseDto.Sections.Count())
+                {
+                    course.Sections.RemoveAll(x => upsertCourseDto.Sections.Find(y => y.Id == x.Id) == null);
                 }
 
                 if(upsertCourseDto.Status.Equals(PostStatus.Published.ToString()))
