@@ -28,6 +28,7 @@ export class UpsertSectionsAndLecturesListComponent implements OnInit {
     this.initializeForms();
 
     let sub = this.sectionsAndLecturesFormService.sectionsAndLecturesFrom.get('sections')?.valueChanges?.subscribe((value: Section[]) => {
+      this.sections = this.sections.filter(s => s.id === -1);
       this.sections.push(...(value as Section[]));
       sub?.unsubscribe();
     })
@@ -52,7 +53,8 @@ export class UpsertSectionsAndLecturesListComponent implements OnInit {
   onAddSection() {
     this.sections.push( {
       title: '',
-      position: this.sections.length
+      position: this.sections.length,
+      lectures: [] as Lecture[]
     } as Section);
     this.updateFormData();
   }

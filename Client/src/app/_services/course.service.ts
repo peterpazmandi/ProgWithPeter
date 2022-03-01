@@ -18,4 +18,5 @@ export class CourseService extends BaseService {
       this.baseUrl + 'Course/GetCoursesOrderedByModificationDate', params, this.http);
   }
 
+  
 }
