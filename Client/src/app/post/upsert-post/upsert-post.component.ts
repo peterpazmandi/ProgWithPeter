@@ -24,6 +24,7 @@ import { BaseContent } from 'src/app/_models/base-content.model';
 import { SectionsAndLecturesFormService } from 'src/app/section/upsert-sections-and-lectures-list/sections-and-lectures-form.service';
 import { Course } from 'src/app/_models/courseDto.model';
 import { Section } from 'src/app/_models/sectionDto.model';
+import { UpsertSectionDto } from 'src/app/_models/upsertSectionDto.model';
 
 
 @Component({
@@ -197,15 +198,17 @@ export class UpsertPostComponent implements OnInit {
 
   private uploadCourse(status: string) {
     var course = this.createCourseDtoFromForms(status);
+    console.log(course);
 
   }
   private createCourseDtoFromForms(status: string): UpsertCourseDto {
     return {
       id: (this.createPostForm?.value['id'] as number),
       status: status,
-      price: 9.9,
-      currency: 'USD',
+      price: 0,
+      currency: '',
       post: this.createPostDtoFromForms(),
+      sections: this.createSectionUpsertSectionDto()
     } as UpsertCourseDto;
   }
 
@@ -246,6 +249,16 @@ export class UpsertPostComponent implements OnInit {
       slug: (this.seoFormService.seoForm?.value['slug'] as string),
       metaDescription: (this.seoFormService.seoForm?.value['metaDescription'] as string),
     }
+  }
+
+  private createSectionUpsertSectionDto() {
+    let sections: UpsertSectionDto[] = [];
+
+    for(let section of this.sectionsAndLecturesFormService.sectionsAndLecturesFrom?.value['sections'] as Section[]) {
+      sections.push(section);
+    }
+
+    return sections;
   }
 
   get createTutorialF() { return this.createPostForm.controls; }

@@ -40,6 +40,7 @@ export class UpsertSectionsAndLecturesListComponent implements OnInit {
     });
   }
 
+  //#region Section
   onSectionChangeEvent(event: any, sectionIndex: number) {
     this.sections[sectionIndex].title = event.target.value;
     this.updateFormData();
@@ -66,6 +67,25 @@ export class UpsertSectionsAndLecturesListComponent implements OnInit {
     this.updateFormData();
   }
 
+  dropSection(event: CdkDragDrop<Section[]>) {
+    transferArrayItem(
+      event.previousContainer.data,
+      event.container.data,
+      event.previousIndex,
+      event.currentIndex
+    )
+
+    this.updateSectionPosition();
+  }
+
+  private updateSectionPosition() {
+    for(let i = 0; i < this.sections.length; i++) {
+      this.sections[i].position = i;
+    }
+  }
+  //#endregion Section
+
+  //#region Lecture
   onAddLecture(sectionId: number) {
     this.sections[sectionId].lectures.push({
       post: {
@@ -121,23 +141,8 @@ export class UpsertSectionsAndLecturesListComponent implements OnInit {
       this.sections[sectionIndex].lectures[i].position = i;
     }
   }
-
-  dropSection(event: CdkDragDrop<Section[]>) {
-    transferArrayItem(
-      event.previousContainer.data,
-      event.container.data,
-      event.previousIndex,
-      event.currentIndex
-    )
-
-    this.updateSectionPosition();
-  }
-
-  private updateSectionPosition() {
-    for(let i = 0; i < this.sections.length; i++) {
-      this.sections[i].position = i;
-    }
-  }
+  
+  //#endregion Lecture
 
   private updateFormData() {
     this.sectionsAndLecturesFormService.sectionsAndLecturesFrom.patchValue({
