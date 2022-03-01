@@ -141,11 +141,11 @@ namespace API.Controllers
                         {
                             if(upsertCourseDto.Sections[i].Lectures[j].Id != 0)
                             {
-                                _mapper.Map(upsertCourseDto.Sections[i].Lectures[j], course.Sections[i].Lectures.ToList()[j]);
+                                _mapper.Map(upsertCourseDto.Sections[i].Lectures[j], course.Sections[i].Lectures[j]);
                             }
                             else
                             {
-                                Lecture lecture = await _unitOfWork.LectureRepository.AddLectureAsync(sections[i].Lectures.ToList()[j]);
+                                Lecture lecture = await _unitOfWork.LectureRepository.AddLectureAsync(sections[i].Lectures[j]);
                                 course.Sections[i].Lectures.Add(lecture);
                             }
                         }
@@ -174,15 +174,14 @@ namespace API.Controllers
                 if(upsertCourseDto.Id == 0)
                 {
                     return Ok(new {
-                        course = course,
-                        courseId = course.Id,
+                        course = GetCourseByTitle(upsertCourseDto.Post.Title),
                         message = "Course has been created successfully!"
                     });
                 }
 
                 // Update
                     return Ok(new {
-                        courseId = course.Id,
+                        course = GetCourseByTitle(upsertCourseDto.Post.Title),
                         message = "Course has been updated successfully!"
                     });
             }

@@ -149,6 +149,7 @@ export class UpsertPostComponent implements OnInit {
     });
     
     if(this.selectedPostType === PostType.Course) {
+      console.log((content as Course).sections);
       this.sectionsAndLecturesFormService.sectionsAndLecturesFrom.patchValue({
         sections: (content as Course).sections
       })
@@ -202,9 +203,7 @@ export class UpsertPostComponent implements OnInit {
     this.courseService.upsertCourse(course).subscribe((result: any) => {
       console.log(result);
       this.toastr.success(result.message);
-      this.createPostForm.patchValue({
-        id: result.courseId
-      })
+      this.updatePostForms(result.course.result.value);
 
       // Undirty the forms
       this.createPostForm.markAsPristine();
