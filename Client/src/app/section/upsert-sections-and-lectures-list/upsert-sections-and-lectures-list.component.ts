@@ -59,6 +59,13 @@ export class UpsertSectionsAndLecturesListComponent implements OnInit {
     this.updateFormData();
   }
 
+  onRemoveSection(sectionIndex: number) {
+    this.sections = this.sections.filter(s => s.position !== sectionIndex);
+
+    this.updateSectionPosition();
+    this.updateFormData();
+  }
+
   onAddLecture(sectionId: number) {
     this.sections[sectionId].lectures.push({
       post: {
@@ -78,6 +85,15 @@ export class UpsertSectionsAndLecturesListComponent implements OnInit {
       position: this.sections[sectionId].lectures.length,
     } as Lecture);
     this.updateFormData();
+  }
+
+  onRemoveLecture(sectionIndex: number, lectureIndex: number) {
+    this.sections[sectionIndex].lectures = this.sections[sectionIndex].lectures.filter(s => s.position !== lectureIndex);
+
+    this.reorderLecturesByPosition(sectionIndex);
+    this.updateFormData();
+
+    console.log(this.sections);
   }
 
   onLectureUp(sectionIndex: number, lectureIndex: number) {
@@ -100,6 +116,10 @@ export class UpsertSectionsAndLecturesListComponent implements OnInit {
   
   private reorderLecturesByPosition(sectionIndex: number) {
     this.sections[sectionIndex].lectures.sort(function(a, b) { return a.position - b.position });
+
+    for(let i = 0; i < this.sections[sectionIndex].lectures.length; i++) {
+      this.sections[sectionIndex].lectures[i].position = i;
+    }
   }
 
   dropSection(event: CdkDragDrop<Section[]>) {

@@ -4,15 +4,32 @@
     [cdkDropListData]="sections"
     (cdkDropListDropped)="dropSection($event)"
     class="border border-secondary rounded-3">
+    <!-- Sections -->
     <div 
         *ngFor="let section of sections; index as sectionIndex" 
         class="border border-3 border-secondary rounded-3 ms-2 mt-2 me-2 ps-2 pt-2 pe-2"
         cdkDrag >
-        <input 
-            type="text" 
-            class="form-control fw-bold" 
-            value="{{section.title}}"
-            (keyup)="onSectionChangeEvent($event, sectionIndex, lectureIndex)" />
+        <div class="row">
+            <div class="col-11">
+                <input 
+                    type="text" 
+                    class="form-control fw-bold" 
+                    value="{{section.title}}"
+                    (keyup)="onSectionChangeEvent($event, sectionIndex, lectureIndex)" />
+            </div>
+            <!-- Delete section -->
+            <div class="col-1 d-flex align-items-center">
+                <svg (click)="onRemoveSection(sectionIndex)" id="delete-icon" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <title id="unique-id">Delete section</title>
+                    <path 
+                        fill-rule="evenodd" 
+                        clip-rule="evenodd" 
+                        d="M6 0C2.68629 0 0 2.68629 0 6V24C0 27.3137 2.68629 30 6 30H24C27.3137 30 30 27.3137 30 24V6C30 2.68629 27.3137 0 24 0H6ZM11.0536 24C9.93393 24 9.01786 23.1 9.01786 22V10H21.2321V22C21.2321 23.1 20.3161 24 19.1964 24H11.0536ZM12.957 13.47L11.5218 14.88L13.6898 17L11.532 19.12L12.9671 20.53L15.125 18.41L17.2829 20.53L18.718 19.12L16.5602 17L18.718 14.88L17.2829 13.47L15.125 15.59L12.957 13.47ZM17.6696 6L18.6875 7H22.25V9H8V7H11.5625L12.5804 6H17.6696Z"
+                        fill="currentColor"/>
+                </svg>
+            </div>
+        </div>
+        <!-- Lectures -->
         <div
             *ngFor="let lecture of section.lectures; index as lectureIndex" 
             class="col-8 ms-5 mt-1">            
@@ -20,18 +37,33 @@
                 <!-- Lecture up and down -->
                 <div class="col-1 d-flex flex-column">
                     <svg (click)="onLectureUp(sectionIndex, lectureIndex)" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1 9L9 1L17 9" fill="#1976D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path id="icon" d="M1 9L9 1L17 9" fill="#1976D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                     <svg (click)="onLectureDown(sectionIndex, lectureIndex)" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M17 1L9 9L1 1" fill="#1976D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path id="icon" d="M17 1L9 9L1 1" fill="#1976D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
                 <div class="col">
-                    <input
-                        type="text" 
-                        class="form-control fw-bold"
-                        value="{{lecture.post.title}}"
-                        (keyup)="onLectureChangeEvent($event, sectionIndex, lectureIndex)" />
+                    <div class="row">
+                        <div class="col-10">
+                            <input
+                                type="text" 
+                                class="form-control fw-bold"
+                                value="{{lecture.post.title}}"
+                                (keyup)="onLectureChangeEvent($event, sectionIndex, lectureIndex)" />
+                        </div>
+                        <!-- Delete lecture -->
+                        <div class="col-2 d-flex align-items-center">
+                            <svg (click)="onRemoveLecture(sectionIndex, lectureIndex)" id="delete-icon" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <title id="unique-id">Delete lecture</title>
+                                <path 
+                                    fill-rule="evenodd" 
+                                    clip-rule="evenodd" 
+                                    d="M6 0C2.68629 0 0 2.68629 0 6V24C0 27.3137 2.68629 30 6 30H24C27.3137 30 30 27.3137 30 24V6C30 2.68629 27.3137 0 24 0H6ZM11.0536 24C9.93393 24 9.01786 23.1 9.01786 22V10H21.2321V22C21.2321 23.1 20.3161 24 19.1964 24H11.0536ZM12.957 13.47L11.5218 14.88L13.6898 17L11.532 19.12L12.9671 20.53L15.125 18.41L17.2829 20.53L18.718 19.12L16.5602 17L18.718 14.88L17.2829 13.47L15.125 15.59L12.957 13.47ZM17.6696 6L18.6875 7H22.25V9H8V7H11.5625L12.5804 6H17.6696Z"
+                                    fill="currentColor"/>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -39,6 +71,7 @@
         <div class="text-center">
             <button class="btn btn-primary btn-sm col-3 mb-3" (click)="onAddLecture(sectionIndex)">
                 <svg 
+                    id="icon"
                     xmlns="http://www.w3.org/2000/svg" 
                     xmlns:xlink="http://www.w3.org/1999/xlink" 
                     aria-hidden="true" 
@@ -58,6 +91,7 @@
     <div class="text-center">
         <button class="btn btn-primary btn-sm col-3 mb-4" (click)="onAddSection()">
             <svg 
+                id="add"
                 xmlns="http://www.w3.org/2000/svg" 
                 xmlns:xlink="http://www.w3.org/1999/xlink" 
                 aria-hidden="true" 
