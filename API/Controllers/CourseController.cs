@@ -91,6 +91,8 @@ namespace API.Controllers
                     course.PublishDate = DateTime.UtcNow;
                 }
 
+                course.Status = upsertCourseDto.Status;
+
                 course.CreationDate = DateTime.UtcNow;
                 course.ModificationDate = DateTime.UtcNow;
 
@@ -111,7 +113,7 @@ namespace API.Controllers
             else
             {
                 course = await _unitOfWork.CourseRepository.GetCourseByIdAsync(upsertCourseDto.Id);
-                
+
                 course.Post.Title = upsertCourseDto.Post.Title;
                 course.Post.Excerpt = upsertCourseDto.Post.Excerpt;
                 course.Post.Content = upsertCourseDto.Post.Content;
@@ -166,6 +168,8 @@ namespace API.Controllers
                 {
                     course.PublishDate = DateTime.UtcNow;
                 }
+
+                course.Status = upsertCourseDto.Status;
             }
 
             if(await _unitOfWork.Complete())
