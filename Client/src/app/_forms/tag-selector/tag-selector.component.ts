@@ -24,10 +24,11 @@ export class TagSelectorComponent implements ControlValueAccessor, OnInit {
 
   ngOnInit(): void {
     let sub = this.ngControl?.control?.valueChanges.subscribe(value => {
+      this.selectedTags = this.selectedTags.filter(t => t.id === -1);
       for(let tag of this.ngControl?.control?.value as Tag[]) {
         this.selectedTags.push(tag);
       }
-      sub?.unsubscribe();
+      // sub?.unsubscribe();
     });
   }
 
