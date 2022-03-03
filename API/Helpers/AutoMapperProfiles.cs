@@ -42,6 +42,7 @@ namespace API.Helpers
             CreateMap<Section, UpserSectionDto>().ReverseMap();
 
             CreateMap<Course, CourseDto>().ReverseMap();
+            CreateMap<Course, HomePageCourseDto>().ReverseMap();
             CreateMap<Course, UpsertCourseDto>().ReverseMap();
             CreateMap<Course, UpsertCourseListDto>().ReverseMap();
         }

@@ -43,6 +43,16 @@ namespace API.Controllers
             return _mapper.Map<CourseDto>(course);
         }
 
+        [HttpGet("GetPublishedCoursesOrderedByPublishDate")]
+        public async Task<ActionResult<IEnumerable<HomePageCourseDto>>> GetPublishedCoursesOrderedByPublishDate([FromQuery] CourseParams courseParams)
+        {
+            var courses = await _unitOfWork.CourseRepository.GetPublishedCoursesOrderedByPublishDate(courseParams);
+
+            Response.AddPaginationHeader(courses.CurrentPage, courses.PageSize, courses.TotalCount, courses.TotalPages);
+
+            return courses;
+        }
+
         [Authorize(Roles = "Admin, Moderator")]
         [HttpGet("GetCoursesOrderedByModificationDate")]
         public async Task<ActionResult<IEnumerable<UpsertCourseListDto>>> GetCoursesOrderedByModificationDate([FromQuery] CourseParams courseParams)

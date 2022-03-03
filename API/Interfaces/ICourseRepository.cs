@@ -14,6 +14,7 @@ namespace API.Interfaces
         Task<Course> GetCourseByIdAsync(int id);
         Task<bool> IsCourseWithTitleAvailable(string title);
         Task AddCourseAsync(Course course);
+        Task<PagedList<HomePageCourseDto>> GetPublishedCoursesOrderedByPublishDate(CourseParams courseParams);
         Task<PagedList<UpsertCourseListDto>> GetCoursesOrderedByModificationDate(CourseParams courseParams);
         
     }

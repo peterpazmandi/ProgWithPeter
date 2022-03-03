@@ -82,6 +82,18 @@ namespace API.Data
                 .CreateAsync(query, courseParams.PageNumber, courseParams.PageSize);
         }
 
+        public async Task<PagedList<HomePageCourseDto>> GetPublishedCoursesOrderedByPublishDate(CourseParams courseParams)
+        {
+            var query = _context.Courses
+                .Include(c => c.Post)
+                .OrderByDescending(c => c.PublishDate)
+                .Where(c => c.Status == PostStatus.Published.ToString())
+                .ProjectTo<HomePageCourseDto>(_mapper.ConfigurationProvider);
+            
+            return await PagedList<HomePageCourseDto>
+                .CreateAsync(query, courseParams.PageNumber, courseParams.PageSize);
+        }
+
         public async Task<bool> IsCourseWithTitleAvailable(string title)
         {
             return (await _context.Courses
