@@ -55,6 +55,7 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
 import { UpsertSectionsAndLecturesComponent } from './section/upsert-sections-and-lectures/upsert-sections-and-lectures.component';
 import { UpsertSectionsAndLecturesListComponent } from './section/upsert-sections-and-lectures-list/upsert-sections-and-lectures-list.component';
 import { FindLectureByTitleComponent } from './lecture/find-lecture-by-title/find-lecture-by-title.component';
+import { CourseItemComponent } from './home/courses/course-item/course-item.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -96,7 +97,8 @@ export function tokenGetter() {
     UpsertCourseListComponent,
     UpsertSectionsAndLecturesComponent,
     UpsertSectionsAndLecturesListComponent,
-    FindLectureByTitleComponent
+    FindLectureByTitleComponent,
+    CourseItemComponent
   ],
   imports: [
     BrowserModule,

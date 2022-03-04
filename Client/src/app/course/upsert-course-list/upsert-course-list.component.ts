@@ -28,7 +28,7 @@ export class UpsertCourseListComponent implements OnInit {
   ngOnInit(): void {
     this.initializeForm();
 
-    this.courseService.getPublishedCoursesOrderedByPublishDate(this.pageNumber, this.pageSize).subscribe(response => {
+    this.courseService.getCoursesOrderedByModificationDate(this.pageNumber, this.pageSize).subscribe(response => {
       this.courses.push(...response.result);
     })
   }

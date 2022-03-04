@@ -22,6 +22,8 @@ export class TutorialsComponent implements OnInit {
     this.tutorialService.getPublishedTutorialsOrderedByPublishDate(this.pageNumber, this.pageSize).subscribe(response => {
       this.noMoreTutorial = response.result.length < 5;
       this.tutorials.push(...response.result);
+    }, error => {
+      console.log(error);
     })
   }
 

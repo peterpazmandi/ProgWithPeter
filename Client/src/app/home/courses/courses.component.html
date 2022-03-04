@@ -1,4 +1,21 @@
-<div class="innerdiv shadow-lg">    
+<div class="innerdiv mt-5 shadow-lg">    
     <h3 class="text-center fw-bold">Courses</h3>
     <hr class="dropdown-divider">
+
+    <div *ngFor="let course of courses">
+        <course-item [course]="course"></course-item>
+    </div>
+
+    <hr class="dropdown-divider mt-5">      
+    <div class="d-flex justify-content-center">
+        <button *ngIf="!noMoreCourse"
+            class="btn btn-success float-end fw-bold col-2 me-1"
+            (click)="loadMoreCourses()" >
+            Load more
+        </button>
+        <button 
+            class="btn btn-primary float-start fw-bold col-2 ms-1" >
+            Search
+        </button>
+    </div>
 </div>

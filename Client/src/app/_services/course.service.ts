@@ -13,10 +13,16 @@ export class CourseService extends BaseService {
     return this.http.get<Course>(this.baseUrl + 'Course/GetCourseByTitle?title=' + title);
   }
   
-  getPublishedCoursesOrderedByPublishDate(pageNumber: number, pageSize: number) {
+  getCoursesOrderedByModificationDate(pageNumber: number, pageSize: number) {
     let params = getPaginationHeaders(pageNumber, pageSize);
     return getPaginatedResult<Course[]>(
       this.baseUrl + 'Course/GetCoursesOrderedByModificationDate', params, this.http);
+  }
+  
+  getPublishedCoursesOrderedByPublishDate(pageNumber: number, pageSize: number) {
+    let params = getPaginationHeaders(pageNumber, pageSize);
+    return getPaginatedResult<Course[]>(
+      this.baseUrl + 'Course/GetPublishedCoursesOrderedByPublishDate', params, this.http);
   }
 
   upsertCourse(course: UpsertCourseDto) {
