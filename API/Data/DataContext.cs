@@ -34,6 +34,7 @@ namespace API.Data
         public DbSet<Meta> Metas { get; set; }
         public DbSet<Section> Sections { get; set; }
         public DbSet<Lecture> Lectures { get; set; }
+        public DbSet<CourseEnrollment> CourseEnrollments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -44,6 +45,11 @@ namespace API.Data
                 .WithOne(u => u.User)
                 .HasForeignKey(ur => ur.UserId)
                 .IsRequired();
+            
+            builder.Entity<AppUser>()
+                .HasMany(d => d.CourseEnrollments)
+                .WithOne(p => p.AppUser)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<AppUser>()
                 .HasOne<Photo>(ur => ur.Photo)
@@ -83,10 +89,14 @@ namespace API.Data
                 .ToTable("Courses")
                 .HasOne(d => d.Post)
                 .WithOne(p => p.Course);
-
             builder.Entity<Course>()
                 .ToTable("Courses")
                 .HasMany(d => d.Sections)
+                .WithOne(p => p.Course)
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Course>()
+                .ToTable("Courses")
+                .HasMany(d => d.CourseEnrollments)
                 .WithOne(p => p.Course)
                 .OnDelete(DeleteBehavior.Cascade);
 

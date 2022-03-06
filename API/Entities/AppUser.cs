@@ -18,5 +18,7 @@ namespace API.Entities
         public virtual ICollection<Post> Posts { get; set; }
         
         public ICollection<AppUserRole> UserRoles { get; set; }
+
+        public virtual List<CourseEnrollment> CourseEnrollments { get; set; }
     }
 }
