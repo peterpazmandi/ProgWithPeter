@@ -45,6 +45,8 @@ namespace API.Helpers
             CreateMap<Course, HomePageCourseDto>().ReverseMap();
             CreateMap<Course, UpsertCourseDto>().ReverseMap();
             CreateMap<Course, UpsertCourseListDto>().ReverseMap();
+
+            CreateMap<CourseEnrollment, CourseEnrollmentDto>().ReverseMap();
         }
     }
 }

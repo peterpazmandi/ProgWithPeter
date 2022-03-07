@@ -83,14 +83,20 @@ namespace API.Controllers
             var rolesResults = await _userManager.AddToRoleAsync(user, "Member");
 
             if(!rolesResults.Succeeded) return BadRequest(result.Errors);
+            
+            var registeredUser = await _userManager.Users
+                .Include(p => p.Photo)
+                .SingleOrDefaultAsync(x => x.UserName == user.UserName.ToLower());
 
             return new LoginUserDto
             {
+                Id = registeredUser.Id,
                 Username = user.UserName,
                 Token = await _tokenService.CreateToken(user),
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                EmailConfirmed = user.EmailConfirmed
+                EmailConfirmed = user.EmailConfirmed,
+                CourseEnrollments = new List<CourseEnrollmentDto>()
             };
         }
 
@@ -124,6 +130,7 @@ namespace API.Controllers
         {
             var user = await _userManager.Users
                 .Include(p => p.Photo)
+                .Include(p => p.CourseEnrollments).ThenInclude(ce => ce.Course)
                 .SingleOrDefaultAsync(x => x.UserName == loginDto.Username.ToLower());
 
             if(user == null)
@@ -140,12 +147,14 @@ namespace API.Controllers
 
             return new LoginUserDto
             {
+                Id = user.Id,
                 Username = user.UserName,
                 Token = await _tokenService.CreateToken(user),
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 PhotoUrl = user.Photo != null ? "https://localhost:5001/Photos/ProfilePhotos/" + user.Photo.Url : "",
-                EmailConfirmed = user.EmailConfirmed
+                EmailConfirmed = user.EmailConfirmed,
+                CourseEnrollments = _mapper.Map<List<CourseEnrollmentDto>>(user.CourseEnrollments)
             };
         }
 
