@@ -11,6 +11,8 @@ namespace API.DTOs
 
         public int CourseId { get; set; }
 
+        public int AppUserId { get; set; }
+
         public DateTime EnrollDate { get; set; }
 
         public double Progress { get; set; }

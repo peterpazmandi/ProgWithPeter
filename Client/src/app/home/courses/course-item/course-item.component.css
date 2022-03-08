@@ -9,3 +9,10 @@ img {
     overflow: hidden;
     position: relative;
 }
+
+#progress {
+    margin: 0;
+    min-height: 40px;
+    bottom: 0;
+    position: absolute;
+  }

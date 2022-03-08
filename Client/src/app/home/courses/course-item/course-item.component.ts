@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Course } from 'src/app/_models/courseDto.model';
+import { AccountService } from 'src/app/_services/account.service';
 
 @Component({
   selector: 'course-item',
@@ -9,7 +10,7 @@ import { Course } from 'src/app/_models/courseDto.model';
 export class CourseItemComponent implements OnInit {
   @Input() course: Course;
 
-  constructor() { }
+  constructor(public accountService: AccountService) { }
 
   ngOnInit(): void {
   }

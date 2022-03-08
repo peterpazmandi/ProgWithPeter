@@ -87,11 +87,19 @@ namespace API.Data
             var query = _context.Courses
                 .Include(c => c.Post)
                 .OrderByDescending(c => c.PublishDate)
-                .Where(c => c.Status == PostStatus.Published.ToString())
-                .ProjectTo<HomePageCourseDto>(_mapper.ConfigurationProvider);
+                .Where(c => c.Status == PostStatus.Published.ToString());
+
+            var queryDto = await _mapper.ProjectTo<HomePageCourseDto>(query).ToListAsync();
+            if(courseParams.AppUserId != null)
+            {
+                for(int i = 0; i < queryDto.Count(); i++)
+                {
+                    queryDto[i].CourseEnrollments.RemoveAll(x => x.AppUserId != courseParams.AppUserId);
+                }
+            }
             
             return await PagedList<HomePageCourseDto>
-                .CreateAsync(query, courseParams.PageNumber, courseParams.PageSize);
+                .CreateAsync(queryDto.AsQueryable(), courseParams.PageNumber, courseParams.PageSize);
         }
 
         public async Task<bool> IsCourseWithTitleAvailable(string title)

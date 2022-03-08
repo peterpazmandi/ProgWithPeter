@@ -10,5 +10,7 @@ namespace API.DTOs
         public DateTime PublishDate { get; set; }
 
         public virtual HomePagePostDto Post { get; set; }
+
+        public List<CourseEnrollmentDto> CourseEnrollments { get; set; }
     }
 }

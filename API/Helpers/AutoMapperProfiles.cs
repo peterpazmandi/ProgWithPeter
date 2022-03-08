@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using API.DTOs;
 using API.Entities;
 using AutoMapper;
@@ -43,6 +44,7 @@ namespace API.Helpers
 
             CreateMap<Course, CourseDto>().ReverseMap();
             CreateMap<Course, HomePageCourseDto>().ReverseMap();
+            CreateMap<IQueryable<Course>, IQueryable<HomePageCourseDto>>().ReverseMap();
             CreateMap<Course, UpsertCourseDto>().ReverseMap();
             CreateMap<Course, UpsertCourseListDto>().ReverseMap();
 

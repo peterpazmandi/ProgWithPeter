@@ -7,6 +7,6 @@ namespace API.Helpers
 {
     public class CourseParams : PaginationParams
     {
-        
+        public int? AppUserId { get; set; }
     }
 }

@@ -46,6 +46,7 @@ namespace API.Controllers
         [HttpGet("GetPublishedCoursesOrderedByPublishDate")]
         public async Task<ActionResult<IEnumerable<HomePageCourseDto>>> GetPublishedCoursesOrderedByPublishDate([FromQuery] CourseParams courseParams)
         {
+            string username = User.GetUsername();
             var courses = await _unitOfWork.CourseRepository.GetPublishedCoursesOrderedByPublishDate(courseParams);
 
             Response.AddPaginationHeader(courses.CurrentPage, courses.PageSize, courses.TotalCount, courses.TotalPages);
