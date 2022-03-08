@@ -1,3 +1,5 @@
+import { CourseEnrollment } from "./course-enrollment.model";
+
 export interface User {
     username: string;
     token: string;
@@ -6,4 +8,6 @@ export interface User {
     lastName: string;
     roles: string[];
     clientURI: string;
+
+    courseEnrollments: CourseEnrollment[]
 }

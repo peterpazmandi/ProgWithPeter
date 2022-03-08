@@ -28,6 +28,16 @@ html, body {
   transition: all 0.3s linear;
   border-radius: 6px;
 }
+.carddiv {
+  text-align: left;
+  position: relative;
+  background: var(--primary);
+  color: var(--on-primary);
+  transition: all 0.3s linear;
+  border-width: 0ch;
+  /* border-color: var(--on-primary);
+  border-radius: 8px; */
+}
 .modaldiv {
   text-align: left;
   position: relative;
@@ -399,4 +409,15 @@ thead {
 .post-tabset > .tab-content {
   background-color: var(--primary);
   border: 0;
+}
+
+
+
+
+#card-title {
+  color: #1976D2;
+}
+#card-title:hover {
+  color: #42A5F5;
+  text-decoration:underline;
 }

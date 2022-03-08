@@ -2,8 +2,10 @@
     <h3 class="text-center fw-bold">Courses</h3>
     <hr class="dropdown-divider">
 
-    <div *ngFor="let course of courses">
-        <course-item [course]="course"></course-item>
+    <div class="row">
+        <div *ngFor="let course of courses" class="col-6">
+            <course-item [course]="course"></course-item>
+        </div>
     </div>
 
     <hr class="dropdown-divider mt-5">      

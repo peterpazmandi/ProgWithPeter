@@ -1,15 +1,17 @@
 <div class="row mt-5">
     <div class="col">
-        <img *ngIf="tutorial.post.featuredImageUrl != null"
-            src={{tutorial.post.featuredImageUrl}}
-            alt="Programming with Peter">
-        <img *ngIf="tutorial.post.featuredImageUrl == null"
-            src="assets/svg/ic_blank_image.svg"
-            alt="Programming with Peter">
+        <a routerLink='tutorial/{{tutorial.post.meta?.slug}}'>
+            <img *ngIf="tutorial.post.featuredImageUrl != null"
+                src={{tutorial.post.featuredImageUrl}}
+                alt="Programming with Peter">
+            <img *ngIf="tutorial.post.featuredImageUrl == null"
+                src="assets/svg/ic_blank_image.svg"
+                alt="Programming with Peter">
+        </a>
     </div>
     <div class="col">
         <a routerLink='tutorial/{{tutorial.post.meta?.slug}}'>
-            <h3 class="fw-bold">{{tutorial.post.title}}</h3>
+            <h3 id="card-title" class="fw-bold">{{tutorial.post.title}}</h3>
         </a>
         <div class="mb-3">
             <svg 
