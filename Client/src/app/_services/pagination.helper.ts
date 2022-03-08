@@ -18,11 +18,14 @@ export function getPaginatedResult<T>(url: any, params: any, http: HttpClient) {
     )
 }
 
-export function getPaginationHeaders(pageNumber: number, pageSize: number) {
+export function getPaginationHeaders(pageNumber: number, pageSize: number, appUserId: number = -1) {
     let params = new HttpParams();
 
     params = params.append('pageNumber', pageNumber.toString() as string);
     params = params.append('pageSize', pageSize.toString() as string);
+    if(appUserId !== -1) {
+        params = params.append('appUserId', appUserId.toString() as string);
+    }
 
     return params;
 }

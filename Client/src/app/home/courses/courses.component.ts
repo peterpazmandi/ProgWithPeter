@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Course } from 'src/app/_models/courseDto.model';
+import { User } from 'src/app/_models/user.model';
 import { AccountService } from 'src/app/_services/account.service';
 import { CourseService } from 'src/app/_services/course.service';
 
@@ -13,20 +14,21 @@ export class CoursesComponent implements OnInit {
   pageNumber = 1;
   pageSize = 2;
   noMoreCourse: boolean = false;
+  currentUser: User;
 
   constructor(
     public courseService: CourseService,
     public accountService: AccountService) { }
 
   ngOnInit(): void {
+    this.loadCurrentUser();
     this.loadCourses();
   }
 
   private loadCourses() {
-    this.courseService.getPublishedCoursesOrderedByPublishDate(this.pageNumber, this.pageSize).subscribe(response => {
+    this.courseService.getPublishedCoursesOrderedByPublishDate(this.pageNumber, this.pageSize, this.currentUser.id).subscribe(response => {
       this.noMoreCourse = response.result.length < 2;
       this.courses.push(...response.result);
-      this.updateCourseEnrollments();
     }, error => {
       console.log(error);
     })
@@ -37,15 +39,9 @@ export class CoursesComponent implements OnInit {
     this.loadCourses();
   }
 
-  updateCourseEnrollments() {
+  loadCurrentUser() {
     this.accountService.currentUser$.subscribe(user => {
-      for(let i = 0; i < user.courseEnrollments.length; i++) {
-        let course = this.courses.find(c => c.id === user.courseEnrollments[i].courseId);
-        if(course) {
-          course.progress = user.courseEnrollments[i].progress*100;
-        }
-      }
-      console.table(this.courses);
+      this.currentUser = user;
     })
   }
 }
