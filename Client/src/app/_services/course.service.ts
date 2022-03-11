@@ -9,8 +9,12 @@ import { getPaginatedResult, getPaginationHeaders } from './pagination.helper';
 })
 export class CourseService extends BaseService {
 
-  getCourseByTitle(title: string) {
-    return this.http.get<Course>(this.baseUrl + 'Course/GetCourseByTitle?title=' + title);
+  getCourseByTitle(title: string, appUserId: number) {
+    let requestUrl = this.baseUrl + 'Course/GetCourseByTitle?title=' + title;
+    if(appUserId) {
+      requestUrl += '&appUserId=' + appUserId;
+    }
+    return this.http.get<Course>(requestUrl);
   }
   
   getCoursesOrderedByModificationDate(pageNumber: number, pageSize: number, appUserId: number = -1) {

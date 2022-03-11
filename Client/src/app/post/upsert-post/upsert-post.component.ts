@@ -103,7 +103,7 @@ export class UpsertPostComponent implements OnInit {
           break;
         }
         case this.postType.Course: {
-          this.courseService.getCourseByTitle(this.slug).subscribe(course => {
+          this.courseService.getCourseByTitle(this.slug, this.user.id).subscribe(course => {
             this.updatePostForms(course);
           }, error => {
             console.log(error);
