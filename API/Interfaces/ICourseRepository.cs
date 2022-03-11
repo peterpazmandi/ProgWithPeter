@@ -10,7 +10,7 @@ namespace API.Interfaces
 {
     public interface ICourseRepository
     {
-        Task<Course> GetCourseByTitleAsync(string title);
+        Task<Course> GetCourseByTitleAsync(string title, int? appUserId);
         Task<Course> GetCourseByIdAsync(int id);
         Task<bool> IsCourseWithTitleAvailable(string title);
         Task AddCourseAsync(Course course);

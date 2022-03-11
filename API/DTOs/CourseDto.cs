@@ -21,6 +21,7 @@ namespace API.DTOs
         public DateTime ModificationDate { get; set; }
         public DateTime PublishDate { get; set; }
 
+        public List<CourseEnrollmentDto> CourseEnrollments { get; set; }
 
         public int PostId { get; set; }
         public PostDto Post { get; set; }

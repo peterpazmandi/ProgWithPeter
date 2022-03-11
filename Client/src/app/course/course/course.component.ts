@@ -1,3 +1,4 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -31,6 +32,11 @@ export class CourseComponent implements OnInit {
     let re =/\-/gi;
     let title = this.route.url.split('/')[2].replace(re, ' ');
     console.log(title);
+    this.courseService.getCourseByTitle(title).subscribe(result => {
+      this.course = result
+    }, error => {
+      console.error(error);
+    })
   }
 
 }

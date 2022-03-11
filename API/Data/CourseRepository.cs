@@ -49,7 +49,7 @@ namespace API.Data
                 .FirstOrDefaultAsync();
         }
 
-        public Task<Course> GetCourseByTitleAsync(string title)
+        public Task<Course> GetCourseByTitleAsync(string title, int? appUserId)
         {
             var query = _context.Courses
                 .Include(c => c.Post).ThenInclude(p => p.AppUser)
@@ -64,7 +64,9 @@ namespace API.Data
                     .ThenInclude(s => s.Lectures)
                     .ThenInclude(l => l.Post)
                     .ThenInclude(p => p.Tags)
-                .Where(c => c.Post.Title.Equals(title));
+                .Include(c => c.CourseEnrollments.Where(ce => ce.AppUser.Id == appUserId)).ThenInclude(ce => ce.AppUser)
+                .Where(c => c.Post.Title.ToLower().Equals(title.ToLower()));
+                
                     
             return query
                 .FirstOrDefaultAsync();

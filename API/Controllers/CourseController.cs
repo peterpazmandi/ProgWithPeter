@@ -26,14 +26,14 @@ namespace API.Controllers
 
 
         [HttpGet("GetCourseByTitle")]
-        public async Task<ActionResult<CourseDto>> GetCourseByTitle(string title)
+        public async Task<ActionResult<CourseDto>> GetCourseByTitle(string title, int? appUserId)
         {
             if(string.IsNullOrEmpty(title))
             {
                 return BadRequest("Please provide a valid title!");
             }
 
-            Course course = await _unitOfWork.CourseRepository.GetCourseByTitleAsync(title);
+            Course course = await _unitOfWork.CourseRepository.GetCourseByTitleAsync(title, appUserId);
 
             if(course == null) 
             {
@@ -188,14 +188,14 @@ namespace API.Controllers
                 if(upsertCourseDto.Id == 0)
                 {
                     return Ok(new {
-                        course = GetCourseByTitle(upsertCourseDto.Post.Title),
+                        course = GetCourseByTitle(upsertCourseDto.Post.Title, null),
                         message = "Course has been created successfully!"
                     });
                 }
 
                 // Update
                     return Ok(new {
-                        course = GetCourseByTitle(upsertCourseDto.Post.Title),
+                        course = GetCourseByTitle(upsertCourseDto.Post.Title, null),
                         message = "Course has been updated successfully!"
                     });
             }
