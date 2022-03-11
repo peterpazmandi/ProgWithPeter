@@ -12,15 +12,14 @@ import { environment } from 'src/environments/environment';
 })
 export class TutorialComponent implements OnInit {
   tutorial: Tutorial;
-  sidebarWidth = 'col-3'
-  conetentWidth = 'col-9'
+  sidebarWidth = 'col-3';
+  conetentWidth = 'col-9';
   sideBarVisible = true;
   waIntersectionObserver: IntersectionObserver;
 
   constructor(
     private route: Router,
     private tutorialService: TutorialService,
-    private sanitizer: DomSanitizer,
     private title: Title,
     private meta: Meta
     ) { }

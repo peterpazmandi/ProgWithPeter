@@ -57,6 +57,7 @@ import { UpsertSectionsAndLecturesListComponent } from './section/upsert-section
 import { FindLectureByTitleComponent } from './lecture/find-lecture-by-title/find-lecture-by-title.component';
 import { CourseItemComponent } from './home/courses/course-item/course-item.component';
 import { TocComponent } from './_forms/toc/toc.component';
+import { CourseComponent } from './course/course/course.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -100,7 +101,8 @@ export function tokenGetter() {
     UpsertSectionsAndLecturesListComponent,
     FindLectureByTitleComponent,
     CourseItemComponent,
-    TocComponent
+    TocComponent,
+    CourseComponent
   ],
   imports: [
     BrowserModule,

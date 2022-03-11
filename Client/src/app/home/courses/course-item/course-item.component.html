@@ -1,6 +1,6 @@
 <div class="card carddiv">
     <div>
-        <a routerLink='tutorial/{{course.post.meta?.slug}}'>
+        <a routerLink='course/{{course.post.meta?.slug}}'>
             <img *ngIf="course.post.featuredImageUrl != null"
                 src={{course.post.featuredImageUrl}}
                 alt="Programming with Peter">
@@ -10,7 +10,7 @@
         </a>
     </div>
     <div>
-        <a routerLink='tutorial/{{course.post.meta?.slug}}'>
+        <a routerLink='course/{{course.post.meta?.slug}}'>
             <h3 id="card-title" class="fw-bold mt-2">{{course.post.title}}</h3>
         </a>
         <div class="mb-3">
