@@ -34,12 +34,10 @@ export class CourseComponent implements OnInit {
   }
 
   loadCourse() {
-    let re =/\-/gi;
+    let re =/\_/gi;
     let title = this.route.url.split('/')[2].replace(re, ' ');
-    console.log(title);
     this.courseService.getCourseByTitle(title, this.currentUser.id).subscribe(result => {
       this.course = result
-      console.log(result);
     }, error => {
       console.error(error);
     })

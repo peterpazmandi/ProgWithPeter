@@ -43,7 +43,7 @@ export class SeoFormComponent implements OnInit {
 
   updateSlug(value: string) {
     let re = /\ /gi;
-    var slug = value.replace(re, '-');
+    var slug = value.replace(re, '_');
     this.seoFormService.seoForm.patchValue({
       slug: slug.toLocaleLowerCase()
     })

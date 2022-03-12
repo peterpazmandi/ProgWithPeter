@@ -31,7 +31,7 @@ export class TutorialComponent implements OnInit {
   }
 
   private loadTutorial() {
-    let re = /\-/gi;
+    let re = /\_/gi;
     let title = this.route.url.split('/')[2].replace(re, ' ');
     this.tutorialService.getTutorialByTitle(title).subscribe(response => {
       this.tutorial = response;
