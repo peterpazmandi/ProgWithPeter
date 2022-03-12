@@ -19,14 +19,6 @@
             <h4 *ngIf="sideBarVisible" class="fw-bold">{{tutorial.post.title}}</h4>
             <div *ngIf="sideBarVisible">
                 <toc [contentIn]="tutorial.post.content" (contentOut)="updateContent($event)"></toc>
-                <!-- <div class="d-flex flex-row" *ngFor="let item of toc">                    
-                    <a *ngIf="item.isChecked" class="text-success d-flex flex-row" href="{{item.url}}">
-                        <i class="toc-checkbox toc-checkbox-checked me-2"></i>{{item.text}}
-                    </a>
-                    <a *ngIf="!item.isChecked" class="d-flex flex-row" href="{{item.url}}">
-                        <i class="toc-checkbox me-2"></i>{{item.text}}
-                    </a>
-                </div> -->
             </div>
         </div>
         <div id="root" class="{{conetentWidth}}">
