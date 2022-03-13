@@ -41,7 +41,6 @@ export class CourseComponent implements OnInit {
     let title = this.route.url.split('/')[2].replace(re, ' ');
     this.courseService.getCourseByTitle(title, this.currentUser.id).subscribe(response => {
       this.course = response
-      console.log(this.course);
 
       this.updateMeta()
     }, error => {

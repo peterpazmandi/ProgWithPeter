@@ -1,7 +1,7 @@
 <div class="container pt-5">
     <div *ngIf="course" class="row">
-        <div class="{{sidebarWidth}} menu sticky">
-            <button class="btn btn-transparent" (click)="hideSidebar()">
+        <div *ngIf="sideBarVisible" class="{{sidebarWidth}} menu sticky">
+           <button class="btn btn-transparent" (click)="hideSidebar()">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path class="icon-background"
                         d="M17.3023 0H6.69767C2.99865 0 0 2.99865 0 6.69767V17.3023C0 21.0014 2.99865 24 6.69767 24H17.3023C21.0014 24 24 21.0014 24 17.3023V6.69767C24 2.99865 21.0014 0 17.3023 0Z" 
@@ -21,7 +21,23 @@
                 <toc [contentIn]="course.post.content" (contentOut)="updateContent($event)"></toc>
             </div>
         </div>
-        <div id="root" class="{{conetentWidth}}">
+        <div *ngIf="!sideBarVisible" class="{{sidebarWidth}} menu sticky">
+           <button class="btn btn-transparent" (click)="hideSidebar()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path class="icon-background"
+                        d="M17.3023 0H6.69767C2.99865 0 0 2.99865 0 6.69767V17.3023C0 21.0014 2.99865 24 6.69767 24H17.3023C21.0014 24 24 21.0014 24 17.3023V6.69767C24 2.99865 21.0014 0 17.3023 0Z" 
+                        />
+                    <path class="icon-content"
+                        d="M6.13965 7.81348H18.1396" />
+                    <path class="icon-content"
+                        d="M6.13965 12.2793H18.1396"/>
+                    <path class="icon-content"
+                        d="M6.13965 16.7441H18.1396" />
+                </svg>
+                <span *ngIf="sideBarVisible" class="ms-2 align-bottom text-center">Hide Content</span>
+            </button>
+        </div>
+        <div class="{{conetentWidth}}">
             <app-post [post]="course.post"></app-post>
         </div>
     </div>

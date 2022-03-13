@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output, SecurityContext } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -72,8 +72,10 @@ export class TocComponent implements OnInit {
         toc.push(tocItem);
       }
     );
-    
-    this.contentOut.emit(this.sanitizer.bypassSecurityTrustHtml(contentdiv.innerHTML) as any);
+    contentdiv.innerHTML = (
+      this.sanitizer.sanitize(SecurityContext.HTML, this.sanitizer.bypassSecurityTrustHtml(contentdiv.innerHTML))
+    ) as string;
+    // this.contentOut.emit(this.sanitizer.bypassSecurityTrustHtml(contentdiv.innerHTML) as any);
 
     this.ids = ids;
 
