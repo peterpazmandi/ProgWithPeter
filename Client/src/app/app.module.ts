@@ -58,6 +58,7 @@ import { FindLectureByTitleComponent } from './lecture/find-lecture-by-title/fin
 import { CourseItemComponent } from './home/courses/course-item/course-item.component';
 import { TocComponent } from './_forms/toc/toc.component';
 import { CourseComponent } from './course/course/course.component';
+import { ByPassSecurityPipe } from './_pipes/by-pass-security.pipe';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -102,7 +103,8 @@ export function tokenGetter() {
     FindLectureByTitleComponent,
     CourseItemComponent,
     TocComponent,
-    CourseComponent
+    CourseComponent,
+    ByPassSecurityPipe
   ],
   imports: [
     BrowserModule,

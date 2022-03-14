@@ -18,7 +18,10 @@ namespace API.Entities
 
 
         public int PostId { get; set; }
-        public virtual Post Post { get; set; }
+        public virtual Post Post { get; set; }        
+
+
+        public virtual List<LessonActivity> LessonActivities { get; set; }
 
 
         public int Position { get; set; }

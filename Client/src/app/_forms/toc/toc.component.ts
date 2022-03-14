@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class TocComponent implements OnInit {
   @Input() contentIn: string;
-  @Output() contentOut: EventEmitter<number> = new EventEmitter<number>(true);
+  @Output() contentOut: EventEmitter<string> = new EventEmitter<string>(true);
   toc: TocItem[] = [];
   ids: string[] = [];
 
@@ -72,10 +72,8 @@ export class TocComponent implements OnInit {
         toc.push(tocItem);
       }
     );
-    contentdiv.innerHTML = (
-      this.sanitizer.sanitize(SecurityContext.HTML, this.sanitizer.bypassSecurityTrustHtml(contentdiv.innerHTML))
-    ) as string;
-    // this.contentOut.emit(this.sanitizer.bypassSecurityTrustHtml(contentdiv.innerHTML) as any);
+    
+    this.contentOut.emit(contentdiv.innerHTML);
 
     this.ids = ids;
 

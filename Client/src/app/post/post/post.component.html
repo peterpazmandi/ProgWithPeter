@@ -1,1 +1,1 @@
-<div *ngIf="post" class="innerdiv" [innerHtml]="post.content"></div>
+<div *ngIf="post" class="innerdiv" [innerHtml]="post.content | byPassSecurity"></div>
