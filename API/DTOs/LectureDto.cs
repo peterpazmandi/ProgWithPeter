@@ -11,5 +11,7 @@ namespace API.DTOs
 
         public PostDto Post { get; set; }
         public int Position { get; set; }
+
+        public List<LectureActivityDto> LectureActivities { get; set; }
     }
 }

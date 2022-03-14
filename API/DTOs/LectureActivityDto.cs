@@ -3,18 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace API.Entities
+namespace API.DTOs
 {
-    public class LectureActivity
+    public class LectureActivityDto
     {
         public int Id { get; set; }
-
-        public virtual Lecture Lecture { get; set; }
-        public virtual AppUser AppUser { get; set; }
 
         public bool IsCompleted { get; set; }
 
         public DateTime DateOfCompletion { get; set; }
-
     }
 }

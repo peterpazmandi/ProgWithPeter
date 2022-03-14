@@ -39,6 +39,8 @@ namespace API.Helpers
             CreateMap<Lecture, UpsertLectureDto>().ReverseMap();
             CreateMap<Lecture, LectureTitleDto>().ReverseMap();
 
+            CreateMap<LectureActivity, LectureActivityDto>().ReverseMap();
+
             CreateMap<Section, SectionDto>().ReverseMap();
             CreateMap<Section, UpserSectionDto>().ReverseMap();
 
