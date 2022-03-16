@@ -18,7 +18,11 @@
             <hr *ngIf="sideBarVisible" class="dropdown-divider">
             <h4 *ngIf="sideBarVisible" class="fw-bold">{{course.post.title}}</h4>
             <div *ngIf="sideBarVisible">
-                <toc [contentIn]="course.post.content" (contentOut)="updateContent($event)"></toc>
+                <app-accordion>
+                    <app-accordion-item title="Table Of Content">
+                        <toc [contentIn]="course.post.content" (contentOut)="updateContent($event)"></toc>
+                    </app-accordion-item>
+                </app-accordion>
             </div>
         </div>
         <div *ngIf="!sideBarVisible" class="{{sidebarWidth}} menu sticky">
