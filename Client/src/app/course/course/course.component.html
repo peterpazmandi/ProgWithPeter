@@ -23,6 +23,11 @@
                         <toc [contentIn]="course.post.content" (contentOut)="updateContent($event)"></toc>
                     </app-accordion-item>
                 </app-accordion>
+                <app-accordion>
+                    <app-accordion-item title="Course Content">
+                        <course-content [sections]="course.sections"></course-content>
+                    </app-accordion-item>
+                </app-accordion>
             </div>
         </div>
         <div *ngIf="!sideBarVisible" class="{{sidebarWidth}} menu sticky">

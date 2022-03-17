@@ -60,6 +60,7 @@ import { TocComponent } from './_forms/toc/toc.component';
 import { CourseComponent } from './course/course/course.component';
 import { ByPassSecurityPipe } from './_pipes/by-pass-security.pipe';
 import { AccordionModule } from './_forms/accordion/accordion.module';
+import { CourseContentComponent } from './course/course/course-content/course-content.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -105,7 +106,8 @@ export function tokenGetter() {
     CourseItemComponent,
     TocComponent,
     CourseComponent,
-    ByPassSecurityPipe
+    ByPassSecurityPipe,
+    CourseContentComponent
   ],
   imports: [
     BrowserModule,

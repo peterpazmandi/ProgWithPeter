@@ -21,9 +21,8 @@
 .acc-body {
     min-height: 30px;
     padding: 10px;
-    display: flex;
     align-items: center;
-    line-height: 1.5rem;
+    line-height: 1rem;
     border-bottom: 1px solid #dcdcdc;
 }
 
