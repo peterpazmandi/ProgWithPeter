@@ -1,8 +1,22 @@
 <div class="d-flex flex-row" *ngFor="let item of toc">                    
     <a *ngIf="item.isChecked" class="text-success d-flex flex-row" href="{{item.url}}">
-        <i class="toc-checkbox toc-checkbox-checked me-2"></i>{{item.text}}
+        <div class="row">
+            <div class="col-1">
+                <i class="toc-checkbox toc-checkbox-checked me-2"></i>
+            </div>
+            <div class="col">
+                {{item.text}}
+            </div>
+        </div>
     </a>
     <a *ngIf="!item.isChecked" class="d-flex flex-row" href="{{item.url}}">
-        <i class="toc-checkbox me-2"></i>{{item.text}}
+        <div class="row">
+            <div class="col-1">
+                <i class="toc-checkbox me-2"></i>
+            </div>
+            <div class="col">
+                {{item.text}}
+            </div>
+        </div>
     </a>
 </div>

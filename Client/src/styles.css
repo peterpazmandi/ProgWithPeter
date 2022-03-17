@@ -35,8 +35,14 @@ html, body {
   color: var(--on-primary);
   transition: all 0.3s linear;
   border-width: 0ch;
-  /* border-color: var(--on-primary);
-  border-radius: 8px; */
+}
+.toc {
+  text-align: left;
+  position: relative;
+  background: var(--primary);
+  color: var(--on-primary);
+  transition: all 0.3s linear;
+  border-width: 0ch;
 }
 .modaldiv {
   text-align: left;

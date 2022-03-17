@@ -15,9 +15,9 @@
                 </svg>
                 <span *ngIf="sideBarVisible" class="ms-2 align-bottom text-center">Hide Content</span>
             </button>
-            <hr *ngIf="sideBarVisible" class="dropdown-divider">
-            <h4 *ngIf="sideBarVisible" class="fw-bold">{{course.post.title}}</h4>
-            <div *ngIf="sideBarVisible">
+            <hr class="dropdown-divider">
+            <h4 class="fw-bold">{{course.post.title}}</h4>
+            <div class="toc mt-5">
                 <app-accordion>
                     <app-accordion-item title="Table Of Content">
                         <toc [contentIn]="course.post.content" (contentOut)="updateContent($event)"></toc>
