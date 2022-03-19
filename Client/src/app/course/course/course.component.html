@@ -16,8 +16,17 @@
                 <span *ngIf="sideBarVisible" class="ms-2 align-bottom text-center">Hide Content</span>
             </button>
             <hr class="dropdown-divider">
-            <h4 class="fw-bold">{{course.post.title}}</h4>
-            <div class="sidecontentsum mt-5">
+            <h4 class="fw-bold text-center">{{course.post.title}}</h4>
+            <hr class="dropdown-divider">
+            <button 
+                class="btn btn-white shadow p-4" 
+                id="createNewBtn" 
+                [routerLink]="['/upsert-post']" >
+                <img src="assets/svg/ic_sign_document.svg">
+                <span class="ms-3 align-middle h4" style="font-weight: bolder;">Enroll</span>
+            </button>
+            <hr class="dropdown-divider">
+            <div class="sidecontentsum mt-3">
                 <app-accordion>
                     <app-accordion-item title="Table Of Content">
                         <div class="scrollable-content">
