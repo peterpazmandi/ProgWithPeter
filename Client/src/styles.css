@@ -36,7 +36,7 @@ html, body {
   transition: all 0.3s linear;
   border-width: 0ch;
 }
-.toc {
+.sidecontentsum {
   text-align: left;
   position: relative;
   background: var(--primary);
@@ -426,4 +426,12 @@ thead {
 #card-title:hover {
   color: #42A5F5;
   text-decoration:underline;
+}
+
+.scrollable-content {
+  height: 16rem;
+  overflow-y: auto;
+}
+.scrollable-content::-webkit-scrollbar {
+  display: none;
 }

@@ -39,7 +39,7 @@ export class CourseComponent implements OnInit {
   loadCourse() {
     let re =/\_/gi;
     let title = this.route.url.split('/')[2].replace(re, ' ');
-    this.courseService.getCourseByTitle(title, this.currentUser.id).subscribe(response => {
+    this.courseService.getCourseByTitle(title, this.currentUser === undefined ? -1 : this.currentUser.id).subscribe(response => {
       this.course = response
 
       this.updateMeta()

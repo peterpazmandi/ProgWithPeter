@@ -2,28 +2,28 @@
     position: sticky;
     top: 0;
     height: 100%;
-  }
-  
-  .toc-checkbox {
-    background: none;
-    border: 2px solid #dbdde0;
-    border-radius: 50%;
-    display: block;
-    height: 18px;
-    width: 18px;
-  }
-  .toc-checkbox-checked {
-    background: #1976D2;
-  }
-  
-  a {
-    text-decoration: none;
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
-  
-  a:hover .toc-checkbox {
-    background: #1976D2;
-  }
+}
+
+.toc-checkbox {
+  background: none;
+  border: 2px solid #dbdde0;
+  border-radius: 50%;
+  display: block;
+  height: 18px;
+  width: 18px;
+}
+.toc-checkbox-checked {
+  background: #1976D2;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:hover .toc-checkbox {
+  background: #1976D2;
+}

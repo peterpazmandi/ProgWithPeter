@@ -17,12 +17,16 @@
             </button>
             <hr class="dropdown-divider">
             <h4 class="fw-bold">{{course.post.title}}</h4>
-            <div class="toc mt-5">
+            <div class="sidecontentsum mt-5">
                 <app-accordion>
                     <app-accordion-item title="Table Of Content">
-                        <toc [contentIn]="course.post.content" (contentOut)="updateContent($event)"></toc>
+                        <div class="scrollable-content">
+                            <toc [contentIn]="course.post.content" (contentOut)="updateContent($event)"></toc>
+                        </div>
                     </app-accordion-item>
                 </app-accordion>
+            </div>
+            <div class="sidecontentsum">
                 <app-accordion>
                     <app-accordion-item title="Course Content">
                         <course-content [sections]="course.sections"></course-content>
