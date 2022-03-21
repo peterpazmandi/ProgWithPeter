@@ -1,7 +1,7 @@
 <div class="scrollable-content">
     <app-accordion-item *ngFor="let section of sections" title="{{section.title}} ({{section.lectures.length}})">
         <div class="d-flex flex-row mb-3" *ngFor="let lecture of section.lectures"> 
-            {{lecture.post.title}}
+            <span>{{lecture.post.title}}</span>
         </div>
     </app-accordion-item>
 </div>
