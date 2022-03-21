@@ -18,13 +18,31 @@
             <hr class="dropdown-divider">
             <h4 class="fw-bold text-center">{{course.post.title}}</h4>
             <hr class="dropdown-divider">
-            <button 
+            <!-- Enroll button -->
+            <button *ngIf="course.courseEnrollments.length === 0"
                 class="btn btn-white shadow p-4" 
                 id="createNewBtn" 
                 [routerLink]="['/upsert-post']" >
                 <img src="assets/svg/ic_sign_document.svg">
                 <span class="ms-3 align-middle h4" style="font-weight: bolder;">Enroll</span>
             </button>
+            <!-- Circle progress -->
+            <div
+                *ngIf="course.courseEnrollments.length !== 0"
+                class="d-flex justify-content-center">
+                <circle-progress
+                    [percent]="course.courseEnrollments[0].progress"
+                    [radius]="60"
+                    [outerStrokeWidth]="8"
+                    [innerStrokeWidth]="0"
+                    [outerStrokeColor]="'#1976D2'"
+                    [animation]="true"
+                    [animationDuration]="300"
+                    [titleColor]="'#1976D2'"
+                    [subtitleColor]="'#1976D2'"
+                    [unitsColor]="'#1976D2'"
+                ></circle-progress>
+            </div>
             <hr class="dropdown-divider">
             <div class="sidecontentsum mt-3">
                 <app-accordion>

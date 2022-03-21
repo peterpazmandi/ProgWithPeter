@@ -61,6 +61,7 @@ import { CourseComponent } from './course/course/course.component';
 import { ByPassSecurityPipe } from './_pipes/by-pass-security.pipe';
 import { AccordionModule } from './_forms/accordion/accordion.module';
 import { CourseContentComponent } from './course/course/course-content/course-content.component';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -136,7 +137,14 @@ export function tokenGetter() {
     FileUploadModule,
     TabsModule.forRoot(),
     DragDropModule,
-    AccordionModule
+    AccordionModule,
+    NgCircleProgressModule.forRoot({
+      // set defaults here
+      radius: 100,
+      outerStrokeWidth: 16,
+      outerStrokeColor: "#78C000",
+      animationDuration: 300
+    })
   ],
   exports: [
     FileUploadModule

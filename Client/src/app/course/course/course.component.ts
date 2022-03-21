@@ -41,7 +41,10 @@ export class CourseComponent implements OnInit {
     let title = this.route.url.split('/')[2].replace(re, ' ');
     this.courseService.getCourseByTitle(title, this.currentUser === undefined ? -1 : this.currentUser.id).subscribe(response => {
       this.course = response
-
+      if(this.course.courseEnrollments.length > 0) {
+        this.course.courseEnrollments[0].progress = this.course.courseEnrollments[0].progress * 100
+      }
+      console.log(this.course);
       this.updateMeta()
     }, error => {
       console.error(error);
