@@ -1,7 +1,24 @@
 <div class="scrollable-content">
     <app-accordion-item *ngFor="let section of sections" title="{{section.title}} ({{section.lectures.length}})">
-        <div class="d-flex flex-row mb-3" *ngFor="let lecture of section.lectures"> 
-            <span>{{lecture.post.title}}</span>
+        <div class="d-flex flex-row mb-3" *ngFor="let lecture of section.lectures">
+            <div class="form-check">
+              <input id="completedCheckBox"
+                class="form-check-input" 
+                type="checkbox" 
+                value="" 
+                id="flexCheckChecked" 
+                [checked]="lecture.lectureActivities.length > 0 && lecture.lectureActivities[0].isCompleted">
+              <label *ngIf="lecture.lectureActivities.length === 0 || !lecture.lectureActivities[0].isCompleted"
+                class="form-check-label ms-2" 
+                for="flexCheckChecked">
+                {{lecture.post.title}}
+              </label>
+              <label *ngIf="lecture.lectureActivities.length > 0 && lecture.lectureActivities[0].isCompleted"
+                class="form-check-label green-text ms-2" 
+                for="flexCheckChecked">
+                {{lecture.post.title}}
+              </label>
+            </div>
         </div>
     </app-accordion-item>
 </div>
