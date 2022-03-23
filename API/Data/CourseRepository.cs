@@ -69,7 +69,6 @@ namespace API.Data
                     .ThenInclude(p => p.Tags)
                 .Include(c => c.CourseEnrollments.Where(ce => ce.AppUser.Id == appUserId)).ThenInclude(ce => ce.AppUser)
                 .Where(c => c.Post.Title.ToLower().Equals(title.ToLower()));
-                
                     
             return query
                 .FirstOrDefaultAsync();
@@ -112,6 +111,29 @@ namespace API.Data
             return (await _context.Courses
                 .Where(t => t.Post.Title.ToLower().Equals(title.ToLower()))
                 .FirstOrDefaultAsync()) != null;
+        }
+
+        public async Task<double> GetCourseProgressByLectureId(int lectureId, int appUserId)
+        {
+            var IsCompletedQuery = _context.Courses
+                .Include(c => c.Sections)
+                    .ThenInclude(s => s.Lectures.Where(l => l.Id == lectureId))
+                    .ThenInclude(l => l.LectureActivities.Where(le => le.AppUser.Id == appUserId && le.IsCompleted))
+                    .ThenInclude(le => le.AppUser)
+                    .SelectMany(o => o.Sections
+                        .SelectMany(s => s.Lectures
+                            .SelectMany(l => l.LectureActivities.Where(le => le.AppUser.Id == appUserId && le.IsCompleted))));
+            
+            var allLectures = _context.Courses
+                .Include(c => c.Sections)
+                    .ThenInclude(s => s.Lectures.Where(l => l.Id == lectureId))
+                    .SelectMany(o => o.Sections
+                        .SelectMany(s => s.Lectures));
+
+            double completed = Convert.ToDouble((await IsCompletedQuery.CountAsync()));
+            double all = Convert.ToDouble((await allLectures.CountAsync()));
+
+            return completed / all;
         }
     }
 }

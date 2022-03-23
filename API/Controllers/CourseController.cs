@@ -64,6 +64,15 @@ namespace API.Controllers
             return courses;
         }
 
+        [Authorize(Roles = "Admin, Moderator")]
+        [HttpGet("GetCourseProgressByLectureId")]
+        public async Task<ActionResult<double>> GetCourseProgressByLectureId(int lectureId)
+        {
+            string username = User.GetUsername();
+            var userId = (await _unitOfWork.UserRepository.GetUserByUsernameAsync(username)).Id;
+
+            return await _unitOfWork.CourseRepository.GetCourseProgressByLectureId(lectureId, userId);
+        }
 
         [Authorize(Roles = "Admin, Moderator")]
         [HttpPost]

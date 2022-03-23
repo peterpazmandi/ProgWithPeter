@@ -34,6 +34,7 @@ namespace API.Data
         public DbSet<Meta> Metas { get; set; }
         public DbSet<Section> Sections { get; set; }
         public DbSet<Lecture> Lectures { get; set; }
+        public DbSet<LectureActivity> LectureActivities { get; set; }
         public DbSet<CourseEnrollment> CourseEnrollments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)

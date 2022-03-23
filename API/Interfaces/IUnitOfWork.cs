@@ -11,6 +11,7 @@ namespace API.Interfaces
         ICourseRepository CourseRepository { get; }
         ISectionRepository SectionRepository { get; }
         ILectureRepository LectureRepository { get; }
+        ILectureActivityRepository LectureActivityRepository { get; }
         IPostRepository PostRepository { get; }
         IMetaRepository MetaRepository { get; }
 

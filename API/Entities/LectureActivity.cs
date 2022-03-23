@@ -14,7 +14,7 @@ namespace API.Entities
 
         public bool IsCompleted { get; set; }
 
-        public DateTime DateOfCompletion { get; set; }
+        public DateTime? DateOfCompletion { get; set; }
 
     }
 }

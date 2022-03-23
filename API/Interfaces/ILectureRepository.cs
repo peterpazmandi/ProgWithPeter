@@ -11,6 +11,7 @@ namespace API.Interfaces
     public interface ILectureRepository
     {
         Task<Lecture> AddLectureAsync(Lecture lecture);
+        Task<Lecture> FindLectureById(int id);
         Task<PagedList<LectureTitleDto>> FindLecturesByTitleWithoutParentSectionAlphabetically(LectureParams lectureParams);
     }
 }

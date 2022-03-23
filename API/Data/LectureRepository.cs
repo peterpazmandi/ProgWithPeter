@@ -28,7 +28,10 @@ namespace API.Data
             return (await _context.Lectures.AddAsync(lecture)).Entity;
         }
 
-        
+        public async Task<Lecture> FindLectureById(int id)
+        {
+            return await _context.Lectures.SingleOrDefaultAsync(l => l.Id == id);
+        }
 
         public async Task<PagedList<LectureTitleDto>> FindLecturesByTitleWithoutParentSectionAlphabetically(LectureParams lectureParams)
         {

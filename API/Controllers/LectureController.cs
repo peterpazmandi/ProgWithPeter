@@ -7,6 +7,7 @@ using API.Extensions;
 using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -38,12 +39,23 @@ namespace API.Controllers
             return lectures;
         }
 
-        [HttpPost("SetLecturesCompletion")]
-        public async Task<ActionResult> SetLecturesCompletion(int lectureId, int appUserId, bool isCompleted)
+        [Authorize(Roles = "Admin, Moderator")]
+        [HttpPost("SetLectureCompletion")]
+        public async Task<ActionResult> SetLectureCompletion(int lectureId, bool isCompleted)
         {
-            
+            string username = User.GetUsername();
+            var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
 
-            return Ok();
+            var lecture = await _unitOfWork.LectureRepository.FindLectureById(lectureId);
+
+            await _unitOfWork.LectureActivityRepository.SetLectureCompletion(lecture, user, isCompleted);
+
+            if(await _unitOfWork.Complete())
+            {
+                return Ok();
+            }
+            
+            return BadRequest("Operation failed!");
         }
     }
 }
