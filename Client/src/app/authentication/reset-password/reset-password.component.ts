@@ -41,21 +41,25 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   resetPassword() {
-    this.showSuccess = this.showError = false;
-
-    const resetPass = { ... this.resetPasswordForm.value };
-    const resetPassDto: ResetPasswordDto = {
-      password: resetPass.password,
-      confirmPassword: resetPass.confirmPassword,
-      token: this.route.snapshot.queryParams['token'],
-      email: this.route.snapshot.queryParams['email']
+    if(this.resetPasswordForm.valid) {
+      this.showSuccess = this.showError = false;
+  
+      const resetPass = { ... this.resetPasswordForm.value };
+      const resetPassDto: ResetPasswordDto = {
+        password: resetPass.password,
+        confirmPassword: resetPass.confirmPassword,
+        token: this.route.snapshot.queryParams['token'],
+        email: this.route.snapshot.queryParams['email']
+      }
+  
+      this.accountService.resetPassword(resetPassDto).subscribe(result => {
+        this.showSuccess = true;
+      }, error => {
+        this.showError = true;
+        console.log(error.error);
+      })
+    } else {
+      this.resetPasswordForm.markAllAsTouched();
     }
-
-    this.accountService.resetPassword(resetPassDto).subscribe(result => {
-      this.showSuccess = true;
-    }, error => {
-      this.showError = true;
-      console.log(error.error);
-    })
   }
 }

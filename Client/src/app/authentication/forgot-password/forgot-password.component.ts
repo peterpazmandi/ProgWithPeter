@@ -32,18 +32,22 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   sendForgotPassword() {
-    const forgotPass = { ...this.forgotPasswordForm.value };
-    const forgotPasswordDto: ForgotPasswordDto = {
-      email: forgotPass.email
+    if(this.forgotPasswordForm.valid) {
+      const forgotPass = { ...this.forgotPasswordForm.value };
+      const forgotPasswordDto: ForgotPasswordDto = {
+        email: forgotPass.email
+      }
+  
+      this.accountService.forgotPassword(forgotPasswordDto).subscribe(result => {
+        this.loading = false;
+        this.result = true;
+      }, error => {
+        console.log(error.error);
+        this.loading = false;
+      })
+    } else {
+      this.forgotPasswordForm.markAllAsTouched();
     }
-
-    this.accountService.forgotPassword(forgotPasswordDto).subscribe(result => {
-      this.loading = false;
-      this.result = true;
-    }, error => {
-      console.log(error.error);
-      this.loading = false;
-    })
   }
 
   onOpenLoginModal() {

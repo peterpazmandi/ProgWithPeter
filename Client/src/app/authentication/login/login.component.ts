@@ -36,13 +36,17 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.loading = true;
-    this.accountService.login(this.loginForm.value).subscribe(response => {
-      this.loading = false;
-      this.reload();
-    }, error => {
-      this.loading = false;
-    })
+    if(this.loginForm.valid) {
+      this.loading = true;
+      this.accountService.login(this.loginForm.value).subscribe(response => {
+        this.loading = false;
+        this.reload();
+      }, error => {
+        this.loading = false;
+      })
+    } else {
+      this.loginForm.markAllAsTouched();
+    }
   }
   
   private reload() {

@@ -49,13 +49,17 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    this.loading = true;
-    this.accountService.register(this.registerForm.value).subscribe(response => {
-      this.loading = false;
-      this.result = true;
-    }, error => {
-      this.loading = false;
-    })
+    if(this.registerForm.valid) {
+      this.loading = true;
+      this.accountService.register(this.registerForm.value).subscribe(response => {
+        this.loading = false;
+        this.result = true;
+      }, error => {
+        this.loading = false;
+      })
+    } else {
+      this.registerForm.markAllAsTouched();
+    }
   }
 
   onOpenLoginModal() {
