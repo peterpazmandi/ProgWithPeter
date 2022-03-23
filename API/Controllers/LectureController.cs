@@ -37,5 +37,13 @@ namespace API.Controllers
 
             return lectures;
         }
+
+        [HttpPost("SetLecturesCompletion")]
+        public async Task<ActionResult> SetLecturesCompletion(int lectureId, int appUserId, bool isCompleted)
+        {
+            
+
+            return Ok();
+        }
     }
 }

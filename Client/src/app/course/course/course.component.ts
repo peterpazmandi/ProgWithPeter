@@ -44,7 +44,6 @@ export class CourseComponent implements OnInit {
       if(this.course.courseEnrollments.length > 0) {
         this.course.courseEnrollments[0].progress = this.course.courseEnrollments[0].progress * 100
       }
-      console.log(this.course.sections[0].lectures);
       this.updateMeta()
     }, error => {
       console.error(error);
