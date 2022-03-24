@@ -56,7 +56,7 @@
             <div class="sidecontentsum">
                 <app-accordion>
                     <app-accordion-item title="Course Content">
-                        <course-content [sections]="course.sections"></course-content>
+                        <course-content [sections]="course.sections" (courseCompletionRate)="updateCourseProgress($event)"></course-content>
                     </app-accordion-item>
                 </app-accordion>
             </div>

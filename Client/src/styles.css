@@ -435,3 +435,7 @@ thead {
 .scrollable-content::-webkit-scrollbar {
   display: none;
 }
+
+.w-85 {
+  width: 85%;
+}

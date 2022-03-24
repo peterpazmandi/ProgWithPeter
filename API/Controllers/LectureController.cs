@@ -41,23 +41,28 @@ namespace API.Controllers
 
         [Authorize(Roles = "Admin, Moderator")]
         [HttpPost("SetLectureCompletion")]
-        public async Task<ActionResult<double>> SetLectureCompletion(int lectureId, bool isCompleted)
+        public async Task<ActionResult<double>> SetLectureCompletion(SetLectureCompletionDto setLectureCompletionDto)
         {
             string username = User.GetUsername();
             var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
 
-            var lecture = await _unitOfWork.LectureRepository.FindLectureById(lectureId);
+            var lecture = await _unitOfWork.LectureRepository.FindLectureById(setLectureCompletionDto.LectureId);
 
             if(lecture == null)
             {
-                return NotFound($"Lecture with Id {lectureId} not found!");
+                return NotFound($"Lecture with Id {setLectureCompletionDto.LectureId} not found!");
             }
 
-            await _unitOfWork.LectureActivityRepository.SetLectureCompletion(lecture, user, isCompleted);
+            await _unitOfWork.LectureActivityRepository.SetLectureCompletion(lecture, user, setLectureCompletionDto.IsCompleted);
+
+            if(!_unitOfWork.HasChanges())
+            {
+                return Ok(await _unitOfWork.CourseRepository.GetCourseProgressByLectureId(setLectureCompletionDto.LectureId, user.Id));
+            }
 
             if(await _unitOfWork.Complete())
             {
-                return Ok(await _unitOfWork.CourseRepository.GetCourseProgressByLectureId(lectureId, user.Id));
+                return Ok(await _unitOfWork.CourseRepository.GetCourseProgressByLectureId(setLectureCompletionDto.LectureId, user.Id));
             }
             
             return BadRequest("Operation failed!");

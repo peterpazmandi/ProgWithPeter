@@ -82,4 +82,9 @@ export class CourseComponent implements OnInit {
   updateContent(event: string) {
     this.course.post.content = event;
   }
+
+  updateCourseProgress(event: number) {
+    console.log(event);
+    this.course.courseEnrollments[0].progress = event * 100;
+  }
 }
