@@ -55,10 +55,16 @@ namespace API.Controllers
 
             await _unitOfWork.LectureActivityRepository.SetLectureCompletion(lecture, user, setLectureCompletionDto.IsCompleted);
 
+
             if(!_unitOfWork.HasChanges())
             {
                 return Ok(await _unitOfWork.CourseRepository.GetCourseProgressByLectureId(setLectureCompletionDto.LectureId, user.Id));
             }
+
+            await _unitOfWork.Complete();
+
+            double progress = await _unitOfWork.CourseRepository.GetCourseProgressByLectureId(setLectureCompletionDto.LectureId, user.Id);
+            await _unitOfWork.CourseRepository.UpdateCourseProgressByLectureId(lecture.Id, user.Id, progress);
 
             if(await _unitOfWork.Complete())
             {

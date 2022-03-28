@@ -29,6 +29,21 @@ namespace API.Data
             await _context.Courses.AddAsync(course);
         }
 
+        public async Task UpdateCourseProgressByLectureId(int lectureId, int appUserId, double progress)
+        {
+            var courseQuery = _context.Courses
+                .Include(c => c.Sections)
+                    .ThenInclude(s => s.Lectures.Where(l => l.Id == lectureId))
+                    .ThenInclude(l => l.LectureActivities.Where(le => le.AppUser.Id == appUserId && le.IsCompleted))
+                    .ThenInclude(le => le.AppUser)
+                .Include(c => c.CourseEnrollments.Where(ce => ce.AppUser.Id == appUserId)).ThenInclude(ce => ce.AppUser)
+                .Where(c => c.Sections.Any(s => s.Lectures.Any(l => l.Id == lectureId)));
+            
+            var course = await courseQuery.FirstOrDefaultAsync();
+
+            course.CourseEnrollments[0].Progress = progress;
+        }
+
         public Task<Course> GetCourseByIdAsync(int id)
         {
             var query = _context.Courses
