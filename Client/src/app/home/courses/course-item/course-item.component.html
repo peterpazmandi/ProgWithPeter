@@ -35,7 +35,7 @@
                     aria-valuenow="{{course.courseEnrollments[0].progress*100}}"
                     aria-valuemin="0" aria-valuemax="100"
                     style="width:{{course.courseEnrollments[0].progress*100}}%;">
-                    {{course.courseEnrollments[0].progress*100}} %
+                    {{course.courseEnrollments[0].progress*100 | number : '.0-0'}} %
                 </div>
             </div>
         </div>
