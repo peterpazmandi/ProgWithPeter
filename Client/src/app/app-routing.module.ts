@@ -37,7 +37,19 @@ const routes: Routes = [
         children: [
             {
                 path: ':type',
-                component: CourseComponent
+                component: CourseComponent,
+                children: [
+                    {
+                        path: 'lecture',
+                        component: CourseComponent,
+                        children: [
+                            {
+                                path: ':type',
+                                component: CourseComponent
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
