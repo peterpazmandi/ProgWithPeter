@@ -41,7 +41,7 @@ const routes: Routes = [
                 children: [
                     {
                         path: 'lecture',
-                        component: CourseComponent,
+                        canActivate: [AuthGuard],
                         children: [
                             {
                                 path: ':type',

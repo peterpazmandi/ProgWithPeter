@@ -6,3 +6,12 @@ input[type='checkbox']:checked {
 .green-text {
     color: #198754;
 }
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    text-decoration-color: green;
+}

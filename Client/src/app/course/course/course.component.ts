@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Course } from 'src/app/_models/courseDto.model';
+import { Post } from 'src/app/_models/post.model';
 import { User } from 'src/app/_models/user.model';
 import { AccountService } from 'src/app/_services/account.service';
 import { CourseService } from 'src/app/_services/course.service';
@@ -15,6 +16,7 @@ import { environment } from 'src/environments/environment';
 })
 export class CourseComponent implements OnInit {
   course: Course;
+  openedPost: Post;
   sidebarWidth = 'col-3';
   conetentWidth = 'col-9';
   sideBarVisible = true;
@@ -39,13 +41,23 @@ export class CourseComponent implements OnInit {
   loadCourse() {
     let re =/\_/gi;
     let title = this.route.url.split('/')[2].replace(re, ' ');
-    console.log(this.route.url.split('/'));
     this.courseService.getCourseByTitle(title, this.currentUser === undefined ? -1 : this.currentUser.id).subscribe(response => {
       this.course = response
       if(this.course.courseEnrollments.length > 0) {
         this.course.courseEnrollments[0].progress = this.course.courseEnrollments[0].progress * 100
       }
-      this.updateMeta()
+      this.updateMeta();
+
+      if(this.route.url.split('/').length === 5) {
+        for(let section of this.course.sections) {
+          this.openedPost = section.lectures.find(l => l.post.title === this.route.url.split('/')[4].replace(re, ' '))?.post as Post;
+          if(this.openedPost) {
+            break;
+          }
+        }
+      } else {
+        this.openedPost = this.course.post;
+      }
     }, error => {
       console.error(error);
     })
