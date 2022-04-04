@@ -8,6 +8,7 @@ import { AuthGuard } from "./_guards/auth.guard";
 import { PreventUnsavedChangesGuard } from "./_guards/prevent-unsaved-changes.guard";
 import { UpsertCourseListComponent } from "./course/upsert-course-list/upsert-course-list.component";
 import { CourseComponent } from "./course/course/course.component";
+import { UpsertLectureListComponent } from "./lecture/upsert-lecture-list/upsert-lecture-list.component";
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -16,9 +17,10 @@ const routes: Routes = [
         runGuardsAndResolvers: 'always',
         canActivate: [AuthGuard],
         children: [
-            { path: 'tutorial-list', component: UpsertTutorialListComponent},
             { path: 'upsert-post', component: UpsertPostComponent, canDeactivate: [PreventUnsavedChangesGuard]},
+            { path: 'tutorial-list', component: UpsertTutorialListComponent},
             { path: 'course-list', component: UpsertCourseListComponent},
+            { path: 'lecture-list', component: UpsertLectureListComponent},
         ]
     },
     {
