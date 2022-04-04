@@ -100,4 +100,10 @@ export class CourseComponent implements OnInit {
     console.log(event);
     this.course.courseEnrollments[0].progress = event * 100;
   }
+
+  redirectTo(courseSlug: string) {
+    let uri = '/course/' + courseSlug;
+    this.route.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+    this.route.navigate([uri]));
+  }
 }

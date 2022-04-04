@@ -16,7 +16,9 @@
                 <span *ngIf="sideBarVisible" class="ms-2 align-bottom text-center">Hide Content</span>
             </button>
             <hr class="dropdown-divider">
-            <h4 class="fw-bold text-center">{{course.post.title}}</h4>
+            <a (click)="redirectTo(course.post.meta?.slug)" routerLink='{{course.post.meta?.slug}}'>
+                <h4 class="fw-bold text-center">{{course.post.title}}</h4>
+            </a>
             <hr class="dropdown-divider">
             <!-- Enroll button -->
             <button *ngIf="course.courseEnrollments.length === 0"
