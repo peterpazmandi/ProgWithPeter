@@ -23,6 +23,18 @@ namespace API.Data
             _mapper = mapper;
         }
 
+        public async Task<PagedList<UpsertLectureListDto>> GetLecturesOrderedByModificationDate(LectureParams lectureParams)
+        {
+            var query = _context.Lectures
+                .Include(c => c.Post.Category)
+                .Include(t => t.Post.Tags)
+                .OrderByDescending(p => p.ModificationDate)
+                .ProjectTo<UpsertLectureListDto>(_mapper.ConfigurationProvider);
+
+            return await PagedList<UpsertLectureListDto>
+                .CreateAsync(query, lectureParams.PageNumber, lectureParams.PageSize);
+        }
+
         public async Task<Lecture> AddLectureAsync(Lecture lecture)
         {
             return (await _context.Lectures.AddAsync(lecture)).Entity;

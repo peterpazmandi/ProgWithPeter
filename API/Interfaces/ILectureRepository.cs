@@ -10,6 +10,7 @@ namespace API.Interfaces
 {
     public interface ILectureRepository
     {
+        Task<PagedList<UpsertLectureListDto>> GetLecturesOrderedByModificationDate(LectureParams lectureParams);
         Task<Lecture> AddLectureAsync(Lecture lecture);
         Task<Lecture> FindLectureById(int id);
         Task<PagedList<LectureTitleDto>> FindLecturesByTitleWithoutParentSectionAlphabetically(LectureParams lectureParams);

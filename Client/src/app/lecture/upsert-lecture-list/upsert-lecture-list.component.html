@@ -41,6 +41,11 @@
         </div>
         <div class="col-9 innerdiv">
             <!-- <upsert-content-list [contentList]="courses" [postType]="postType.Course"></upsert-content-list> -->
+            
+            <app-accordion-item 
+                *ngFor="let i of numbers" title="{{i}}" (click)="getLectures(i)">
+                {{i}}
+            </app-accordion-item>
         </div>
     </div>
 </div>

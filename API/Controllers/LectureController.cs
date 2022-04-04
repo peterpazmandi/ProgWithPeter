@@ -25,6 +25,22 @@ namespace API.Controllers
             _mapper = mapper;
         }
 
+        [Authorize(Roles = "Admin, Moderator")]
+        [HttpGet("GetLecturesOrderedByModificationDate")]
+        public async Task<ActionResult<IEnumerable<UpsertLectureListDto>>> GetLecturesOrderedByModificationDate([FromQuery] LectureParams lectureParams)
+        {
+            var lectures = await _unitOfWork.LectureRepository.GetLecturesOrderedByModificationDate(lectureParams);
+
+            foreach(var lecture in lectures)
+            {
+                lecture.CourseTitle = await _unitOfWork.CourseRepository.GetCourseTitleByLectureId(lecture.Id);
+            }
+
+            Response.AddPaginationHeader(lectures.CurrentPage, lectures.PageSize, lectures.TotalCount, lectures.TotalPages);
+
+            return lectures;
+        }
+
         [HttpGet("FindLecturesByTitleWithoutParentSectionAlphabetically")]
         public async Task<ActionResult<IEnumerable<LectureTitleDto>>> FindLecturesByTitleWithoutParentSectionAlphabetically([FromQuery] LectureParams lectureParams)
         {

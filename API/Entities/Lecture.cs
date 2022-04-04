@@ -18,7 +18,10 @@ namespace API.Entities
 
 
         public int PostId { get; set; }
-        public virtual Post Post { get; set; }        
+        public virtual Post Post { get; set; }
+        
+        public DateTime? CreationDate { get; set; }
+        public DateTime? ModificationDate { get; set; }
 
 
         public virtual List<LectureActivity> LectureActivities { get; set; }

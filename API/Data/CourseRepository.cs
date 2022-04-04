@@ -44,7 +44,19 @@ namespace API.Data
             course.CourseEnrollments[0].Progress = progress;
         }
 
-        public Task<Course> GetCourseByIdAsync(int id)
+        public async Task<string> GetCourseTitleByLectureId(int lectureId)
+        {
+            var courseQuery = _context.Courses
+                .Include(c => c.Post)
+                .Include(c => c.Sections)
+                    .ThenInclude(s => s.Lectures.Where(l => l.Id == lectureId))
+                .Where(c => c.Sections.Any(s => s.Lectures.Any(l => l.Id == lectureId)));
+            Course course = await courseQuery.FirstOrDefaultAsync();
+
+            return course?.Post?.Title;
+        }
+
+        public async Task<Course> GetCourseByIdAsync(int id)
         {
             var query = _context.Courses
                 .Include(c => c.Post).ThenInclude(p => p.AppUser)
@@ -60,11 +72,11 @@ namespace API.Data
                     .ThenInclude(p => p.Tags)
                 .Where(c => c.Id == id);
                     
-            return query
+            return await query
                 .FirstOrDefaultAsync();
         }
 
-        public Task<Course> GetCourseByTitleAsync(string title, int? appUserId)
+        public async Task<Course> GetCourseByTitleAsync(string title, int? appUserId)
         {
             var query = _context.Courses
                 .Include(c => c.Post).ThenInclude(p => p.AppUser)
@@ -85,7 +97,7 @@ namespace API.Data
                 .Include(c => c.CourseEnrollments.Where(ce => ce.AppUser.Id == appUserId)).ThenInclude(ce => ce.AppUser)
                 .Where(c => c.Post.Title.ToLower().Equals(title.ToLower()));
                     
-            return query
+            return await query
                 .FirstOrDefaultAsync();
         }
 

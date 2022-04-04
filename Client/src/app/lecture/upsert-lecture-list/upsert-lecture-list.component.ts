@@ -16,6 +16,7 @@ export class UpsertLectureListComponent implements OnInit {
   pageSize = 20;
   lectures: Lecture[] = [];
   public statuses = Status;
+  numbers: number[] = [];
 
   postType: typeof PostType;
 
@@ -27,13 +28,19 @@ export class UpsertLectureListComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm();
-
+    for(let i = 0; i < 10; i++) {
+      this.numbers.push(i);
+    }
   }
 
   private initializeForm() {
     this.filterForm = this.fb.group({
       title: ['']
     })
+  }
+
+  getLectures(courseId: number) {
+    console.log(courseId);
   }
 
   filter() {
