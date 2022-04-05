@@ -1,9 +1,11 @@
 <td>{{item.post.title}}</td>
+<td *ngIf="postType === postTypes.Lecture">{{item.courseTitle}}</td>
 <td *ngIf="item.status === 'Published'" style="color: #02CCBA;">{{item.status}}</td>
 <td *ngIf="item.status === 'Draft'" style="color: #BFC200;">{{item.status}}</td>
 <td *ngIf="item.status === null" style="color: #BFC200;">{{item.status}}</td>
 <td>{{item.modificationDate | date}}</td>
-<td>{{item.post.category.name}}</td>
+<td *ngIf="item.post.category !== undefined && item.post.category !== null">{{item.post.category.name}}</td>
+<td *ngIf="item.post.category === undefined || item.post.category === null"></td>
 <td>
     <app-tag-item *ngFor="let tag of item.post.tags" [tag]="tag"></app-tag-item>
 </td>

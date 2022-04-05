@@ -11,7 +11,10 @@ export class UpsertContentListItemComponent implements OnInit {
   @Input() item: any;
   @Input() postType: string;
 
+  postTypes: typeof PostType;
+
   constructor() {
+    this.postTypes = PostType;
   }
 
   ngOnInit(): void {

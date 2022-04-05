@@ -10,8 +10,10 @@ export class UpsertContentListComponent implements OnInit {
   @Input()  contentList: any[] = [];
   @Input() postType: string;
 
+  postTypes: typeof PostType;
+
   constructor() {
-    // this.postType = PostType;
+    this.postTypes = PostType;
    }
 
   ngOnInit(): void {

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Lecture } from 'src/app/_models/lectureDto.model';
-import { CourseService } from 'src/app/_services/course.service';
+import { UpsertLectureListDto } from 'src/app/_models/upsertLectureListDto.model';
+import { LectureService } from 'src/app/_services/lecture.service';
 import { PostType } from 'src/app/_utils/post-type.enum';
 import { Status } from 'src/app/_utils/status.enum';
 
@@ -14,7 +15,7 @@ export class UpsertLectureListComponent implements OnInit {
   filterForm: FormGroup;
   pageNumber = 1;
   pageSize = 20;
-  lectures: Lecture[] = [];
+  lectures: UpsertLectureListDto[] = [];
   public statuses = Status;
   numbers: number[] = [];
 
@@ -22,15 +23,16 @@ export class UpsertLectureListComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private courseService: CourseService) { 
+    private lectureService: LectureService) { 
     this.postType = PostType;
   }
 
   ngOnInit(): void {
     this.initializeForm();
-    for(let i = 0; i < 10; i++) {
-      this.numbers.push(i);
-    }
+
+    this.lectureService.getLecturesOrderedByModificationDate(this.pageNumber, this.pageSize).subscribe(response => {
+      this.lectures.push(...response.result);
+    })
   }
 
   private initializeForm() {
