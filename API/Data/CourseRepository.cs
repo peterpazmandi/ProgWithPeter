@@ -113,6 +113,15 @@ namespace API.Data
                 .CreateAsync(query, courseParams.PageNumber, courseParams.PageSize);
         }
 
+        public async Task<List<string>> GetCourseTitles()
+        {
+            return await _context.Courses
+                .Include(c => c.Post)
+                .OrderBy(p => p.Post.Title)
+                .Select(c => c.Post.Title)
+                .ToListAsync();
+        }
+
         public async Task<PagedList<HomePageCourseDto>> GetPublishedCoursesOrderedByPublishDate(CourseParams courseParams)
         {
             var query = _context.Courses

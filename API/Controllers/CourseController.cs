@@ -25,6 +25,7 @@ namespace API.Controllers
         }
 
 
+        [Authorize(Roles = "Admin, Moderator")]
         [HttpGet("GetCourseByTitle")]
         public async Task<ActionResult<CourseDto>> GetCourseByTitle(string title, int? appUserId)
         {
@@ -62,6 +63,13 @@ namespace API.Controllers
             Response.AddPaginationHeader(courses.CurrentPage, courses.PageSize, courses.TotalCount, courses.TotalPages);
 
             return courses;
+        }
+
+        [Authorize(Roles = "Admin, Moderator")]
+        [HttpGet("GetCourseTitles")]
+        public async Task<ActionResult<IEnumerable<string>>> GetCourseTitles()
+        {
+            return await _unitOfWork.CourseRepository.GetCourseTitles();
         }
 
         [Authorize(Roles = "Admin, Moderator")]

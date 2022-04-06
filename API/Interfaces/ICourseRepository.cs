@@ -19,6 +19,7 @@ namespace API.Interfaces
         Task UpdateCourseProgressByLectureId(int lectureId, int appUserId, double progress);
         Task<PagedList<HomePageCourseDto>> GetPublishedCoursesOrderedByPublishDate(CourseParams courseParams);
         Task<PagedList<UpsertCourseListDto>> GetCoursesOrderedByModificationDate(CourseParams courseParams);
+        Task<List<string>> GetCourseTitles();
         
     }
 }

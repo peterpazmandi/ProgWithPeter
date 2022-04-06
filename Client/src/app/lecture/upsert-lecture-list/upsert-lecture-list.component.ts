@@ -14,7 +14,7 @@ import { Status } from 'src/app/_utils/status.enum';
 export class UpsertLectureListComponent implements OnInit {
   filterForm: FormGroup;
   pageNumber = 1;
-  pageSize = 20;
+  pageSize = 10;
   lectures: UpsertLectureListDto[] = [];
   public statuses = Status;
   numbers: number[] = [];
