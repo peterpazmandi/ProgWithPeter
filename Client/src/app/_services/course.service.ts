@@ -29,6 +29,10 @@ export class CourseService extends BaseService {
       this.baseUrl + 'Course/GetPublishedCoursesOrderedByPublishDate', params, this.http);
   }
 
+  getCourseTitles() {
+    return this.http.get<string[]>(this.baseUrl+ 'Course/GetCourseTitles');
+  }
+
   upsertCourse(course: UpsertCourseDto) {
     return this.http.post(this.baseUrl + 'Course', course);
   }

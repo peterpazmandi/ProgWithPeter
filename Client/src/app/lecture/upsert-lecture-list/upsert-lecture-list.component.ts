@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Lecture } from 'src/app/_models/lectureDto.model';
 import { UpsertLectureListDto } from 'src/app/_models/upsertLectureListDto.model';
+import { CourseService } from 'src/app/_services/course.service';
 import { LectureService } from 'src/app/_services/lecture.service';
 import { PostType } from 'src/app/_utils/post-type.enum';
 import { Status } from 'src/app/_utils/status.enum';
@@ -18,12 +19,14 @@ export class UpsertLectureListComponent implements OnInit {
   lectures: UpsertLectureListDto[] = [];
   public statuses = Status;
   numbers: number[] = [];
+  courseTitles: string[] = [];
 
   postType: typeof PostType;
 
   constructor(
     private fb: FormBuilder,
-    private lectureService: LectureService) { 
+    private lectureService: LectureService,
+    private courseService: CourseService) { 
     this.postType = PostType;
   }
 
@@ -32,6 +35,10 @@ export class UpsertLectureListComponent implements OnInit {
 
     this.lectureService.getLecturesOrderedByModificationDate(this.pageNumber, this.pageSize).subscribe(response => {
       this.lectures.push(...response.result);
+    })
+
+    this.courseService.getCourseTitles().subscribe(response => {
+      this.courseTitles.push(...response);
     })
   }
 

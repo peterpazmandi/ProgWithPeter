@@ -19,6 +19,14 @@
                     <span class="fw-bold">Title</span>
                     <input type="text" class="form-control mb-2" [formControl]='filterForm.controls["title"]'>
                     <!-- Status -->
+                    <span class="fw-bold">Course</span>
+                    <select class="form-select mb-2">
+                        <option value=""></option>
+                        <option *ngFor="let title of courseTitles | keyvalue" [value]="title">
+                            {{title.value}}
+                        </option>
+                    </select>
+                    <!-- Status -->
                     <span class="fw-bold">Status</span>
                     <select class="form-select mb-2">
                         <option value=""></option>
