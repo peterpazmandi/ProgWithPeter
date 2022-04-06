@@ -41,6 +41,7 @@ namespace API.Controllers
             return lectures;
         }
 
+        [Authorize(Roles = "Admin, Moderator")]
         [HttpGet("FindLecturesByTitleWithoutParentSectionAlphabetically")]
         public async Task<ActionResult<IEnumerable<LectureTitleDto>>> FindLecturesByTitleWithoutParentSectionAlphabetically([FromQuery] LectureParams lectureParams)
         {
@@ -51,6 +52,22 @@ namespace API.Controllers
                 lectures.TotalCount,
                 lectures.TotalPages
             );
+
+            return lectures;
+        }
+
+        [Authorize(Roles = "Admin, Moderator")]
+        [HttpGet("FindLectures")]
+        public async Task<ActionResult<IEnumerable<UpsertLectureListDto>>> FindLectures([FromQuery] LectureParams lectureParams)
+        {
+            var lectures = await _unitOfWork.LectureRepository.FindLectures(lectureParams);
+
+            foreach(var lecture in lectures)
+            {
+                lecture.CourseTitle = await _unitOfWork.CourseRepository.GetCourseTitleByLectureId(lecture.Id);
+            }
+
+            Response.AddPaginationHeader(lectures.CurrentPage, lectures.PageSize, lectures.TotalCount, lectures.TotalPages);
 
             return lectures;
         }

@@ -14,5 +14,6 @@ namespace API.Interfaces
         Task<Lecture> AddLectureAsync(Lecture lecture);
         Task<Lecture> FindLectureById(int id);
         Task<PagedList<LectureTitleDto>> FindLecturesByTitleWithoutParentSectionAlphabetically(LectureParams lectureParams);
+        Task<PagedList<UpsertLectureListDto>> FindLectures(LectureParams lectureParams);
     }
 }

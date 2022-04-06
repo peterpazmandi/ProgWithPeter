@@ -35,6 +35,36 @@ namespace API.Data
                 .CreateAsync(query, lectureParams.PageNumber, lectureParams.PageSize);
         }
 
+        public async Task<PagedList<UpsertLectureListDto>> FindLectures(LectureParams lectureParams)
+        {
+            var query = _context.Courses
+                .Include(c => c.Sections)
+                .Include(c => c.Sections)
+                    .ThenInclude(s => s.Lectures)
+                .Include(c => c.Sections)
+                    .ThenInclude(s => s.Lectures)
+                        .ThenInclude(l => l.Post)
+                .Include(c => c.Sections)
+                    .ThenInclude(s => s.Lectures)
+                        .ThenInclude(l => l.Post)
+                            .ThenInclude(p => p.Category)
+                .Include(c => c.Post)
+                .Where(c => 
+                    c.Post.Title.ToLower().Equals(lectureParams.CourseTitle.ToLower()))
+                .SelectMany(c => c.Sections
+                    .SelectMany(s => s.Lectures
+                                        .Where(l => l.Post.Title.ToLower().Contains(string.IsNullOrEmpty(lectureParams.Title) ? "" : lectureParams.Title.ToLower())
+                                                    && ((l.Post.Category != null) ? l.Post.Category.Name.Contains(string.IsNullOrEmpty(lectureParams.CategoryName) ? "" : lectureParams.CategoryName) : true)
+                                                    && (string.IsNullOrEmpty(l.Status) ? true : l.Status.Contains(string.IsNullOrEmpty(lectureParams.Status) ? "" : lectureParams.Status))
+                                               )
+                                )
+                            )
+                .ProjectTo<UpsertLectureListDto>(_mapper.ConfigurationProvider);
+
+            return await PagedList<UpsertLectureListDto>
+                .CreateAsync(query, lectureParams.PageNumber, lectureParams.PageSize);
+        }
+
         public async Task<Lecture> AddLectureAsync(Lecture lecture)
         {
             return (await _context.Lectures.AddAsync(lecture)).Entity;

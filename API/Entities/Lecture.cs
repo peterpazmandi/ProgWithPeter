@@ -12,6 +12,8 @@ namespace API.Entities
         public int Id { get; set; }
 
 
+        public string Status { get; set; }
+        
 
         public virtual Section? Section { get; set; }
 
