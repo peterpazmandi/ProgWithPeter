@@ -50,7 +50,7 @@ namespace API.Data
                             .ThenInclude(p => p.Category)
                 .Include(c => c.Post)
                 .Where(c => 
-                    c.Post.Title.ToLower().Equals(lectureParams.CourseTitle.ToLower()))
+                    c.Post.Title.ToLower().Contains(string.IsNullOrEmpty(lectureParams.CourseTitle) ? "" : lectureParams.CourseTitle.ToLower()))
                 .SelectMany(c => c.Sections
                     .SelectMany(s => s.Lectures
                                         .Where(l => l.Post.Title.ToLower().Contains(string.IsNullOrEmpty(lectureParams.Title) ? "" : lectureParams.Title.ToLower())

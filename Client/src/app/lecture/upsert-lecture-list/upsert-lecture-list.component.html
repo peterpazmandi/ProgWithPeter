@@ -17,28 +17,25 @@
                 <form [formGroup]='filterForm' (ngSubmit)="filter()" autocomplete="off">
                     <!-- Title -->
                     <span class="fw-bold">Title</span>
-                    <input type="text" class="form-control mb-2" [formControl]='filterForm.controls["title"]'>
-                    <!-- Status -->
+                    <app-text-input [formControl]='filterForm.controls["title"]' [label]='"Title"'></app-text-input>
+                    <!-- Course -->
                     <span class="fw-bold">Course</span>
-                    <select class="form-select mb-2">
+                    <select class="form-select mb-2" formControlName='course'>
                         <option value=""></option>
-                        <option *ngFor="let title of courseTitles | keyvalue" [value]="title">
+                        <option *ngFor="let title of courseTitles | keyvalue" [value]="title.value">
                             {{title.value}}
                         </option>
                     </select>
                     <!-- Status -->
                     <span class="fw-bold">Status</span>
-                    <select class="form-select mb-2">
+                    <select class="form-select mb-2" formControlName='status'>
                         <option value=""></option>
-                        <option *ngFor="let state of statuses | keyvalue" [value]="state">
-                            {{state.value}}
+                        <option *ngFor="let status of statuses | keyvalue" [value]="status.value">
+                            {{status.value}}
                         </option>
                     </select>
                     <!-- Category -->
-                    <span class="fw-bold">Category</span>
-                    <select class="form-select">
-                        <option value=""></option>
-                    </select>
+                    <category-selector [formControl]='filterForm.controls["category"]'></category-selector>
                     <hr class="bg-secondary mt-4 mb-4">
     
                     <div class="d-grid col-7 align-right">
@@ -48,7 +45,12 @@
             </div>
         </div>
         <div class="col-9 innerdiv">
-            <upsert-content-list [contentList]="lectures" [postType]="postType.Lecture"></upsert-content-list>
+            <upsert-content-list *ngIf="lectures.length > 0"
+                [contentList]="lectures"
+                [postType]="postType.Lecture"></upsert-content-list>
+            <div class="text-center" *ngIf="lectures.length === 0">
+                <span class="text-center display-4">No lectures found!</span>
+            </div>
         </div>
     </div>
 </div>

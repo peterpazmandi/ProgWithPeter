@@ -14,7 +14,6 @@ import { UpsertTutorialDto } from 'src/app/_models/upsertTutorialDto.model';
 import { AccountService } from 'src/app/_services/account.service';
 import { User } from 'src/app/_models/user.model';
 import { take } from 'rxjs/operators';
-import { Tutorial } from 'src/app/_models/tutorialDto.model';
 import { SeoFormService } from 'src/app/_forms/seo-form/seo-form.service';
 import { PostType } from 'src/app/_utils/post-type.enum';
 import { CourseService } from 'src/app/_services/course.service';
