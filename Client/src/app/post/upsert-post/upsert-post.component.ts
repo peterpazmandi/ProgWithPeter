@@ -110,7 +110,7 @@ export class UpsertPostComponent implements OnInit {
           break;
         }
         case this.postType.Lecture: {
-
+          let courseTitle = this.route.snapshot.queryParams['courseTitle'];
           break;
         }
       }
@@ -148,7 +148,6 @@ export class UpsertPostComponent implements OnInit {
     });
     
     if(this.selectedPostType === PostType.Course) {
-      console.log((content as Course).sections);
       this.sectionsAndLecturesFormService.sectionsAndLecturesFrom.patchValue({
         sections: (content as Course).sections
       })
@@ -198,9 +197,7 @@ export class UpsertPostComponent implements OnInit {
 
   private uploadCourse(status: string) {
     var course = this.createCourseDtoFromForms(status);
-    console.log(course);
     this.courseService.upsertCourse(course).subscribe((result: any) => {
-      console.log(result);
       this.toastr.success(result.message);
       this.updatePostForms(result.course.result.value);
 

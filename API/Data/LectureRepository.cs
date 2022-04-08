@@ -75,6 +75,19 @@ namespace API.Data
             return await _context.Lectures.SingleOrDefaultAsync(l => l.Id == id);
         }
 
+        public async Task<LectureDto> GetLectureByTitleAndCourseTitle(string title, string courseTitle)
+        {
+            var lecture = await _context.Courses
+                .Include(c => c.Post)
+                .Include(c => c.Sections).ThenInclude(s => s.Lectures).ThenInclude(l => l.Post)
+                .Where(c => c.Post.Title.ToLower().Equals(courseTitle.ToLower()))
+                .SelectMany(c => c.Sections
+                    .SelectMany(s => s.Lectures.Where(l => l.Post.Title.ToLower().Equals(title.ToLower()))))
+                .FirstOrDefaultAsync();
+
+            return _mapper.Map<LectureDto>(lecture);
+        }
+
         public async Task<PagedList<LectureTitleDto>> FindLecturesByTitleWithoutParentSectionAlphabetically(LectureParams lectureParams)
         {
             var query = _context.Lectures

@@ -71,6 +71,22 @@ namespace API.Controllers
 
             return lectures;
         }
+        
+        [Authorize(Roles = "Admin, Moderator")]
+        [HttpGet("GetLectureByTitleAndCourseTitle")]
+        public async Task<ActionResult<LectureDto>> GetLectureByTitleAndCourseTitle(string title, string courseTitle)
+        {
+            if(string.IsNullOrEmpty(title))
+            {
+                return BadRequest("Lecture's title is empty!");
+            }
+            if(string.IsNullOrEmpty(courseTitle))
+            {
+                return BadRequest("Course's title is empty!");
+            }
+
+            return await _unitOfWork.LectureRepository.GetLectureByTitleAndCourseTitle(title, courseTitle);
+        }
 
         [Authorize(Roles = "Admin, Moderator")]
         [HttpPost("SetLectureCompletion")]

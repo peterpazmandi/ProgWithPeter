@@ -9,7 +9,16 @@ namespace API.DTOs
     {
         public int Id { get; set; }
 
+
+        public string Status { get; set; }
+
         public PostDto Post { get; set; }
+
+        
+        public DateTime? CreationDate { get; set; }
+        public DateTime? ModificationDate { get; set; }
+
+
         public int Position { get; set; }
 
         public List<LectureActivityDto> LectureActivities { get; set; }
