@@ -24,6 +24,7 @@ import { SectionsAndLecturesFormService } from 'src/app/section/upsert-sections-
 import { Course } from 'src/app/_models/courseDto.model';
 import { Section } from 'src/app/_models/sectionDto.model';
 import { UpsertSectionDto } from 'src/app/_models/upsertSectionDto.model';
+import { LectureService } from 'src/app/_services/lecture.service';
 
 
 @Component({
@@ -73,6 +74,7 @@ export class UpsertPostComponent implements OnInit {
     public sectionsAndLecturesFormService: SectionsAndLecturesFormService,
     private tutorialService: TutorialService,
     private courseService: CourseService,
+    private lectureService: LectureService,
     private fb: FormBuilder,
     private toastr: ToastrService,
     private route: ActivatedRoute) {
@@ -111,6 +113,11 @@ export class UpsertPostComponent implements OnInit {
         }
         case this.postType.Lecture: {
           let courseTitle = this.route.snapshot.queryParams['courseTitle'];
+          this.lectureService.getLectureByTitleAndCourseTitle(this.slug, courseTitle).subscribe(lecture => {
+            this.updatePostForms(lecture);
+          }, error => {
+            console.log(error);
+          })
           break;
         }
       }
@@ -127,9 +134,12 @@ export class UpsertPostComponent implements OnInit {
     this.createPostForm.patchValue({
       id: content.id,
       title: content.post.title,
-      category: new TreeviewItem({
+      category: (content.post.category) ? new TreeviewItem({
         text: content.post.category?.name,
         value: content.post.category?.id
+      } as TreeItem) : new TreeviewItem({
+        text: "",
+        value: null
       } as TreeItem),
       tags: content.post.tags,
       featuredImageUrl: content.post.featuredImageUrl
@@ -172,6 +182,10 @@ export class UpsertPostComponent implements OnInit {
           this.uploadCourse(status); 
           break;
         }
+        case PostType.Lecture: { 
+          // this.uploadLecture(status); 
+          break;
+        }
       }
   }
 
@@ -179,7 +193,6 @@ export class UpsertPostComponent implements OnInit {
     var tutorial = this.createTutorialDtoFromForms(status);
     
     this.tutorialService.upsertTutorial(tutorial).subscribe((result: any) => {
-      console.log(result);
       this.toastr.success(result.message);
       this.createPostForm.patchValue({
         id: result.tutorialId
@@ -304,17 +317,20 @@ export class UpsertPostComponent implements OnInit {
     this.textWordCount = wordCount;
   }
 
-  countTotalAmountOfSpecificWordInaString(text: string, toFind: string)
-  {
+  countTotalAmountOfSpecificWordInaString(text: string, toFind: string) {
+    if(text || toFind) {
+      return 0;
+    }
+
     let next = 0;
-    let findedword = 0;
+    let foundword = 0;
         do {
               var n = text.indexOf(toFind, next);
-              findedword = findedword +1;
+              foundword = foundword +1;
               next = n + toFind.length;
             } 
         while (n>=0);
-     return findedword - 1;
+     return foundword - 1;
    }
 }
 

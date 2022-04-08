@@ -42,17 +42,23 @@ export class SeoFormComponent implements OnInit {
   }
 
   updateSlug(value: string) {
-    let re = /\ /gi;
-    var slug = value.replace(re, '_');
-    this.seoFormService.seoForm.patchValue({
-      slug: slug.toLocaleLowerCase()
-    })
+    if(value !== undefined) {
+      let re = /\ /gi;
+      var slug = value.replace(re, '_');
+      this.seoFormService.seoForm.patchValue({
+        slug: slug.toLocaleLowerCase()
+      })
+    }
   }
 
 
   // Custom validators
   focusKeyPhraseValidation(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
+      if(control.value === undefined) {
+        return null;
+      }
+
       var focusKeyPhrase = control.value;
       var splitted: string[] = focusKeyPhrase.split(" ");
 
@@ -69,6 +75,9 @@ export class SeoFormComponent implements OnInit {
   }
   fieldStartsWithFocusKeyphrase(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
+      if(control.value === undefined) {
+        return null;
+      }
 
       var fieldContent = (control.value as string).toLocaleLowerCase();
       var focusKeyPhrase = (this.seoFormService.seoForm?.value['focusKeyphrase'] as string)?.toLocaleLowerCase();
@@ -82,6 +91,9 @@ export class SeoFormComponent implements OnInit {
   }
   fieldContainsFocusKeyphrase(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
+      if(control.value === undefined) {
+        return null;
+      }
 
       var fieldContent = (control.value as string).toLocaleLowerCase();
       var focusKeyPhrase = (this.seoFormService.seoForm?.value['focusKeyphrase'] as string)?.toLocaleLowerCase();
@@ -95,6 +107,9 @@ export class SeoFormComponent implements OnInit {
   }
   metaDescriptionLength(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
+      if(control.value === undefined) {
+        return null;
+      }
 
       var metaDesc = control.value as string;
       this.metaDescLength = metaDesc.length;

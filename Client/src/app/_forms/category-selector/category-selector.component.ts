@@ -24,8 +24,11 @@ export class CategorySelectorComponent implements ControlValueAccessor, OnInit {
     this.getChildCategories(null as any);
 
     var sub = this.ngControl.valueChanges?.subscribe((category : TreeviewItem) => {
-      this.selectedCategory.push(category);
-      this.getInitialCategories(category.value as number);
+      if(category.value) {
+        this.selectedCategory.push(category);
+      }
+      this.getChildCategories(category.value as number);
+      // this.getInitialCategories(category.value as number);
       sub?.unsubscribe();
     })
   }  
@@ -46,13 +49,7 @@ export class CategorySelectorComponent implements ControlValueAccessor, OnInit {
     }
     return treeViewItems;
   }
-  private getInitialCategories(categoryId: number) {
-    this.categoryService.getCategories(categoryId).subscribe((result: any) => {
-      this.categories = this.generateTreeviewItemArray(result as Category[]);
-    }, error => {
-      console.log('API Error: ' + error);
-    });
-  }
+  
   onCategoryValueChange(value: number): void {
     let selectedItem = this.categories.find(i => i.value === value) as TreeviewItem;
     this.selectedCategory.push(selectedItem);
@@ -62,10 +59,10 @@ export class CategorySelectorComponent implements ControlValueAccessor, OnInit {
   }
 
   onRemoveCategories() {
-    this.selectedCategory = this.selectedCategory.filter(i => i.value < 0) as TreeviewItem[]; 
+    this.selectedCategory = this.selectedCategory.filter(i => i.value < 0) as TreeviewItem[];
     this.ngControl?.control?.setValue(null);
     this.ngControl?.control?.markAsDirty();
-    this.getChildCategories(null as any);   
+    this.getChildCategories(null as any);
   }
   private getChildCategories(value: number) {    
     this.categories = [new TreeviewItem({ text: "", value: 0 })];

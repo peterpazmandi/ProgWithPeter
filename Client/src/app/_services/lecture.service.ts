@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { isEmpty } from 'rxjs/operators';
 import { FindLecturesDto } from '../_models/findLecturesDto.model';
+import { Lecture } from '../_models/lectureDto.model';
 import { SetLectureCompletion } from '../_models/setLectureCompletion.model';
 import { UpsertLectureListDto } from '../_models/upsertLectureListDto.model';
 import { BaseService } from './base.service';
@@ -22,6 +23,10 @@ export class LectureService extends BaseService {
   getLecturesOrderedByModificationDate(pageNumber: number, pageSize: number) {
     let params = getPaginationHeaders(pageNumber, pageSize);
     return getPaginatedResult<UpsertLectureListDto[]>(this.baseUrl + 'Lecture/GetLecturesOrderedByModificationDate', params, this.http);
+  }
+
+  getLectureByTitleAndCourseTitle(lectureTitle: string, courseTitle: string) {
+    return this.http.get<Lecture>(this.baseUrl + `Lecture/GetLectureByTitleAndCourseTitle?lectureTitle=${lectureTitle}&courseTitle=${courseTitle}`);
   }
 
   findLectures(findLectures: FindLecturesDto) {

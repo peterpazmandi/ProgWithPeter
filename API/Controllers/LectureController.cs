@@ -74,9 +74,9 @@ namespace API.Controllers
         
         [Authorize(Roles = "Admin, Moderator")]
         [HttpGet("GetLectureByTitleAndCourseTitle")]
-        public async Task<ActionResult<LectureDto>> GetLectureByTitleAndCourseTitle(string title, string courseTitle)
+        public async Task<ActionResult<LectureDto>> GetLectureByTitleAndCourseTitle(string lectureTitle, string courseTitle)
         {
-            if(string.IsNullOrEmpty(title))
+            if(string.IsNullOrEmpty(lectureTitle))
             {
                 return BadRequest("Lecture's title is empty!");
             }
@@ -85,7 +85,7 @@ namespace API.Controllers
                 return BadRequest("Course's title is empty!");
             }
 
-            return await _unitOfWork.LectureRepository.GetLectureByTitleAndCourseTitle(title, courseTitle);
+            return await _unitOfWork.LectureRepository.GetLectureByTitleAndCourseTitle(lectureTitle, courseTitle);
         }
 
         [Authorize(Roles = "Admin, Moderator")]

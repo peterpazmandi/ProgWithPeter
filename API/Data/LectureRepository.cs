@@ -75,14 +75,14 @@ namespace API.Data
             return await _context.Lectures.SingleOrDefaultAsync(l => l.Id == id);
         }
 
-        public async Task<LectureDto> GetLectureByTitleAndCourseTitle(string title, string courseTitle)
+        public async Task<LectureDto> GetLectureByTitleAndCourseTitle(string lectureTitle, string courseTitle)
         {
             var lecture = await _context.Courses
                 .Include(c => c.Post)
                 .Include(c => c.Sections).ThenInclude(s => s.Lectures).ThenInclude(l => l.Post)
                 .Where(c => c.Post.Title.ToLower().Equals(courseTitle.ToLower()))
                 .SelectMany(c => c.Sections
-                    .SelectMany(s => s.Lectures.Where(l => l.Post.Title.ToLower().Equals(title.ToLower()))))
+                    .SelectMany(s => s.Lectures.Where(l => l.Post.Title.ToLower().Equals(lectureTitle.ToLower()))))
                 .FirstOrDefaultAsync();
 
             return _mapper.Map<LectureDto>(lecture);
