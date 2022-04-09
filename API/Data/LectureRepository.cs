@@ -23,6 +23,7 @@ namespace API.Data
             _mapper = mapper;
         }
 
+
         public async Task<PagedList<UpsertLectureListDto>> GetLecturesOrderedByModificationDate(LectureParams lectureParams)
         {
             var query = _context.Lectures
@@ -70,9 +71,13 @@ namespace API.Data
             return (await _context.Lectures.AddAsync(lecture)).Entity;
         }
 
-        public async Task<Lecture> FindLectureById(int id)
+        public async Task<Lecture> GetLectureById(int id)
         {
-            return await _context.Lectures.SingleOrDefaultAsync(l => l.Id == id);
+            return await _context.Lectures
+                .Include(l => l.Post).ThenInclude(p => p.Meta)
+                .Include(l => l.Post).ThenInclude(p => p.Tags)
+                .Include(l => l.Post).ThenInclude(p => p.Category)
+                .SingleOrDefaultAsync(l => l.Id == id);
         }
 
         public async Task<LectureDto> GetLectureByTitleAndCourseTitle(string lectureTitle, string courseTitle)
@@ -80,6 +85,9 @@ namespace API.Data
             var lecture = await _context.Courses
                 .Include(c => c.Post)
                 .Include(c => c.Sections).ThenInclude(s => s.Lectures).ThenInclude(l => l.Post)
+                .Include(c => c.Sections).ThenInclude(s => s.Lectures).ThenInclude(l => l.Post).ThenInclude(p => p.Meta)
+                .Include(c => c.Sections).ThenInclude(s => s.Lectures).ThenInclude(l => l.Post).ThenInclude(p => p.Tags)
+                .Include(c => c.Sections).ThenInclude(s => s.Lectures).ThenInclude(l => l.Post).ThenInclude(p => p.Category)
                 .Where(c => c.Post.Title.ToLower().Equals(courseTitle.ToLower()))
                 .SelectMany(c => c.Sections
                     .SelectMany(s => s.Lectures.Where(l => l.Post.Title.ToLower().Equals(lectureTitle.ToLower()))))

@@ -8,7 +8,11 @@ namespace API.DTOs
     public class UpsertLectureDto
     {
         public int Id { get; set; }
-        public UpsertPostOfLectureDto Post { get; set; }
+
+
+        public UpsertPostDto Post { get; set; }
+
+        public string Status { get; set; }
 
 
         public int Position { get; set; }

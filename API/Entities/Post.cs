@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace API.Entities
@@ -22,10 +23,12 @@ namespace API.Entities
 
 
         public int? MetaId { get; set; }
+        [JsonIgnore]
         public virtual Meta Meta { get; set; }
 
 
         public int? AppUserId { get; set; }
+        [JsonIgnore]
         public AppUser AppUser {get;set;}
 
 
@@ -43,6 +46,7 @@ namespace API.Entities
 
 
         public int? CategoryId { get; set; }
+        [JsonIgnore]
         public virtual Category Category { get; set; }
     }
 }
