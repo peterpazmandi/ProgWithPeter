@@ -3,6 +3,7 @@ import { isEmpty } from 'rxjs/operators';
 import { FindLecturesDto } from '../_models/findLecturesDto.model';
 import { Lecture } from '../_models/lectureDto.model';
 import { SetLectureCompletion } from '../_models/setLectureCompletion.model';
+import { UpsertLectureDto } from '../_models/upsertLectureDto.model';
 import { UpsertLectureListDto } from '../_models/upsertLectureListDto.model';
 import { BaseService } from './base.service';
 import { getPaginatedResult, getPaginationHeaders } from './pagination.helper';
@@ -11,6 +12,10 @@ import { getPaginatedResult, getPaginationHeaders } from './pagination.helper';
   providedIn: 'root'
 })
 export class LectureService extends BaseService {
+
+  upsertLecture(upsertLectureDto: UpsertLectureDto) {
+    return this.http.post(this.baseUrl + 'Lecture', upsertLectureDto);
+  }
 
   setLectureCompletion(lectureId: number, isCompleted: boolean) {
     let lectureCompletion = {

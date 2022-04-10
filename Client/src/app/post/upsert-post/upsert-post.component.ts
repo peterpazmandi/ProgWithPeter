@@ -25,6 +25,7 @@ import { Course } from 'src/app/_models/courseDto.model';
 import { Section } from 'src/app/_models/sectionDto.model';
 import { UpsertSectionDto } from 'src/app/_models/upsertSectionDto.model';
 import { LectureService } from 'src/app/_services/lecture.service';
+import { UpsertLectureDto } from 'src/app/_models/upsertLectureDto.model';
 
 
 @Component({
@@ -183,7 +184,7 @@ export class UpsertPostComponent implements OnInit {
           break;
         }
         case PostType.Lecture: { 
-          // this.uploadLecture(status); 
+          this.uploadLecture(status); 
           break;
         }
       }
@@ -208,6 +209,24 @@ export class UpsertPostComponent implements OnInit {
     });
   }
 
+  private uploadLecture(status: string) {
+    var lecture = this.createLectureDtoFromForms(status);
+    
+    this.lectureService.upsertLecture(lecture).subscribe((result: any) => {
+      this.toastr.success(result.message);
+      this.createPostForm.patchValue({
+        id: result.tutorialId
+      })
+
+      // Undirty the forms
+      this.createPostForm.markAsPristine();
+      this.formTextForm.markAsPristine();
+      this.seoFormService.seoForm.markAsPristine();
+    }, error => {
+      console.log(error);
+    });
+  }
+
   private uploadCourse(status: string) {
     var course = this.createCourseDtoFromForms(status);
     this.courseService.upsertCourse(course).subscribe((result: any) => {
@@ -227,22 +246,25 @@ export class UpsertPostComponent implements OnInit {
     return {
       id: (this.createPostForm?.value['id'] as number),
       status: status,
-      price: 0,
-      currency: '',
       post: this.createPostDtoFromForms(),
       sections: this.createSectionUpsertSectionDto()
     } as UpsertCourseDto;
+  }
+
+  private createLectureDtoFromForms(status: string): UpsertLectureDto {
+    return {
+      id: (this.createPostForm?.value['id'] as number),
+      status: status,
+      post: this.createPostDtoFromForms()
+    } as UpsertLectureDto;
   }
 
   private createTutorialDtoFromForms(status: string): UpsertTutorialDto {
     return {
       id: (this.createPostForm?.value['id'] as number),
       status: status,
-      price: 9.9,
-      currency: 'USD',
       post: this.createPostDtoFromForms()
     } as UpsertTutorialDto;
-
   }
 
   private createPostDtoFromForms(): UpsertPostDto {

@@ -1,7 +1,7 @@
-import { UpsertPostOfLectureDto } from "./upsertPostOfLectureDto.model";
+import { UpsertPostDto } from "./upsertPostDto.model";
 
 export interface UpsertLectureDto {
-    position: number,
-
-    post: UpsertPostOfLectureDto
+    id: number;
+    post: UpsertPostDto;
+    status: string;
 }

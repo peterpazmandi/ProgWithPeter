@@ -1,8 +1,8 @@
-import { UpsertLectureDto } from "./upsertLectureDto.model";
+import { UpsertLectureTitleAndPositionDto } from "./upsertLectureTitleAndPositionDto.model";
 
 export interface UpsertSectionDto {
     title: string,
     position: number,
 
-    lectures: UpsertLectureDto[]
+    lectures: UpsertLectureTitleAndPositionDto[]
 }
