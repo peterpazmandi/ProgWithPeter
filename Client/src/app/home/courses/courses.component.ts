@@ -26,7 +26,7 @@ export class CoursesComponent implements OnInit {
   }
 
   private loadCourses() {
-    this.courseService.getPublishedCoursesOrderedByPublishDate(this.pageNumber, this.pageSize, (this.currentUser !== undefined) ? this.currentUser.id : -1).subscribe(response => {
+    this.courseService.getPublishedCoursesOrderedByPublishDate(this.pageNumber, this.pageSize, (this.currentUser !== undefined && this.currentUser !== null) ? this.currentUser.id : -1).subscribe(response => {
       this.noMoreCourse = response.result.length < 2;
       this.courses.push(...response.result);
     }, error => {

@@ -38,7 +38,7 @@ namespace API.Data
 
         public async Task<PagedList<UpsertLectureListDto>> FindLectures(LectureParams lectureParams)
         {
-            var query = _context.Courses
+            var result = await _context.Courses
                 .Include(c => c.Sections)
                 .Include(c => c.Sections)
                     .ThenInclude(s => s.Lectures)
@@ -51,19 +51,35 @@ namespace API.Data
                             .ThenInclude(p => p.Category)
                 .Include(c => c.Post)
                 .Where(c => 
-                    c.Post.Title.ToLower().Contains(string.IsNullOrEmpty(lectureParams.CourseTitle) ? "" : lectureParams.CourseTitle.ToLower()))
+                    string.IsNullOrEmpty(lectureParams.CourseTitle) 
+                        ? true 
+                        : lectureParams.CourseTitle.ToLower().Contains(c.Post.Title.ToLower()))
                 .SelectMany(c => c.Sections
                     .SelectMany(s => s.Lectures
                                         .Where(l => l.Post.Title.ToLower().Contains(string.IsNullOrEmpty(lectureParams.Title) ? "" : lectureParams.Title.ToLower())
                                                     && ((l.Post.Category != null) ? l.Post.Category.Name.Contains(string.IsNullOrEmpty(lectureParams.CategoryName) ? "" : lectureParams.CategoryName) : true)
                                                     && (string.IsNullOrEmpty(l.Status) ? true : l.Status.Contains(string.IsNullOrEmpty(lectureParams.Status) ? "" : lectureParams.Status))
                                                )
+                                        .OrderBy(l => l.Post.Title)
                                 )
                             )
-                .ProjectTo<UpsertLectureListDto>(_mapper.ConfigurationProvider);
+                .ProjectTo<UpsertLectureListDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+            
+            var lecturesWithNullSection = await  (_context.Lectures
+                        .Include(l => l.Post)
+                        .Include(l => l.Section)
+                        .Where(l => l.Section == null
+                            && l.Post.Title.ToLower().Contains(string.IsNullOrEmpty(lectureParams.Title) ? "" : lectureParams.Title.ToLower())))
+                .ProjectTo<UpsertLectureListDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            result.AddRange(lecturesWithNullSection);
+            
+            var res = result.OrderBy(l => l.Post.Title).AsQueryable();
 
             return await PagedList<UpsertLectureListDto>
-                .CreateAsync(query, lectureParams.PageNumber, lectureParams.PageSize);
+                .CreateAsync(res, lectureParams.PageNumber, lectureParams.PageSize);
         }
 
         public async Task<Lecture> AddLectureAsync(Lecture lecture)
