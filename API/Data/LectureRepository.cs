@@ -60,21 +60,26 @@ namespace API.Data
                                                     && ((l.Post.Category != null) ? l.Post.Category.Name.Contains(string.IsNullOrEmpty(lectureParams.CategoryName) ? "" : lectureParams.CategoryName) : true)
                                                     && (string.IsNullOrEmpty(l.Status) ? true : l.Status.Contains(string.IsNullOrEmpty(lectureParams.Status) ? "" : lectureParams.Status))
                                                )
-                                        .OrderBy(l => l.Post.Title)
                                 )
                             )
                 .ProjectTo<UpsertLectureListDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
             
-            var lecturesWithNullSection = await  (_context.Lectures
-                        .Include(l => l.Post)
-                        .Include(l => l.Section)
-                        .Where(l => l.Section == null
-                            && l.Post.Title.ToLower().Contains(string.IsNullOrEmpty(lectureParams.Title) ? "" : lectureParams.Title.ToLower())))
-                .ProjectTo<UpsertLectureListDto>(_mapper.ConfigurationProvider)
-                .ToListAsync();
+            if(string.IsNullOrEmpty(lectureParams.CourseTitle))
+            {
+                var lecturesWithNullSection = await  (_context.Lectures
+                            .Include(l => l.Post)
+                            .Include(l => l.Section)
+                            .Where(l => l.Section == null
+                                && l.Post.Title.ToLower().Contains(string.IsNullOrEmpty(lectureParams.Title) ? "" : lectureParams.Title.ToLower())
+                                && ((l.Post.Category != null) ? l.Post.Category.Name.Contains(string.IsNullOrEmpty(lectureParams.CategoryName) ? "" : lectureParams.CategoryName) : true)
+                                && (string.IsNullOrEmpty(l.Status) ? true : l.Status.Contains(string.IsNullOrEmpty(lectureParams.Status) ? "" : lectureParams.Status))
+                            ))
+                    .ProjectTo<UpsertLectureListDto>(_mapper.ConfigurationProvider)
+                    .ToListAsync();
 
-            result.AddRange(lecturesWithNullSection);
+                result.AddRange(lecturesWithNullSection);
+            }
             
             var res = result.OrderBy(l => l.Post.Title).AsQueryable();
 
