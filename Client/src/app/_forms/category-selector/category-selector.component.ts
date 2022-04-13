@@ -67,7 +67,7 @@ export class CategorySelectorComponent implements ControlValueAccessor, OnInit {
   private getChildCategories(value: number) {    
     this.categories = [new TreeviewItem({ text: "", value: 0 })];
 
-    this.categoryService.getCategories(value).subscribe((result: any) => {
+    this.categoryService.getCategoriesByParentCategoryId(value).subscribe((result: any) => {
       this.categories = this.generateTreeviewItemArray(result as Category[]);
     }, error => {
       console.log('API Error: ' + error);

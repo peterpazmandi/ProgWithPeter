@@ -17,7 +17,7 @@ namespace API.Data
             _context = context;
         }
 
-        public async Task<IEnumerable<Category>> GetCategories(int? parentCategoryId = null)
+        public async Task<IEnumerable<Category>> GetCategoriesByParentCategoryId(int? parentCategoryId = null)
         {
             return await _context.Categories
                             .Where(cat => cat.ParentCategoryId == parentCategoryId)

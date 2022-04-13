@@ -12,7 +12,7 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  getCategories(id: any): Observable<Category> {
-    return this.http.get(this.baseUrl + 'Categories/GetCategories' + ((id === null) ? '' : `?parentCategoryId=${id}`)) as Observable<Category>;
+  getCategoriesByParentCategoryId(id: any): Observable<Category[]> {
+    return this.http.get(this.baseUrl + 'Categories/GetCategoriesByParentCategoryId' + ((id === null) ? '' : `?parentCategoryId=${id}`)) as Observable<Category[]>;
   }
 }

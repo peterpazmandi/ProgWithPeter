@@ -13,7 +13,7 @@ import { Status } from 'src/app/_utils/status.enum';
 export class UpsertTutorialListComponent implements OnInit {
   filterForm: FormGroup;
   public statuses = Status;
-  tutorials: Tutorial[] = [];  
+  tutorials: Tutorial[] = [];
   pageNumber = 1;
   pageSize = 20;
 

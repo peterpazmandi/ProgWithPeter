@@ -1,0 +1,37 @@
+<div class="container pt-5">
+    <div class="row">
+        <div class="col-3 menu">
+            <h3 class="fw-bold">Courses's list</h3>
+            <hr class="dropdown-divider">
+            <button 
+                class="btn btn-white shadow" 
+                id="createNewBtn"  >
+                <img src="assets/svg/ic_pen_filled.svg">
+                <span class="ms-3" style="font-weight: bolder;">Create New</span>
+            </button>
+            <hr class="dropdown-divider">
+            <h4>Filter</h4>
+            <div class="innerdiv">
+                <form [formGroup]='filterForm' (ngSubmit)="filter()" autocomplete="off">
+                    <!-- Name -->
+                    <span class="fw-bold">Name</span>
+                    <input type="text" class="form-control mb-2" [formControl]='filterForm.controls["name"]'>
+                    <hr class="bg-secondary mt-4 mb-4">
+    
+                    <div class="d-grid col-7 align-right">
+                        <button class="btn btn-primary" type="submit">Apply Filters</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-9 innerdiv">
+            <app-accordion>
+                <app-accordion-item *ngFor="let category of categories; let index = index" title="{{category.name}}" (click)="getChildCategories(category)">
+                    <div *ngFor="let childCategory of category.childCategories">
+                        {{childCategory.name}}
+                    </div>
+                </app-accordion-item>
+            </app-accordion>
+        </div>
+    </div>
+</div>

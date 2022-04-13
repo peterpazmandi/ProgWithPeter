@@ -63,6 +63,7 @@ import { AccordionModule } from './_forms/accordion/accordion.module';
 import { CourseContentComponent } from './course/course/course-content/course-content.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { UpsertLectureListComponent } from './lecture/upsert-lecture-list/upsert-lecture-list.component';
+import { UpsertCategoriesComponent } from './category/upsert-categories/upsert-categories.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -110,7 +111,8 @@ export function tokenGetter() {
     CourseComponent,
     ByPassSecurityPipe,
     CourseContentComponent,
-    UpsertLectureListComponent
+    UpsertLectureListComponent,
+    UpsertCategoriesComponent
   ],
   imports: [
     BrowserModule,

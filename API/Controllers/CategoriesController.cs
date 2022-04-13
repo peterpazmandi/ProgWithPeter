@@ -17,10 +17,10 @@ namespace API.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        [HttpGet("GetCategories")]
-        public async Task<ActionResult<IEnumerable<Category>>> GetCategories(int? parentCategoryId = null)
+        [HttpGet("GetCategoriesByParentCategoryId")]
+        public async Task<ActionResult<IEnumerable<Category>>> GetCategoriesByParentCategoryId(int? parentCategoryId = null)
         {
-            return Ok(await _unitOfWork.CategoriesRepository.GetCategories(parentCategoryId));
+            return Ok(await _unitOfWork.CategoriesRepository.GetCategoriesByParentCategoryId(parentCategoryId));
         }
     }
 }
