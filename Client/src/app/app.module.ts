@@ -64,7 +64,6 @@ import { CourseContentComponent } from './course/course/course-content/course-co
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { UpsertLectureListComponent } from './lecture/upsert-lecture-list/upsert-lecture-list.component';
 import { UpsertCategoriesComponent } from './category/upsert-categories/upsert-categories.component';
-import { DynamicTreeviewComponent } from './_forms/dynamic-treeview/dynamic-treeview.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -113,8 +112,7 @@ export function tokenGetter() {
     ByPassSecurityPipe,
     CourseContentComponent,
     UpsertLectureListComponent,
-    UpsertCategoriesComponent,
-    DynamicTreeviewComponent
+    UpsertCategoriesComponent
   ],
   imports: [
     BrowserModule,
