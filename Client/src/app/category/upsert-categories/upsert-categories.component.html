@@ -25,13 +25,7 @@
             </div>
         </div>
         <div class="col-9 innerdiv">
-            <app-accordion>
-                <app-accordion-item *ngFor="let category of categories; let index = index" title="{{category.name}}" (click)="getChildCategories(category)">
-                    <div *ngFor="let childCategory of category.childCategories">
-                        {{childCategory.name}}
-                    </div>
-                </app-accordion-item>
-            </app-accordion>
+            <dynamic-treeview [content]="categories"></dynamic-treeview>
         </div>
     </div>
 </div>

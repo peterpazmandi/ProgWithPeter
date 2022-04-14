@@ -7,7 +7,7 @@ import { PostType } from 'src/app/_utils/post-type.enum';
   styleUrls: ['./upsert-content-list.component.css']
 })
 export class UpsertContentListComponent implements OnInit {
-  @Input()  contentList: any[] = [];
+  @Input() contentList: any[] = [];
   @Input() postType: string;
 
   postTypes: typeof PostType;

@@ -1,0 +1,9 @@
+<div class="header">I am a header</div>
+<div class="body">
+    <ng-container #container></ng-container>
+</div>
+<div class="footer">I am a footer</div>
+
+<ng-template #template let-viewName="name">
+    <div>Hi, My name is {{viewName}}. I am a view created from a template</div>
+</ng-template>
