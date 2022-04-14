@@ -20,12 +20,6 @@ export class UpsertCategoriesComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm();
-
-    this.categoryService.getCategoriesByParentCategoryId(null).subscribe(response => {
-      this.categories.push(...response);
-    }, error => {
-      console.log(error);
-    })
   }
 
   private initializeForm() {

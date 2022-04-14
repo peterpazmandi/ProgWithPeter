@@ -328,6 +328,27 @@ img svg {
   display: inline-block;
 }
 
+.blue-chip {  
+  margin: 5px;  
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 5px;  
+  background-color: #1976D2;
+  width: max-content;
+  display: inline-block;
+}
+.blue-chip:hover {  
+  cursor: pointer;
+  text-decoration: underline;
+  margin: 5px;  
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 5px;  
+  background-color: #42A5F5;
+  width: max-content;
+  display: inline-block;
+}
+
 input {
   border-radius: 3px !important;
 }

@@ -64,6 +64,8 @@ import { CourseContentComponent } from './course/course/course-content/course-co
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { UpsertLectureListComponent } from './lecture/upsert-lecture-list/upsert-lecture-list.component';
 import { UpsertCategoriesComponent } from './category/upsert-categories/upsert-categories.component';
+import { CategoryBrowserComponent } from './category/category-browser/category-browser.component';
+import { CategoryBrowserListItemComponent } from './category/category-browser/category-browser-list-item/category-browser-list-item.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -112,7 +114,9 @@ export function tokenGetter() {
     ByPassSecurityPipe,
     CourseContentComponent,
     UpsertLectureListComponent,
-    UpsertCategoriesComponent
+    UpsertCategoriesComponent,
+    CategoryBrowserComponent,
+    CategoryBrowserListItemComponent
   ],
   imports: [
     BrowserModule,
