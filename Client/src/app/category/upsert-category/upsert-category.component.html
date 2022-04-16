@@ -1,0 +1,18 @@
+<h3 *ngIf="category === undefined">Create Category</h3>
+<h3 *ngIf="category !== undefined">Update Category</h3>
+<hr class="dropdown-divider mb-3">
+<form [formGroup]='upsertCategoryForm' autocomplete="off">
+    <!-- Name -->
+    <span class="fw-bold">Name</span>
+    <input type="text" class="form-control mb-2" [formControl]='upsertCategoryForm.controls["name"]'>
+    <!-- Parent Category -->
+    <span class="fw-bold">Parent Category</span>
+    <category-selector [formControl]='upsertCategoryForm.controls["parentCategory"]'></category-selector>
+    <hr class="bg-secondary mt-4 mb-4">
+
+    <div class="text-center">
+        <button class="btn btn-outline-warning w-25 me-5" type="button" (click)="cancelWindow()">Cancel</button>
+        <button *ngIf="category === undefined" class="btn btn-primary w-25" (click)="upsertCategory()">Create</button>
+        <button *ngIf="category !== undefined" class="btn btn-primary w-25" (click)="upsertCategory()">Update</button>
+    </div>
+</form>

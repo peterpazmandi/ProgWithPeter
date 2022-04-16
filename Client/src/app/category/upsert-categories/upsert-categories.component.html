@@ -1,14 +1,7 @@
 <div class="container pt-5">
     <div class="row">
         <div class="col-3 menu">
-            <h3 class="fw-bold">Courses's list</h3>
-            <hr class="dropdown-divider">
-            <button 
-                class="btn btn-white shadow" 
-                id="createNewBtn"  >
-                <img src="assets/svg/ic_pen_filled.svg">
-                <span class="ms-3" style="font-weight: bolder;">Create New</span>
-            </button>
+            <h3 class="fw-bold">Category's list</h3>
             <hr class="dropdown-divider">
             <h4>Filter</h4>
             <div class="innerdiv">
@@ -27,12 +20,21 @@
         <div class="col-9 innerdiv">
             <div class="row">
                 <div class="column">
-                    <category-browser></category-browser>
+                    <category-browser (lastSelectedCategory)="setLastSelectedCategory($event)"></category-browser>
+                    <div class="mt-5 text-center">
+                        <button 
+                            class="btn btn-white shadow w-50"
+                            id="createNewBtn"
+                            (click)="onCreateCategory()" >
+                            <img src="assets/svg/ic_pen_filled.svg">
+                            <span class="ms-3 fw-bold fw-small">Create New</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="column border-start border-5 d-flex">
-                    Add or modify category
+                <div class="column border-start border-5">
+                    <upsert-category *ngIf="upsertCategory" [parentCategory]="lastSelectedCategory" (cancel)="cancelUpsertWindow()"></upsert-category>
                 </div>
-              </div>
+            </div>
         </div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Category } from 'src/app/_models/category.model';
 import { CategoryService } from 'src/app/_services/category.service';
 
@@ -10,6 +10,7 @@ import { CategoryService } from 'src/app/_services/category.service';
 export class CategoryBrowserComponent implements OnInit {
   selectedCategories: Category[] = [];
   levelCategories: Category[] = [];
+  @Output() lastSelectedCategory: EventEmitter<Category | null> = new EventEmitter<Category | null>();
 
   constructor(private categoryService: CategoryService) { }
 
@@ -26,10 +27,12 @@ export class CategoryBrowserComponent implements OnInit {
     this.getCategoriesByParentCategoryId(category.id);
 
     this.selectedCategories.push(category);
+    this.emitLastSelectedCategory();
   }
 
   onRemoveFromSelectedCategories(category: Category) {
     this.selectedCategories = this.removeCategoriesFromIndex(category);
+    this.emitLastSelectedCategory();
     this.getCategoriesByParentCategoryId(
       this.selectedCategories.length > 0 ? this.selectedCategories[this.selectedCategories.length - 1].id : null
     );
@@ -51,5 +54,13 @@ export class CategoryBrowserComponent implements OnInit {
       toRemoveItems.push(this.selectedCategories[i]);
     }
     return this.selectedCategories.filter(c => !toRemoveItems.includes(c));
+  }
+
+  private emitLastSelectedCategory() {
+    if(this.selectedCategories.length === 0) {
+      this.lastSelectedCategory.emit(null);
+    } else {
+      this.lastSelectedCategory.emit(this.selectedCategories[this.selectedCategories.length-1]);
+    }
   }
 }

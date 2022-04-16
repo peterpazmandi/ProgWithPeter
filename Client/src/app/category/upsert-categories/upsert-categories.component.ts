@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Category } from 'src/app/_models/category.model';
-import { CategoryService } from 'src/app/_services/category.service';
 
 @Component({
   selector: 'app-upsert-categories',
@@ -12,17 +11,17 @@ export class UpsertCategoriesComponent implements OnInit {
   filterForm: FormGroup;
   pageNumber = 1;
   pageSize = 20;
-  categories: Category[] = [];
+  upsertCategory = false;
+  lastSelectedCategory: Category;
 
   constructor(
-    private fb: FormBuilder,
-    private categoryService: CategoryService) { }
+    private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.initializeForm();
+    this.initializeFilterForm();
   }
 
-  private initializeForm() {
+  private initializeFilterForm() {
     this.filterForm = this.fb.group({
       name: ['']
     })
@@ -32,16 +31,15 @@ export class UpsertCategoriesComponent implements OnInit {
     
   }
 
-  getChildCategories(category: Category ) {
-    this.categoryService.getCategoriesByParentCategoryId(category.id).subscribe(response => {
-      if(category.childCategories === undefined) {
-        category.childCategories = [];
-      }
-      category.childCategories = category.childCategories.filter(c => c.id === -1);
+  setLastSelectedCategory(category: Category) {
+    this.lastSelectedCategory = category;
+  }
 
-      category.childCategories.push(...response);
-    }, error => {
-      console.log(error);
-    })
+  onCreateCategory() {
+    this.upsertCategory = true;
+  }
+
+  cancelUpsertWindow() {
+    this.upsertCategory = false;
   }
 }

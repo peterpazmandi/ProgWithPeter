@@ -18,18 +18,18 @@ export class CategorySelectorComponent implements ControlValueAccessor, OnInit {
     @Self() public ngControl: NgControl,
     private categoryService: CategoryService) { 
       this.ngControl.valueAccessor = this;
-
-      var sub = this.ngControl.valueChanges?.subscribe((category : TreeviewItem) => {
-        if(category.value) {
-          this.selectedCategory.push(category);
-        }
-        this.getChildCategories(category.value as number);
-        sub?.unsubscribe();
-      })
   }
 
   ngOnInit(): void {
     this.getChildCategories(null as any);
+
+    var sub = this.ngControl.valueChanges?.subscribe((category : TreeviewItem) => {
+      if(category.value) {
+        this.selectedCategory.push(category);
+      }
+      this.getChildCategories(category.value as number);
+      sub?.unsubscribe();
+    })
   }  
 
   writeValue(obj: any): void { }
