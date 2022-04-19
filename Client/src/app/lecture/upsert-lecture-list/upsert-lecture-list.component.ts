@@ -58,6 +58,7 @@ export class UpsertLectureListComponent implements OnInit {
   }
 
   filter() {
+    console.log(this.filterForm);
     this.lectureService.findLectures(this.createFindLectureDto()).subscribe(response => {
       this.lectures = this.lectures.filter(l => l.id === -1);
       this.lectures.push(...response.result);

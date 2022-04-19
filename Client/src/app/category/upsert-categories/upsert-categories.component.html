@@ -20,7 +20,10 @@
         <div class="col-9 innerdiv">
             <div class="row">
                 <div class="column">
-                    <category-browser (lastSelectedCategory)="setLastSelectedCategory($event)"></category-browser>
+                    <category-browser
+                        (lastSelectedCategory)="setLastSelectedCategory($event)"
+                        (editCategory)="onEditCategory($event)">
+                    </category-browser>
                     <div class="mt-5 text-center">
                         <button 
                             class="btn btn-white shadow w-50"
@@ -32,7 +35,13 @@
                     </div>
                 </div>
                 <div class="column border-start border-5">
-                    <upsert-category *ngIf="upsertCategory" [parentCategory]="lastSelectedCategory" (cancel)="cancelUpsertWindow()"></upsert-category>
+                    <upsert-category 
+                        *ngIf="upsertCategory" 
+                        [parentCategory]="lastSelectedCategory"
+                        [editCategory]="editCategory"
+                        [operationType]="operationType"
+                        (cancel)="cancelUpsertWindow()">
+                    </upsert-category>
                 </div>
             </div>
         </div>

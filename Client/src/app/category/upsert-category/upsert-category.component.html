@@ -1,5 +1,5 @@
-<h3 *ngIf="category === undefined">Create Category</h3>
-<h3 *ngIf="category !== undefined">Update Category</h3>
+<h3 *ngIf="isCreationOperation(operationType)">Create Category</h3>
+<h3 *ngIf="isUpdateOperation(operationType)">Update Category</h3>
 <hr class="dropdown-divider mb-3">
 <form [formGroup]='upsertCategoryForm' autocomplete="off">
     <!-- Name -->
@@ -12,7 +12,7 @@
 
     <div class="text-center">
         <button class="btn btn-outline-warning w-25 me-5" type="button" (click)="cancelWindow()">Cancel</button>
-        <button *ngIf="category === undefined" class="btn btn-primary w-25" (click)="upsertCategory()">Create</button>
-        <button *ngIf="category !== undefined" class="btn btn-primary w-25" (click)="upsertCategory()">Update</button>
+        <button *ngIf="isCreationOperation(operationType)" class="btn btn-primary w-25" (click)="upsertCategory()">Create</button>
+        <button *ngIf="isUpdateOperation(operationType)" class="btn btn-primary w-25" (click)="upsertCategory()">Update</button>
     </div>
 </form>

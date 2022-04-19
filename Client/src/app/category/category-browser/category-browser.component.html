@@ -24,7 +24,8 @@
         <tr *ngFor="let category of levelCategories"
             category-browser-list-item
             [item]="category"
-            (categorySelected)="onCategorySelected($event)">
+            (categorySelected)="onCategorySelected($event)"
+            (editCategory)="onCategorySelectedToEdit($event)">
         </tr>
     </tbody>
 </table>

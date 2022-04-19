@@ -11,6 +11,7 @@ export class CategoryBrowserComponent implements OnInit {
   selectedCategories: Category[] = [];
   levelCategories: Category[] = [];
   @Output() lastSelectedCategory: EventEmitter<Category | null> = new EventEmitter<Category | null>();
+  @Output() editCategory: EventEmitter<Category> = new EventEmitter<Category>();
 
   constructor(private categoryService: CategoryService) { }
 
@@ -28,6 +29,10 @@ export class CategoryBrowserComponent implements OnInit {
 
     this.selectedCategories.push(category);
     this.emitLastSelectedCategory();
+  }
+
+  onCategorySelectedToEdit(category: Category) {
+    this.editCategory.emit(category);
   }
 
   onRemoveFromSelectedCategories(category: Category) {

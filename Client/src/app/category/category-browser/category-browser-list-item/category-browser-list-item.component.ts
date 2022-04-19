@@ -8,8 +8,8 @@ import { Category } from 'src/app/_models/category.model';
 })
 export class CategoryBrowserListItemComponent implements OnInit {
   @Input() item: Category;
-  @Output() categorySelected: EventEmitter<Category> = new EventEmitter<Category>();
-  @Output() editCategory: EventEmitter<Category> = new EventEmitter<Category>();
+  @Output() categorySelected: EventEmitter<Category | null> = new EventEmitter<Category | null>();
+  @Output() editCategory: EventEmitter<Category | null> = new EventEmitter<Category | null>();
   @Output() deleteCategory: EventEmitter<Category> = new EventEmitter<Category>();
 
   constructor() { }
@@ -19,5 +19,9 @@ export class CategoryBrowserListItemComponent implements OnInit {
 
   onCategorySelected(category: Category) {
     this.categorySelected.emit(category);
+  }
+
+  onEditCategory(category: Category) {
+    this.editCategory.emit(category);
   }
 }

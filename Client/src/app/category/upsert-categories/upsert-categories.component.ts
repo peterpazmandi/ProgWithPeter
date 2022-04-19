@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Category } from 'src/app/_models/category.model';
+import { OperationType } from '../upsert-category/upsert-category.component';
 
 @Component({
   selector: 'app-upsert-categories',
@@ -12,7 +13,9 @@ export class UpsertCategoriesComponent implements OnInit {
   pageNumber = 1;
   pageSize = 20;
   upsertCategory = false;
-  lastSelectedCategory: Category;
+  lastSelectedCategory: Category | null;
+  editCategory: Category | null;
+  operationType: OperationType;
 
   constructor(
     private fb: FormBuilder) { }
@@ -35,7 +38,14 @@ export class UpsertCategoriesComponent implements OnInit {
     this.lastSelectedCategory = category;
   }
 
+  onEditCategory(category: Category) {
+    this.operationType = OperationType.UPDATE;
+    this.editCategory = category;
+    this.upsertCategory = true;
+  }
+
   onCreateCategory() {
+    this.operationType = OperationType.CREATE;
     this.upsertCategory = true;
   }
 
