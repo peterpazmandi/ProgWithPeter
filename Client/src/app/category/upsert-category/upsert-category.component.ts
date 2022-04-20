@@ -1,7 +1,9 @@
 import { AfterContentChecked, AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { TreeItem, TreeviewItem } from 'ngx-treeview';
 import { Category } from 'src/app/_models/category.model';
+import { CategoryService } from 'src/app/_services/category.service';
 
 @Component({
   selector: 'upsert-category',
@@ -18,7 +20,9 @@ export class UpsertCategoryComponent implements OnInit, AfterViewInit  {
   @Output() cancel: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private categoryService: CategoryService,
+    private toastr: ToastrService
   ) { }
   ngAfterViewInit(): void {
     if(this.operationType === OperationType.CREATE && this.parentCategory !== undefined && this.parentCategory !== null) {
@@ -55,19 +59,23 @@ export class UpsertCategoryComponent implements OnInit, AfterViewInit  {
       name: [''],
       parentCategory: ['']
     });
-    this.upsertCategoryForm.patchValue({
-      name: this.editCategory.name,
-      parentCategory: new TreeviewItem({
-        text: "",
-        value: null
-      } as TreeItem)
+
+    this.upsertCategoryForm.valueChanges.subscribe(value => {
+      if(value) {
+        this.parentCategory = {
+          id: value.parentCategory.value,
+          name: value.parentCategory.text,
+        } as Category;
+      }
     })
   }
 
   upsertCategory() {
-    console.log(this.parentCategory);
-    console.log(this.editCategory);
-    console.log(this.upsertCategoryForm.value);
+    this.categoryService.upsertCategory(this.createCategoryFromForm()).subscribe((response: any) => {
+      this.toastr.success(response.message);
+    }, error => {
+      console.log(error)
+    });
   }
 
   cancelWindow() {
@@ -79,6 +87,22 @@ export class UpsertCategoryComponent implements OnInit, AfterViewInit  {
   }
   isUpdateOperation(operationType: OperationType)  {
     return operationType === OperationType.UPDATE;
+  }
+
+  private createCategoryFromForm() {
+    let category = {
+      name: this.upsertCategoryForm.value['name'] as string,
+      parentCategoryId: this.parentCategory.id
+    } as Category;
+    
+    if(this.operationType === OperationType.UPDATE) {
+      category.id = this.editCategory.id;
+    }
+
+    console.log(category);
+    console.log(this.parentCategory);
+
+    return category;
   }
 }
 

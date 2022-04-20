@@ -1,7 +1,7 @@
+import { Nullable } from "./post.model";
+
 export interface Category {    
-    id: number;
+    id: Nullable<number>;
     name: string;
     parentCategoryId: number
-
-    childCategories: Category[];
 }

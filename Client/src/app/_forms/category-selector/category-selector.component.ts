@@ -54,7 +54,6 @@ export class CategorySelectorComponent implements ControlValueAccessor, OnInit {
     this.selectedCategory.push(selectedItem);
     this.ngControl?.control?.setValue(selectedItem);
     this.ngControl?.control?.markAsDirty();
-    console.log(this.ngControl?.control);
     this.getChildCategories(selectedItem.value);
   }
 
@@ -64,7 +63,6 @@ export class CategorySelectorComponent implements ControlValueAccessor, OnInit {
       text: "",
       value: null
     } as TreeItem));
-    console.log(this.ngControl?.control);
     this.ngControl?.control?.markAsDirty();
     this.getChildCategories(null as any);
   }

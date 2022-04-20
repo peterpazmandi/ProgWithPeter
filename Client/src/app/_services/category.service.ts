@@ -12,6 +12,10 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
+  upsertCategory(category: Category) {
+    return this.http.post(this.baseUrl + 'Categories/UpsertCategory', category);
+  }
+
   getCategoriesByParentCategoryId(id: any): Observable<Category[]> {
     return this.http.get(this.baseUrl + 'Categories/GetCategoriesByParentCategoryId' + ((id === null) ? '' : `?parentCategoryId=${id}`)) as Observable<Category[]>;
   }
