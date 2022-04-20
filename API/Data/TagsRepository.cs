@@ -32,6 +32,11 @@ namespace API.Data
             return await PagedList<TagDto>.CreateAsync(query, tagParams.PageNumber, tagParams.PageSize);
         }
 
+        public async Task AddTag(Tag tag)
+        {
+            await _context.Tags.AddAsync(tag);
+        }
+
         public async Task<int> AddTags(IEnumerable<Tag> tags)
         {
             int inserted = 0;
@@ -57,6 +62,13 @@ namespace API.Data
         {
             return await _context.Tags
                 .Where(t => t.Id == id)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<Tag> GetTagByNameAsync(string tagName)
+        {
+            return await _context.Tags
+                .Where(t => t.Name.ToLower().Equals(tagName.ToLower()))
                 .FirstOrDefaultAsync();
         }
 

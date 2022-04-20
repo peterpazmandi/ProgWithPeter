@@ -14,8 +14,10 @@ namespace API.Interfaces
 
         Task<IEnumerable<Tag>> SearchTags(string searchText);
 
+        Task AddTag(Tag tag);
         Task<int> AddTags(IEnumerable<Tag> tags);
 
         Task<Tag> GetTagByIdAsync(int id);
+        Task<Tag> GetTagByNameAsync(string tagName);
     }
 }

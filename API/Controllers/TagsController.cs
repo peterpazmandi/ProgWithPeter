@@ -8,6 +8,7 @@ using API.Entities;
 using API.Extensions;
 using API.Helpers;
 using API.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,12 +17,14 @@ namespace API.Controllers
     public class TagsController: BaseApiController
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public TagsController(IUnitOfWork unitOfWork)
+        public TagsController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
-        
+
         [Authorize(Roles = "Admin, Moderator")]
         [HttpGet("GetAllTags")]
         public async Task<ActionResult<IEnumerable<TagDto>>> GetAllTags([FromQuery] TagParams tagsParams)
@@ -71,6 +74,53 @@ namespace API.Controllers
             }
 
             return BadRequest("Faild to add tags!");
+        }
+
+        [Authorize(Roles = "Admin, Moderator")]
+        [HttpPost("UpsertTag")]
+        public async Task<ActionResult> UpsertTag(TagDto tagDto)
+        {
+            if(string.IsNullOrEmpty(tagDto.Name))
+            {
+                return BadRequest("Tag name can't be empty!");
+            }
+
+            if(await _unitOfWork.TagsRepository.GetTagByNameAsync(tagDto.Name) != null)
+            {
+                return BadRequest("This tag name already exists!");
+            }
+
+            Tag tag = null;
+            if(tagDto.Id == 0)
+            {
+                tag = _mapper.Map<Tag>(tagDto);
+                await _unitOfWork.TagsRepository.AddTag(tag);
+            }
+            else
+            {
+                tag = await _unitOfWork.TagsRepository.GetTagByIdAsync(tagDto.Id);
+                tag.Name = tagDto.Name;
+            }
+
+            if(await _unitOfWork.Complete())
+            {
+                // Creation
+                if(tagDto.Id == 0)
+                {
+                    return Ok(new {
+                        tag = tag,
+                        message = "Tag has been created successfully!"
+                    });
+                }
+
+                // Update
+                return Ok(new {
+                    tag = tag,
+                    message = "Tag has been updated successfully!"
+                });
+            }
+
+            return BadRequest("Operation failed!");
         }
     }
 }
