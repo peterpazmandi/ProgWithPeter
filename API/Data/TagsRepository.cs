@@ -2,8 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.DTOs;
 using API.Entities;
+using API.Helpers;
 using API.Interfaces;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
@@ -11,10 +15,21 @@ namespace API.Data
     public class TagsRepository : ITagsRepository
     {
         private readonly DataContext _context;
+        private readonly IMapper _mapper;
 
-        public TagsRepository(DataContext context)
+        public TagsRepository(DataContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
+        }
+
+        public async Task<PagedList<TagDto>> GetAllTags(TagParams tagParams)
+        {
+            var query = _context.Tags
+                .ProjectTo<TagDto>(_mapper.ConfigurationProvider)
+                .OrderBy(t => t.Name);
+
+            return await PagedList<TagDto>.CreateAsync(query, tagParams.PageNumber, tagParams.PageSize);
         }
 
         public async Task<int> AddTags(IEnumerable<Tag> tags)

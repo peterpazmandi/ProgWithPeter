@@ -3,8 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.DTOs;
 using API.Entities;
+using API.Extensions;
+using API.Helpers;
 using API.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -16,6 +20,22 @@ namespace API.Controllers
         public TagsController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
+        }
+        
+        [Authorize(Roles = "Admin, Moderator")]
+        [HttpGet("GetAllTags")]
+        public async Task<ActionResult<IEnumerable<TagDto>>> GetAllTags([FromQuery] TagParams tagsParams)
+        {
+            PagedList<TagDto> tags = await _unitOfWork.TagsRepository.GetAllTags(tagsParams);
+
+            Response.AddPaginationHeader(
+                tags.CurrentPage,
+                tags.PageSize,
+                tags.TotalCount,
+                tags.TotalPages
+            );
+
+            return tags;
         }
 
         [HttpGet("SearchTags")]
