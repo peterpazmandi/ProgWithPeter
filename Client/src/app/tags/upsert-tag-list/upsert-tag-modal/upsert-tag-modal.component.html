@@ -1,0 +1,40 @@
+<div app-theme class="modaldiv rounded">
+    <div class="modal-header">
+        <div>
+            <h4 *ngIf="isCreationOperation()" class="modal-title pull-left">Create New Tag</h4>
+            <h4 *ngIf="isUpdateOperation()" class="modal-title pull-left">Update Tag</h4>
+        </div>
+        <img
+            class="me-1" style="cursor: pointer;"
+            (click)="bsModalRef.hide()"
+            src="assets/svg/ic_close.svg" 
+            alt="Programming with Peter">
+    </div>
+    <div class="modal-body">
+        <form 
+            [formGroup]='upsertTagForm' 
+            (ngSubmit)="upsertTagForm.valid && upsertTag()"
+            autocomplete="off">
+            <app-text-input 
+                [formControl]='upsertTagForm.controls["name"]' 
+                [label]='"Tag name"'>
+            </app-text-input>
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <button
+                    *ngIf="isCreationOperation()"
+                    class="btn btn-primary" 
+                    [disabled]='!upsertTagForm.valid'
+                    type="submit">
+                    Create Tag
+                </button>
+                <button
+                    *ngIf="isUpdateOperation()"
+                    class="btn btn-primary" 
+                    [disabled]='!upsertTagForm.valid'
+                    type="submit">
+                    Update Tag
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

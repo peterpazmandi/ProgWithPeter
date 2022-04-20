@@ -1,0 +1,50 @@
+<div class="container pt-5">
+    <div class="row">
+        <div class="col-3 menu">
+            <h3 class="fw-bold">Tag's list</h3>
+            <hr class="dropdown-divider">
+            <button 
+                class="btn btn-white shadow" 
+                id="createNewBtn"
+                (click)="onOpenAddTagModal()" >
+                <img src="assets/svg/ic_pen_filled.svg">
+                <span class="ms-3" style="font-weight: bolder;">Create New</span>
+            </button>
+            <hr class="dropdown-divider">
+            <h4>Filter</h4>
+            <div class="innerdiv">
+                <form [formGroup]='filterForm' (ngSubmit)="filter()" autocomplete="off">
+                    <!-- Name -->
+                    <span class="fw-bold">Name</span>
+                    <input type="text" class="form-control mb-2" [formControl]='filterForm.controls["name"]'>
+                    <hr class="bg-secondary mt-4 mb-4">
+    
+                    <div class="d-grid col-7 align-right">
+                        <button class="btn btn-primary" type="submit">Apply Filters</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-9 innerdiv">            
+            <div class="text-center" *ngIf="tags.length === 0">
+                <span class="fw-bold">No tags found</span>
+            </div>
+            <table *ngIf="tags.length > 0" class="table innerdiv">
+                <thead>
+                    <tr>
+                        <th class="w-75">Name</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let tag of tags"
+                        upsert-tag-list-item
+                        [item]="tag"
+                        (updatedTag)="onTagUpdated($event)" >
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

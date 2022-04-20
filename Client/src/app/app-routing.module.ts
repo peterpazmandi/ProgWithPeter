@@ -10,6 +10,7 @@ import { UpsertCourseListComponent } from "./course/upsert-course-list/upsert-co
 import { CourseComponent } from "./course/course/course.component";
 import { UpsertLectureListComponent } from "./lecture/upsert-lecture-list/upsert-lecture-list.component";
 import { UpsertCategoriesComponent } from "./category/upsert-categories/upsert-categories.component";
+import { UpsertTagListComponent } from "./tags/upsert-tag-list/upsert-tag-list.component";
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -23,6 +24,7 @@ const routes: Routes = [
             { path: 'course-list', component: UpsertCourseListComponent},
             { path: 'lecture-list', component: UpsertLectureListComponent},
             { path: 'category-list', component: UpsertCategoriesComponent},
+            { path: 'tag-list', component: UpsertTagListComponent},
         ]
     },
     {

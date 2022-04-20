@@ -67,6 +67,9 @@ import { UpsertCategoriesComponent } from './category/upsert-categories/upsert-c
 import { CategoryBrowserComponent } from './category/category-browser/category-browser.component';
 import { CategoryBrowserListItemComponent } from './category/category-browser/category-browser-list-item/category-browser-list-item.component';
 import { UpsertCategoryComponent } from './category/upsert-category/upsert-category.component';
+import { UpsertTagListComponent } from './tags/upsert-tag-list/upsert-tag-list.component';
+import { UpsertTagListItemComponent } from './tags/upsert-tag-list/upsert-tag-list-item/upsert-tag-list-item.component';
+import { UpsertTagModalComponent } from './tags/upsert-tag-list/upsert-tag-modal/upsert-tag-modal.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -118,7 +121,10 @@ export function tokenGetter() {
     UpsertCategoriesComponent,
     CategoryBrowserComponent,
     CategoryBrowserListItemComponent,
-    UpsertCategoryComponent
+    UpsertCategoryComponent,
+    UpsertTagListComponent,
+    UpsertTagListItemComponent,
+    UpsertTagModalComponent
   ],
   imports: [
     BrowserModule,
