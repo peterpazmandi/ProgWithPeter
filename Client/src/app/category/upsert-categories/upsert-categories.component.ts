@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Category } from 'src/app/_models/category.model';
-import { OperationType } from '../upsert-category/upsert-category.component';
+import { OperationType } from "../../_utils/operation-type.enum";
 
 @Component({
   selector: 'app-upsert-categories',

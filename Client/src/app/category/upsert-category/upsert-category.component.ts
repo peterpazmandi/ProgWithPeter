@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { TreeItem, TreeviewItem } from 'ngx-treeview';
 import { Category } from 'src/app/_models/category.model';
 import { CategoryService } from 'src/app/_services/category.service';
+import { OperationType } from '../../_utils/operation-type.enum';
 
 @Component({
   selector: 'upsert-category',
@@ -99,14 +100,8 @@ export class UpsertCategoryComponent implements OnInit, AfterViewInit  {
       category.id = this.editCategory.id;
     }
 
-    console.log(category);
-    console.log(this.parentCategory);
-
     return category;
   }
 }
 
-export enum OperationType {
-  CREATE = 'CREATE',
-  UPDATE = 'UPDATE'
-}
+
