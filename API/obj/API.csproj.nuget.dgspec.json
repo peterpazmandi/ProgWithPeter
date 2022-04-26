@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Pazmandi Peter\\Desktop\\Trash\\Angular\\ProgWithPeter\\API\\API.csproj": {}
+    "C:\\Users\\Pazmandi Peter\\Desktop\\Trash\\Angular\\ProgWithPeter\\api\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Pazmandi Peter\\Desktop\\Trash\\Angular\\ProgWithPeter\\API\\API.csproj": {
+    "C:\\Users\\Pazmandi Peter\\Desktop\\Trash\\Angular\\ProgWithPeter\\api\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Pazmandi Peter\\Desktop\\Trash\\Angular\\ProgWithPeter\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\Pazmandi Peter\\Desktop\\Trash\\Angular\\ProgWithPeter\\api\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\Pazmandi Peter\\Desktop\\Trash\\Angular\\ProgWithPeter\\API\\API.csproj",
+        "projectPath": "C:\\Users\\Pazmandi Peter\\Desktop\\Trash\\Angular\\ProgWithPeter\\api\\API.csproj",
         "packagesPath": "C:\\Users\\Pazmandi Peter\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Pazmandi Peter\\Desktop\\Trash\\Angular\\ProgWithPeter\\API\\obj\\",
+        "outputPath": "C:\\Users\\Pazmandi Peter\\Desktop\\Trash\\Angular\\ProgWithPeter\\api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -80,6 +80,10 @@
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
               "version": "[6.12.2, )"
+            },
+            "stripe.net": {
+              "target": "Package",
+              "version": "[39.107.0, )"
             }
           },
           "imports": [
