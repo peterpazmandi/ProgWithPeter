@@ -70,6 +70,7 @@ import { UpsertCategoryComponent } from './category/upsert-category/upsert-categ
 import { UpsertTagListComponent } from './tags/upsert-tag-list/upsert-tag-list.component';
 import { UpsertTagListItemComponent } from './tags/upsert-tag-list/upsert-tag-list-item/upsert-tag-list-item.component';
 import { UpsertTagModalComponent } from './tags/upsert-tag-list/upsert-tag-modal/upsert-tag-modal.component';
+import { PricingComponent } from './pricing/pricing/pricing.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -124,7 +125,8 @@ export function tokenGetter() {
     UpsertCategoryComponent,
     UpsertTagListComponent,
     UpsertTagListItemComponent,
-    UpsertTagModalComponent
+    UpsertTagModalComponent,
+    PricingComponent
   ],
   imports: [
     BrowserModule,

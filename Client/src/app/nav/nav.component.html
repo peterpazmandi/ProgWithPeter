@@ -41,6 +41,17 @@
                 Courses
             </a>
           </li>
+          <li class="nav-item" [routerLink]="['/pricing']">          
+            <a
+                class="nav-link navbar-link" 
+                role="button">
+                <img
+                    class="me-1" 
+                    src="assets/svg/ic_pricing.svg" 
+                    alt="Programming with Peter">
+                Pricing
+            </a>
+          </li>
           <li *appHasRole='["Admmin", "Moderator"]' class="dropdown">          
             <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <img class="me-1" src="assets/svg/ic_content_management.svg" alt="Programming with Peter">
