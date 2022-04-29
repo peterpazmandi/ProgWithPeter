@@ -1,1 +1,12 @@
-<p>pricing works!</p>
+<div class="container">  
+    <h3 class="text-center fw-bold pt-5">Select your plan below</h3>
+    <ng-toggle
+        [(ngModel)]="subscriptionPeriod"
+        [value]="true"
+        [color]="{
+            unchecked: '#1976D2',
+            checked: '#1976D2'
+        }"
+        (change)="onChangePeriod()" >
+    </ng-toggle>
+</div>

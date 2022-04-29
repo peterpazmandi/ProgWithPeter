@@ -71,6 +71,7 @@ import { UpsertTagListComponent } from './tags/upsert-tag-list/upsert-tag-list.c
 import { UpsertTagListItemComponent } from './tags/upsert-tag-list/upsert-tag-list-item/upsert-tag-list-item.component';
 import { UpsertTagModalComponent } from './tags/upsert-tag-list/upsert-tag-modal/upsert-tag-modal.component';
 import { PricingComponent } from './pricing/pricing/pricing.component';
+import { NgToggleModule } from 'ng-toggle-button';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -162,7 +163,8 @@ export function tokenGetter() {
       outerStrokeWidth: 16,
       outerStrokeColor: "#78C000",
       animationDuration: 300
-    })
+    }),
+    NgToggleModule.forRoot()
   ],
   exports: [
     FileUploadModule

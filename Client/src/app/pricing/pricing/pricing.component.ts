@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pricing.component.css']
 })
 export class PricingComponent implements OnInit {
-
+  subscriptionPeriod: boolean = false;
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  onChangePeriod() {
+    console.log(this.subscriptionPeriod);
+  }
 }
