@@ -10,7 +10,12 @@ export const environment = {
   apiUrl: 'https://localhost:5001/api/',
   serverUrl: 'https://localhost:5001/',
   
-  iFramelyApiKey: 'd6f7a19a09f00da6a9e90a'
+  iFramelyApiKey: 'd6f7a19a09f00da6a9e90a',
+
+  membershipBeginnerMonthlyPriceId: 'price_1KtmOyGHxfurHbhyQUTEYe0L',
+  membershipBeginnerYearlyPriceId: 'price_1KtmOyGHxfurHbhyF4cUCfyk',
+  membershipProfessionalMonthlyPriceId: 'price_1KtmWHGHxfurHbhy5hE0XJyc',
+  membershipProfessionalYearlyPriceId: 'price_1KtmWHGHxfurHbhyLPE86ifa',
 };
 
 /*

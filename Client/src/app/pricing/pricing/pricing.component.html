@@ -38,9 +38,12 @@
                     <span>Download all <span class="fw-bold">tutorials'</span> source code</span>
                 </div>
                 <div style="margin-top: auto;">
+                    <hr class="dropdown-divider mt-5 mb-5">
                     <sup class="currency">$</sup>
-                    <span class="price mt-5 mb-5">9.9</span>
-                    <span class="time-period">/mo</span>
+                    <span *ngIf="!subscriptionPeriod" class="price mt-5 mb-5">{{membershipPlans[0].price}}</span>
+                    <span *ngIf="subscriptionPeriod" class="price mt-5 mb-5">{{membershipPlans[1].price}}</span>
+                    <span *ngIf="!subscriptionPeriod" class="time-period">/month</span>
+                    <span *ngIf="subscriptionPeriod" class="time-period">/year</span>
                     <br />
                     <button class="btn btn-white w-50 shadow p-4"
                         id="createNewBtn" >
@@ -80,9 +83,12 @@
                     <span>Download all <span class="fw-bold">courses'</span> source code</span>
                 </div>
                 <div>
+                    <hr class="dropdown-divider mt-5 mb-5">
                     <sup class="currency">$</sup>
-                    <span class="price mt-5 mb-5">9.9</span>
-                    <span class="time-period">/mo</span>
+                    <span *ngIf="!subscriptionPeriod" class="price mt-5 mb-5">{{membershipPlans[2].price}}</span>
+                    <span *ngIf="subscriptionPeriod" class="price mt-5 mb-5">{{membershipPlans[3].price}}</span>
+                    <span *ngIf="!subscriptionPeriod" class="time-period">/month</span>
+                    <span *ngIf="subscriptionPeriod" class="time-period">/year</span>
                     <br />
                     <button class="btn btn-white w-50 shadow p-4"
                         id="createNewBtn" >
