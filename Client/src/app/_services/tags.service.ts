@@ -2,15 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Tag } from '../_models/tag.model';
+import { BaseService } from './base.service';
 import { getPaginatedResult, getPaginationHeaders } from './pagination.helper';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TagsService {
-  private baseUrl = environment.apiUrl;
-
-  constructor(private http: HttpClient) { }
+export class TagsService extends BaseService {
 
   getAllTags(pageNumber: number, pageSize: number) {
     let params  =getPaginationHeaders(pageNumber, pageSize);

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MembershipDto } from 'src/app/_models/membershipDto.model';
 import { PricingService } from 'src/app/_services/pricing.service';
-import { MemberShipPlan } from '../model/memberShipPlan.model';
 
 @Component({
   selector: 'app-pricing',
@@ -9,13 +9,17 @@ import { MemberShipPlan } from '../model/memberShipPlan.model';
 })
 export class PricingComponent implements OnInit {
   subscriptionPeriod: boolean = false;
-  membershipPlans: MemberShipPlan[] = [];
+  memberships: MembershipDto[] = [];
 
   constructor(private pricingService: PricingService) {
-    this.membershipPlans = pricingService.getMemberships();
    }
 
   ngOnInit(): void {
+    this.pricingService.getMemberships().subscribe(response => {
+      this.memberships.push(...response as MembershipDto[]);
+    }, error => {
+      console.log(error);
+    })
   }
 
   onChangePeriod() {

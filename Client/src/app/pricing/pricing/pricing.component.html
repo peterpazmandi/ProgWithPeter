@@ -37,11 +37,11 @@
                         alt="Beginner Membership" >
                     <span>Download all <span class="fw-bold">tutorials'</span> source code</span>
                 </div>
-                <div style="margin-top: auto;">
+                <div *ngIf="memberships.length > 0" style="margin-top: auto;">
                     <hr class="dropdown-divider mt-5 mb-5">
                     <sup class="currency">$</sup>
-                    <span *ngIf="!subscriptionPeriod" class="price mt-5 mb-5">{{membershipPlans[0].price}}</span>
-                    <span *ngIf="subscriptionPeriod" class="price mt-5 mb-5">{{membershipPlans[1].price}}</span>
+                    <span *ngIf="!subscriptionPeriod" class="price mt-5 mb-5">{{memberships[1].prices[1].unitAmount/100}}</span>
+                    <span *ngIf="subscriptionPeriod" class="price mt-5 mb-5">{{memberships[1].prices[0].unitAmount/100}}</span>
                     <span *ngIf="!subscriptionPeriod" class="time-period">/month</span>
                     <span *ngIf="subscriptionPeriod" class="time-period">/year</span>
                     <br />
@@ -82,11 +82,11 @@
                         alt="Beginner Membership" >
                     <span>Download all <span class="fw-bold">courses'</span> source code</span>
                 </div>
-                <div>
+                <div *ngIf="memberships.length > 0">
                     <hr class="dropdown-divider mt-5 mb-5">
                     <sup class="currency">$</sup>
-                    <span *ngIf="!subscriptionPeriod" class="price mt-5 mb-5">{{membershipPlans[2].price}}</span>
-                    <span *ngIf="subscriptionPeriod" class="price mt-5 mb-5">{{membershipPlans[3].price}}</span>
+                    <span *ngIf="!subscriptionPeriod" class="price mt-5 mb-5">{{memberships[0].prices[0].unitAmount/100}}</span>
+                    <span *ngIf="subscriptionPeriod" class="price mt-5 mb-5">{{memberships[0].prices[1].unitAmount/100}}</span>
                     <span *ngIf="!subscriptionPeriod" class="time-period">/month</span>
                     <span *ngIf="subscriptionPeriod" class="time-period">/year</span>
                     <br />
