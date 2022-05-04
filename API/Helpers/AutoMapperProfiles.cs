@@ -3,6 +3,7 @@ using System.Linq;
 using API.DTOs;
 using API.Entities;
 using AutoMapper;
+using Stripe;
 
 namespace API.Helpers
 {
@@ -52,6 +53,11 @@ namespace API.Helpers
             CreateMap<Course, UpsertCourseListDto>().ReverseMap();
 
             CreateMap<CourseEnrollment, CourseEnrollmentDto>().ReverseMap();
+
+
+            CreateMap<Product, MembershipDto>().ReverseMap();
+            CreateMap<Price, PriceDto>().ReverseMap();
+            CreateMap<PriceRecurring, PriceRecurringDto>().ReverseMap();
         }
     }
 }

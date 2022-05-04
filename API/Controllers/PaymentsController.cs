@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using API.DTOs;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Stripe;
@@ -13,22 +14,42 @@ namespace API.Controllers
 {
     public class PaymentsController: BaseApiController
     {
-        public PaymentsController()
+        private readonly IMapper _mapper;
+        public PaymentsController(IMapper mapper)
         {
             StripeConfiguration.ApiKey = "sk_test_51GhfaYGHxfurHbhyTgs5osl2OMuYjnLLrcz6Po66vXgz5plVOqHOXO8xv7lCsJftCnJwfedRcwpkxWCBVDFsUiuE00SG4HuQI5";
+            _mapper = mapper;
         }
 
         [HttpGet("Products")]
         public async Task<ActionResult> Products()
         {
-            var options = new ProductListOptions
-            {
-                Limit = 3,
-            };
-            var service = new ProductService();
-            StripeList<Product> products = service.List(options);
+            return await Task.Run(() => {
+                ProductListOptions productListOptions = new ProductListOptions()
+                {
+                    Active = true
+                };
+                ProductService productService = new ProductService();
+                List<Product> products = productService.List(productListOptions).ToList();
 
-            return Ok(products);
+                List<MembershipDto> memberships = new List<MembershipDto>();
+                foreach(Product product in products)
+                {
+                    PriceListOptions priceListOptions = new PriceListOptions()
+                    {
+                        Product = product.Id
+                    };
+                    PriceService priceService = new PriceService();
+                    List<Price> prices = priceService.List(priceListOptions).ToList();
+                    
+                    MembershipDto membershipDto = _mapper.Map<MembershipDto>(product);
+                    membershipDto.Prices = _mapper.Map<List<PriceDto>>(prices);
+
+                    memberships.Add(membershipDto);
+                };
+
+                return Ok(memberships);
+            });
         }
 
         
