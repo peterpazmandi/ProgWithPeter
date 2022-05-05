@@ -349,6 +349,16 @@ img svg {
   display: inline-block;
 }
 
+.purple-chip { 
+  padding-left: 1em;
+  padding-right: 1em;
+  border-radius: 0.5em;  
+  background-color: #9668B0;
+  border-color: #9668B0 !important;
+  width: max-content;
+  display: inline-block;
+}
+
 input {
   border-radius: 3px !important;
 }

@@ -45,6 +45,8 @@
                     <span *ngIf="!subscriptionPeriod" class="time-period">/month</span>
                     <span *ngIf="subscriptionPeriod" class="time-period">/year</span>
                     <br />
+                    <span *ngIf="subscriptionPeriod" class="purple-chip">Save 33%</span>
+                    <br />
                     <button class="btn btn-white w-50 shadow p-4"
                         id="createNewBtn" >
                         <span class="ms-3 align-middle h4" style="font-weight: bolder;">Get Started</span>
@@ -90,7 +92,10 @@
                     <span *ngIf="!subscriptionPeriod" class="time-period">/month</span>
                     <span *ngIf="subscriptionPeriod" class="time-period">/year</span>
                     <br />
-                    <button class="btn btn-white w-50 shadow p-4"
+                    <span *ngIf="subscriptionPeriod" class="purple-chip">Save 33%</span>
+                    <br />
+                    <button
+                        class="btn btn-white w-50 shadow p-4"
                         id="createNewBtn" >
                         <span class="ms-3 align-middle h4" style="font-weight: bolder;">Get Started</span>
                     </button>
