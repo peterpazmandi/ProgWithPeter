@@ -350,13 +350,16 @@ img svg {
 }
 
 .purple-chip { 
-  padding-left: 1em;
-  padding-right: 1em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-left: 2em;
+  padding-right: 2em;
   border-radius: 0.5em;  
   background-color: #9668B0;
   border-color: #9668B0 !important;
   width: max-content;
   display: inline-block;
+  color: white;
 }
 
 input {
