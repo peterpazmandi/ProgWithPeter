@@ -72,6 +72,7 @@ import { UpsertTagListItemComponent } from './tags/upsert-tag-list/upsert-tag-li
 import { UpsertTagModalComponent } from './tags/upsert-tag-list/upsert-tag-modal/upsert-tag-modal.component';
 import { PricingComponent } from './pricing/pricing/pricing.component';
 import { NgToggleModule } from 'ng-toggle-button';
+import { CheckoutComponent } from './pricing/checkout/checkout.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -127,7 +128,8 @@ export function tokenGetter() {
     UpsertTagListComponent,
     UpsertTagListItemComponent,
     UpsertTagModalComponent,
-    PricingComponent
+    PricingComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,

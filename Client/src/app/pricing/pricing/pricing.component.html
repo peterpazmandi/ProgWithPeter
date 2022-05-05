@@ -47,9 +47,16 @@
                     <br />
                     <span *ngIf="subscriptionPeriod" class="purple-chip">Save 33%</span>
                     <br />
-                    <button class="btn btn-white w-50 shadow p-4"
+                    <button *ngIf="(accountService.currentUser$ | async)"
+                        class="btn btn-white w-50 shadow p-4"
                         id="createNewBtn" >
-                        <span class="ms-3 align-middle h4" style="font-weight: bolder;">Get Started</span>
+                        <span class="align-middle h4" style="font-weight: bolder;">Get Started</span>
+                    </button>
+                    <button *ngIf="!(accountService.currentUser$ | async)"
+                        class="btn btn-white w-50 shadow p-4"
+                        id="loginBtn"
+                        (click)="onOpenLoginModal()" >
+                        <span class="align-middle h4" style="font-weight: bolder;">Login</span>
                     </button>
                 </div>
             </div>
@@ -94,10 +101,16 @@
                     <br />
                     <span *ngIf="subscriptionPeriod" class="purple-chip">Save 33%</span>
                     <br />
-                    <button
+                    <button *ngIf="(accountService.currentUser$ | async)"
                         class="btn btn-white w-50 shadow p-4"
                         id="createNewBtn" >
-                        <span class="ms-3 align-middle h4" style="font-weight: bolder;">Get Started</span>
+                        <span class="align-middle h4" style="font-weight: bolder;">Get Started</span>
+                    </button>
+                    <button *ngIf="!(accountService.currentUser$ | async)"
+                        class="btn btn-white w-50 shadow p-4"
+                        id="loginBtn"
+                        (click)="onOpenLoginModal()" >
+                        <span class="align-middle h4" style="font-weight: bolder;">Login</span>
                     </button>
                 </div>
             </div>

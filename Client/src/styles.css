@@ -235,6 +235,16 @@ body .bs-datepicker-container .bs-datepicker-head {
   background-color: #1976D2;
 }
 
+#loginBtn {
+  background-color: green;
+  color: white;
+  margin-bottom: 24px;
+  width: 100%;
+}
+#loginBtn:hover {
+  background-color: rgb(1, 190, 1);
+}
+
 
 .align-right {
   margin-left: auto; 
