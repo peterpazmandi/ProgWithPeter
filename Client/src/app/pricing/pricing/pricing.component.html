@@ -40,8 +40,8 @@
                 <div *ngIf="memberships.length > 0" style="margin-top: auto;">
                     <hr class="dropdown-divider mt-5 mb-5">
                     <sup class="currency">$</sup>
-                    <span *ngIf="!subscriptionPeriod" class="price mt-5 mb-5">{{memberships[1].prices[1].unitAmount/100}}</span>
-                    <span *ngIf="subscriptionPeriod" class="price mt-5 mb-5">{{memberships[1].prices[0].unitAmount/100}}</span>
+                    <span *ngIf="!subscriptionPeriod" class="price mt-5 mb-5">{{memberships[0].prices[0].unitAmount/100}}</span>
+                    <span *ngIf="subscriptionPeriod" class="price mt-5 mb-5">{{memberships[0].prices[1].unitAmount/100}}</span>
                     <span *ngIf="!subscriptionPeriod" class="time-period">/month</span>
                     <span *ngIf="subscriptionPeriod" class="time-period">/year</span>
                     <br />
@@ -85,8 +85,8 @@
                 <div *ngIf="memberships.length > 0">
                     <hr class="dropdown-divider mt-5 mb-5">
                     <sup class="currency">$</sup>
-                    <span *ngIf="!subscriptionPeriod" class="price mt-5 mb-5">{{memberships[0].prices[0].unitAmount/100}}</span>
-                    <span *ngIf="subscriptionPeriod" class="price mt-5 mb-5">{{memberships[0].prices[1].unitAmount/100}}</span>
+                    <span *ngIf="!subscriptionPeriod" class="price mt-5 mb-5">{{memberships[1].prices[0].unitAmount/100}}</span>
+                    <span *ngIf="subscriptionPeriod" class="price mt-5 mb-5">{{memberships[1].prices[1].unitAmount/100}}</span>
                     <span *ngIf="!subscriptionPeriod" class="time-period">/month</span>
                     <span *ngIf="subscriptionPeriod" class="time-period">/year</span>
                     <br />

@@ -30,7 +30,7 @@ namespace API.Controllers
                     Active = true
                 };
                 ProductService productService = new ProductService();
-                List<Product> products = productService.List(productListOptions).ToList();
+                List<Product> products = productService.List(productListOptions).OrderBy(p => p.Name).ToList();
 
                 List<MembershipDto> memberships = new List<MembershipDto>();
                 foreach(Product product in products)
@@ -40,7 +40,7 @@ namespace API.Controllers
                         Product = product.Id
                     };
                     PriceService priceService = new PriceService();
-                    List<Price> prices = priceService.List(priceListOptions).ToList();
+                    List<Price> prices = priceService.List(priceListOptions).OrderBy(p => p.Recurring.Interval).ToList();
                     
                     MembershipDto membershipDto = _mapper.Map<MembershipDto>(product);
                     membershipDto.Prices = _mapper.Map<List<PriceDto>>(prices);
@@ -51,8 +51,6 @@ namespace API.Controllers
                 return Ok(memberships);
             });
         }
-
-        
 
         [HttpPost("create-checkout-session")]
         public async Task<IActionResult> CreateCheckoutSession([FromBody] CreateCheckoutSessionDto req)
