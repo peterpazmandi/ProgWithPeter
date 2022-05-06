@@ -489,6 +489,7 @@ thead {
 
 .beginner {
   background-color: #02CCBA;
+  color: white;
 }
 .beginner-border {
   border-color: #02CCBA;
@@ -497,6 +498,7 @@ thead {
 
 .professional {
   background-color: #1976D2;
+  color: white;
 }
 
 .rounded-4 {
@@ -521,4 +523,8 @@ thead {
 }
 .price {
   font-size: 3em;
+}
+
+.brt-6 {
+  border-radius: 6px 6px 0px 0px;
 }
