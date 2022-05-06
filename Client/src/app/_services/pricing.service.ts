@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { MembershipDto } from '../_models/membershipDto.model';
 import { BaseService } from './base.service';
 
@@ -8,6 +6,7 @@ import { BaseService } from './base.service';
   providedIn: 'root'
 })
 export class PricingService extends BaseService {
+  selectedMembership: MembershipDto;
 
   getMemberships() {
     return this.http.get(

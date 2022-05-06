@@ -12,6 +12,7 @@ import { UpsertLectureListComponent } from "./lecture/upsert-lecture-list/upsert
 import { UpsertCategoriesComponent } from "./category/upsert-categories/upsert-categories.component";
 import { UpsertTagListComponent } from "./tags/upsert-tag-list/upsert-tag-list.component";
 import { PricingComponent } from "./pricing/pricing/pricing.component";
+import { CheckoutComponent } from "./pricing/checkout/checkout.component";
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -67,6 +68,11 @@ const routes: Routes = [
     {
         path: 'pricing',
         component: PricingComponent
+    },
+    {
+        path: 'checkout',
+        canActivate: [AuthGuard],
+        component: CheckoutComponent
     },
     {
         path: '', 

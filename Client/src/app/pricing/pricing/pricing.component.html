@@ -103,7 +103,8 @@
                     <br />
                     <button *ngIf="(accountService.currentUser$ | async)"
                         class="btn btn-white w-50 shadow p-4"
-                        id="createNewBtn" >
+                        id="createNewBtn"
+                        (click)="onEnrollClicked(memberships[1])" >
                         <span class="align-middle h4" style="font-weight: bolder;">Get Started</span>
                     </button>
                     <button *ngIf="!(accountService.currentUser$ | async)"

@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { LoginComponent } from 'src/app/authentication/login/login.component';
 import { MembershipDto } from 'src/app/_models/membershipDto.model';
 import { User } from 'src/app/_models/user.model';
 import { AccountService } from 'src/app/_services/account.service';
 import { PricingService } from 'src/app/_services/pricing.service';
+import { PriceRecurringInterval } from 'src/app/_utils/priceRecurringInterval.enum';
 
 @Component({
   selector: 'app-pricing',
@@ -20,7 +22,8 @@ export class PricingComponent implements OnInit {
   constructor(
     private modalService: BsModalService,
     public accountService: AccountService,
-    private pricingService: PricingService) {
+    private pricingService: PricingService,
+    private router: Router) {
    }
 
   ngOnInit(): void {
@@ -41,5 +44,15 @@ export class PricingComponent implements OnInit {
     }
 
     this.bsModalRef = this.modalService.show(LoginComponent, config);
+  }
+
+  onEnrollClicked(selectedMembership: MembershipDto) {
+    if(this.subscriptionPeriod) {
+      selectedMembership.prices = selectedMembership.prices.filter(p => p.recurring.interval.toLowerCase() === PriceRecurringInterval.YEAR.toLowerCase())
+    } else {
+      selectedMembership.prices = selectedMembership.prices.filter(p => p.recurring.interval.toLowerCase() === PriceRecurringInterval.MONTH.toLowerCase())
+    };
+    this.pricingService.selectedMembership = selectedMembership;
+    this.router.navigateByUrl('/checkout');
   }
 }
