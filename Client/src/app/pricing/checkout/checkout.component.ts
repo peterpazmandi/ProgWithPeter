@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { PricingService } from 'src/app/_services/pricing.service';
 import { MembershipTypes } from 'src/app/_utils/membershipTypes.enum';
 
@@ -10,12 +12,19 @@ import { MembershipTypes } from 'src/app/_utils/membershipTypes.enum';
 export class CheckoutComponent implements OnInit {
   membershipTypes: typeof MembershipTypes
 
-  constructor(public pricingService: PricingService) {
+  constructor(
+    public pricingService: PricingService,
+    private toastr: ToastrService,
+    private router: Router) {
     this.membershipTypes = MembershipTypes;
    }
 
   ngOnInit(): void {
-    console.log(this.pricingService.selectedMembership);
+    if(this.pricingService.selectedMembership === undefined) {
+      this.router.navigateByUrl('/pricing');
+      this.toastr.warning('First select a membership');
+
+    }
 
     this.scrollToTop();
   }
