@@ -73,6 +73,8 @@ import { UpsertTagModalComponent } from './tags/upsert-tag-list/upsert-tag-modal
 import { PricingComponent } from './pricing/pricing/pricing.component';
 import { NgToggleModule } from 'ng-toggle-button';
 import { CheckoutComponent } from './pricing/checkout/checkout.component';
+import { PaymentSuccessComponent } from './pricing/payment-success/payment-success.component';
+import { PaymentFailedComponent } from './pricing/payment-failed/payment-failed.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -129,7 +131,9 @@ export function tokenGetter() {
     UpsertTagListItemComponent,
     UpsertTagModalComponent,
     PricingComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    PaymentSuccessComponent,
+    PaymentFailedComponent
   ],
   imports: [
     BrowserModule,
