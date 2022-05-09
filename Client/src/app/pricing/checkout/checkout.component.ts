@@ -29,8 +29,11 @@ export class CheckoutComponent implements OnInit {
     this.scrollToTop();
   }
 
-
   private scrollToTop() {
     window.scrollTo(0, 0);
+  }
+
+  onCheckoutClicked() {
+    this.pricingService.requestMemberSession(this.pricingService.selectedMembership.prices[0].id);
   }
 }

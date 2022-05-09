@@ -242,4 +242,3 @@ F:\Angular\ProgWithPeter\api\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Sec
 F:\Angular\ProgWithPeter\api\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 F:\Angular\ProgWithPeter\api\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 F:\Angular\ProgWithPeter\api\obj\Debug\net6.0\API.csproj.CopyComplete
-C:\Users\Pazmandi Peter\Desktop\Trash\Angular\ProgWithPeter\api\obj\Debug\net6.0\API.csproj.CopyComplete

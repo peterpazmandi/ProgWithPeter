@@ -13,6 +13,8 @@ import { UpsertCategoriesComponent } from "./category/upsert-categories/upsert-c
 import { UpsertTagListComponent } from "./tags/upsert-tag-list/upsert-tag-list.component";
 import { PricingComponent } from "./pricing/pricing/pricing.component";
 import { CheckoutComponent } from "./pricing/checkout/checkout.component";
+import { PaymentSuccessComponent } from "./pricing/payment-success/payment-success.component";
+import { PaymentFailedComponent } from "./pricing/payment-failed/payment-failed.component";
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -73,6 +75,16 @@ const routes: Routes = [
         path: 'checkout',
         canActivate: [AuthGuard],
         component: CheckoutComponent
+    },
+    {
+        path: 'success',
+        canActivate: [AuthGuard],
+        component: PaymentSuccessComponent
+    },
+    {
+        path: 'failed',
+        canActivate: [AuthGuard],
+        component: PaymentFailedComponent
     },
     {
         path: '', 
