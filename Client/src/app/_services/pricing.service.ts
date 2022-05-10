@@ -27,12 +27,15 @@ export class PricingService extends BaseService {
       this.redirectToCheckout(sessionResponse);
     })
   }
-
   private redirectToCheckout(session: Session) {
     const stripe = Stripe(session.publicKey);
 
     stripe.redirectToCheckout({
       sessionId: session.sessionId
     })
+  }
+
+  getCheckoutSession() {
+    return this.http.get(this.baseUrl + 'payments/GetCheckoutSession');
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PricingService } from 'src/app/_services/pricing.service';
 
 @Component({
   selector: 'app-payment-success',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PaymentSuccessComponent implements OnInit {
 
-  constructor() { }
+  constructor(private pricingService: PricingService) { }
 
   ngOnInit(): void {
+    this.pricingService.getCheckoutSession().subscribe(response => {
+      console.log(response);
+    }, error => {
+      console.log(error);
+    })
   }
 
 }

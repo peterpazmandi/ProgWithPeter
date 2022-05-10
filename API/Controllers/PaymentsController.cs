@@ -162,7 +162,48 @@ namespace API.Controllers
 
             return Ok(await sessionService.GetAsync(sessionId));
         }
+
+        [HttpGet("GetSubscription")]        
+        [Authorize(Roles = "Admin, Moderator")]
+        public async Task<IActionResult> GetSubscriptionBySubscriptionId(string subscriptionId)
+        {
+            SubscriptionService subscriptionService = new SubscriptionService();
+
+            try
+            {
+                return Ok(subscriptionService.Get(subscriptionId));
+            }
+            catch (StripeException stripeException)
+            {
+                return BadRequest(stripeException.Message);
+            }
+            catch (Exception exception)
+            {
+                return BadRequest(exception.Message);
+            }
+        }
         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         private async Task<bool> AddSessionAsync(string sessionId)
         {
             string username = User.GetUsername();
