@@ -129,10 +129,34 @@ namespace API.Controllers
             return Ok(sessions);
         }
 
-        [HttpGet("GetCheckoutSession")]
-        
+        [HttpGet("GetCheckoutSession")]        
         [Authorize(Roles = "Admin, Moderator")]
-        public async Task<IActionResult> GetCheckoutSession(string sessionId)
+        public async Task<IActionResult> GetCheckoutSession()
+        {
+            string username = User.GetUsername();
+            var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
+
+            UserSession userSession = await _unitOfWork.UserSessionRepository.GetUserSessionAsync(user);
+
+            SessionService sessionService = new SessionService();
+
+            try
+            {
+                return Ok(await sessionService.GetAsync(userSession.SessionId));
+            }
+            catch (StripeException stripeException)
+            {
+                return BadRequest(stripeException.Message);
+            }
+            catch (Exception exception)
+            {
+                return BadRequest(exception.Message);
+            }
+        }
+
+        [HttpGet("GetCheckoutSessionBySessionId")]        
+        [Authorize(Roles = "Admin, Moderator")]
+        public async Task<IActionResult> GetCheckoutSessionBySessionId(string sessionId)
         {
             SessionService sessionService = new SessionService();
 
