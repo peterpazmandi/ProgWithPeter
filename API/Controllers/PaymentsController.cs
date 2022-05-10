@@ -144,11 +144,19 @@ namespace API.Controllers
             string username = User.GetUsername();
             var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
 
-            await _unitOfWork.UserSessionRepository.AddSessionAsync(new UserSession
+            UserSession userSession = await _unitOfWork.UserSessionRepository.GetUserSessionAsync(user);
+            if(userSession != null)
             {
-                AppUser = user,
-                SessionId = sessionId
-            });
+                userSession.SessionId = sessionId;
+            }
+            else
+            {
+                await _unitOfWork.UserSessionRepository.AddSessionAsync(new UserSession
+                {
+                    AppUser = user,
+                    SessionId = sessionId
+                });
+            }
 
             return await _unitOfWork.Complete();
         }

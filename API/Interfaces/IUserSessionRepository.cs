@@ -10,7 +10,7 @@ namespace API.Interfaces
     public interface IUserSessionRepository
     {
         Task AddSessionAsync(UserSession userSession);
-        Task<UserSession> GetUserSession(UserSessionDto userSessionDto);
+        Task<UserSession> GetUserSessionAsync(AppUser appUser);
         void RemoveUserSession(UserSession userSession);
     }
 }

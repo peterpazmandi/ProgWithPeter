@@ -26,12 +26,10 @@ namespace API.Data
             await _context.UserSessions.AddAsync(userSession);
         }
 
-        public async Task<UserSession> GetUserSession(UserSessionDto userSessionDto)
+        public async Task<UserSession> GetUserSessionAsync(AppUser appUser)
         {
             return await _context.UserSessions.FirstOrDefaultAsync(x => 
-                x.AppUserId == userSessionDto.AppUserId
-                && x.SessionId.Equals(userSessionDto.SessionId)
-                );
+                x.AppUserId == appUser.Id);
         }
 
         public void RemoveUserSession(UserSession userSession)
