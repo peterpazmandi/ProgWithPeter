@@ -23,8 +23,8 @@ export class PricingService extends BaseService {
       priceId: priceId,
       successUrl: environment.successUrl,
       failureUrl: environment.failureUrl
-    }).subscribe(session => {
-      this.redirectToCheckout(session);
+    }).subscribe((sessionResponse: any) => {
+      this.redirectToCheckout(sessionResponse);
     })
   }
 

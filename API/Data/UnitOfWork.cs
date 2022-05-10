@@ -26,6 +26,7 @@ namespace API.Data
         public ILectureRepository LectureRepository => new LectureRepository(_context, _mapper);
         public IPostRepository PostRepository => new PostRepository(_context, _mapper);
         public IMetaRepository MetaRepository => new MetaRepository(_context, _mapper);
+        public IUserSessionRepository UserSessionRepository => new UserSessionRepository(_context, _mapper);
 
         public ILectureActivityRepository LectureActivityRepository => new LectureActivityRepository(_context, _mapper);
 

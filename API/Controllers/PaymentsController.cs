@@ -2,10 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using API.DTOs;
+using API.Entities;
+using API.Extensions;
 using API.Helpers;
+using API.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -17,14 +22,17 @@ namespace API.Controllers
     public class PaymentsController: BaseApiController
     {
 		private readonly StripeSettings _stripeSettings;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        public PaymentsController(IOptions<StripeSettings> stripeSettings, IMapper mapper)
+        public PaymentsController(IOptions<StripeSettings> stripeSettings, IMapper mapper, IUnitOfWork unitOfWork)
         {
-			_stripeSettings = stripeSettings.Value;
+            _stripeSettings = stripeSettings.Value;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet("Products")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Products()
         {
             try
@@ -62,7 +70,8 @@ namespace API.Controllers
             }
         }
 
-        [HttpPost("CreateCheckoutSession")]
+        [HttpPost("CreateCheckoutSession")]        
+        [Authorize(Roles = "Admin, Moderator")]
         public async Task<IActionResult> CreateCheckoutSession([FromBody] CreateCheckoutSessionDto req)
         {
 			var options = new SessionCreateOptions
@@ -88,17 +97,60 @@ namespace API.Controllers
             try
             {
 				var session = await service.CreateAsync(options);
-				return Ok(new CreateCheckoutSessionResponseDto
-				{
-					SessionId = session.Id,
-					PublicKey = _stripeSettings.PublicKey
-				});
+                
+                if(await AddSessionAsync(session.Id))
+                {
+                    return Ok(new CreateCheckoutSessionResponseDto
+                    {
+                        SessionId = session.Id,
+                        PublicKey = _stripeSettings.PublicKey
+                    });
+                }
+
+                return BadRequest("Operation failed!");
             }
             catch (StripeException e)
             {
                 Console.WriteLine(e.StripeError.Message);
                 return BadRequest(e.StripeError.Message);
             }
+        }
+
+        [HttpGet("GetAllCheckoutSessions")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetAllCheckoutSessions()
+        {
+            SessionListOptions sessionListOptions = new SessionListOptions();
+
+            SessionService sessionService = new SessionService();
+
+            StripeList<Session> sessions = sessionService.List(sessionListOptions);
+
+            return Ok(sessions);
+        }
+
+        [HttpGet("GetCheckoutSession")]
+        
+        [Authorize(Roles = "Admin, Moderator")]
+        public async Task<IActionResult> GetCheckoutSession(string sessionId)
+        {
+            SessionService sessionService = new SessionService();
+
+            return Ok(await sessionService.GetAsync(sessionId));
+        }
+        
+        private async Task<bool> AddSessionAsync(string sessionId)
+        {
+            string username = User.GetUsername();
+            var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
+
+            await _unitOfWork.UserSessionRepository.AddSessionAsync(new UserSession
+            {
+                AppUser = user,
+                SessionId = sessionId
+            });
+
+            return await _unitOfWork.Complete();
         }
     }
 }

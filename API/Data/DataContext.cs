@@ -36,6 +36,7 @@ namespace API.Data
         public DbSet<Lecture> Lectures { get; set; }
         public DbSet<LectureActivity> LectureActivities { get; set; }
         public DbSet<CourseEnrollment> CourseEnrollments { get; set; }
+        public DbSet<UserSession> UserSessions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -117,8 +118,11 @@ namespace API.Data
                 .HasOne(p => p.Lecture)
                 .WithOne(l => l.Post)
                 .OnDelete(DeleteBehavior.Cascade);
-                
-                
+
+            builder.Entity<UserSession>()
+                .ToTable("UserSessions")
+                .HasOne(p => p.AppUser)
+                .WithOne(p => p.UserSession);
         }
     }
 
