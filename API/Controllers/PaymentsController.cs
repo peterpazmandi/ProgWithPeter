@@ -163,7 +163,7 @@ namespace API.Controllers
             return Ok(await sessionService.GetAsync(sessionId));
         }
 
-        [HttpGet("GetSubscription")]        
+        [HttpGet("GetSubscriptionBySubscriptionId")]        
         [Authorize(Roles = "Admin, Moderator")]
         public async Task<IActionResult> GetSubscriptionBySubscriptionId(string subscriptionId)
         {

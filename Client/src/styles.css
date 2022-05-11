@@ -501,6 +501,10 @@ thead {
   color: white;
 }
 
+.success {
+  color: #02CCBA;
+}
+
 .rounded-4 {
   border-radius: 25px;
 }
