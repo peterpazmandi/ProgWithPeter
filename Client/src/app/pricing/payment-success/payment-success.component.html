@@ -13,35 +13,47 @@
                             fill="#02CCBA"/>
                     </svg>
                 </div>
-                <div class="text-center">
-                    <div class="row mb-3">
-                        <div class="col">
-                            <span class="wrap success fw-bold me-5">Total amount</span>
-                            <span class="wrap">${{checkoutSession.amountTotal/100}}</span>
+                <div class="d-flex justify-content-center">
+                    <div>
+                        <div class="row mb-3">
+                            <div class="col text-end">
+                                <span class="wrap success fw-bold">Total amount</span>
+                            </div>
+                            <div class="col">                            
+                                <span class="wrap">${{checkoutSession.amountTotal/100}}</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <span class="wrap success fw-bold me-5">Name</span>
-                            <span class="wrap">{{checkoutSession.customerDetails.name}}</span>
+                        <div class="row">
+                            <div class="col text-end">
+                                <span class="wrap success fw-bold">Name</span>
+                            </div>
+                            <div class="col">
+                                <span class="wrap">{{checkoutSession.customerDetails.name}}</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                            <span class="wrap success fw-bold me-5">Email</span>
-                            <span class="wrap">{{checkoutSession.customerDetails.email}}</span>
+                        <div class="row mb-3">
+                            <div class="col text-end">
+                                <span class="wrap success fw-bold">Email</span>
+                            </div>
+                            <div class="col">
+                                <span class="wrap">{{checkoutSession.customerDetails.email}}</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <span class="wrap success fw-bold me-5 float-right">Expires At</span>
-                            <span class="wrap float-left">{{subscription.currentPeriodEnd | date:'medium'}}</span>
+                        <div class="row">
+                            <div class="col text-end">
+                                <span class="wrap success fw-bold">Expires At</span>
+                            </div>
+                            <div class="col">
+                                <span class="wrap float-left">{{subscription.currentPeriodEnd | date:'medium'}}</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                            <span class="wrap success fw-bold me-5">Mode</span>
-                            <span class="wrap">{{subscription.object | titlecase}}</span>
+                        <div class="row mb-3">
+                            <div class="col text-end">
+                                <span class="wrap success fw-bold">Mode</span>
+                            </div>
+                            <div class="col">
+                                <span class="wrap">{{subscription.object | titlecase}}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
