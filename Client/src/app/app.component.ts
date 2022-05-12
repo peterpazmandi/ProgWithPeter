@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
     if(user) {
       var token: Token = this.accountService.getDecodedToken(user.token);
       var expDate = new Date(token.exp * 1000);
-      console.log(expDate);      
+      //TODO: Check users premium expiration data even if the token of login is still valid
       if(user && (new Date()) < expDate) {
         this.accountService.setCurrentUser(user);
       } else {

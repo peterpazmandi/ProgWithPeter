@@ -120,13 +120,15 @@ namespace API.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllCheckoutSessions()
         {
-            SessionListOptions sessionListOptions = new SessionListOptions();
+            return await Task.Run(() => {
+                SessionListOptions sessionListOptions = new SessionListOptions();
 
-            SessionService sessionService = new SessionService();
+                SessionService sessionService = new SessionService();
 
-            StripeList<Session> sessions = sessionService.List(sessionListOptions);
+                StripeList<Session> sessions = sessionService.List(sessionListOptions);
 
-            return Ok(sessions);
+                return Ok(sessions);
+            });
         }
 
         [HttpGet("GetCheckoutSession")]        
@@ -171,7 +173,9 @@ namespace API.Controllers
 
             try
             {
-                return Ok(subscriptionService.Get(subscriptionId));
+                return await Task.Run(() => {
+                    return Ok(subscriptionService.Get(subscriptionId));
+                });
             }
             catch (StripeException stripeException)
             {
