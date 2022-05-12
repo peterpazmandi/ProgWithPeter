@@ -13,7 +13,7 @@ export const environment = {
   iFramelyApiKey: 'd6f7a19a09f00da6a9e90a',  
   
   successUrl: 'https://localhost:4200/success',
-  failureUrl: 'https://localhost:4200/failure',
+  failureUrl: 'https://localhost:4200/failed',
 };
 
 /*
