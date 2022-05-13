@@ -27,6 +27,8 @@ export class PricingService extends BaseService {
       successUrl: environment.successUrl,
       failureUrl: environment.failureUrl
     }).subscribe((sessionResponse: any) => {
+      console.log(sessionResponse);
+      
       this.redirectToCheckout(sessionResponse);
     })
   }
