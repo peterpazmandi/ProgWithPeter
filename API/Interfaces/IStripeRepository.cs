@@ -15,5 +15,6 @@ namespace API.Interfaces
         Task<StripeList<Session>> GetAllCheckoutSessions();
         Task<Session> GetCheckoutSessionBySessionIdAsync(string sessionId);
         Task<Subscription> GetSubscriptionBySubscriptionId(string subscriptionId);
+        Task<Product> GetProductsAsync(string productId);
     }
 }

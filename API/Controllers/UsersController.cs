@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using API.DTOs;
@@ -96,29 +97,26 @@ namespace API.Controllers
             var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
 
             user.SubscriptionId = subscriptionId;
-            
-            SubscriptionService subscriptionService = new SubscriptionService();
 
-            try
+            Subscription subscription = await _unitOfWork.StripeRepository.GetSubscriptionBySubscriptionId(subscriptionId);
+            Product product = await _unitOfWork.StripeRepository.GetProductsAsync(subscription.Items.Data[0].Plan.ProductId);
+
+            SubscriptionDto subscriptionDto = new SubscriptionDto
             {
-                return await Task.Run(() => {
-                    return Ok(subscriptionService.Get(subscriptionId));
-                });
-            }
-            catch (StripeException stripeException)
-            {
-                return BadRequest(stripeException.Message);
-            }
-            catch (Exception exception)
-            {
-                return BadRequest(exception.Message);
-            }
+                SubscriptionId = subscription.Id,
+                MembershipType = product.Name,
+                Price = Convert.ToDouble(subscription.Items.Data[0].Plan.Amount.Value) / 100,
+                CurrentPeriodStart = subscription.CurrentPeriodStart,
+                CurrentPeriodEnd = subscription.CurrentPeriodEnd,
+                Interval = subscription.Items.Data[0].Plan.Interval,
+                Mode = subscription.Object
+            };
 
             if(!_unitOfWork.HasChanges())
             {
                 return Ok(new {
                         isChanged = false,
-                        subscriptionId = subscriptionId,
+                        subscription = subscriptionDto,
                         message = "The subscription is already saved!"
                     });
             }
@@ -127,7 +125,7 @@ namespace API.Controllers
             {
                 return Ok(new {
                         isChanged = true,
-                        subscriptionId = subscriptionId,
+                        subscription = subscriptionDto,
                         message = $"SubscriptionId added successfully to account: {username}"
                     });
             }

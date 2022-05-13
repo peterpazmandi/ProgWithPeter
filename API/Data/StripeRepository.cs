@@ -19,6 +19,19 @@ namespace API.Data
             _mapper = mapper;
         }
 
+        public async Task<Product> GetProductsAsync(string productId)
+        {
+            return await Task.Run(async () => {
+                ProductListOptions productListOptions = new ProductListOptions()
+                {
+                    Active = true
+                };
+                ProductService productService = new ProductService();
+
+                return await productService.GetAsync(productId);
+            });
+        }
+
         public async Task<List<MembershipDto>> GetProductsAsync()
         {
             return await Task.Run(() => {

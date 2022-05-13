@@ -44,6 +44,8 @@ export class PaymentSuccessComponent implements OnInit {
 
   updateUsersSubscriptionId() {
     this.accountService.updateSubscriptionId(this.subscription.id).subscribe((result: any) => {
+      console.log(result);
+      
       if (result.isChanged) {
         this.toastr.success(result.message);
       } else {
