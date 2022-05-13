@@ -86,5 +86,35 @@ namespace API.Controllers
                 return BadRequest(exception.Message);
             }
         }
+    
+        [HttpPost("UpdateSubscriptionId")]
+        [Authorize(Roles = "Admin, Moderator")]
+        public async Task<ActionResult> UpdateSubscriptionId([FromForm]string subscriptionId)
+        {
+            string username = User.GetUsername();
+            var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
+
+            user.SubscriptionId = subscriptionId;
+
+            if(!_unitOfWork.HasChanges())
+            {
+                return Ok(new {
+                        isChanged = false,
+                        subscriptionId = subscriptionId,
+                        message = "The subscription is already saved!"
+                    });
+            }
+
+            if (await _unitOfWork.Complete())
+            {
+                return Ok(new {
+                        isChanged = true,
+                        subscriptionId = subscriptionId,
+                        message = $"SubscriptionId added successfully to account: {username}"
+                    });
+            }
+
+            return BadRequest("Operation failed!");
+        }
     }
 }

@@ -131,7 +131,7 @@ namespace API.Controllers
             });
         }
 
-        [HttpGet("GetCheckoutSession")]        
+        [HttpGet("GetCheckoutSession")]
         [Authorize(Roles = "Admin, Moderator")]
         public async Task<IActionResult> GetCheckoutSession()
         {

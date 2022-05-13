@@ -21,5 +21,7 @@ namespace API.Entities
         public ICollection<AppUserRole> UserRoles { get; set; }
 
         public virtual List<CourseEnrollment> CourseEnrollments { get; set; }
+
+        public string SubscriptionId { get; set; }
     }
 }

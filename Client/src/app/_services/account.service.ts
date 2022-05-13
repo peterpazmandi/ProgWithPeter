@@ -77,4 +77,10 @@ export class AccountService {
   getDecodedToken(token: string) {
     return JSON.parse(atob(token.split('.')[1]));
   }
+
+  updateSubscriptionId(subscriptionId: string) {
+    let params = new HttpParams();
+    params = params.set('subscriptionId', subscriptionId);    
+    return this.http.post(this.baseUrl + 'Users/UpdateSubscriptionId', params);
+  }
 }
