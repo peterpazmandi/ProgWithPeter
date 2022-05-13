@@ -31,37 +31,14 @@ namespace API.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        [HttpGet("Products")]
         [Authorize(Roles = "Admin")]
+        [HttpGet("Products")]
         public async Task<ActionResult> Products()
         {
             try
             {
-                return await Task.Run(() => {
-                        ProductListOptions productListOptions = new ProductListOptions()
-                        {
-                            Active = true
-                        };
-                        ProductService productService = new ProductService();
-                        List<Product> products = productService.List(productListOptions).OrderBy(p => p.Name).ToList();
-
-                        List<MembershipDto> memberships = new List<MembershipDto>();
-                        foreach(Product product in products)
-                        {
-                            PriceListOptions priceListOptions = new PriceListOptions()
-                            {
-                                Product = product.Id
-                            };
-                            PriceService priceService = new PriceService();
-                            List<Price> prices = priceService.List(priceListOptions).OrderBy(p => p.Recurring.Interval).ToList();
-                            
-                            MembershipDto membershipDto = _mapper.Map<MembershipDto>(product);
-                            membershipDto.Prices = _mapper.Map<List<PriceDto>>(prices);
-
-                            memberships.Add(membershipDto);
-                        };
-
-                        return Ok(memberships);
+                return await Task.Run(async () => {
+                        return Ok(await _unitOfWork.StripeRepository.GetProductsAsync());
                 });
             }
             catch (System.Exception ex)
@@ -69,36 +46,33 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        [HttpPost("CreateCheckoutSession")]        
+      
         [Authorize(Roles = "Admin, Moderator")]
+        [HttpPost("CreateCheckoutSession")]  
         public async Task<IActionResult> CreateCheckoutSession([FromBody] CreateCheckoutSessionDto req)
         {
-			var options = new SessionCreateOptions
-			{
-				SuccessUrl = req.SuccessUrl,
-				CancelUrl = req.FailureUrl,
-				PaymentMethodTypes = new List<string>
-				{
-					"card",
-				},
-				Mode = "subscription",
-				LineItems = new List<SessionLineItemOptions>
-				{
-					new SessionLineItemOptions
-					{
-						Price = req.PriceId,
-						Quantity = 1,
-					},
-				},
-			};
-            var service = new SessionService();
-			service.Create(options);
             try
             {
-				var session = await service.CreateAsync(options);
+                Session session = await _unitOfWork.StripeRepository.CreateCheckoutSession(req);
                 
-                if(await AddSessionAsync(session.Id))
+                string username = User.GetUsername();
+                var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
+
+                UserSession userSession = await _unitOfWork.UserSessionRepository.GetUserSessionAsync(user);
+                if(userSession != null)
+                {
+                    userSession.SessionId = session.Id;
+                }
+                else
+                {
+                    await _unitOfWork.UserSessionRepository.AddSessionAsync(new UserSession
+                    {
+                        AppUser = user,
+                        SessionId = session.Id
+                    });
+                }
+            
+                if(await _unitOfWork.Complete())
                 {
                     return Ok(new CreateCheckoutSessionResponseDto
                     {
@@ -116,66 +90,25 @@ namespace API.Controllers
             }
         }
 
-        [HttpGet("GetAllCheckoutSessions")]
         [Authorize(Roles = "Admin")]
+        [HttpGet("GetAllCheckoutSessions")]
         public async Task<IActionResult> GetAllCheckoutSessions()
         {
-            return await Task.Run(() => {
-                SessionListOptions sessionListOptions = new SessionListOptions();
-
-                SessionService sessionService = new SessionService();
-
-                StripeList<Session> sessions = sessionService.List(sessionListOptions);
-
-                return Ok(sessions);
-            });
+            return Ok(await _unitOfWork.StripeRepository.GetAllCheckoutSessions());
         }
 
-        [HttpGet("GetCheckoutSession")]
         [Authorize(Roles = "Admin, Moderator")]
+        [HttpGet("GetCheckoutSession")]
         public async Task<IActionResult> GetCheckoutSession()
         {
-            string username = User.GetUsername();
-            var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
-
-            UserSession userSession = await _unitOfWork.UserSessionRepository.GetUserSessionAsync(user);
-
-            SessionService sessionService = new SessionService();
-
             try
             {
-                return Ok(await sessionService.GetAsync(userSession.SessionId));
-            }
-            catch (StripeException stripeException)
-            {
-                return BadRequest(stripeException.Message);
-            }
-            catch (Exception exception)
-            {
-                return BadRequest(exception.Message);
-            }
-        }
+                string username = User.GetUsername();
+                var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
 
-        [HttpGet("GetCheckoutSessionBySessionId")]        
-        [Authorize(Roles = "Admin, Moderator")]
-        public async Task<IActionResult> GetCheckoutSessionBySessionId(string sessionId)
-        {
-            SessionService sessionService = new SessionService();
+                UserSession userSession = await _unitOfWork.UserSessionRepository.GetUserSessionAsync(user);
 
-            return Ok(await sessionService.GetAsync(sessionId));
-        }
-
-        [HttpGet("GetSubscriptionBySubscriptionId")]        
-        [Authorize(Roles = "Admin, Moderator")]
-        public async Task<IActionResult> GetSubscriptionBySubscriptionId(string subscriptionId)
-        {
-            SubscriptionService subscriptionService = new SubscriptionService();
-
-            try
-            {
-                return await Task.Run(() => {
-                    return Ok(subscriptionService.Get(subscriptionId));
-                });
+                return Ok(await _unitOfWork.StripeRepository.GetCheckoutSessionBySessionIdAsync(userSession.SessionId));
             }
             catch (StripeException stripeException)
             {
@@ -187,47 +120,29 @@ namespace API.Controllers
             }
         }
         
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        private async Task<bool> AddSessionAsync(string sessionId)
+        [Authorize(Roles = "Admin, Moderator")]
+        [HttpGet("GetCheckoutSessionBySessionId")]
+        public async Task<IActionResult> GetCheckoutSessionBySessionId(string sessionId)
         {
-            string username = User.GetUsername();
-            var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
-
-            UserSession userSession = await _unitOfWork.UserSessionRepository.GetUserSessionAsync(user);
-            if(userSession != null)
+            return Ok(await _unitOfWork.StripeRepository.GetCheckoutSessionBySessionIdAsync(sessionId));
+        }
+       
+        [Authorize(Roles = "Admin, Moderator")]
+        [HttpGet("GetSubscriptionBySubscriptionId")] 
+        public async Task<IActionResult> GetSubscriptionBySubscriptionId(string subscriptionId)
+        {
+            try
             {
-                userSession.SessionId = sessionId;
+                return Ok(await _unitOfWork.StripeRepository.GetSubscriptionBySubscriptionId(subscriptionId));
             }
-            else
+            catch (StripeException stripeException)
             {
-                await _unitOfWork.UserSessionRepository.AddSessionAsync(new UserSession
-                {
-                    AppUser = user,
-                    SessionId = sessionId
-                });
+                return BadRequest(stripeException.Message);
             }
-
-            return await _unitOfWork.Complete();
+            catch (Exception exception)
+            {
+                return BadRequest(exception.Message);
+            }
         }
     }
 }

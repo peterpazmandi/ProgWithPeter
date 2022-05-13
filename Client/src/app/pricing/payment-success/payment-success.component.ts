@@ -29,7 +29,6 @@ export class PaymentSuccessComponent implements OnInit {
         this.pricingService.getSubscriptionBySubscriptionId(checkoutSession.subscriptionId).subscribe(subscription => {
           this.checkoutSession = checkoutSession;
           this.subscription = subscription;
-          console.log(this.checkoutSession);
           
           this.updateUsersSubscriptionId();
         }, error => {

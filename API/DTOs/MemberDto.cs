@@ -14,6 +14,6 @@ namespace API.DTOs
         public string Country { get; set; }
         public DateTime Created { get; set; }
         public DateTime LastActive { get; set; }        
-        public Photo Photo { get; set; }        
+        public Photo Photo { get; set; }
     }
 }

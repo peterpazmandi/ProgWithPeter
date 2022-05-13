@@ -15,6 +15,7 @@ namespace API.Interfaces
         IPostRepository PostRepository { get; }
         IMetaRepository MetaRepository { get; }
         IUserSessionRepository UserSessionRepository { get; }
+        IStripeRepository StripeRepository { get; }
 
         Task<bool> Complete();
         bool HasChanges();

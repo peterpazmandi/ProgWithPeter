@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Stripe;
 
 namespace API.Controllers
 {
@@ -95,6 +96,23 @@ namespace API.Controllers
             var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
 
             user.SubscriptionId = subscriptionId;
+            
+            SubscriptionService subscriptionService = new SubscriptionService();
+
+            try
+            {
+                return await Task.Run(() => {
+                    return Ok(subscriptionService.Get(subscriptionId));
+                });
+            }
+            catch (StripeException stripeException)
+            {
+                return BadRequest(stripeException.Message);
+            }
+            catch (Exception exception)
+            {
+                return BadRequest(exception.Message);
+            }
 
             if(!_unitOfWork.HasChanges())
             {

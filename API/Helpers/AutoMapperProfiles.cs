@@ -58,6 +58,10 @@ namespace API.Helpers
             CreateMap<Product, MembershipDto>().ReverseMap();
             CreateMap<Price, PriceDto>().ReverseMap();
             CreateMap<PriceRecurring, PriceRecurringDto>().ReverseMap();
+
+
+            
+            CreateMap<Subscription, SubscriptionDto>().ReverseMap();
         }
     }
 }

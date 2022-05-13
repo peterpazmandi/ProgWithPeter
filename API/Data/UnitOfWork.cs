@@ -27,8 +27,8 @@ namespace API.Data
         public IPostRepository PostRepository => new PostRepository(_context, _mapper);
         public IMetaRepository MetaRepository => new MetaRepository(_context, _mapper);
         public IUserSessionRepository UserSessionRepository => new UserSessionRepository(_context, _mapper);
-
         public ILectureActivityRepository LectureActivityRepository => new LectureActivityRepository(_context, _mapper);
+        public IStripeRepository StripeRepository => new StripeRepository(_mapper);
 
         public async Task<bool> Complete()
         {
