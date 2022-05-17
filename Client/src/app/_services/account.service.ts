@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { CustomEncoder } from '../shared/custom-encoder';
 import { ForgotPasswordDto } from '../_models/forgotPasswordDto.model';
 import { ResetPasswordDto } from '../_models/resetPasswordDto.model';
+import { SubscriptionDto } from '../_models/subscriptionDto.model';
 import { User } from '../_models/user.model';
 
 @Injectable({
@@ -65,12 +66,12 @@ export class AccountService {
     return this.http.post(this.baseUrl + 'account/reset-password', resetPasswordDto);
   }
 
-
   setCurrentUser(user: User) {
     user.roles = [];
     const roles = this.getDecodedToken(user.token).role;
     Array.isArray(roles) ? user.roles = roles : user.roles.push(roles);
     localStorage.setItem('user', JSON.stringify(user));
+    console.log(user);
     this.currentUserSource.next(user);
   }
 
@@ -83,4 +84,6 @@ export class AccountService {
     params = params.set('subscriptionId', subscriptionId);    
     return this.http.post(this.baseUrl + 'Users/UpdateSubscriptionId', params);
   }
+
+
 }

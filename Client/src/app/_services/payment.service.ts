@@ -5,6 +5,7 @@ import { CheckoutSession } from '../_models/checkout/checkoutSession.model';
 import { MembershipDto } from '../_models/membershipDto.model';
 import { Session } from '../_models/session.model';
 import { Subscription } from '../_models/subscription/subscription.model';
+import { SubscriptionDto } from '../_models/subscriptionDto.model';
 import { BaseService } from './base.service';
 
 declare const Stripe: any;
@@ -12,7 +13,7 @@ declare const Stripe: any;
 @Injectable({
   providedIn: 'root'
 })
-export class PricingService extends BaseService {
+export class PaymentService extends BaseService {
   selectedMembership: MembershipDto;
 
   getMemberships() {
@@ -46,5 +47,9 @@ export class PricingService extends BaseService {
 
   getSubscriptionBySubscriptionId(sessionId: string) {
     return this.http.get<Subscription>(this.baseUrl + 'payments/GetSubscriptionBySubscriptionId?subscriptionId=' + sessionId);
+  }
+
+  getSubscription() {
+    return this.http.get<SubscriptionDto>(this.baseUrl + 'payments/GetSubscription');
   }
 }

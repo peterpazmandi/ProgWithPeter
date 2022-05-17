@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { CheckoutSession } from 'src/app/_models/checkout/checkoutSession.model';
 import { Subscription } from 'src/app/_models/subscription/subscription.model';
 import { AccountService } from 'src/app/_services/account.service';
-import { PricingService } from 'src/app/_services/pricing.service';
+import { PaymentService } from 'src/app/_services/payment.service';
 import { PaymentStatus } from 'src/app/_utils/paymentStatus.enum';
 
 @Component({
@@ -18,7 +18,7 @@ export class PaymentSuccessComponent implements OnInit {
   subscription: Subscription;
 
   constructor(
-    private pricingService: PricingService,
+    private pricingService: PaymentService,
     private accountService: AccountService,
     private toastr: ToastrService,
     private router: Router) { }

@@ -153,20 +153,29 @@ namespace API.Controllers
             var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
 
             Subscription subscription = await _unitOfWork.StripeRepository.GetSubscriptionBySubscriptionId(user.SubscriptionId);
-            Product product = await _unitOfWork.StripeRepository.GetProductsAsync(subscription.Items.Data[0].Plan.ProductId);
-
-            SubscriptionDto subscriptionDto = new SubscriptionDto
+            
+            //TODO: what if the sub has expired? test needed
+            if(subscription != null)
             {
-                SubscriptionId = "Hidden",
-                MembershipType = product.Name,
-                Price = Convert.ToDouble(subscription.Items.Data[0].Plan.Amount.Value) / 100,
-                CurrentPeriodStart = subscription.CurrentPeriodStart,
-                CurrentPeriodEnd = subscription.CurrentPeriodEnd,
-                Interval = subscription.Items.Data[0].Plan.Interval,
-                Mode = subscription.Object
-            };
+                Product product = await _unitOfWork.StripeRepository.GetProductsAsync(subscription.Items.Data[0].Plan.ProductId);
 
-            return Ok(subscriptionDto);
+                SubscriptionDto subscriptionDto = new SubscriptionDto
+                {
+                    SubscriptionId = "Hidden",
+                    MembershipType = product.Name,
+                    Price = Convert.ToDouble(subscription.Items.Data[0].Plan.Amount.Value) / 100,
+                    CurrentPeriodStart = subscription.CurrentPeriodStart,
+                    CurrentPeriodEnd = subscription.CurrentPeriodEnd,
+                    Interval = subscription.Items.Data[0].Plan.Interval,
+                    Mode = subscription.Object
+                };
+
+                return Ok(subscriptionDto);
+            }
+            else
+            {
+                return BadRequest("Your subscription has expired!");
+            }
         }
     }
 }

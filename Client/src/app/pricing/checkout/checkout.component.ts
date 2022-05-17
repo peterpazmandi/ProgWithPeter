@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { PricingService } from 'src/app/_services/pricing.service';
+import { PaymentService } from 'src/app/_services/payment.service';
 import { MembershipTypes } from 'src/app/_utils/membershipTypes.enum';
 
 @Component({
@@ -13,7 +13,7 @@ export class CheckoutComponent implements OnInit {
   membershipTypes: typeof MembershipTypes
 
   constructor(
-    public pricingService: PricingService,
+    public pricingService: PaymentService,
     private toastr: ToastrService,
     private router: Router) {
     this.membershipTypes = MembershipTypes;

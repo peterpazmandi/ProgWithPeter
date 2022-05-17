@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { SubscriptionDto } from './_models/subscriptionDto.model';
 import { Token } from './_models/token.model';
 import { User } from './_models/user.model';
 import { AccountService } from './_services/account.service';
+import { PaymentService } from './_services/payment.service';
 import { ThemeService } from './_services/theme.service';
 
 @Component({
@@ -16,6 +18,7 @@ export class AppComponent implements OnInit {
   constructor(
     private themeService: ThemeService,
     public accountService: AccountService,
+    private paymentService: PaymentService,
     private toastr: ToastrService) {}
 
   ngOnInit(): void {
@@ -31,9 +34,16 @@ export class AppComponent implements OnInit {
     if(user) {
       var token: Token = this.accountService.getDecodedToken(user.token);
       var expDate = new Date(token.exp * 1000);
-      //TODO: Check users premium expiration data even if the token of login is still valid
+      
       if(user && (new Date()) < expDate) {
         this.accountService.setCurrentUser(user);
+        this.paymentService.getSubscription().subscribe(sub => {
+          // localStorage.removeItem('user');
+          user.subscription = sub;
+          this.accountService.setCurrentUser(user);
+        }, error => {
+          console.log(error);
+        });
       } else {
         this.accountService.signout();
       }

@@ -1,4 +1,5 @@
 import { CourseEnrollment } from "./course-enrollment.model";
+import { SubscriptionDto } from "./subscriptionDto.model";
 
 export interface User {
     id: number;
@@ -10,5 +11,7 @@ export interface User {
     roles: string[];
     clientURI: string;
 
-    courseEnrollments: CourseEnrollment[]
+    courseEnrollments: CourseEnrollment[];
+
+    subscription: SubscriptionDto;
 }
