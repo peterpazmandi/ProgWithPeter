@@ -144,5 +144,29 @@ namespace API.Controllers
                 return BadRequest(exception.Message);
             }
         }
+
+        [Authorize(Roles = "Admin, Moderator")]
+        [HttpGet("GetSubscription")]
+        public async Task<ActionResult> GetSubscription()
+        {
+            string username = User.GetUsername();
+            var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
+
+            Subscription subscription = await _unitOfWork.StripeRepository.GetSubscriptionBySubscriptionId(user.SubscriptionId);
+            Product product = await _unitOfWork.StripeRepository.GetProductsAsync(subscription.Items.Data[0].Plan.ProductId);
+
+            SubscriptionDto subscriptionDto = new SubscriptionDto
+            {
+                SubscriptionId = "Hidden",
+                MembershipType = product.Name,
+                Price = Convert.ToDouble(subscription.Items.Data[0].Plan.Amount.Value) / 100,
+                CurrentPeriodStart = subscription.CurrentPeriodStart,
+                CurrentPeriodEnd = subscription.CurrentPeriodEnd,
+                Interval = subscription.Items.Data[0].Plan.Interval,
+                Mode = subscription.Object
+            };
+
+            return Ok(subscriptionDto);
+        }
     }
 }

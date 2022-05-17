@@ -89,8 +89,8 @@ namespace API.Controllers
             }
         }
     
-        [HttpPost("UpdateSubscriptionId")]
         [Authorize(Roles = "Admin, Moderator")]
+        [HttpPost("UpdateSubscriptionId")]
         public async Task<ActionResult> UpdateSubscriptionId([FromForm]string subscriptionId)
         {
             string username = User.GetUsername();
@@ -126,11 +126,11 @@ namespace API.Controllers
                 return Ok(new {
                         isChanged = true,
                         subscription = subscriptionDto,
-                        message = $"SubscriptionId added successfully to account: {username}"
+                        message = $"Subscription added successfully to account: {username}"
                     });
             }
 
             return BadRequest("Operation failed!");
-        }
+        }    
     }
 }
