@@ -30,7 +30,7 @@ export class PaymentSuccessComponent implements OnInit {
           this.checkoutSession = checkoutSession;
           this.subscription = subscription;
           
-          this.updateUsersSubscriptionId();
+          this.updateCustomerId();
         }, error => {
           console.log(error);
         })
@@ -42,8 +42,8 @@ export class PaymentSuccessComponent implements OnInit {
     });
   }
 
-  updateUsersSubscriptionId() {
-    this.accountService.updateSubscriptionId(this.subscription.id).subscribe((result: any) => {
+  updateCustomerId() {
+    this.accountService.updateCustomerId(this.subscription.customerId).subscribe((result: any) => {
       console.log(result);
       
       if (result.isChanged) {

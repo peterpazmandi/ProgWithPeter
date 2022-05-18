@@ -146,15 +146,26 @@ namespace API.Controllers
         }
 
         [Authorize(Roles = "Admin, Moderator")]
-        [HttpGet("GetSubscription")]
-        public async Task<ActionResult> GetSubscription()
+        [HttpGet("GetSubscriptionsOfCustomer")]
+        public async Task<ActionResult> GetSubscriptionsOfCustomer(string customerId)
+        {
+            return Ok(await _unitOfWork.StripeRepository.GetSubscriptionsOfCustomer(customerId));
+        }
+
+        [Authorize(Roles = "Admin, Moderator")]
+        [HttpGet("GetActiveSubscriptionOfCustomer")]
+        public async Task<ActionResult> GetActiveSubscriptionOfCustomer()
         {
             string username = User.GetUsername();
             var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
 
-            Subscription subscription = await _unitOfWork.StripeRepository.GetSubscriptionBySubscriptionId(user.SubscriptionId);
+            if (String.IsNullOrEmpty(user.StripeCustomerId))
+            {
+                return NoContent();
+            }
+
+            Subscription subscription = await _unitOfWork.StripeRepository.GetActiveSubscriptionOfCustomer(user.StripeCustomerId);
             
-            //TODO: what if the sub has expired? test needed
             if(subscription != null)
             {
                 Product product = await _unitOfWork.StripeRepository.GetProductsAsync(subscription.Items.Data[0].Plan.ProductId);
@@ -173,8 +184,15 @@ namespace API.Controllers
                 return Ok(subscriptionDto);
             }
             else
-            {
-                return BadRequest("Your subscription has expired!");
+            {                
+                subscription = await _unitOfWork.StripeRepository.GetCanceledSubscriptionOfCustomer(user.StripeCustomerId);
+
+                if (subscription != null)
+                {
+                    return BadRequest($"Your subscription has expired at {subscription.CurrentPeriodEnd}!");
+                }
+
+                return NoContent();
             }
         }
     }

@@ -49,7 +49,7 @@ export class PaymentService extends BaseService {
     return this.http.get<Subscription>(this.baseUrl + 'payments/GetSubscriptionBySubscriptionId?subscriptionId=' + sessionId);
   }
 
-  getSubscription() {
-    return this.http.get<SubscriptionDto>(this.baseUrl + 'payments/GetSubscription');
+  getActiveSubscriptionOfCustomer() {
+    return this.http.get<SubscriptionDto>(this.baseUrl + 'payments/GetActiveSubscriptionOfCustomer');
   }
 }

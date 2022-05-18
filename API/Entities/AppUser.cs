@@ -22,6 +22,6 @@ namespace API.Entities
 
         public virtual List<CourseEnrollment> CourseEnrollments { get; set; }
 
-        public string SubscriptionId { get; set; }
+        public string StripeCustomerId { get; set; }
     }
 }

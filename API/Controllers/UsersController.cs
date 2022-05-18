@@ -90,15 +90,15 @@ namespace API.Controllers
         }
     
         [Authorize(Roles = "Admin, Moderator")]
-        [HttpPost("UpdateSubscriptionId")]
-        public async Task<ActionResult> UpdateSubscriptionId([FromForm]string subscriptionId)
+        [HttpPost("UpdateCustomerId")]
+        public async Task<ActionResult> UpdateCustomerId([FromForm]string customerId)
         {
             string username = User.GetUsername();
             var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
 
-            user.SubscriptionId = subscriptionId;
+            user.StripeCustomerId = customerId;
 
-            Subscription subscription = await _unitOfWork.StripeRepository.GetSubscriptionBySubscriptionId(subscriptionId);
+            Subscription subscription = await _unitOfWork.StripeRepository.GetActiveSubscriptionOfCustomer(customerId);
             Product product = await _unitOfWork.StripeRepository.GetProductsAsync(subscription.Items.Data[0].Plan.ProductId);
 
             SubscriptionDto subscriptionDto = new SubscriptionDto

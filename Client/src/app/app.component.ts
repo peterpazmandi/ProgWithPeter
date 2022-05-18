@@ -37,8 +37,7 @@ export class AppComponent implements OnInit {
       
       if(user && (new Date()) < expDate) {
         this.accountService.setCurrentUser(user);
-        this.paymentService.getSubscription().subscribe(sub => {
-          // localStorage.removeItem('user');
+        this.paymentService.getActiveSubscriptionOfCustomer().subscribe(sub => {
           user.subscription = sub;
           this.accountService.setCurrentUser(user);
         }, error => {

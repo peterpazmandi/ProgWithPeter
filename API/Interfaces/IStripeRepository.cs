@@ -16,5 +16,8 @@ namespace API.Interfaces
         Task<Session> GetCheckoutSessionBySessionIdAsync(string sessionId);
         Task<Subscription> GetSubscriptionBySubscriptionId(string subscriptionId);
         Task<Product> GetProductsAsync(string productId);
+        Task<Subscription> GetActiveSubscriptionOfCustomer(string customerId);
+        Task<Subscription> GetCanceledSubscriptionOfCustomer(string customerId);
+        Task<List<Subscription>> GetSubscriptionsOfCustomer(string customerId);
     }
 }

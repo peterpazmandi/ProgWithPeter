@@ -79,10 +79,10 @@ export class AccountService {
     return JSON.parse(atob(token.split('.')[1]));
   }
 
-  updateSubscriptionId(subscriptionId: string) {
+  updateCustomerId(customerId: string) {
     let params = new HttpParams();
-    params = params.set('subscriptionId', subscriptionId);    
-    return this.http.post(this.baseUrl + 'Users/UpdateSubscriptionId', params);
+    params = params.set('customerId', customerId);    
+    return this.http.post(this.baseUrl + 'Users/UpdateCustomerId', params);
   }
 
 

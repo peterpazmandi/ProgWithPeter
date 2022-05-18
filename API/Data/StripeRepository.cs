@@ -113,5 +113,50 @@ namespace API.Data
                 return subscriptionService.Get(subscriptionId);
             });
         }
+        
+
+        public async Task<Subscription> GetActiveSubscriptionOfCustomer(string customerId)
+        {
+            var service = new SubscriptionService();
+            var options = new SubscriptionListOptions
+            {
+                Customer = customerId,
+                Status = "active"
+            };
+
+            return (await service.ListAsync(options)).Data.FirstOrDefault();
+        }
+        public async Task<Subscription> GetCanceledSubscriptionOfCustomer(string customerId)
+        {
+            var service = new SubscriptionService();
+            var options = new SubscriptionListOptions
+            {
+                Customer = customerId,
+                Status = "canceled"
+            };
+
+            return (await service.ListAsync(options)).Data.FirstOrDefault();
+        }
+
+        public async Task<List<Subscription>> GetSubscriptionsOfCustomer(string customerId)
+        {
+            var service = new SubscriptionService();
+            var options = new SubscriptionListOptions
+            {
+                Customer = customerId,
+                Status = "active"
+            };
+
+            var list = await service.ListAsync(options);
+
+            options = new SubscriptionListOptions
+            {
+                Customer = customerId,
+                Status = "canceled"
+            };
+            list.Data.AddRange(await service.ListAsync(options));
+
+            return list.Data;
+        }
     }
 }
