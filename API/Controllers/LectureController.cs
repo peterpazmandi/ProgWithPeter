@@ -161,6 +161,7 @@ namespace API.Controllers
                         Excerpt = lectureDto.Post.Excerpt,
                         Content = lectureDto.Post.Content,
                         FeaturedImageUrl = lectureDto.Post.FeaturedImageUrl,
+                        SourceCodeUrl = lectureDto.Post.SourceCodeUrl,
                         Password = lectureDto.Post.Password,
                         AppUser = user,
                         Category = category,
@@ -186,6 +187,7 @@ namespace API.Controllers
                 lecture.Post.Excerpt = lectureDto.Post.Excerpt;
                 lecture.Post.Content = lectureDto.Post.Content;
                 lecture.Post.FeaturedImageUrl = lectureDto.Post.FeaturedImageUrl;
+                lecture.Post.SourceCodeUrl = lectureDto.Post.SourceCodeUrl;
                 lecture.Post.Password = lectureDto.Post.Password;
                 lecture.Post.AppUser = user;
                 lecture.ModificationDate = DateTime.Now;

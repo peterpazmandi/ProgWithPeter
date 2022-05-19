@@ -94,6 +94,7 @@ export class UpsertSectionsAndLecturesListComponent implements OnInit {
         excerpt: '',
         content: '',
         featuredImageUrl: '',
+        sourceCodeUrl: '',
         meta: null,
         appUser: null,
         password: '',

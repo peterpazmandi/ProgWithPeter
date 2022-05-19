@@ -145,6 +145,7 @@ namespace API.Controllers
                 course.Post.Excerpt = upsertCourseDto.Post.Excerpt;
                 course.Post.Content = upsertCourseDto.Post.Content;
                 course.Post.FeaturedImageUrl = upsertCourseDto.Post.FeaturedImageUrl;
+                course.Post.SourceCodeUrl = upsertCourseDto.Post.SourceCodeUrl;
                 course.Post.Password = upsertCourseDto.Post.Password;
                 course.Post.AppUser = user;
                 course.Post.Tags = courseTags;

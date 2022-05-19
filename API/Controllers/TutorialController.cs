@@ -111,6 +111,7 @@ namespace API.Controllers
                         Excerpt = tutorialDto.Post.Excerpt,
                         Content = tutorialDto.Post.Content,
                         FeaturedImageUrl = tutorialDto.Post.FeaturedImageUrl,
+                        SourceCodeUrl = tutorialDto.Post.SourceCodeUrl,
                         Password = tutorialDto.Post.Password,
                         AppUser = user,
                         Category = category,
@@ -133,6 +134,7 @@ namespace API.Controllers
                 tutorial.Post.Excerpt = tutorialDto.Post.Excerpt;
                 tutorial.Post.Content = tutorialDto.Post.Content;
                 tutorial.Post.FeaturedImageUrl = tutorialDto.Post.FeaturedImageUrl;
+                tutorial.Post.SourceCodeUrl = tutorialDto.Post.SourceCodeUrl;
                 tutorial.Post.Password = tutorialDto.Post.Password;
                 tutorial.Post.AppUser = user;
                 tutorial.ModificationDate = DateTime.Now;

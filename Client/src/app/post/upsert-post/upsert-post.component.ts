@@ -39,6 +39,7 @@ export class UpsertPostComponent implements OnInit {
   apiUrl = environment.apiUrl;
   serverUrl = environment.serverUrl;
   addFeaturedPostImageEndpoint = environment.addFeaturedPostImageEndpoint;
+  addSourceCodeEndpoint = environment.addSourceCodeEndpoint;
   uploader: FileUploader;
 
   createPostForm: FormGroup;
@@ -115,7 +116,7 @@ export class UpsertPostComponent implements OnInit {
         }
         case this.postType.Lecture: {
           let courseTitle = this.route.snapshot.queryParams['courseTitle'];
-          this.lectureService.getLectureByTitleAndCourseTitle(this.slug, courseTitle).subscribe(lecture => {
+          this.lectureService.getLectureByTitleAndCourseTitle(this.slug, courseTitle).subscribe(lecture => {            
             this.updatePostForms(lecture);
           }, error => {
             console.log(error);
@@ -144,7 +145,8 @@ export class UpsertPostComponent implements OnInit {
         value: null
       } as TreeItem),
       tags: content.post.tags,
-      featuredImageUrl: content.post.featuredImageUrl
+      featuredImageUrl: content.post.featuredImageUrl,
+      sourceCodeUrl: content.post.sourceCodeUrl
     });  
 
     this.formTextForm.patchValue({
@@ -280,6 +282,7 @@ export class UpsertPostComponent implements OnInit {
       content: (this.formTextForm?.value['content'] as string),
       password: '',
       featuredImageUrl: (this.createPostForm?.value['featuredImageUrl'] as string),
+      sourceCodeUrl: (this.createPostForm?.value['sourceCodeUrl'] as string),
       tagIds: tagIds,
       categoryName: (this.createPostForm?.value['category'] as TreeviewItem).text,
       meta: this.createMetaDtoFromForms(),
@@ -315,7 +318,8 @@ export class UpsertPostComponent implements OnInit {
       title: ['', [Validators.required, Validators.minLength(8)]],
       category: ['', [Validators.required]],
       tags: [[], [Validators.required]],
-      featuredImageUrl: [[], [Validators.required]]      
+      featuredImageUrl: [[], [Validators.required]],
+      sourceCodeUrl: [[], [Validators.required]]
     })
 
     this.formTextForm = this.fb.group({

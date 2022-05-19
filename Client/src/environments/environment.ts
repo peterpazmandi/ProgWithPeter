@@ -11,6 +11,7 @@ export const environment = {
   serverUrl: 'https://localhost:5001/',
   
   addFeaturedPostImageEndpoint: 'Tutorial/add-featured-post-image',
+  addSourceCodeEndpoint: 'Post/AddSourceCode',
   
   iFramelyApiKey: 'd6f7a19a09f00da6a9e90a',  
   

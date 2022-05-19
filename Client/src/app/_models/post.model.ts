@@ -10,6 +10,7 @@ export interface Post {
     content: string,
 
     featuredImageUrl: string,
+    sourceCodeUrl: string,
 
     meta: Nullable<Meta>,
 

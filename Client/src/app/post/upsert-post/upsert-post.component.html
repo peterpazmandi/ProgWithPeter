@@ -62,7 +62,9 @@
                 <div class="innerdiv mb-3">
                     <!-- Featured Image -->
                     <file-selector 
-                        [formControl]='createPostForm.controls["featuredImageUrl"]' 
+                        [formControl]='createPostForm.controls["sourceCodeUrl"]' 
+                        [allowedFileType]="'compress'"
+                        [endpoint]="addSourceCodeEndpoint"
                         [user]='user'>
                     </file-selector>
                 </div>

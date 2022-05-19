@@ -90,16 +90,14 @@ namespace API.Controllers
         
         [Authorize]
         [HttpPost("AddSourceCode")]
-        public async Task<ActionResult<PhotoDto>> AddSourceCode(IFormFile file, int postId)
+        public async Task<ActionResult<PhotoDto>> AddSourceCode(IFormFile file, int? postId)
         {
             try
             {
-                Post post = await _unitOfWork.PostRepository.GetPostByIdAsnyc(postId);
-
                 FileInfo fileInfo = new FileInfo(file.FileName);
-                var fileName = Guid.NewGuid().ToString() + fileInfo.Extension;
+                System.Console.WriteLine(file.FileName);
                 var folderDirectory = $"\\SourceCodes";
-                var path = Path.Combine("SourceCodes", fileName);
+                var path = Path.Combine("SourceCodes", file.FileName);
 
                 var memoryStream = new MemoryStream();
                 await file.OpenReadStream().CopyToAsync(memoryStream);
@@ -114,19 +112,7 @@ namespace API.Controllers
                     memoryStream.WriteTo(fs);
                 }
 
-                if(!string.IsNullOrEmpty(post.SourceCodeUrl))
-                {
-                    System.IO.File.Delete(Path.Combine("SourceCodes", post.SourceCodeUrl));
-                }
-                
-                post.SourceCodeUrl = fileName;
-
-                if(await _unitOfWork.Complete())
-                {
-                    return Ok(fileName);
-                }
-
-                return BadRequest("Upload source code failed!");
+                return Ok(path);
             }
             catch(Exception exception)
             {
