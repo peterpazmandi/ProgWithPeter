@@ -74,6 +74,11 @@ namespace API
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Photos/PostPhotos/FeaturedImages")),
                 RequestPath = new PathString("/Photos/PostPhotos/FeaturedImages")
             });
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"SourceCodes")),
+                RequestPath = new PathString("/SourceCodes")
+            });
 
             app.UseRouting();
 

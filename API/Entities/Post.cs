@@ -20,6 +20,7 @@ namespace API.Entities
 
 
         public string FeaturedImageUrl { get; set; }
+        public string SourceCodeUrl { get; set; }
 
 
         public int? MetaId { get; set; }

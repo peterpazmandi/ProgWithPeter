@@ -9,5 +9,6 @@ namespace API.Interfaces
     public interface IPostRepository
     {
         void Remove(Post post);
+        Task<Post> GetPostByIdAsnyc(int postId);
     }
 }

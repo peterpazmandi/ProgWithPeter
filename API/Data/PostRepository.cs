@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using API.Entities;
 using API.Interfaces;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
 {
@@ -22,6 +23,11 @@ namespace API.Data
         public void Remove(Post post)
         {
             _context.Posts.Remove(post);
+        }
+
+        public async Task<Post> GetPostByIdAsnyc(int postId)
+        {
+            return await _context.Posts.FirstOrDefaultAsync(p => p.Id == postId);
         }
     }
 }
