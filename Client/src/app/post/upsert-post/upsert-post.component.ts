@@ -38,6 +38,7 @@ export class UpsertPostComponent implements OnInit {
 
   apiUrl = environment.apiUrl;
   serverUrl = environment.serverUrl;
+  addFeaturedPostImageEndpoint = environment.addFeaturedPostImageEndpoint;
   uploader: FileUploader;
 
   createPostForm: FormGroup;

@@ -10,6 +10,8 @@ export const environment = {
   apiUrl: 'https://localhost:5001/api/',
   serverUrl: 'https://localhost:5001/',
   
+  addFeaturedPostImageEndpoint: 'Tutorial/add-featured-post-image',
+  
   iFramelyApiKey: 'd6f7a19a09f00da6a9e90a',  
   
   successUrl: 'https://localhost:4200/success',

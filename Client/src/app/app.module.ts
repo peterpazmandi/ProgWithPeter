@@ -44,7 +44,7 @@ import { DomChangedDirective } from './_directives/dom-changed.directive';
 import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.component';
 import { TagSelectorComponent } from './_forms/tag-selector/tag-selector.component';
 import { CategorySelectorComponent } from './_forms/category-selector/category-selector.component';
-import { ImageSelectorComponent } from './_forms/image-selector/image-selector.component';
+import { FileSelectorComponent } from './_forms/file-selector/file-selector.component';
 import { InputCkeditorComponent } from './_forms/input-ckeditor/input-ckeditor.component';
 import { SeoFormComponent } from './_forms/seo-form/seo-form.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
@@ -108,7 +108,7 @@ export function tokenGetter() {
     ConfirmDialogComponent,
     TagSelectorComponent,
     CategorySelectorComponent,
-    ImageSelectorComponent,
+    FileSelectorComponent,
     InputCkeditorComponent,
     SeoFormComponent,
     UpsertContentListComponent,

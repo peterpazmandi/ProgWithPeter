@@ -51,7 +51,20 @@
                 <h5 class="fw-bold">Featured image</h5>
                 <div class="innerdiv mb-3">
                     <!-- Featured Image -->
-                    <image-selector [formControl]='createPostForm.controls["featuredImageUrl"]' [user]='user'></image-selector>
+                    <file-selector 
+                        [formControl]='createPostForm.controls["featuredImageUrl"]'
+                        [allowedFileType]="'image'"
+                        [endpoint]="addFeaturedPostImageEndpoint"
+                        [user]='user'>
+                    </file-selector>
+                </div>
+                <h5 class="fw-bold">Source Code</h5>
+                <div class="innerdiv mb-3">
+                    <!-- Featured Image -->
+                    <file-selector 
+                        [formControl]='createPostForm.controls["featuredImageUrl"]' 
+                        [user]='user'>
+                    </file-selector>
                 </div>
             </form>
             <h5 class="fw-bold">SEO</h5>

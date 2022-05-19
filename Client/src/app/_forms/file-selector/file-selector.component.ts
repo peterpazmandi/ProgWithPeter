@@ -5,12 +5,14 @@ import { User } from 'src/app/_models/user.model';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'image-selector',
-  templateUrl: './image-selector.component.html',
-  styleUrls: ['./image-selector.component.css']
+  selector: 'file-selector',
+  templateUrl: './file-selector.component.html',
+  styleUrls: ['./file-selector.component.css']
 })
-export class ImageSelectorComponent implements OnInit, ControlValueAccessor {
+export class FileSelectorComponent implements OnInit, ControlValueAccessor {
   @Input() user: User;
+  @Input() allowedFileType: string;
+  @Input() endpoint: string;
 
   apiUrl = environment.apiUrl;
   serverUrl = environment.serverUrl;
@@ -38,10 +40,10 @@ export class ImageSelectorComponent implements OnInit, ControlValueAccessor {
 
   private initFileUploader() {
     this.uploader = new FileUploader({
-      url: this.apiUrl + 'Tutorial/add-featured-post-image',
+      url: this.apiUrl + this.endpoint,
       authToken: 'Bearer ' + this.user?.token,
       isHTML5: true,
-      allowedFileType: ['image'],
+      allowedFileType: [this.allowedFileType],
       removeAfterUpload: true,
       autoUpload: false
     });
