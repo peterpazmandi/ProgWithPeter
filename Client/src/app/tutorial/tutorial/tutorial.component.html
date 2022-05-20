@@ -20,6 +20,9 @@
             <div>
                 <toc [contentIn]="tutorial.post.content" (contentOut)="updateContent($event)"></toc>
             </div>
+            <div *ngIf="tutorial.post.sourceCodeUrl" class="innerdiv mt-5">
+                <source-code [sourceCode]="tutorial.post.sourceCodeUrl"></source-code>
+            </div>
         </div>
         <div *ngIf="!sideBarVisible" class="{{sidebarWidth}} menu sticky">
             <button class="btn btn-transparent" (click)="hideSidebar()" title="Show Content">

@@ -65,7 +65,6 @@ export class TutorialComponent implements OnInit {
   }
 
   updateContent(event: string) {
-    console.log(event);
     this.tutorial.post.content = event;
   }
 }

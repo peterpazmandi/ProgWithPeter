@@ -75,6 +75,7 @@ import { NgToggleModule } from 'ng-toggle-button';
 import { CheckoutComponent } from './pricing/checkout/checkout.component';
 import { PaymentSuccessComponent } from './pricing/payment-success/payment-success.component';
 import { PaymentFailedComponent } from './pricing/payment-failed/payment-failed.component';
+import { SourceCodeComponent } from './_forms/source-code/source-code.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -133,7 +134,8 @@ export function tokenGetter() {
     PricingComponent,
     CheckoutComponent,
     PaymentSuccessComponent,
-    PaymentFailedComponent
+    PaymentFailedComponent,
+    SourceCodeComponent
   ],
   imports: [
     BrowserModule,

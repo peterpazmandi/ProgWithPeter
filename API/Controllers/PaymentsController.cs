@@ -189,7 +189,7 @@ namespace API.Controllers
 
                 if (subscription != null)
                 {
-                    return BadRequest($"Your subscription has expired at {subscription.CurrentPeriodEnd}!");
+                    return BadRequest($"Your subscription expired at {subscription.CurrentPeriodEnd}!");
                 }
 
                 return NoContent();

@@ -1,0 +1,7 @@
+img {
+	filter: grayscale();
+}
+
+img:hover {
+	filter: none;
+}

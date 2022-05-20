@@ -1,0 +1,24 @@
+<h4 class="fw-bold">Source Code</h4>
+<hr class="dropdown-divider fw-bold">
+<div *ngIf="(accountService.currentUser$ | async) && (accountService.currentUser$ | async).subscription" class="text-center mt-3 mb-3">
+    <a href="{{sourceCode}}">
+        <img src="assets/png/download.png" alt="Download">
+    </a>
+</div>
+<div *ngIf="(accountService.currentUser$ | async) && !(accountService.currentUser$ | async).subscription" class="text-center mt-3 mb-3">
+    <span>Source code is available only for premium members!</span>
+    <button 
+        class="btn btn-white w-75 shadow p-4"
+        id="createNewBtn"
+        routerLink='/pricing' >
+        <span class="align-middle h4" style="font-weight: bolder;">Pricing</span>
+    </button>
+</div>
+<div *ngIf="!(accountService.currentUser$ | async)" class="text-center mt-3 mb-3">
+    <button
+        class="btn btn-white w-75 shadow p-4"
+        id="loginBtn"
+        (click)="onOpenLoginModal()" >
+        <span class="align-middle h4" style="font-weight: bolder;">Login</span>
+    </button>
+</div>
