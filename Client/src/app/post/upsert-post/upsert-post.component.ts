@@ -319,7 +319,7 @@ export class UpsertPostComponent implements OnInit {
       category: ['', [Validators.required]],
       tags: [[], [Validators.required]],
       featuredImageUrl: [[], [Validators.required]],
-      sourceCodeUrl: [[], [Validators.required]]
+      sourceCodeUrl: [[]]
     })
 
     this.formTextForm = this.fb.group({
