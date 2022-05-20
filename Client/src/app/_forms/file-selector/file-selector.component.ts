@@ -17,7 +17,7 @@ export class FileSelectorComponent implements OnInit, ControlValueAccessor {
   apiUrl = environment.apiUrl;
   serverUrl = environment.serverUrl;
   uploader: FileUploader;
-  featuredImageUrl: string = '';
+  fileUrl: string = '';
 
   constructor(@Self() public ngControl: NgControl) {
     this.ngControl.valueAccessor = this;
@@ -25,7 +25,7 @@ export class FileSelectorComponent implements OnInit, ControlValueAccessor {
 
   ngOnInit(): void {
     var sub = this.ngControl.valueChanges?.subscribe(featuredImageUrl => {
-      this.featuredImageUrl = featuredImageUrl;
+      this.fileUrl = featuredImageUrl;
 
       sub?.unsubscribe();
     })
@@ -50,8 +50,8 @@ export class FileSelectorComponent implements OnInit, ControlValueAccessor {
  
     this.uploader.onSuccessItem = (item, response: any, status, headers) => {
       if(response) {
-        this.featuredImageUrl = this.serverUrl + response;
-        this.ngControl?.control?.setValue(this.featuredImageUrl);
+        this.fileUrl = this.serverUrl + response;
+        this.ngControl?.control?.setValue(this.fileUrl);
         this.ngControl?.control?.markAsDirty();
       }
     }

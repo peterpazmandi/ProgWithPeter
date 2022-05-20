@@ -31,6 +31,9 @@
     </div>
 
 </div>
-<div *ngIf="featuredImageUrl !== ''">
-    <img role="presentation" src="{{featuredImageUrl}}" alt="Featured image">
+<div *ngIf="fileUrl !== '' && allowedFileType === 'image'">
+    <img role="presentation" src="{{fileUrl}}" alt="Featured image">
+</div>
+<div *ngIf="fileUrl !== '' && allowedFileType !== 'image'" class="wrap-text">
+    <span>{{fileUrl}}</span>
 </div>
