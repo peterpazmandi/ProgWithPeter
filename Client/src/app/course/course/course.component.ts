@@ -27,7 +27,6 @@ export class CourseComponent implements OnInit {
     private route: Router,
     private courseService: CourseService,
     public accountService: AccountService,
-    private title: Title,
     private meta: Meta
   ) { }
 
@@ -47,10 +46,10 @@ export class CourseComponent implements OnInit {
         this.course.courseEnrollments[0].progress = this.course.courseEnrollments[0].progress * 100
       }
       this.updateMeta();
-
+      
       if(this.route.url.split('/').length === 5) {
         for(let section of this.course.sections) {
-          this.openedPost = section.lectures.find(l => l.post.title === this.route.url.split('/')[4].replace(re, ' '))?.post as Post;
+          this.openedPost = section.lectures.find(l => l.post.title.toLocaleLowerCase() === this.route.url.split('/')[4].replace(re, ' ').toLocaleLowerCase())?.post as Post;
           if(this.openedPost) {
             break;
           }
@@ -93,7 +92,7 @@ export class CourseComponent implements OnInit {
   }
 
   updateContent(event: string) {
-    this.course.post.content = event;
+    this.openedPost.content = event;
   }
 
   updateCourseProgress(event: number) {

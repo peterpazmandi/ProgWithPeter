@@ -50,7 +50,7 @@
                 <app-accordion>
                     <app-accordion-item title="Table Of Content">
                         <div class="scrollable-content">
-                            <toc [contentIn]="course.post.content" (contentOut)="updateContent($event)"></toc>
+                            <toc [contentIn]="openedPost.content" (contentOut)="updateContent($event)"></toc>
                         </div>
                     </app-accordion-item>
                 </app-accordion>
@@ -62,8 +62,8 @@
                     </app-accordion-item>
                 </app-accordion>
             </div>
-            <div *ngIf="course.post.sourceCodeUrl" class="innerdiv mt-5">
-                <source-code [sourceCode]="course.post.sourceCodeUrl"></source-code>
+            <div *ngIf="openedPost.sourceCodeUrl" class="innerdiv mt-5">
+                <source-code [sourceCode]="openedPost.sourceCodeUrl"></source-code>
             </div>
         </div>
         <div *ngIf="!sideBarVisible" class="{{sidebarWidth}} menu sticky">

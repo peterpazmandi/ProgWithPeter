@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, OnInit, Output, SecurityContext } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, OnInit, Output, SecurityContext } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'toc',
   templateUrl: './toc.component.html',
-  styleUrls: ['./toc.component.css']
+  styleUrls: ['./toc.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TocComponent implements OnInit {
   @Input() contentIn: string;
