@@ -19,15 +19,49 @@
             <a (click)="redirectTo(course.post.meta?.slug)" routerLink='{{course.post.meta?.slug}}'>
                 <h4 class="fw-bold text-center">{{course.post.title}}</h4>
             </a>
-            <hr class="dropdown-divider">
-            <!-- Enroll button -->
-            <button *ngIf="course.courseEnrollments.length === 0"
-                class="btn btn-white shadow p-4" 
-                id="createNewBtn" 
-                [routerLink]="['/upsert-post']" >
-                <img src="assets/svg/ic_sign_document.svg">
-                <span class="ms-3 align-middle h4" style="font-weight: bolder;">Enroll</span>
-            </button>
+            <div 
+                *ngIf="(accountService.currentUser$ | async) && !(accountService.currentUser$ | async).subscription" 
+                class="innerdiv text-center mt-3 mb-3">
+                <hr class="dropdown-divider">
+                <span>The course is available for</span>
+                <br>
+                <span class="fw-bold">Professional</span>
+                <br>
+                <span>users.</span>
+                <br>
+                <button 
+                    class="btn btn-white w-75 shadow p-4"
+                    id="createNewBtn"
+                    routerLink='/pricing' >
+                    <span class="align-middle h4" style="font-weight: bolder;">Pricing</span>
+                </button>
+            </div>
+            <div 
+                *ngIf="(accountService.currentUser$ | async) && ((accountService.currentUser$ | async).subscription) as subscription" 
+                class="mt-3 mb-3">
+                <div class="innerdiv text-center" *ngIf="subscription.membershipType !== 'Professional'">
+                    <span>The course is available for</span>
+                    <br>
+                    <span class="fw-bold">Professional</span>
+                    <br>
+                    <span>users.</span>
+                    <br>
+                    <button 
+                        class="btn btn-white w-75 shadow p-4"
+                        id="createNewBtn"
+                        routerLink='/pricing' >
+                        <span class="align-middle h4" style="font-weight: bolder;">Pricing</span>
+                    </button>
+                </div>
+            </div>
+            <div *ngIf="!(accountService.currentUser$ | async)" class="innerdiv text-center mt-3 mb-3">
+                <span>The course is available for</span>
+                <br>
+                <span class="fw-bold">Professional</span>
+                <br>
+                <span>users.</span>
+                <br>
+            </div>
             <!-- Circle progress -->
             <div
                 *ngIf="course.courseEnrollments.length !== 0"

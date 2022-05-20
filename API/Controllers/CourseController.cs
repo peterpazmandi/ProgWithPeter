@@ -24,8 +24,6 @@ namespace API.Controllers
             _mapper = mapper;
         }
 
-
-        [Authorize(Roles = "Admin, Moderator")]
         [HttpGet("GetCourseByTitle")]
         public async Task<ActionResult<CourseDto>> GetCourseByTitle(string title, int? appUserId)
         {

@@ -2,6 +2,8 @@ import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { LoginComponent } from 'src/app/authentication/login/login.component';
 import { Course } from 'src/app/_models/courseDto.model';
 import { Post } from 'src/app/_models/post.model';
 import { User } from 'src/app/_models/user.model';
@@ -22,11 +24,13 @@ export class CourseComponent implements OnInit {
   sideBarVisible = true;
   waIntersectionObserver: IntersectionObserver;
   currentUser: User;
+  bsModalRef: BsModalRef;
 
   constructor(
     private route: Router,
     private courseService: CourseService,
     public accountService: AccountService,
+    private modalService: BsModalService,
     private meta: Meta
   ) { }
 
@@ -104,5 +108,14 @@ export class CourseComponent implements OnInit {
     let uri = '/course/' + courseSlug;
     this.route.navigateByUrl('/', {skipLocationChange: true}).then(()=>
     this.route.navigate([uri]));
+  }
+
+
+  onOpenLoginModal() {
+    const config = {
+      class: 'modal-dialog-centered'
+    }
+
+    this.bsModalRef = this.modalService.show(LoginComponent, config);
   }
 }

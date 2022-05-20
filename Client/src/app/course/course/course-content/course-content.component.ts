@@ -16,6 +16,8 @@ export class CourseContentComponent implements OnInit {
   @Output() courseCompletionRate: EventEmitter<number> = new EventEmitter<number>(true);
   currentUser: User;
 
+  //TODO: ha nincs jososultsága a felhasználónak, akkor ne tudjon belenézni a lecture-be
+
   constructor(
     protected route: Router,
     public accountService: AccountService,
