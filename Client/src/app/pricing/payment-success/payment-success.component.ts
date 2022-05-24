@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { map } from 'rxjs/operators';
@@ -21,9 +22,11 @@ export class PaymentSuccessComponent implements OnInit {
     private pricingService: PaymentService,
     private accountService: AccountService,
     private toastr: ToastrService,
-    private router: Router) { }
+    private router: Router,
+    @Inject(DOCUMENT) private _document: Document) { }
 
   ngOnInit(): void {
+    // this.reload(); // Needed because the user's data has to be updated
     this.pricingService.getCheckoutSession().subscribe(checkoutSession => {
       if(checkoutSession.paymentStatus === PaymentStatus.PAID) {
         this.pricingService.getSubscriptionBySubscriptionId(checkoutSession.subscriptionId).subscribe(subscription => {
@@ -38,7 +41,7 @@ export class PaymentSuccessComponent implements OnInit {
         this.router.navigateByUrl('/pricing');
       }
     }, error => {
-      console.log(error);      
+      this.router.navigateByUrl('/pricing');    
     });
   }
 
@@ -56,4 +59,8 @@ export class PaymentSuccessComponent implements OnInit {
     });
   }
 
+  
+  private reload() {
+    this._document.defaultView?.location.reload();
+  }
 }

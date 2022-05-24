@@ -31,7 +31,7 @@ namespace API.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         [HttpGet("Products")]
         public async Task<ActionResult> Products()
         {
@@ -97,7 +97,7 @@ namespace API.Controllers
             return Ok(await _unitOfWork.StripeRepository.GetAllCheckoutSessions());
         }
 
-        [Authorize(Roles = "Admin, Moderator")]
+        [Authorize]
         [HttpGet("GetCheckoutSession")]
         public async Task<IActionResult> GetCheckoutSession()
         {
@@ -107,6 +107,11 @@ namespace API.Controllers
                 var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
 
                 UserSession userSession = await _unitOfWork.UserSessionRepository.GetUserSessionAsync(user);
+
+                if (userSession == null)
+                {
+                    return BadRequest("First select a membeship!");
+                }
 
                 return Ok(await _unitOfWork.StripeRepository.GetCheckoutSessionBySessionIdAsync(userSession.SessionId));
             }
@@ -152,7 +157,7 @@ namespace API.Controllers
             return Ok(await _unitOfWork.StripeRepository.GetSubscriptionsOfCustomer(customerId));
         }
 
-        [Authorize(Roles = "Admin, Moderator")]
+        [Authorize]
         [HttpGet("GetActiveSubscriptionOfCustomer")]
         public async Task<ActionResult> GetActiveSubscriptionOfCustomer()
         {
