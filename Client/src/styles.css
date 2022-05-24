@@ -27,7 +27,6 @@ html, body {
 }
 .innerdiv {
   padding: 25px;
-  text-align: left;
   position: relative;
   background: var(--primary);
   color: var(--on-primary);
@@ -548,6 +547,29 @@ thead {
   overflow-wrap:break-word
 }
 
-.zoom-in-10p {
-  
+
+figure {
+  margin-right: auto;
+}
+figure img {
+  margin: auto;
+  display: block;
+  margin-left: auto;
+  width: 50%;
+}
+
+/* figure img:hover {
+  transform: scale(1.5);
+} */
+
+figcaption {
+  margin: auto;
+  display: block;
+  margin-left: auto;
+  background-color: black;
+  color: white;
+  font-style: italic;
+  padding: 2px;
+  text-align: center;
+  width: 50%;
 }
