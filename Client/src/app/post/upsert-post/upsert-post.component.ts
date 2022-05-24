@@ -263,6 +263,8 @@ export class UpsertPostComponent implements OnInit {
   }
 
   private createTutorialDtoFromForms(status: string): UpsertTutorialDto {
+    console.log(this.createPostDtoFromForms());
+    
     return {
       id: (this.createPostForm?.value['id'] as number),
       status: status,
@@ -282,7 +284,7 @@ export class UpsertPostComponent implements OnInit {
       content: (this.formTextForm?.value['content'] as string),
       password: '',
       featuredImageUrl: (this.createPostForm?.value['featuredImageUrl'] as string),
-      sourceCodeUrl: (this.createPostForm?.value['sourceCodeUrl'] as string),
+      sourceCodeUrl: ((this.createPostForm?.value['sourceCodeUrl'] as string) ? (this.createPostForm?.value['sourceCodeUrl'] as string) : ""),
       tagIds: tagIds,
       categoryName: (this.createPostForm?.value['category'] as TreeviewItem).text,
       meta: this.createMetaDtoFromForms(),
@@ -318,8 +320,8 @@ export class UpsertPostComponent implements OnInit {
       title: ['', [Validators.required, Validators.minLength(8)]],
       category: ['', [Validators.required]],
       tags: [[], [Validators.required]],
-      featuredImageUrl: [[], [Validators.required]],
-      sourceCodeUrl: [[]]
+      featuredImageUrl: ['', [Validators.required]],
+      sourceCodeUrl: ['']
     })
 
     this.formTextForm = this.fb.group({

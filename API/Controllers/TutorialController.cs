@@ -96,11 +96,6 @@ namespace API.Controllers
 
             if(tutorialDto.Id == 0)
             {
-                if(tutorialDto.Status.Equals(PostStatus.Published.ToString())) 
-                {
-                    tutorial.PublishDate = DateTime.Now;
-                }
-
                 tutorial = new Tutorial
                 {
                     CreationDate = DateTime.Now,
@@ -122,6 +117,11 @@ namespace API.Controllers
                     Price = tutorialDto.Price,
                     Currency = tutorialDto.Currency
                 };
+
+                if(tutorialDto.Status.Equals(PostStatus.Published.ToString())) 
+                {
+                    tutorial.PublishDate = DateTime.Now;
+                }
 
                 await _unitOfWork.TutorialRepository.AddTutorialAsync(tutorial);
             }
@@ -166,7 +166,6 @@ namespace API.Controllers
                 if(tutorialDto.Id == 0)
                 {
                     return Ok(new {
-                        tutorial = tutorial,
                         tutorialId = tutorial.Id,
                         message = "Tutorial has been created successfully!"
                     });
