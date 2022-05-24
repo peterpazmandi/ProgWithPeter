@@ -41,7 +41,18 @@
                 Courses
             </a>
           </li>
-          <li class="nav-item" [routerLink]="['/pricing']">          
+          <li *ngIf="(accountService.currentUser$ | async)" class="nav-item" [routerLink]="['/pricing']">          
+            <a
+                class="nav-link navbar-link" 
+                role="button">
+                <img
+                    class="me-1" 
+                    src="assets/svg/ic_pricing.svg" 
+                    alt="Programming with Peter">
+                Pricing
+            </a>
+          </li>
+          <li *ngIf="!(accountService.currentUser$ | async)" class="nav-item" (click)="onOpenLoginModal()">          
             <a
                 class="nav-link navbar-link" 
                 role="button">

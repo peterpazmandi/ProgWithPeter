@@ -29,8 +29,6 @@ export class PricingComponent implements OnInit {
   ngOnInit(): void {
     this.pricingService.getMemberships().subscribe(response => {
       this.memberships.push(...response as MembershipDto[]);
-    }, error => {
-      console.log(error);
     })
   }
 
