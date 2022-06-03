@@ -4,12 +4,14 @@
       title="{{section.title}} ({{section.lectures.length}})">
         <div class="d-flex flex-row mb-3" *ngFor="let lecture of section.lectures; index as lectureIndex">
             <div class="form-check">
-              <label *ngIf="currentUser === undefined"
+              <label *ngIf="currentUser === undefined
+                || (currentUser !== undefined && !currentUser.subscription)
+                || (currentUser !== undefined && currentUser.subscription && currentUser.subscription.membershipType !== 'Professional')"
                 class="form-check-label" 
                 for="flexCheckChecked">
                 {{lecture.post.title}}
               </label>
-              <div *ngIf="currentUser !== undefined">
+              <div *ngIf="currentUser !== undefined && currentUser.subscription && currentUser.subscription.membershipType === 'Professional'">
                 <input
                   id="{{lectureIndex}}"
                   class="form-check-input ms-1" 
