@@ -76,6 +76,9 @@ import { CheckoutComponent } from './pricing/checkout/checkout.component';
 import { PaymentSuccessComponent } from './pricing/payment-success/payment-success.component';
 import { PaymentFailedComponent } from './pricing/payment-failed/payment-failed.component';
 import { SourceCodeComponent } from './_forms/source-code/source-code.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ProfileDetailsComponent } from './profile/profile-details/profile-details.component';
+import { MembershipComponent } from './profile/membership/membership.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -135,7 +138,10 @@ export function tokenGetter() {
     CheckoutComponent,
     PaymentSuccessComponent,
     PaymentFailedComponent,
-    SourceCodeComponent
+    SourceCodeComponent,
+    ProfileComponent,
+    ProfileDetailsComponent,
+    MembershipComponent
   ],
   imports: [
     BrowserModule,
