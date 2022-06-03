@@ -80,8 +80,8 @@
               "browserTarget": "test:build:production"
             },
             "development": {
-              "sslKey": "./ssl/server.key",
-              "sslCert": "./ssl/server.crt",
+              "sslKey": "./ssl/localhost.key",
+              "sslCert": "./ssl/localhost.crt",
               "ssl": true,
               "browserTarget": "test:build:development"
             }
