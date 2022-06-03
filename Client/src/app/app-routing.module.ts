@@ -15,6 +15,7 @@ import { PricingComponent } from "./pricing/pricing/pricing.component";
 import { CheckoutComponent } from "./pricing/checkout/checkout.component";
 import { PaymentSuccessComponent } from "./pricing/payment-success/payment-success.component";
 import { PaymentFailedComponent } from "./pricing/payment-failed/payment-failed.component";
+import { ProfileComponent } from "./profile/profile.component";
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -66,6 +67,10 @@ const routes: Routes = [
     { 
         path: 'authentication', 
         loadChildren: () => import('./authentication/auth-routing.module').then(m => m.AuthenticationModule)
+    },
+    {
+        path: 'profile',
+        component: ProfileComponent
     },
     {
         path: 'pricing',

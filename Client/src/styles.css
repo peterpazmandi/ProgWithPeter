@@ -233,10 +233,19 @@ body .bs-datepicker-container .bs-datepicker-head {
 #createNewBtn {
   background-color: #42A5F5;
   color: white;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
   width: 100%;
 }
 #createNewBtn:hover {
+  background-color: #1976D2;
+}
+
+
+#actionBtn {
+  background-color: #42A5F5;
+  color: white;
+}
+#actionBtn:hover {
   background-color: #1976D2;
 }
 

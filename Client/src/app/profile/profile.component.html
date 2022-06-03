@@ -1,1 +1,35 @@
-<p>profile works!</p>
+<div class="container pt-5">
+    <div class="row">
+        <div class="col-3 text-center d-flex flex-column">
+            <div class="d-flex justify-content-center">
+                <img 
+                    class="rounded-circle w-75 shadow"
+                    src="{{currentUser.photoUrl}}" 
+                    alt="Profile Photo">
+            </div>
+            <h3 class="fw-bold mt-5">{{currentUser.firstName}} {{currentUser.lastName}}</h3>
+            <hr class="dropdown-divider">
+            <div class="col-xs-1 text-center">
+                <button
+                    class="btn btn-white w-75"
+                    id="actionBtn" >
+                    <span>Profile</span>
+                </button>
+                <button
+                    class="btn btn-white w-75"
+                    id="actionBtn" >
+                    <span>Membership</span>
+                </button>
+                <hr class="dropdown-divider mt-4">
+                <button
+                    class="btn btn-white w-75"
+                    id="actionBtn">
+                    <span>Your courses</span>
+                </button>
+            </div>
+        </div>
+        <div class="col-9 innerdiv">
+            
+        </div>
+    </div>
+</div>
