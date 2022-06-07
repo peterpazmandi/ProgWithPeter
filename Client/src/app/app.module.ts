@@ -79,6 +79,7 @@ import { SourceCodeComponent } from './_forms/source-code/source-code.component'
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileDetailsComponent } from './profile/profile-details/profile-details.component';
 import { MembershipComponent } from './profile/membership/membership.component';
+import { DynamicLoadingDirective } from './_directives/dynamic-loading.directive';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -141,7 +142,8 @@ export function tokenGetter() {
     SourceCodeComponent,
     ProfileComponent,
     ProfileDetailsComponent,
-    MembershipComponent
+    MembershipComponent,
+    DynamicLoadingDirective
   ],
   imports: [
     BrowserModule,
