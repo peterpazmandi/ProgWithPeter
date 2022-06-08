@@ -1,1 +1,72 @@
-<p>profile-details works!</p>
+<div class="d-flex justify-content-between">
+    <div class="mt-auto">
+        <h4 class="fw-bold">Profile</h4>
+    </div>
+    <div class="mt-auto">
+        <button
+            class="btn w-100"
+            id="editBtn" >
+            <img class="me-2" src="assets/svg/ic_pen_outlined.svg">
+            <span class="me-2">Edit</span>
+        </button>
+    </div>
+</div>
+<hr class="dropdown-divider">
+<div class="container mt-5 mb-5">
+    <div class="row row-cols-2 align-items-center">
+
+        <div class="col-4">Email</div>
+        <div class="col">{{currentUser.email}}</div>
+
+        <div class="col-4">Username</div>
+        <div class="col">{{currentUser.username}}</div>
+
+        <div class="col-4">First name</div>
+        <div class="col">{{currentUser.firstName}}</div>
+
+        <div class="col-4">Last name</div>
+        <div class="col">{{currentUser.lastName}}</div>
+
+        <div class="col-4">Gender</div>
+        <div class="col">{{currentUser.gender}}</div>
+
+        <div class="col-4">Country</div>
+        <div class="col">{{currentUser.country}}</div>
+
+        <div class="col-4">Registration date</div>
+        <div class="col">{{currentUser.registrationDate | date:'medium'}}</div>
+
+        <div class="col-4 mt-5">
+            Email not yet confirmed
+        </div>
+        <div class="col mt-5">
+            <button
+                class="btn"
+                style="margin-top: 0;"
+                id="editBtn" >
+                <img class="me-2" src="assets/svg/ic_letter_outlined.svg">
+                <span class="me-2">Edit</span>
+            </button>          
+        </div>
+
+    </div>
+</div>
+        
+<hr class="dropdown-divider">
+<div class="container mt-5 mb-5">
+    <div class="row row-cols-2 align-items-center">
+        <div class="col-4">
+            Upload new profile picture
+        </div>
+        <div class="col">
+            <button
+                class="btn"
+                style="margin-top: 0;"
+                id="editBtn" >
+                <img class="me-2" src="assets/svg/ic_folder_outlined.svg">
+                <span class="me-2">Browse</span>
+            </button>          
+        </div>
+
+    </div>
+</div>

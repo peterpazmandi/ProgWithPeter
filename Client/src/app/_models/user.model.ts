@@ -11,6 +11,14 @@ export interface User {
     roles: string[];
     clientURI: string;
 
+    email: string;
+    emailConfirmed: boolean;
+
+    gender: string;
+    country: string;
+
+    registrationDate: Date;
+
     courseEnrollments: CourseEnrollment[];
 
     subscription: SubscriptionDto;

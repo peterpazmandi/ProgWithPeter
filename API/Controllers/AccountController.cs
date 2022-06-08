@@ -95,7 +95,10 @@ namespace API.Controllers
                 Token = await _tokenService.CreateToken(user),
                 FirstName = user.FirstName,
                 LastName = user.LastName,
+                Email = user.Email,
                 EmailConfirmed = user.EmailConfirmed,
+                Country = user.Country,
+                Gender = user.Gender,
                 CourseEnrollments = new List<CourseEnrollmentDto>()
             };
         }
@@ -153,7 +156,11 @@ namespace API.Controllers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 PhotoUrl = user.Photo != null ? "https://localhost:5001/Photos/ProfilePhotos/" + user.Photo.Url : "",
+                Email = user.Email,
                 EmailConfirmed = user.EmailConfirmed,
+                Country = user.Country,
+                Gender = user.Gender,
+                RegistrationDate = user.Created,
                 CourseEnrollments = _mapper.Map<List<CourseEnrollmentDto>>(user.CourseEnrollments)
             };
         }
