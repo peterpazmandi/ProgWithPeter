@@ -36,16 +36,17 @@
         <div class="col-4">Registration date</div>
         <div class="col">{{currentUser.registrationDate | date:'medium'}}</div>
 
-        <div class="col-4 mt-5">
+        <div *ngIf="!currentUser.emailConfirmed" class="col-4 mt-5">
             Email not yet confirmed
         </div>
-        <div class="col mt-5">
+        <div *ngIf="!currentUser.emailConfirmed" class="col mt-5">
             <button
                 class="btn"
                 style="margin-top: 0;"
-                id="editBtn" >
+                id="editBtn"
+                (click)="resendEmailConfirmation()" >
                 <img class="me-2" src="assets/svg/ic_letter_outlined.svg">
-                <span class="me-2">Edit</span>
+                <span class="me-2">Resend</span>
             </button>          
         </div>
 

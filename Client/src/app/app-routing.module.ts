@@ -70,6 +70,8 @@ const routes: Routes = [
     },
     {
         path: 'profile',
+        runGuardsAndResolvers: 'always',
+        canActivate: [AuthGuard],
         component: ProfileComponent
     },
     {

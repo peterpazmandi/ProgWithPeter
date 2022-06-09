@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { take } from 'rxjs/operators';
 import { AccountService } from 'src/app/_services/account.service';
 
 @Component({
@@ -27,6 +28,11 @@ export class EmailConfirmationComponent implements OnInit {
     const email = this.route.snapshot.queryParams['email'];
 
     this.accountService.confirmEmail(token, email).subscribe(() => {
+      var userSub = this.accountService.currentUser$.pipe(take(1)).subscribe(user => {
+        user.emailConfirmed = true;
+        this.accountService.setCurrentUser(user);
+      })
+      userSub.unsubscribe;
       this.showSuccess = true;
     }, error => {
       this.showError = true;
