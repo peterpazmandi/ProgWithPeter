@@ -9,8 +9,10 @@ export const environment = {
 
   apiUrl: 'https://localhost:5001/api/',
   serverUrl: 'https://localhost:5001/',
+  profilePictureUrl: 'https://localhost:5001/Photos/ProfilePhotos/',
   
   addFeaturedPostImageEndpoint: 'Tutorial/add-featured-post-image',
+  updateProfilePictureEndpoint: 'Users/update-profile-photo',
   addSourceCodeEndpoint: 'Post/AddSourceCode',
   
   iFramelyApiKey: 'd6f7a19a09f00da6a9e90a',  

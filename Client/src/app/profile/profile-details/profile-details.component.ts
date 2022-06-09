@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { take } from 'rxjs/operators';
 import { User } from 'src/app/_models/user.model';
 import { AccountService } from 'src/app/_services/account.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-profile-details',
@@ -10,13 +13,26 @@ import { AccountService } from 'src/app/_services/account.service';
 })
 export class ProfileDetailsComponent implements OnInit {
   currentUser: User;
+  updateProfilePictureEndpoint = environment.updateProfilePictureEndpoint;
+
+  updateProfileForm: FormGroup;
 
   constructor(
     private accountService: AccountService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.loadCurrentUser();
+    this.initializeForm();
+
+    this.updateProfileForm.controls["featuredImageUrl"].valueChanges.subscribe(photo => {
+      const photoUrl = JSON.parse(photo).url;
+      console.log(photoUrl);
+      
+      this.currentUser.photoUrl = environment.profilePictureUrl + photoUrl;
+      this.accountService.setCurrentUser(this.currentUser);
+    })
   }
 
   private loadCurrentUser() {
@@ -30,6 +46,12 @@ export class ProfileDetailsComponent implements OnInit {
       this.toastr.success('Email confirmation has been sent out successfully.');
     }, error => {
       console.log(error.error);
+    })
+  }
+
+  private initializeForm() {
+    this.updateProfileForm = this.fb.group({
+      featuredImageUrl: [''],
     })
   }
 

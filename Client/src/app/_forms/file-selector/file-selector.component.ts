@@ -50,7 +50,11 @@ export class FileSelectorComponent implements OnInit, ControlValueAccessor {
  
     this.uploader.onSuccessItem = (item, response: any, status, headers) => {
       if(response) {
-        this.fileUrl = this.serverUrl + response;
+        if(this.endpoint.includes(environment.updateProfilePictureEndpoint)) {
+          this.fileUrl = response;
+        } else {
+          this.fileUrl = this.serverUrl + response;
+        }
         this.ngControl?.control?.setValue(this.fileUrl);
         this.ngControl?.control?.markAsDirty();
       }

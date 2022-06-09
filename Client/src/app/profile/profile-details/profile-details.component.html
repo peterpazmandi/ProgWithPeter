@@ -59,14 +59,16 @@
         <div class="col-4">
             Upload new profile picture
         </div>
-        <div class="col">
-            <button
-                class="btn"
-                style="margin-top: 0;"
-                id="editBtn" >
-                <img class="me-2" src="assets/svg/ic_folder_outlined.svg">
-                <span class="me-2">Browse</span>
-            </button>          
+        <div class="col">            
+            <div class="innerdiv">
+                <!-- Featured Image -->
+                <file-selector 
+                    [formControl]='updateProfileForm.controls["featuredImageUrl"]'
+                    [allowedFileType]="'image'"
+                    [endpoint]="updateProfilePictureEndpoint"
+                    [user]='currentUser'>
+                </file-selector>
+            </div>
         </div>
 
     </div>
