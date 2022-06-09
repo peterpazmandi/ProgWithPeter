@@ -238,7 +238,6 @@
           <li class="nav-item dropdown" *ngIf="(accountService.currentUser$ | async) as user">
             <a 
               class="nav-link" 
-              id="navbarDropdown" 
               role="button" 
               data-bs-toggle="dropdown" 
               aria-expanded="false">
@@ -250,10 +249,8 @@
               <li>
                 <div class="dropdown-item">
                   <a 
-                    id="navbarDropdown"
                     routerLink='/profile'
                     role="button" 
-                    data-bs-toggle="dropdown" 
                     aria-expanded="false">
                     <img
                       class="me-1 rounded-img-small" 
