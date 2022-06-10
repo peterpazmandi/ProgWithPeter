@@ -27,10 +27,7 @@ export class ProfileDetailsComponent implements OnInit {
     this.initializeForm();
 
     this.updateProfileForm.controls["featuredImageUrl"].valueChanges.subscribe(photo => {
-      const photoUrl = JSON.parse(photo).url;
-      console.log(photoUrl);
-      
-      this.currentUser.photoUrl = environment.profilePictureUrl + photoUrl;
+      this.currentUser.photoUrl = photo;
       this.accountService.setCurrentUser(this.currentUser);
     })
   }

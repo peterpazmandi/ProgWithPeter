@@ -20,7 +20,7 @@ namespace API.Controllers
     public class UsersController : BaseApiController
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly IConfiguration _configuration;
+        private readonly IConfiguration _config;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
@@ -29,7 +29,7 @@ namespace API.Controllers
             _webHostEnvironment = webHostEnvironment;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _configuration = configuration;
+            _config = configuration;
         }
 
         [HttpGet("{username}", Name = "GetUser")]
@@ -78,7 +78,7 @@ namespace API.Controllers
 
                 if(await _unitOfWork.Complete())
                 {
-                    return CreatedAtRoute("GetUser", new {username = user.UserName}, _mapper.Map<PhotoDto>(photo));
+                    return Ok(_config.GetValue<string>("API:ProfilePhotosUrl") + photo.Url);
                 }
 
                 return BadRequest("Problem adding photo");

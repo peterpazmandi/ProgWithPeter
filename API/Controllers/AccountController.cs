@@ -155,7 +155,7 @@ namespace API.Controllers
                 Token = await _tokenService.CreateToken(user),
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                PhotoUrl = user.Photo != null ? "https://localhost:5001/Photos/ProfilePhotos/" + user.Photo.Url : "",
+                PhotoUrl = user.Photo != null ? _config.GetValue<string>("API:ProfilePhotosUrl") + user.Photo.Url : "",
                 Email = user.Email,
                 EmailConfirmed = user.EmailConfirmed,
                 Country = user.Country,
