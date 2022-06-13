@@ -1,1 +1,11 @@
-<p>membership works!</p>
+<ng-container *ngIf="!currentUser.subscription else currentUser.subscription && currentUser.subscription.membershipType === 'Beginner' ? beginner : professional">
+    standard
+</ng-container>
+
+<ng-template #beginner>
+    beginner
+</ng-template>
+
+<ng-template #professional>
+    professional
+</ng-template>

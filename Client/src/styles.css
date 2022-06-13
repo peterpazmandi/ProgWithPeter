@@ -510,6 +510,11 @@ thead {
 
 
 
+.standard {
+  background-color: #E7E7E7;
+  color: black;
+}
+
 .beginner {
   background-color: #02CCBA;
   color: white;
@@ -517,7 +522,6 @@ thead {
 .beginner-border {
   border-color: #02CCBA;
 }
-
 
 .professional {
   background-color: #1976D2;
