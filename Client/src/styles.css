@@ -190,7 +190,8 @@ body .bs-datepicker-container .bs-datepicker-head {
 }
 
 .rounded-img-small {
-  max-height: 30px;
+  height: 30px;
+  width: 30px;
   border-radius: 50%;
 }
 
@@ -511,7 +512,7 @@ thead {
 
 
 .standard {
-  background-color: #E7E7E7;
+  background-color: #bebebe;
   color: black;
 }
 
@@ -560,7 +561,7 @@ thead {
 }
 
 .brt-6 {
-  border-radius: 6px 6px 0px 0px;
+  border-radius: 6px 6px 0px 0px !important;
 }
 
 
@@ -579,10 +580,6 @@ figure img {
   margin-left: auto;
   width: 50%;
 }
-
-/* figure img:hover {
-  transform: scale(1.5);
-} */
 
 figcaption {
   margin: auto;

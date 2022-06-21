@@ -1,5 +1,12 @@
 <ng-container *ngIf="!currentUser.subscription else currentUser.subscription && currentUser.subscription.membershipType === 'Beginner' ? beginner : professional">
-    standard
+    <div class="text-center">
+        <div class="standard pt-5 pb-5 brt-6">
+            <img src="assets/png/standard.png"
+                alt="Beginner Membership" 
+                style="width: 15%;" >
+            <h3 class="fw-bold mt-5 text-decoration-underline">Standard</h3>
+        </div>
+    </div>
 </ng-container>
 
 <ng-template #beginner>
