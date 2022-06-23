@@ -1,14 +1,32 @@
-<div class="d-flex justify-content-between">
+<div class="d-flex justify-content-between ps-3 pt-3 pe-3">
     <div class="mt-auto">
         <h4 class="fw-bold">Profile</h4>
     </div>
-    <div class="mt-auto">
-        <button
-            class="btn w-100"
-            id="editBtn" >
-            <img class="me-2" src="assets/svg/ic_pen_outlined.svg">
-            <span class="me-2">Edit</span>
-        </button>
+    <div class="mt-auto me-2">
+        <ng-container *ngIf="!inEditMode else editModeOff">
+            <div class="row">
+                <button
+                    class="btn col w-100"
+                    id="editBtn" 
+                    (click)="onOpenEditMode()">
+                <img class="me-2" src="assets/svg/ic_pen_outlined.svg">
+                <span class="me-2">Edit</span>
+            </button>
+            </div>
+        </ng-container>
+        <ng-template #editModeOff>
+            <div class="row">
+                <button 
+                    class="col btn btn-white w-100 me-2" 
+                    (click)="onOpenEditMode()">
+                    <span>Cancel</span>
+                </button>
+                <button 
+                    class="col btn btn-primary w-100">
+                    <span>Save</span>
+                </button>
+            </div>
+        </ng-template>
     </div>
 </div>
 <hr class="dropdown-divider">
@@ -54,7 +72,7 @@
 </div>
         
 <hr class="dropdown-divider">
-<div class="container mt-5 mb-5">
+<div class="container mt-2 mb-2">
     <div class="row row-cols-2 align-items-center">
         <div class="col-4">
             Upload new profile picture
@@ -62,7 +80,7 @@
         <div class="col">            
             <div class="innerdiv">
                 <!-- Featured Image -->
-                <file-selector 
+                <file-selector class=" p-3"
                     [formControl]='updateProfileForm.controls["featuredImageUrl"]'
                     [allowedFileType]="'image'"
                     [endpoint]="updateProfilePictureEndpoint"

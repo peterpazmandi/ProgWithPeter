@@ -17,6 +17,8 @@ export class ProfileDetailsComponent implements OnInit {
 
   updateProfileForm: FormGroup;
 
+  inEditMode = false;
+
   constructor(
     private accountService: AccountService,
     private toastr: ToastrService,
@@ -52,4 +54,7 @@ export class ProfileDetailsComponent implements OnInit {
     })
   }
 
+  onOpenEditMode() {
+    this.inEditMode = !this.inEditMode;
+  }
 }
