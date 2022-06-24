@@ -22,7 +22,10 @@
         </div>
         <form [formGroup]='registerForm' (ngSubmit)="registerForm.valid && register()" autocomplete="off" *ngIf="!result">
             <app-text-input 
-                [formControl]='registerForm.controls["email"]' [label]='"Email"'></app-text-input>
+                [formControl]='registerForm.controls["email"]'
+                [label]='"Email"'
+                [type]="email">
+            </app-text-input>
             <app-text-input 
                 [formControl]='registerForm.controls["username"]' [label]='"Username"'></app-text-input>
             <app-text-input

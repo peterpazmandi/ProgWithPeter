@@ -259,7 +259,7 @@ namespace API.Controllers
             var validateUser = await _signInManager.CheckPasswordSignInAsync(user, updateEmailDto.Password, false);
             if(!validateUser.Succeeded)
             {
-                return Unauthorized();
+                return BadRequest("Wrong password!");
             }
 
             user.Email = updateEmailDto.Email;
@@ -278,7 +278,7 @@ namespace API.Controllers
                 {"token", token },
                 {"email", user.Email }
             };
-            var callback = QueryHelpers.AddQueryString(updateEmailDto.ClientURI, param);
+            var callback = QueryHelpers.AddQueryString(Client.EmailConfirmationUri, param);
             var message = new Message(new string[] { user.Email }, "Email Confirmation token", callback, null);
             await _emailSender.SendEmailAsync(message);
 

@@ -1,11 +1,25 @@
 <form [formGroup]="profileFormService.profileForm" autocomplete="off">
     <div class="row row-cols-2 align-items-center">
-        <div class="col-4 mt-2 mb-2">Email</div>
-        <input
-            [class.is-invalid]="profileFormService.profileForm.controls.email.touched && profileFormService.profileForm.controls.email.invalid"
-            class="col form-control w-50" 
-            type="text" 
-            formControlName='email' placeholder="Email">
+        <div class="col-4 mt-2 mb-2">Email</div>        
+        <button
+            class="btn col w-50"
+            id="editBtn" 
+            (click)="onOpenUpdateEmailModal()">
+            <img class="me-2" src="assets/svg/ic_letter_outlined.svg">
+            <span class="me-2">Update email</span>
+        </button>
+
+        <div class="col-4 mt-2 mb-2">Password</div>
+        <button
+            class="btn col w-50"
+            id="editBtn" 
+            (click)="onOpenResetPasswordModal()">
+            <img class="me-2" src="assets/svg/ic_lock_outlined.png">
+            <span class="me-2">Reset password</span>
+        </button>
+
+        <hr class="dropdown-divider col-4 mt-4 mb-4">
+        <hr class="dropdown-divider col">
     
         <div class="col-4 mt-2 mb-2">Username</div>
         <input

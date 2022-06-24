@@ -68,4 +68,9 @@ export class ProfileDetailsComponent implements OnInit {
   onOpenEditMode() {
     this.inEditMode = !this.inEditMode;
   }
+
+  onSaveEditProfile() {
+    
+    this.inEditMode = !this.inEditMode;
+  }
 }

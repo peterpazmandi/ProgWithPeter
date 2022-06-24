@@ -1,0 +1,39 @@
+<div app-theme class="modaldiv rounded">
+    <div class="modal-header">
+        <div>
+            <h4 class="modal-title pull-left">Update Email</h4>
+        </div>
+        <img
+            class="me-1" style="cursor: pointer;"
+            (click)="bsModalRef.hide()"
+            src="assets/svg/ic_close.svg" 
+            alt="Programming with Peter">
+    </div>
+    <div class="modal-body">
+        <form 
+            [formGroup]='updateEmailForm' 
+            (ngSubmit)="updateEmailForm.valid"
+            autocomplete="off">
+            <app-text-input 
+                [formControl]='updateEmailForm.controls["email"]' 
+                [label]='"New email"'
+                [type]='"email"'>
+            </app-text-input>
+            <app-text-input
+                [formControl]='updateEmailForm.controls["password"]' 
+                [label]='"Password"' 
+                [type]='"password"' >
+            </app-text-input>
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <button 
+                    class="btn btn-primary" 
+                    *ngIf="!loading" 
+                    type="submit"
+                    [disabled]='!updateEmailForm.valid'
+                    (click)='onSubmit()'>
+                    Update Email
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

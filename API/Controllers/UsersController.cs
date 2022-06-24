@@ -38,6 +38,12 @@ namespace API.Controllers
             return await _unitOfWork.UserRepository.GetMemberAsync(username);
         }
 
+        // [HttpPost("UpdateProfileDetailes")]
+        // public async Task<IActionResult> UpdateProfileDetailes()
+        // {
+
+        // }
+
         [HttpPost("update-profile-photo")]
         public async Task<ActionResult<PhotoDto>> UpdateProfilePhoto(IFormFile file)
         {

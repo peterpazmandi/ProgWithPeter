@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 import { CustomEncoder } from '../shared/custom-encoder';
 import { ForgotPasswordDto } from '../_models/forgotPasswordDto.model';
 import { ResetPasswordDto } from '../_models/resetPasswordDto.model';
-import { SubscriptionDto } from '../_models/subscriptionDto.model';
+import { UpdateEmailDto } from '../_models/updateEmailDto.model';
 import { User } from '../_models/user.model';
 
 @Injectable({
@@ -74,15 +74,26 @@ export class AccountService {
     this.currentUserSource.next(user);
   }
 
-  getDecodedToken(token: string) {
-    return JSON.parse(atob(token.split('.')[1]));
-  }
-
   updateCustomerId(customerId: string) {
     let params = new HttpParams();
     params = params.set('customerId', customerId);    
     return this.http.post(this.baseUrl + 'Users/UpdateCustomerId', params);
   }
 
+  updateUserEmail(updateEmailDto: UpdateEmailDto) {
+    return this.http.post(this.baseUrl + 'Account/update-user-email', updateEmailDto);
+  }
 
+
+
+
+
+
+
+
+
+
+  getDecodedToken(token: string) {
+    return JSON.parse(atob(token.split('.')[1]));
+  }
 }

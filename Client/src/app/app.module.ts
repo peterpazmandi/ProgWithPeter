@@ -81,6 +81,7 @@ import { ProfileDetailsComponent } from './profile/profile-details/profile-detai
 import { MembershipComponent } from './profile/membership/membership.component';
 import { DynamicLoadingDirective } from './_directives/dynamic-loading.directive';
 import { EditProfileComponent } from './profile/profile-details/edit-profile/edit-profile.component';
+import { UpdateEmialComponent } from './authentication/update-emial/update-emial.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -145,7 +146,8 @@ export function tokenGetter() {
     ProfileDetailsComponent,
     MembershipComponent,
     DynamicLoadingDirective,
-    EditProfileComponent
+    EditProfileComponent,
+    UpdateEmialComponent
   ],
   imports: [
     BrowserModule,
