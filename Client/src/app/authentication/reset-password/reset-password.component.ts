@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ResetPasswordDto } from 'src/app/_models/resetPasswordDto.model';
 import { AccountService } from 'src/app/_services/account.service';
 
@@ -16,6 +17,7 @@ export class ResetPasswordComponent implements OnInit {
   errorMessage: string;  
 
   constructor(
+    public bsModalRef: BsModalRef,
     private accountService: AccountService,
     private fb: FormBuilder,
     private route: ActivatedRoute) { }
