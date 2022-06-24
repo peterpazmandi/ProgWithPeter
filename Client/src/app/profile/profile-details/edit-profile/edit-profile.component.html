@@ -1,0 +1,45 @@
+<form [formGroup]="profileFormService.profileForm" autocomplete="off">
+    <div class="row row-cols-2 align-items-center">
+        <div class="col-4 mt-2 mb-2">Email</div>
+        <input
+            [class.is-invalid]="profileFormService.profileForm.controls.email.touched && profileFormService.profileForm.controls.email.invalid"
+            class="col form-control w-50" 
+            type="text" 
+            formControlName='email' placeholder="Email">
+    
+        <div class="col-4 mt-2 mb-2">Username</div>
+        <input
+            [class.is-invalid]="profileFormService.profileForm.controls.username.touched && profileFormService.profileForm.controls.username.invalid"
+            class="col form-control w-50" 
+            type="text" 
+            formControlName='username' placeholder="Username">
+    
+        <div class="col-4 mt-2 mb-2">First name</div>
+        <input
+            [class.is-invalid]="profileFormService.profileForm.controls.firstName.touched && profileFormService.profileForm.controls.firstName.invalid"
+            class="col form-control w-50" 
+            type="text" 
+            formControlName='firstName' placeholder="First name">
+    
+        <div class="col-4 mt-2 mb-2">Last name</div>
+        <input
+            [class.is-invalid]="profileFormService.profileForm.controls.lastName.touched && profileFormService.profileForm.controls.lastName.invalid"
+            class="col form-control w-50" 
+            type="text" 
+            formControlName='lastName' placeholder="Last name">
+    
+        <div class="col-4 mt-2 mb-2">Gender</div>
+        <input
+            [class.is-invalid]="profileFormService.profileForm.controls.gender.touched && profileFormService.profileForm.controls.gender.invalid"
+            class="col form-control w-50" 
+            type="text" 
+            formControlName='gender' placeholder="Gender">
+    
+        <div class="col-4 mt-2 mb-2">Country</div>
+        <input
+            [class.is-invalid]="profileFormService.profileForm.controls.country.touched && profileFormService.profileForm.controls.country.invalid"
+            class="col form-control w-50" 
+            type="text" 
+            formControlName='country' placeholder="Country">
+    </div>
+</form>

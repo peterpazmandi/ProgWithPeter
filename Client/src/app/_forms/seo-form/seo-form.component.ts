@@ -10,7 +10,6 @@ import { SeoFormService } from './seo-form.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SeoFormComponent implements OnInit {
-  //@Input() seoForm: FormGroup;
   @Input() textWordCount: number = 0;
   @Input() internalLinkCount: number = 0;
   @Input() externalLinkCount: number = 0;

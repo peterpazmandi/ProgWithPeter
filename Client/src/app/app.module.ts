@@ -80,6 +80,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { ProfileDetailsComponent } from './profile/profile-details/profile-details.component';
 import { MembershipComponent } from './profile/membership/membership.component';
 import { DynamicLoadingDirective } from './_directives/dynamic-loading.directive';
+import { EditProfileComponent } from './profile/profile-details/edit-profile/edit-profile.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -143,7 +144,8 @@ export function tokenGetter() {
     ProfileComponent,
     ProfileDetailsComponent,
     MembershipComponent,
-    DynamicLoadingDirective
+    DynamicLoadingDirective,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -11,7 +11,7 @@
                     (click)="onOpenEditMode()">
                 <img class="me-2" src="assets/svg/ic_pen_outlined.svg">
                 <span class="me-2">Edit</span>
-            </button>
+                </button>
             </div>
         </ng-container>
         <ng-template #editModeOff>
@@ -31,28 +31,34 @@
 </div>
 <hr class="dropdown-divider">
 <div class="container mt-5 mb-5">
+    <ng-container *ngIf="!inEditMode else editModeOffPanel">
+        <div class="row row-cols-2 align-items-center">
+            <div class="col-4 mt-2 mb-2">Email</div>
+            <div class="col">{{currentUser.email}}</div>
+    
+            <div class="col-4 mt-2 mb-2">Username</div>
+            <div class="col">{{currentUser.username}}</div>
+    
+            <div class="col-4 mt-2 mb-2">First name</div>
+            <div class="col">{{currentUser.firstName}}</div>
+    
+            <div class="col-4 mt-2 mb-2">Last name</div>
+            <div class="col">{{currentUser.lastName}}</div>
+    
+            <div class="col-4 mt-2 mb-2">Gender</div>
+            <div class="col">{{currentUser.gender}}</div>
+    
+            <div class="col-4 mt-2 mb-2">Country</div>
+            <div class="col">{{currentUser.country}}</div>
+        </div>
+    </ng-container>
+    <ng-template #editModeOffPanel>
+        <app-edit-profile></app-edit-profile>
+    </ng-template>  
     <div class="row row-cols-2 align-items-center">
 
-        <div class="col-4">Email</div>
-        <div class="col">{{currentUser.email}}</div>
-
-        <div class="col-4">Username</div>
-        <div class="col">{{currentUser.username}}</div>
-
-        <div class="col-4">First name</div>
-        <div class="col">{{currentUser.firstName}}</div>
-
-        <div class="col-4">Last name</div>
-        <div class="col">{{currentUser.lastName}}</div>
-
-        <div class="col-4">Gender</div>
-        <div class="col">{{currentUser.gender}}</div>
-
-        <div class="col-4">Country</div>
-        <div class="col">{{currentUser.country}}</div>
-
-        <div class="col-4">Registration date</div>
-        <div class="col">{{currentUser.registrationDate | date:'medium'}}</div>
+        <div class="col-4 mt-5">Registration date</div>
+        <div class="col mt-5">{{currentUser.registrationDate | date:'medium'}}</div>
 
         <div *ngIf="!currentUser.emailConfirmed" class="col-4 mt-5">
             Email not yet confirmed
@@ -67,7 +73,6 @@
                 <span class="me-2">Resend</span>
             </button>          
         </div>
-
     </div>
 </div>
         
@@ -80,7 +85,7 @@
         <div class="col">            
             <div class="innerdiv">
                 <!-- Featured Image -->
-                <file-selector class=" p-3"
+                <file-selector
                     [formControl]='updateProfileForm.controls["featuredImageUrl"]'
                     [allowedFileType]="'image'"
                     [endpoint]="updateProfilePictureEndpoint"
