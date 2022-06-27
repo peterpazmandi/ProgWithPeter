@@ -38,11 +38,25 @@ namespace API.Controllers
             return await _unitOfWork.UserRepository.GetMemberAsync(username);
         }
 
-        // [HttpPost("UpdateProfileDetailes")]
-        // public async Task<IActionResult> UpdateProfileDetailes()
-        // {
+        [Authorize]
+        [HttpPost("UpdateProfileDetailes")]
+        public async Task<IActionResult> UpdateProfileDetailes(UpdateProfileDetailesDto updateProfileDetailesDto)
+        {
+            string username = User.GetUsername();
+            await _unitOfWork.UserRepository.UpdateProfileDetailes(username, updateProfileDetailesDto);
 
-        // }
+            if (!this._unitOfWork.HasChanges())
+            {
+                return Ok("No changes made!");
+            }
+
+            if (await this._unitOfWork.CompleteAsync())
+            {
+                return Ok("Modifications are saved successfully!");
+            }
+
+            return BadRequest("Modifications failed to save!");
+        }
 
         [HttpPost("update-profile-photo")]
         public async Task<ActionResult<PhotoDto>> UpdateProfilePhoto(IFormFile file)
@@ -82,7 +96,7 @@ namespace API.Controllers
                 
                 user.Photo = photo;
 
-                if(await _unitOfWork.Complete())
+                if(await _unitOfWork.CompleteAsync())
                 {
                     return Ok(_config.GetValue<string>("API:ProfilePhotosUrl") + photo.Url);
                 }
@@ -127,7 +141,7 @@ namespace API.Controllers
                     });
             }
 
-            if (await _unitOfWork.Complete())
+            if (await _unitOfWork.CompleteAsync())
             {
                 return Ok(new {
                         isChanged = true,

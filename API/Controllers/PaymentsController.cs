@@ -72,7 +72,7 @@ namespace API.Controllers
                     });
                 }
             
-                if(await _unitOfWork.Complete())
+                if(await _unitOfWork.CompleteAsync())
                 {
                     return Ok(new CreateCheckoutSessionResponseDto
                     {

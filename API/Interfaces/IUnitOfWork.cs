@@ -17,7 +17,7 @@ namespace API.Interfaces
         IUserSessionRepository UserSessionRepository { get; }
         IStripeRepository StripeRepository { get; }
 
-        Task<bool> Complete();
+        Task<bool> CompleteAsync();
         bool HasChanges();
     }
 }

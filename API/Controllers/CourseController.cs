@@ -198,7 +198,7 @@ namespace API.Controllers
                 course.Status = upsertCourseDto.Status;
             }
 
-            if(await _unitOfWork.Complete())
+            if(await _unitOfWork.CompleteAsync())
             {
                 // Creation
                 if(upsertCourseDto.Id == 0)

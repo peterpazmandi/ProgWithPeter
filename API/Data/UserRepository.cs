@@ -51,5 +51,20 @@ namespace API.Data
                             .OrderBy(x => x.UserName)
                             .SingleOrDefaultAsync(x => x.UserName == username);
         }
+
+        public async Task UpdateProfileDetailes(string currentUser, UpdateProfileDetailesDto updateProfileDetailesDto)
+        {
+            var user = await _context.Users
+                .SingleOrDefaultAsync(u => u.UserName.ToLower().Equals(currentUser.ToLower()));
+            
+            if (user != null)
+            {
+                user.UserName = updateProfileDetailesDto.Username;
+                user.FirstName = updateProfileDetailesDto.FirstName;
+                user.LastName = updateProfileDetailesDto.LastName;
+                user.Gender = updateProfileDetailesDto.Gender;
+                user.Country = updateProfileDetailesDto.Country;
+            }
+        }
     }
 }

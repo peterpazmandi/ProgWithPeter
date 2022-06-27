@@ -111,12 +111,12 @@ namespace API.Controllers
                 return Ok(await _unitOfWork.CourseRepository.GetCourseProgressByLectureId(setLectureCompletionDto.LectureId, user.Id));
             }
 
-            await _unitOfWork.Complete();
+            await _unitOfWork.CompleteAsync();
 
             double progress = await _unitOfWork.CourseRepository.GetCourseProgressByLectureId(setLectureCompletionDto.LectureId, user.Id);
             await _unitOfWork.CourseRepository.UpdateCourseProgressByLectureId(lecture.Id, user.Id, progress);
 
-            if(await _unitOfWork.Complete())
+            if(await _unitOfWork.CompleteAsync())
             {
                 return Ok(await _unitOfWork.CourseRepository.GetCourseProgressByLectureId(setLectureCompletionDto.LectureId, user.Id));
             }
@@ -218,7 +218,7 @@ namespace API.Controllers
                 lecture.Status = lectureDto.Status;
             }
 
-            if(await _unitOfWork.Complete())
+            if(await _unitOfWork.CompleteAsync())
             {
                 // Creation
                 if(lectureDto.Id == 0)

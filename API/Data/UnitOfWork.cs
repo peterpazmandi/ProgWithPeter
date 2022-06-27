@@ -30,7 +30,7 @@ namespace API.Data
         public ILectureActivityRepository LectureActivityRepository => new LectureActivityRepository(_context, _mapper);
         public IStripeRepository StripeRepository => new StripeRepository(_mapper);
 
-        public async Task<bool> Complete()
+        public async Task<bool> CompleteAsync()
         {
             return await _context.SaveChangesAsync() > 0;
         }

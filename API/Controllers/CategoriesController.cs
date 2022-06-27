@@ -59,7 +59,7 @@ namespace API.Controllers
                 category.ParentCategoryId = categoryDto.ParentCategoryId;
             }
 
-            if(await _unitOfWork.Complete())
+            if(await _unitOfWork.CompleteAsync())
             {
                 // Creation
                 if(categoryDto.Id == 0)

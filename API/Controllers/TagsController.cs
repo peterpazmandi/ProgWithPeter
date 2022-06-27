@@ -63,7 +63,7 @@ namespace API.Controllers
 
             if(insertedTagsCount > 0)
             {
-                if(await _unitOfWork.Complete())
+                if(await _unitOfWork.CompleteAsync())
                 {
                     return Ok($"{insertedTagsCount} Tags added successfully.");
                 }
@@ -102,7 +102,7 @@ namespace API.Controllers
                 tag.Name = tagDto.Name;
             }
 
-            if(await _unitOfWork.Complete())
+            if(await _unitOfWork.CompleteAsync())
             {
                 // Creation
                 if(tagDto.Id == 0)

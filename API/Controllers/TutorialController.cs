@@ -160,7 +160,7 @@ namespace API.Controllers
                 tutorial.Currency = tutorialDto.Currency;
             }
 
-            if(await _unitOfWork.Complete())
+            if(await _unitOfWork.CompleteAsync())
             {
                 // Creation
                 if(tutorialDto.Id == 0)
