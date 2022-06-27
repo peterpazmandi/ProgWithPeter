@@ -3,10 +3,12 @@ import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { UpdatePasswordComponent } from '../authentication/update-password/update-password.component';
 import { CustomEncoder } from '../shared/custom-encoder';
 import { ForgotPasswordDto } from '../_models/forgotPasswordDto.model';
 import { ResetPasswordDto } from '../_models/resetPasswordDto.model';
 import { UpdateEmailDto } from '../_models/updateEmailDto.model';
+import { UpdatePasswordDto } from '../_models/updatePasswordDto.model';
 import { User } from '../_models/user.model';
 
 @Injectable({
@@ -64,6 +66,10 @@ export class AccountService {
 
   resetPassword(resetPasswordDto: ResetPasswordDto) {
     return this.http.post(this.baseUrl + 'account/reset-password', resetPasswordDto);
+  }
+
+  updatePassword(updatePasswordDto: UpdatePasswordDto) {
+    return this.http.post(this.baseUrl + 'account/update-user-password', updatePasswordDto);
   }
 
   setCurrentUser(user: User) {

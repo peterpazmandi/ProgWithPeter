@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { ResetPasswordComponent } from 'src/app/authentication/reset-password/reset-password.component';
 import { UpdateEmialComponent } from 'src/app/authentication/update-emial/update-emial.component';
+import { UpdatePasswordComponent } from 'src/app/authentication/update-password/update-password.component';
 import { ProfileFormService } from '../profile-form.service';
 
 @Component({
@@ -27,11 +26,11 @@ export class EditProfileComponent implements OnInit {
     this.bsModalRef = this.modalService.show(UpdateEmialComponent, config);
   }
   
-  onOpenResetPasswordModal() {
+  onOpenUpdatePasswordModal() {
     const config = {
       class: 'modal-dialog-centered'
     }
 
-    this.bsModalRef = this.modalService.show(ResetPasswordComponent, config);
+    this.bsModalRef = this.modalService.show(UpdatePasswordComponent, config);
   }
 }

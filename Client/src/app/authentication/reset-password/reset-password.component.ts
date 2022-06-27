@@ -17,7 +17,6 @@ export class ResetPasswordComponent implements OnInit {
   errorMessage: string;  
 
   constructor(
-    public bsModalRef: BsModalRef,
     private accountService: AccountService,
     private fb: FormBuilder,
     private route: ActivatedRoute) { }

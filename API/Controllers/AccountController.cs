@@ -236,7 +236,7 @@ namespace API.Controllers
             var validateUser = await _signInManager.CheckPasswordSignInAsync(user, updatePasswordDto.CurrentPassword, false);
             if(!validateUser.Succeeded)
             {
-                return Unauthorized();
+                return BadRequest("Incorrect current password!");
             }
 
             var result = await _userManager.ChangePasswordAsync(user, updatePasswordDto.CurrentPassword, updatePasswordDto.NewPassword);
@@ -246,7 +246,7 @@ namespace API.Controllers
                 return BadRequest("Failed to update password!");
             }
 
-            return NoContent();
+            return Ok();
         }
 
         [Authorize]
