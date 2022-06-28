@@ -12,6 +12,6 @@ namespace API.Interfaces
         Task<IEnumerable<AppUser>> GerUsersAsync();
         Task<AppUser> GetUserByIdAsync(int id);
         Task<AppUser> GetUserByUsernameAsync(string username);
-        Task UpdateProfileDetailes(string currentUser, UpdateProfileDetailesDto updateProfileDetailesDto);
+        Task UpdateProfileDetailes(UpdateProfileDetailesDto updateProfileDetailesDto);
     }
 }

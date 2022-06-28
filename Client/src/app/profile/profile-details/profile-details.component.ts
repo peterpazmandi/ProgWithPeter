@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs/operators';
+import { UpdateProfileDetailesDto } from 'src/app/_models/updateProfileDetailesDto.model';
 import { User } from 'src/app/_models/user.model';
 import { AccountService } from 'src/app/_services/account.service';
 import { environment } from 'src/environments/environment';
@@ -56,7 +57,6 @@ export class ProfileDetailsComponent implements OnInit {
     })
     
     this.profileFormService.profileForm.patchValue({
-      email: this.currentUser.email,
       username: this.currentUser.username,
       firstName: this.currentUser.firstName,
       lastName: this.currentUser.lastName,
@@ -70,7 +70,23 @@ export class ProfileDetailsComponent implements OnInit {
   }
 
   onSaveEditProfile() {
-    
-    this.inEditMode = !this.inEditMode;
+    let user = this.createUpdateProfileDetailesDto();
+    this.accountService.updateProfileDetailes(
+      user
+      ).subscribe((result: any) => {
+        this.toastr.success(result.message);
+        this.accountService.updateCurrentUsersProfileDetailes(user);
+        this.inEditMode = !this.inEditMode;
+    })
+  }
+
+  private createUpdateProfileDetailesDto(): UpdateProfileDetailesDto {
+    return {
+      username: this.profileFormService.profileForm.value['username'] as string,
+      firstName: this.profileFormService.profileForm.value['firstName'] as string,
+      lastName: this.profileFormService.profileForm.value['lastName'] as string,
+      gender: this.profileFormService.profileForm.value['gender'] as string,
+      country: this.profileFormService.profileForm.value['country'] as string
+    } as UpdateProfileDetailesDto
   }
 }

@@ -52,10 +52,10 @@ namespace API.Data
                             .SingleOrDefaultAsync(x => x.UserName == username);
         }
 
-        public async Task UpdateProfileDetailes(string currentUser, UpdateProfileDetailesDto updateProfileDetailesDto)
+        public async Task UpdateProfileDetailes(UpdateProfileDetailesDto updateProfileDetailesDto)
         {
             var user = await _context.Users
-                .SingleOrDefaultAsync(u => u.UserName.ToLower().Equals(currentUser.ToLower()));
+                .SingleOrDefaultAsync(u => u.Id == updateProfileDetailesDto.Id);
             
             if (user != null)
             {

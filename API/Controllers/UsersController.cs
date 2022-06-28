@@ -40,19 +40,18 @@ namespace API.Controllers
 
         [Authorize]
         [HttpPost("UpdateProfileDetailes")]
-        public async Task<IActionResult> UpdateProfileDetailes(UpdateProfileDetailesDto updateProfileDetailesDto)
+        public async Task<ActionResult<string>> UpdateProfileDetailes(UpdateProfileDetailesDto updateProfileDetailesDto)
         {
-            string username = User.GetUsername();
-            await _unitOfWork.UserRepository.UpdateProfileDetailes(username, updateProfileDetailesDto);
+            await _unitOfWork.UserRepository.UpdateProfileDetailes(updateProfileDetailesDto);
 
             if (!this._unitOfWork.HasChanges())
             {
-                return Ok("No changes made!");
+                return Ok(new { message = "No changes were made!" });
             }
 
             if (await this._unitOfWork.CompleteAsync())
             {
-                return Ok("Modifications are saved successfully!");
+                return Ok(new { message = "Modifications are saved successfully!" });
             }
 
             return BadRequest("Modifications failed to save!");
