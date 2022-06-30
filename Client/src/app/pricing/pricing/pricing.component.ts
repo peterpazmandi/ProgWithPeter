@@ -5,6 +5,7 @@ import { LoginComponent } from 'src/app/authentication/login/login.component';
 import { MembershipDto } from 'src/app/_models/membershipDto.model';
 import { User } from 'src/app/_models/user.model';
 import { AccountService } from 'src/app/_services/account.service';
+import { MembershipDescService } from 'src/app/_services/membership-desc.service';
 import { PaymentService } from 'src/app/_services/payment.service';
 import { PriceRecurringInterval } from 'src/app/_utils/priceRecurringInterval.enum';
 
@@ -23,6 +24,7 @@ export class PricingComponent implements OnInit {
     private modalService: BsModalService,
     public accountService: AccountService,
     private pricingService: PaymentService,
+    public membershipDescService: MembershipDescService,
     private router: Router) {
    }
 

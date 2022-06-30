@@ -27,17 +27,14 @@
                         style="width: 30%;" >
                 </div>
                 <h3 class="fw-bold m-5 text-decoration-underline">{{memberships[0].name}}</h3>
-                <div class="text-start ms-5 mb-3">
-                    <img class="me-3"
+                <div *ngFor="let feature of membershipDescService.BEGINNER_MEMBERSHIP.features" class="text-start ms-5 mb-3">
+                    <img *ngIf="feature.isAvailable" class="me-3"
                         src="assets/svg/ic_tick_green.svg"
                         alt="Beginner Membership" >
-                    <span>Access to all <span class="fw-bold">tutorials</span></span>
-                </div>
-                <div class="text-start ms-5 mb-3">
-                    <img class="me-3"
-                        src="assets/svg/ic_tick_green.svg"
+                    <img *ngIf="!feature.isAvailable" class="me-3"
+                        src="assets/svg/ic_na_red.svg"
                         alt="Beginner Membership" >
-                    <span>Download all <span class="fw-bold">tutorials'</span> source code</span>
+                    <span>{{feature.desc}}</span>
                 </div>
                 <div style="margin-top: auto;">
                     <hr class="dropdown-divider mt-5 mb-5">
@@ -70,29 +67,14 @@
                         style="height: 30%; width: 30%;" >
                 </div>
                 <h3 class="fw-bold m-5 text-decoration-underline">{{memberships[1].name}}</h3>
-                <div class="text-start ms-5 mb-3">
-                    <img class="me-3"
-                        src="assets/svg/ic_tick_blue.svg"
+                <div *ngFor="let feature of membershipDescService.PROFESSIONAL_MEMBERSHIP.features" class="text-start ms-5 mb-3">
+                    <img *ngIf="feature.isAvailable" class="me-3"
+                        src="assets/svg/ic_tick_green.svg"
                         alt="Beginner Membership" >
-                    <span>Access to all <span class="fw-bold">tutorials</span></span>
-                </div>
-                <div class="text-start ms-5 mb-5">
-                    <img class="me-3"
-                        src="assets/svg/ic_tick_blue.svg"
+                    <img *ngIf="!feature.isAvailable" class="me-3"
+                        src="assets/svg/ic_na_red.svg"
                         alt="Beginner Membership" >
-                    <span>Download all <span class="fw-bold">tutorials'</span> source code</span>
-                </div>
-                <div class="text-start ms-5 mb-3">
-                    <img class="me-3"
-                        src="assets/svg/ic_tick_blue.svg"
-                        alt="Beginner Membership" >
-                    <span>Access to all <span class="fw-bold">courses</span></span>
-                </div>
-                <div class="text-start ms-5 mb-3">
-                    <img class="me-3"
-                        src="assets/svg/ic_tick_blue.svg"
-                        alt="Beginner Membership" >
-                    <span>Download all <span class="fw-bold">courses'</span> source code</span>
+                    <span>{{feature.desc}}</span>
                 </div>
                 <div>
                     <hr class="dropdown-divider mt-5 mb-5">
