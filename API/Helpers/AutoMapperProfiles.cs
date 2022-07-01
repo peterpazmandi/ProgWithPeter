@@ -53,6 +53,8 @@ namespace API.Helpers
             CreateMap<Course, UpsertCourseListDto>().ReverseMap();
 
             CreateMap<CourseEnrollment, CourseEnrollmentDto>().ReverseMap();
+            CreateMap<CourseEnrollment, UserCourseEnrollment>()
+                .ForMember(dest => dest.CourseTitle, opt => opt.MapFrom(src => src.Course.Post.Title));
 
 
             CreateMap<Product, MembershipDto>().ReverseMap();

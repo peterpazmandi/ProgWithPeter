@@ -142,6 +142,17 @@ namespace API.Data
                 .CreateAsync(queryDto.AsQueryable(), courseParams.PageNumber, courseParams.PageSize);
         }
 
+        public async Task<List<UserCourseEnrollment>> GetEnrolledCoursesByUserId(int userId)
+        {
+            var query = _context.CourseEnrollments
+                .Include(c => c.Course)
+                .Include(c => c.AppUser)
+                .OrderByDescending(c => c.Progress)
+                .Where(c => c.AppUser.Id == userId);            
+            
+            return await _mapper.ProjectTo<UserCourseEnrollment>(query).ToListAsync();
+        }
+
         public async Task<bool> IsCourseWithTitleAvailable(string title)
         {
             return (await _context.Courses

@@ -63,14 +63,14 @@ namespace API.Controllers
             return courses;
         }
 
-        [Authorize(Roles = "Admin, Moderator")]
+        [Authorize]
         [HttpGet("GetCourseTitles")]
         public async Task<ActionResult<IEnumerable<string>>> GetCourseTitles()
         {
             return await _unitOfWork.CourseRepository.GetCourseTitles();
         }
 
-        [Authorize(Roles = "Admin, Moderator")]
+        [Authorize]
         [HttpGet("GetCourseProgressByLectureId")]
         public async Task<ActionResult<double>> GetCourseProgressByLectureId(int lectureId)
         {
@@ -78,6 +78,18 @@ namespace API.Controllers
             var userId = (await _unitOfWork.UserRepository.GetUserByUsernameAsync(username)).Id;
 
             return await _unitOfWork.CourseRepository.GetCourseProgressByLectureId(lectureId, userId);
+        }
+
+        [Authorize]
+        [HttpGet("GetEnrolledCoursesByUserId")]
+        public async Task<ActionResult<List<UserCourseEnrollment>>> GetEnrolledCoursesByUserId()
+        {
+            string username = User.GetUsername();
+            var userId = (await _unitOfWork.UserRepository.GetUserByUsernameAsync(username)).Id;
+
+            var list = await _unitOfWork.CourseRepository.GetEnrolledCoursesByUserId(userId);
+
+            return list;
         }
 
         [Authorize(Roles = "Admin, Moderator")]
