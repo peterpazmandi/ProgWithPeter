@@ -19,31 +19,84 @@
                     <span>{{feature.desc}}</span>
                 </div>
             </div>
+            <button 
+                class="btn btn-white w-25 shadow p-2"
+                id="createNewBtn"
+                routerLink='/pricing' >
+                <span class="align-middle h4 fw-bold">Pricing</span>
+            </button>
         </div>
-
     </div>
 </ng-container>
 
 <ng-template #beginner>
-    beginner
+    <div class="text-center">
+        <div class="beginner pt-5 pb-5 brt-6">
+            <img src="assets/png/programmer.png"
+                alt="Beginner Membership" 
+                style="width: 15%;" >
+            <h3 class="fw-bold mt-5 text-decoration-underline">{{currentUser.subscription.membershipType}}</h3>
+        </div>
+        
+        <div class="d-flex justify-content-center">
+            <div class="mt-5 mb-5">
+                <div *ngFor="let feature of membershipDescService.BEGINNER_MEMBERSHIP.features" class="text-start mb-3">
+                    <img *ngIf="feature.isAvailable" class="me-3"
+                        src="assets/svg/ic_tick_green.svg"
+                        alt="Beginner Membership" >
+                    <img *ngIf="!feature.isAvailable" class="me-3"
+                        src="assets/svg/ic_na_red.svg"
+                        alt="Beginner Membership" >
+                    <span>{{feature.desc}}</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="d-flex flex-column">
+            <div class="mt-5 mb-5">
+                <div class="p-2">
+                    <span class="wrap success fw-bold">Expires At</span>
+                </div>
+                <div class="p-2">
+                    <span class="h3">{{currentUser.subscription.currentPeriodEnd | date:'medium'}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
 </ng-template>
 
 <ng-template #professional>
-    professional
-</ng-template>
-
+    <div class="text-center">
+        <div class="professional pt-5 pb-5 brt-6">
+            <img src="assets/png/hacker.png"
+                alt="Professional Membership" 
+                style="width: 15%;" >
+            <h3 class="fw-bold mt-5 text-decoration-underline">{{currentUser.subscription.membershipType}}</h3>
+        </div>
         
-<div class="d-flex justify-content-center">
-    <button 
-        class="btn btn-white w-25 shadow p-2"
-        id="createNewBtn"
-        routerLink='/pricing' >
-        <span class="align-middle h4 fw-bold">Pricing</span>
-    </button>
-</div>
-    
-<hr class="dropdown-divider mb-3">
-
-<div class="d-flex flex-column">
-    <span class="align-middle h4 fw-bold mb-3 ms-3">Order history</span>
-</div>
+        <div class="d-flex justify-content-center">
+            <div class="mt-5 mb-5">
+                <div *ngFor="let feature of membershipDescService.PROFESSIONAL_MEMBERSHIP.features" class="text-start mb-3">
+                    <img *ngIf="feature.isAvailable" class="me-3"
+                        src="assets/svg/ic_tick_green.svg"
+                        alt="Professional Membership" >
+                    <img *ngIf="!feature.isAvailable" class="me-3"
+                        src="assets/svg/ic_na_red.svg"
+                        alt="Professional Membership" >
+                    <span>{{feature.desc}}</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="d-flex flex-column">
+            <div class="mt-5 mb-5">
+                <div class="p-2">
+                    <span class="wrap success fw-bold">Expires At</span>
+                </div>
+                <div class="p-2">
+                    <span class="h3">{{currentUser.subscription.currentPeriodEnd | date:'medium'}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
