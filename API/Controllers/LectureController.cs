@@ -89,7 +89,7 @@ namespace API.Controllers
             return await _unitOfWork.LectureRepository.GetLectureByTitleAndCourseTitle(lectureTitle, courseTitle);
         }
 
-        [Authorize(Roles = "Admin, Moderator")]
+        [Authorize]
         [HttpPost("SetLectureCompletion")]
         public async Task<ActionResult<double>> SetLectureCompletion(SetLectureCompletionDto setLectureCompletionDto)
         {

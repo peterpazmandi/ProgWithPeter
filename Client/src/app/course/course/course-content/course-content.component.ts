@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Course } from 'src/app/_models/courseDto.model';
 import { LectureActivity } from 'src/app/_models/lectureActivityDto.model';
 import { User } from 'src/app/_models/user.model';
@@ -50,10 +50,13 @@ export class CourseContentComponent implements OnInit {
   }
 
   private updateLectureActivity(sectionIndex: number, lectureIndex: number, lectureIsCompleted: boolean) {
-    if(this.course.sections[sectionIndex].lectures[lectureIndex].lectureActivities !== undefined) {
-      this.course.sections[sectionIndex].lectures[lectureIndex].lectureActivities[0].isCompleted = lectureIsCompleted;
+    var lectureActivities: LectureActivity[] = this.course.sections[sectionIndex].lectures[lectureIndex].lectureActivities as LectureActivity[];
+    console.log((lectureActivities as LectureActivity[]).length);
+    
+    if(lectureActivities !== undefined && (lectureActivities as LectureActivity[]).length > 0) {
+      lectureActivities[0].isCompleted = lectureIsCompleted;
     } else {
-      this.course.sections[sectionIndex].lectures[lectureIndex].lectureActivities.push({
+      (lectureActivities as LectureActivity[]).push({
         isCompleted: lectureIsCompleted
       } as LectureActivity)
     }
