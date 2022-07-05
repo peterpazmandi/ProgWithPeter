@@ -14,7 +14,7 @@ namespace API.Interfaces
         Task<Course> GetCourseByIdAsync(int id);
         Task<string> GetCourseTitleByLectureId(int lectureId);
         Task<double> GetCourseProgressByLectureId(int lectureId, int appUserId);
-        Task<List<UserCourseEnrollment>> GetEnrolledCoursesByUserId(int userId);
+        Task<List<UserCourseEnrollmentDto>> GetEnrolledCoursesByUserId(int userId);
         Task<bool> IsCourseWithTitleAvailable(string title);
         Task AddCourseAsync(Course course);
         Task UpdateCourseProgressByLectureId(int lectureId, int appUserId, double progress);

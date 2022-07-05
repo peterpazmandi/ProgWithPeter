@@ -83,6 +83,8 @@ import { DynamicLoadingDirective } from './_directives/dynamic-loading.directive
 import { EditProfileComponent } from './profile/profile-details/edit-profile/edit-profile.component';
 import { UpdateEmialComponent } from './authentication/update-emial/update-emial.component';
 import { UpdatePasswordComponent } from './authentication/update-password/update-password.component';
+import { YourCourseListItemComponent } from './profile/courses/course-list-item/your-course-list-item.component';
+import { YourCoursesComponent } from './profile/courses/your-courses.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -149,7 +151,9 @@ export function tokenGetter() {
     DynamicLoadingDirective,
     EditProfileComponent,
     UpdateEmialComponent,
-    UpdatePasswordComponent
+    UpdatePasswordComponent,
+    YourCoursesComponent,
+    YourCourseListItemComponent
   ],
   imports: [
     BrowserModule,

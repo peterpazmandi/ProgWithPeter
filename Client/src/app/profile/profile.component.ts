@@ -2,7 +2,7 @@ import { Component, ComponentFactoryResolver, OnInit, ViewChild } from '@angular
 import { DynamicLoadingDirective } from '../_directives/dynamic-loading.directive';
 import { User } from '../_models/user.model';
 import { AccountService } from '../_services/account.service';
-import { CoursesComponent } from './courses/courses.component';
+import { YourCoursesComponent } from './courses/your-courses.component';
 import { MembershipComponent } from './membership/membership.component';
 import { ProfileDetailsComponent } from './profile-details/profile-details.component';
 
@@ -44,6 +44,6 @@ export class ProfileComponent implements OnInit {
   loadYourCourses() {
     const viewContainerRef = this.profileHost.viewContainerRef;
     viewContainerRef.clear();
-    const componentRef = viewContainerRef.createComponent(this.cfr.resolveComponentFactory(CoursesComponent));    
+    const componentRef = viewContainerRef.createComponent(this.cfr.resolveComponentFactory(YourCoursesComponent));    
   }
 }

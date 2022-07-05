@@ -82,7 +82,7 @@ namespace API.Controllers
 
         [Authorize]
         [HttpGet("GetEnrolledCoursesByUserId")]
-        public async Task<ActionResult<List<UserCourseEnrollment>>> GetEnrolledCoursesByUserId()
+        public async Task<ActionResult<List<UserCourseEnrollmentDto>>> GetEnrolledCoursesByUserId()
         {
             string username = User.GetUsername();
             var userId = (await _unitOfWork.UserRepository.GetUserByUsernameAsync(username)).Id;

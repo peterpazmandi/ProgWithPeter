@@ -33,6 +33,11 @@ html, body {
   transition: all 0.3s linear;
   border-radius: 6px;
 }
+.inner-span {
+  color: var(--on-primary);
+  transition: all 0.3s linear;
+}
+
 .carddiv {
   text-align: left;
   position: relative;

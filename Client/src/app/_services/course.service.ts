@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Course } from '../_models/courseDto.model';
 import { UpsertCourseDto } from '../_models/upsertCourseDto.model';
+import { UserCourseEnrollmentDto } from '../_models/UserCourseEnrollmentDto.model';
 import { BaseService } from './base.service';
 import { getPaginatedResult, getPaginationHeaders } from './pagination.helper';
 
@@ -31,6 +32,10 @@ export class CourseService extends BaseService {
 
   getCourseTitles() {
     return this.http.get<string[]>(this.baseUrl+ 'Course/GetCourseTitles');
+  }
+
+  getEnrolledCoursesByUserId() {
+    return this.http.get<UserCourseEnrollmentDto[]>(this.baseUrl+ 'Course/GetEnrolledCoursesByUserId');
   }
 
   upsertCourse(course: UpsertCourseDto) {

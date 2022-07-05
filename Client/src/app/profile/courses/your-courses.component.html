@@ -1,0 +1,10 @@
+<div class="mt-auto ps-3 pt-3 pe-3">
+    <h4 class="fw-bold">The courses you have started</h4>
+</div>
+<hr class="dropdown-divider">
+<div class="ms-3 mt-3 me-3">
+    <div *ngFor="let enrolledCourse of enrolledCourses"
+        your-course-list-item
+        [enrolledCourse]="enrolledCourse">
+    </div>
+</div>
