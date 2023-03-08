@@ -20,7 +20,11 @@
                 If you do not receive a confirmation email, please check your spam folder. Also, please verify that you entered a valid email address in our sign-up form.
             </p>
         </div>
-        <form [formGroup]='registerForm' (ngSubmit)="registerForm.valid && register()" autocomplete="off" *ngIf="!result">
+        <form 
+            [formGroup]='registerForm' 
+            (ngSubmit)="registerForm.valid && register()" 
+            autocomplete="off" 
+            *ngIf="!result">
             <app-text-input 
                 [formControl]='registerForm.controls["email"]'
                 [label]='"Email"'
