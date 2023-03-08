@@ -1,6 +1,7 @@
-import { PaletteMode, createTheme, ThemeProvider, Box } from '@mui/material';
-import React, { useState } from 'react';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import Home from './pages/home/Home';
 import { ColorModeContext, useMode } from './theme';
 
 function App() {
@@ -9,9 +10,13 @@ function App() {
 	return (
 		<ColorModeContext.Provider value={colorMode as any}>
 			<ThemeProvider theme={theme as any} >
-				<Box bgcolor={"background.default"} color={"text.primary"} >
+        		<CssBaseline />
+				<div className="app">
 					<Navbar />
-				</Box>
+					<Routes>
+						<Route path='/' element={<Home />} />
+					</Routes>
+				</div>
 			</ThemeProvider>
 		</ColorModeContext.Provider>
 	);
