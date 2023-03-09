@@ -37,3 +37,13 @@ C:\Users\Pazmandi Peter\Desktop\Trash\Angular\ProgWithPeter\EmailService\obj\Deb
 C:\Users\Pazmandi Peter\Desktop\Trash\Angular\ProgWithPeter\EmailService\obj\Debug\netcoreapp3.1\EmailService.csproj.CoreCompileInputs.cache
 C:\Users\Pazmandi Peter\Desktop\Trash\Angular\ProgWithPeter\EmailService\obj\Debug\netcoreapp3.1\EmailService.dll
 C:\Users\Pazmandi Peter\Desktop\Trash\Angular\ProgWithPeter\EmailService\obj\Debug\netcoreapp3.1\EmailService.pdb
+C:\Users\Peter Pazmandi\Desktop\Trash\CSharp_Angular_React\ProgWithPeter\EmailService\bin\Debug\netcoreapp3.1\EmailService.deps.json
+C:\Users\Peter Pazmandi\Desktop\Trash\CSharp_Angular_React\ProgWithPeter\EmailService\bin\Debug\netcoreapp3.1\EmailService.dll
+C:\Users\Peter Pazmandi\Desktop\Trash\CSharp_Angular_React\ProgWithPeter\EmailService\bin\Debug\netcoreapp3.1\EmailService.pdb
+C:\Users\Peter Pazmandi\Desktop\Trash\CSharp_Angular_React\ProgWithPeter\EmailService\obj\Debug\netcoreapp3.1\EmailService.csproj.AssemblyReference.cache
+C:\Users\Peter Pazmandi\Desktop\Trash\CSharp_Angular_React\ProgWithPeter\EmailService\obj\Debug\netcoreapp3.1\EmailService.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Peter Pazmandi\Desktop\Trash\CSharp_Angular_React\ProgWithPeter\EmailService\obj\Debug\netcoreapp3.1\EmailService.AssemblyInfoInputs.cache
+C:\Users\Peter Pazmandi\Desktop\Trash\CSharp_Angular_React\ProgWithPeter\EmailService\obj\Debug\netcoreapp3.1\EmailService.AssemblyInfo.cs
+C:\Users\Peter Pazmandi\Desktop\Trash\CSharp_Angular_React\ProgWithPeter\EmailService\obj\Debug\netcoreapp3.1\EmailService.csproj.CoreCompileInputs.cache
+C:\Users\Peter Pazmandi\Desktop\Trash\CSharp_Angular_React\ProgWithPeter\EmailService\obj\Debug\netcoreapp3.1\EmailService.dll
+C:\Users\Peter Pazmandi\Desktop\Trash\CSharp_Angular_React\ProgWithPeter\EmailService\obj\Debug\netcoreapp3.1\EmailService.pdb

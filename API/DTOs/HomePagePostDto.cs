@@ -7,6 +7,7 @@ namespace API.DTOs
 {
     public class HomePagePostDto
     {
+        public int Id { get; set; }
         public string Title { get; set; }
         public string Excerpt { get; set; }
         

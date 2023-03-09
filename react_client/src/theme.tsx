@@ -129,22 +129,16 @@ export const themeSettings = (mode: any) => {
 	return {
 		palette: {
 			mode: mode,
-			// ...(mode === 'dark'
-			// 	? {
-			// 		primary: {
-			// 			main: colors.primary[500]
-			// 		},
-			// 		secondary: {
-			// 		  main: colors.greenAccent[500],
-			// 		}
-			// 	} : {
-			// 		primary: {
-			// 			main: colors.primary[100]
-			// 		},
-			// 		secondary: {
-			// 		  main: colors.greenAccent[500],
-			// 		}
-			// 	})
+			...(mode === 'dark'
+				? {
+					background: {
+						default: colors.primary[400],
+					}
+				} : {
+					background: {
+						default: colors.grey[900],
+					  }
+				})
 		},
 	};
 };
