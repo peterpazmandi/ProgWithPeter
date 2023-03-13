@@ -7,6 +7,7 @@ import TableOfContent from '../../components/tableOfContent/TableOfContent';
 import { TutorialsContext } from '../../contexts/tutorials/tutorialsContext';
 import { TutorialsContextType } from '../../contexts/tutorials/tutorialsContext.type';
 import './tutorialPage.css';
+import ScrollToTopFab from '../../components/ScrollToTopFab';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -63,6 +64,7 @@ const TutorialPage = () => {
                                 <PostComp post={openedTutorial.post} />
                             </Grid>
                         </Grid>
+                        <ScrollToTopFab />
                     </Box>
 
                 ) : (

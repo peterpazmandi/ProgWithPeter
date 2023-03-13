@@ -1,5 +1,4 @@
 import { useHeadsObserver } from "./hooks";
-import "./tableOfContent.css";
 import { useEffect, useState, useRef } from "react";
 import { Box, Link, Typography } from "@mui/material";
 
