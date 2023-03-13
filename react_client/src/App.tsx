@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import TutorialsProvider from './contexts/tutorials/tutorialsContext';
 import Home from './pages/home/Home';
+import TutorialPage from './pages/tutorial/TutorialPage';
 import { ColorModeContext, tokens, useMode } from './theme';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
 						<Box m={2}>
 							<Routes>
 								<Route path='/' element={<Home />} />
+								<Route path='/tutorial/:slug' element={<TutorialPage />} />
 							</Routes>
 						</Box>
 					</Box>

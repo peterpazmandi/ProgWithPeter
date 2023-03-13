@@ -1,0 +1,24 @@
+nav {
+	width: 300px;
+	min-width: 220px;
+	align-self: flex-start;
+	position: -webkit-sticky;
+	position: sticky;
+	max-height: calc(100vh - 70px);
+	overflow: auto;
+	top: 80px;
+}
+
+/* nav ul li {
+	margin-bottom: 15px;
+}
+
+.head1{
+	margin-left: 10px;
+	list-style-type: circle;
+}
+
+.head2{
+	margin-left: 20px;
+ 	list-style-type: square;
+} */

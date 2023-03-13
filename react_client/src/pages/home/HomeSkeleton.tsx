@@ -4,7 +4,7 @@ import React from 'react'
 const HomeSkeleton = () => {
     return (
         <Box>
-            <Card sx={{ margin: 5 }}>
+            <Card sx={{ marginBottom: 5 }}>
                 <Stack direction="row" >
                     <Skeleton sx={{ height: 190, width: 300 }} animation="wave" variant="rectangular" />
                     <CardContent>

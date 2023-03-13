@@ -132,7 +132,7 @@ export const themeSettings = (mode: any) => {
 			...(mode === 'dark'
 				? {
 					background: {
-						default: colors.primary[400],
+						// default: colors.primary[400],
 					}
 				} : {
 					background: {
@@ -150,7 +150,7 @@ export const ColorModeContext = createContext({
 
 export const useMode = () => {
 	const [mode, setMode] = useState(		
-		localStorage.getItem(THEME) === undefined ? LIGHT : localStorage.getItem(THEME)
+		localStorage.getItem(THEME) === undefined || localStorage.getItem(THEME) === null ? LIGHT : localStorage.getItem(THEME)
 	);
 
 	const colorMode = useMemo(

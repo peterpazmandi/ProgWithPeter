@@ -4,19 +4,25 @@ import { Tutorial as TutorialEntity } from '../../entities/tutorial.entity'
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { tokens } from '../../theme';
 import TagComp from '../../components/TagComp';
+import { useNavigate } from 'react-router-dom';
 
 type TutorialProps = {
     tutorialEntity: TutorialEntity;
 }
 
-const Tutorial = (props: TutorialProps) => {
+const TutorialSummaryCard = (props: TutorialProps) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const { tutorialEntity } = props;
+    const navigate = useNavigate();
+
+    const openTutorial = () => {
+        navigate(`/tutorial/${tutorialEntity.post.meta.slug}`);
+    }
 
     return (
         <Box>
-            <Card sx={{ display: { xs: "block", sm: "flex" } , margin: 5 }}>
+            <Card sx={{ display: { xs: "block", sm: "flex" }, marginBottom: 5 }}>
                 <CardMedia
                     sx={{ width: { sm: 250 } }}
                     component="img"
@@ -27,7 +33,8 @@ const Tutorial = (props: TutorialProps) => {
                         <Button 
                             variant="text"
                             size="small"
-                            sx={{ textAlign: "start", textTransform: "capitalize" }}>
+                            sx={{ textAlign: "start", textTransform: "capitalize" }}
+                            onClick={() => openTutorial()}>
                             <Typography 
                                 variant='h5' 
                                 sx={{ marginBottom: 1 }}>
@@ -45,7 +52,7 @@ const Tutorial = (props: TutorialProps) => {
                             </Typography>
                         </Stack>
                         <Typography variant='body1' color="text.secondary">
-                            {tutorialEntity.post.title}
+                            {tutorialEntity.post.excerpt}
                         </Typography>
                     </CardContent>
                     <CardActions>
@@ -63,4 +70,4 @@ const Tutorial = (props: TutorialProps) => {
     )
 }
 
-export default Tutorial
+export default TutorialSummaryCard

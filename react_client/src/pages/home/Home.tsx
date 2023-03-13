@@ -1,10 +1,10 @@
-import { Box, Card, CardContent, CardHeader, Container, InputBase, Skeleton, Stack, useTheme } from "@mui/material";
+import { Box, Container, useTheme } from "@mui/material";
 import { useContext, useEffect, useRef } from "react";
 import { TutorialsContext } from "../../contexts/tutorials/tutorialsContext";
 import { TutorialsContextType } from "../../contexts/tutorials/tutorialsContext.type";
 import { tokens } from "../../theme";
 import HomeSkeleton from "./HomeSkeleton";
-import Tutorial from "./Tutorial";
+import TutorialSummaryCard from "./TutorialSummaryCard";
 
 const Home = () => {
 	const initialized = useRef(false);
@@ -32,7 +32,7 @@ const Home = () => {
 					{
 						tutorialsOnHome.map(tutorial => {
 							return (
-								<Tutorial key={`${tutorial.post.id}`} tutorialEntity={tutorial} />
+								<TutorialSummaryCard key={`${tutorial.post.id}`} tutorialEntity={tutorial} />
 							)
 						})
 					}
