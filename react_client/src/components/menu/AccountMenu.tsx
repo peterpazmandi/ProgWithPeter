@@ -9,16 +9,18 @@ import IconButton from '@mui/material/IconButton';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Tooltip from '@mui/material/Tooltip';
-import PersonIcon from '@mui/icons-material/Person';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../contexts/auth/authContext';
 import { AuthContextType } from '../../contexts/auth/authContext.type';
 import LoginModal from '../modal/LoginModal';
 import { Modal } from '@mui/material';
+import UserMenu from './UserMenu';
+import { useNavigate } from 'react-router-dom';
 
 export default function AccountMenu() {
-    const { isLoading, login, currentUser } = useContext(AuthContext) as AuthContextType
+    const { currentUser } = useContext(AuthContext) as AuthContextType
+    const navigate = useNavigate();
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -87,37 +89,39 @@ export default function AccountMenu() {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }} >
                 {currentUser ? (
-                        <Box>
-                            <MenuItem onClick={onCloseMenu}>
-                                <ListItemIcon>
-                                    <PersonIcon />
-                                </ListItemIcon>
-                                Profile
-                            </MenuItem>
-                            <Divider />
-                            <MenuItem onClick={onCloseMenu}>
-                                <ListItemIcon>
-                                    <LogoutIcon />
-                                </ListItemIcon>
-                                Log out
-                            </MenuItem>
-                        </Box>
-                    ) : (
-                        <Box>
-                            <MenuItem onClick={onCloseMenu}>
-                                <ListItemIcon>
-                                    <PersonAdd />
-                                </ListItemIcon>
-                                Sign up for free
-                            </MenuItem>
-                            <MenuItem onClick={onOpenLoginModal}>
-                                <ListItemIcon>
-                                    <LoginIcon />
-                                </ListItemIcon>
-                                Sign in
-                            </MenuItem>
-                        </Box>
-                    )
+                    <Box>
+                        <MenuItem onClick={() => navigate("/profile")} sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            flexDirection: 'column'
+                        }}>
+                            <UserMenu />
+                        </MenuItem>
+                        <Divider />
+                        <MenuItem onClick={onCloseMenu}>
+                            <ListItemIcon>
+                                <LogoutIcon />
+                            </ListItemIcon>
+                            Log out
+                        </MenuItem>
+                    </Box>
+                ) : (
+                    <Box>
+                        <MenuItem onClick={onCloseMenu}>
+                            <ListItemIcon>
+                                <PersonAdd />
+                            </ListItemIcon>
+                            Sign up for free
+                        </MenuItem>
+                        <MenuItem onClick={onOpenLoginModal}>
+                            <ListItemIcon>
+                                <LoginIcon />
+                            </ListItemIcon>
+                            Sign in
+                        </MenuItem>
+                    </Box>
+                )
                 }
             </Menu>
             <Modal
@@ -126,7 +130,7 @@ export default function AccountMenu() {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description" >
                 <Box>
-                    <LoginModal />
+                    <LoginModal setOpenLoginModal={setOpenLoginModal} />
                 </Box>
             </Modal>
         </React.Fragment>

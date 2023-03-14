@@ -1,6 +1,6 @@
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Box, Divider, FormControl, IconButton, InputAdornment, InputLabel, Modal, OutlinedInput, TextField, Typography } from '@mui/material';
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -8,6 +8,16 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { LoginRequest } from '../../contexts/auth/models/loginRequest.model';
 import { useForm } from 'react-hook-form';
+import { AuthContext } from '../../contexts/auth/authContext';
+import { AuthContextType } from '../../contexts/auth/authContext.type';
+import { toast } from "react-toastify";
+import { User } from '../../entities/user.entity';
+
+const successToast = (message: string) => toast.success(message);
+
+interface LoginModalProps {
+    setOpenLoginModal: (value: React.SetStateAction<boolean>) => void
+}
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -22,12 +32,11 @@ const style = {
     p: 4,
 };
 
-const LoginModal = () => {
-    const [showPassword, setShowPassword] = useState(false);
+const LoginModal = (props: LoginModalProps) => {
+    const { setOpenLoginModal } = props;
 
-    // useEffect(() => {
-    //     console.log(errors.username);
-    // })
+    const [showPassword, setShowPassword] = useState(false);
+    const { isLoading, loginAsync, currentUser } = useContext(AuthContext) as AuthContextType;
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -48,13 +57,14 @@ const LoginModal = () => {
         resolver: yupResolver(formSchema)
     })
 
-    const onSubmit = async (data: LoginRequest) => {
-        console.log(data);
-        // login(data).then(result => {
-        //     if (result) {
-        //         navigate('/shoppinglists');
-        //     }
-        // });
+    const onSubmit = async (loginRequest: LoginRequest) => {
+        loginAsync(loginRequest).then(user => {
+            if (user) {
+                console.log(loginRequest);
+                successToast(`Welcome back, ${(user as User).firstName}`);
+                setOpenLoginModal(false);
+            }
+        });
     }
 
     return (
@@ -106,7 +116,7 @@ const LoginModal = () => {
                             ),
                             startAdornment: (
                                 <InputAdornment position="start">
-                                    <PersonIcon />
+                                    <LockIcon />
                                 </InputAdornment>
                             )
                         }}
@@ -122,7 +132,7 @@ const LoginModal = () => {
                     <LoadingButton
                         type='submit'
                         color='primary'
-                        loading={false}
+                        loading={isLoading}
                         variant="contained">
                         Submit
                     </LoadingButton>

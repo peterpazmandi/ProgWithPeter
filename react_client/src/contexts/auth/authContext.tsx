@@ -21,9 +21,9 @@ export const AuthProvider: FC<AuthContextProps> = (children: AuthContextProps) =
     const loginAsync = (loginRequest: LoginRequest) => {
         setIsLoading(true);
         return login(loginRequest).then(user => {
-            setIsLoading(false);
             updateCurrentUser(user);
-            return true;
+            setIsLoading(false);
+            return user;
         }, error => {
             return false;
         });
