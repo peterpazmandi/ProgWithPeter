@@ -1,5 +1,5 @@
 import { AppBar, Box, Button, IconButton, InputBase, Toolbar, Typography, useTheme } from '@mui/material'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { ColorModeContext, DARK, tokens } from '../theme';
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
@@ -8,6 +8,7 @@ import VideogameAssetIcon from '@mui/icons-material/VideogameAsset';
 import AccountMenu from './menu/AccountMenu';
 import { useNavigate } from 'react-router-dom';
 import { HideOnScroll } from './HideOnScroll';
+import LoginModal from './modal/LoginModal';
 
 
 const Navbar = () => {
@@ -15,6 +16,12 @@ const Navbar = () => {
     const colors = tokens(theme.palette.mode);
     const colorMode = useContext(ColorModeContext);
     const navigate = useNavigate();
+
+
+    const [openLoginModal, setOpenLoginModal] = useState(false);
+    const onOpenLoginModal = () => {
+        setOpenLoginModal(true);
+    }
 
     return (
         <HideOnScroll>

@@ -49,7 +49,7 @@ function TableOfContent() {
       }}
     >
       {headings.map((heading) => (
-        <Box mb={1} ml={heading.level * 2}>
+        <Box mb={1} ml={heading.level * 2} key={`toc_${heading.text}`}>
           <Link
             href={`#${heading.id}`}
             onClick={(e) => {

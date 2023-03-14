@@ -48,7 +48,7 @@ const TutorialPage = () => {
                         <Grid
                             container
                             spacing={{  }} >
-                            <Grid
+                            <Grid item
                                 sm={3} md={3}
                                 sx={{
                                     width: "100%",
