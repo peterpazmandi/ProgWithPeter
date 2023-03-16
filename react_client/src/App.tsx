@@ -9,6 +9,7 @@ import ProfilePage from './pages/profile/ProfilePage';
 import TutorialPage from './pages/tutorial/TutorialPage';
 import { ColorModeContext, tokens, useMode } from './theme';
 import 'react-toastify/dist/ReactToastify.css';
+import AppRoutes from './routes/AppRoutes';
 
 function App() {
 	const currentTheme = useTheme();
@@ -24,11 +25,7 @@ function App() {
 						<Box className="app">
 							<Navbar />
 							<Box m={2}>
-								<Routes>
-									<Route path='/' element={<Home />} />
-									<Route path='/tutorial/:slug' element={<TutorialPage />} />
-									<Route path='/profile' element={<ProfilePage />} />
-								</Routes>
+								<AppRoutes />
 								<ToastContainer />
 							</Box>
 						</Box>

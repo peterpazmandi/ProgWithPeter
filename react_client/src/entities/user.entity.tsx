@@ -11,7 +11,7 @@ export interface User {
 
     photoUrl: string;
 
-    roles: string[];
+    roles: string;
     
     email: string;
     emailConfirmed: boolean;
