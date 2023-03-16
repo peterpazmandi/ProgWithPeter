@@ -5,4 +5,5 @@ export type AuthContextType = {
     isLoading: boolean;
     currentUser: User;
     loginAsync: (loginRequest: LoginRequest) => Promise<boolean | User>;
+    logOut: () => void;
 }

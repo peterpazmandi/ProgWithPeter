@@ -13,13 +13,28 @@ const UserMenu = () => {
             flexDirection: 'column',
             width: 200, height: 100
         }}>
-            <Avatar
-                alt={currentUser.firstName}
-                src={currentUser.photoUrl}
-                sizes="big" />
-            <Typography variant='h6'>
-                {currentUser.username}
-            </Typography>
+            {currentUser
+                ? (
+                    <Box sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        flexDirection: 'column',
+                        width: 200, height: 400
+                    }}>
+                        <Avatar
+                            alt={currentUser.firstName}
+                            src={currentUser.photoUrl}
+                            sizes="big" />
+                        <Typography variant='h6'>
+                            {currentUser.username}
+                        </Typography>
+                    </Box>
+                ) : (
+                    <Box></Box>
+                )
+
+            }
         </Box>
     )
 }

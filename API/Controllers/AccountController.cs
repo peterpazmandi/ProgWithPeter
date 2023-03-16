@@ -13,7 +13,6 @@ using Microsoft.EntityFrameworkCore;
 using EmailService;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
-using System.IO;
 
 namespace API.Controllers
 {

@@ -14,12 +14,12 @@ import { useContext, useState } from 'react';
 import { AuthContext } from '../../contexts/auth/authContext';
 import { AuthContextType } from '../../contexts/auth/authContext.type';
 import LoginModal from '../modal/LoginModal';
-import { Modal } from '@mui/material';
+import { Modal, Typography } from '@mui/material';
 import UserMenu from './UserMenu';
 import { useNavigate } from 'react-router-dom';
 
 export default function AccountMenu() {
-    const { currentUser } = useContext(AuthContext) as AuthContextType
+    const { currentUser, logOut } = useContext(AuthContext) as AuthContextType
     const navigate = useNavigate();
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -50,7 +50,9 @@ export default function AccountMenu() {
                         aria-controls={open ? 'account-menu' : undefined}
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined} >
-                        <Avatar sx={{ width: 32, height: 32 }} />
+                        <Avatar
+                            sx={{ width: 32, height: 32 }}
+                            src={currentUser !== null ? currentUser.photoUrl : ""} />
                     </IconButton>
                 </Tooltip>
             </Box>
@@ -103,7 +105,11 @@ export default function AccountMenu() {
                             <ListItemIcon>
                                 <LogoutIcon />
                             </ListItemIcon>
-                            Log out
+                            <Typography
+                                variant='body1'
+                                onClick={() => logOut()} >
+                                Log out
+                            </Typography>
                         </MenuItem>
                     </Box>
                 ) : (

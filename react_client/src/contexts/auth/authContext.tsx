@@ -29,6 +29,11 @@ export const AuthProvider: FC<AuthContextProps> = (children: AuthContextProps) =
         });
     }
 
+    const logOut = () => {
+        localStorage.removeItem(USER);
+        setCurrentUser(null);
+    }
+
     const updateCurrentUser = (user: User) => {
         localStorage.setItem(USER, JSON.stringify(user));
         setCurrentUser(user);
@@ -36,7 +41,7 @@ export const AuthProvider: FC<AuthContextProps> = (children: AuthContextProps) =
 
     return <AuthContext.Provider value={{
         isLoading, currentUser,
-        loginAsync
+        loginAsync, logOut
     }}>
         {children.children}
     </AuthContext.Provider>

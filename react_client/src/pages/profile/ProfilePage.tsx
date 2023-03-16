@@ -8,15 +8,14 @@ const ProfilePage = () => {
 
 	return (
 		<Box sx={{
-			display: 'flex',
-			justifyContent: 'center',
-			alignItems: 'center',
-			flexDirection: 'column'
-		}}>
-			<Avatar
-				alt={currentUser.firstName}
-				src={currentUser.photoUrl}
-				sx={{ width: 400, height: 400 }} />
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'column'
+        }}>
+		<Avatar
+			alt={currentUser.firstName}
+			src={currentUser.photoUrl} />
 		</Box>
 	)
 }
