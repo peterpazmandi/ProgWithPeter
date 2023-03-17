@@ -1,5 +1,5 @@
-import { AppBar, Box, Button, IconButton, InputBase, Toolbar, Tooltip, Typography, useTheme } from '@mui/material'
-import { useContext, useEffect, useState } from 'react'
+import { AppBar, Box, Button, IconButton, Toolbar, Tooltip, Typography, useTheme } from '@mui/material'
+import { useContext, useState } from 'react'
 import { ColorModeContext, DARK, tokens } from '../theme';
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
@@ -9,10 +9,10 @@ import AccountMenu from './menu/AccountMenu';
 import { useNavigate } from 'react-router-dom';
 import { HideOnScroll } from './HideOnScroll';
 import { Divider } from '@mui/material';
-import FormatShapesIcon from '@mui/icons-material/FormatShapes';
 import { AuthContext } from '../contexts/auth/authContext';
 import { AuthContextType } from '../contexts/auth/authContext.type';
 import { UserRoles } from '../utils/UserRoles';
+import ContentManagementMenu from './menu/ContentManagementMenu';
 
 
 const Navbar = () => {
@@ -62,9 +62,7 @@ const Navbar = () => {
                                 gap: "20px",
                                 alignItems: "center"
                             }}>
-                                <Tooltip title="Content Management" placement="bottom">
-                                    <FormatShapesIcon />
-                                </Tooltip>
+                                <ContentManagementMenu />
                                 <Divider
                                     orientation="vertical"
                                     variant="middle"
