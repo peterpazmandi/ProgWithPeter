@@ -53,7 +53,7 @@ namespace API.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<LoginUserDto>> Register(RegisterDto registerDto)
         {
-            if(await UserExists(registerDto.Username))
+            if (await UserExists(registerDto.Username))
             {
                 return BadRequest("Username is already taken!");
             }
@@ -64,7 +64,7 @@ namespace API.Controllers
 
             var result = await _userManager.CreateAsync(user, registerDto.Password);
 
-            if(!result.Succeeded)
+            if (!result.Succeeded)
             {
                 return BadRequest(result.Errors);
             }
@@ -81,8 +81,8 @@ namespace API.Controllers
 
             var rolesResults = await _userManager.AddToRoleAsync(user, "Member");
 
-            if(!rolesResults.Succeeded) return BadRequest(result.Errors);
-            
+            if (!rolesResults.Succeeded) return BadRequest(result.Errors);
+
             var registeredUser = await _userManager.Users
                 .Include(p => p.Photo)
                 .SingleOrDefaultAsync(x => x.UserName == user.UserName.ToLower());
@@ -109,7 +109,7 @@ namespace API.Controllers
             string username = User.GetUsername();
             var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
 
-            if(user is null)
+            if (user is null)
             {
                 return BadRequest("Account with this email not found!");
             }
@@ -133,20 +133,21 @@ namespace API.Controllers
             var user = await _userManager.Users
                 .Include(p => p.Photo)
                 .Include(p => p.CourseEnrollments).ThenInclude(ce => ce.Course)
+                .Include(u => u.UserRoles).ThenInclude(r => r.Role)
                 .SingleOrDefaultAsync(x => x.UserName == loginDto.Username.ToLower());
 
-            if(user == null)
+            if (user == null)
             {
                 return Unauthorized("Invalid username!");
             }
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
 
-            if(!result.Succeeded)
+            if (!result.Succeeded)
             {
                 return Unauthorized("The username or the password is incorrect!");
             }
-
+            
             return new LoginUserDto
             {
                 Id = user.Id,
@@ -159,6 +160,7 @@ namespace API.Controllers
                 EmailConfirmed = user.EmailConfirmed,
                 Country = user.Country,
                 Gender = user.Gender,
+                UserRole = user.UserRoles.FirstOrDefault().Role.Name,
                 RegistrationDate = user.Created,
                 CourseEnrollments = _mapper.Map<List<CourseEnrollmentDto>>(user.CourseEnrollments)
             };
@@ -169,14 +171,14 @@ namespace API.Controllers
         {
             var user = await _userManager.FindByEmailAsync(email);
 
-            if(user == null)
+            if (user == null)
             {
                 return BadRequest("Invalid email confirmation request");
             }
 
             var confirmResult = await _userManager.ConfirmEmailAsync(user, token);
 
-            if(!confirmResult.Succeeded)
+            if (!confirmResult.Succeeded)
             {
                 return BadRequest("Email confirmation failed!");
             }
@@ -188,7 +190,7 @@ namespace API.Controllers
         public async Task<ActionResult> ForgotPassword(ForgotPasswordDto forgotPasswordDto)
         {
             var user = await _userManager.FindByEmailAsync(forgotPasswordDto.Email);
-            if(user is null)
+            if (user is null)
             {
                 return BadRequest("Invalid request!");
             }
@@ -210,13 +212,13 @@ namespace API.Controllers
         public async Task<ActionResult> ResetPassword([FromBody] ResetPasswordDto resetPasswordDto)
         {
             var user = await _userManager.FindByEmailAsync(resetPasswordDto.Email);
-            if(user is null)
+            if (user is null)
             {
                 return BadRequest("Invalid request!");
             }
 
             var resetPassResult = await _userManager.ResetPasswordAsync(user, resetPasswordDto.Token, resetPasswordDto.Password);
-            if(!resetPassResult.Succeeded)
+            if (!resetPassResult.Succeeded)
             {
                 var errors = resetPassResult.Errors.Select(e => e.Description);
                 return BadRequest(new { Errors = errors });
@@ -226,21 +228,21 @@ namespace API.Controllers
         }
 
         [Authorize]
-        [HttpPost("update-user-password")]   
-        public async Task<ActionResult> UpdateUserPassword(UpdatePasswordDto updatePasswordDto)     
+        [HttpPost("update-user-password")]
+        public async Task<ActionResult> UpdateUserPassword(UpdatePasswordDto updatePasswordDto)
         {
             string username = User.GetUsername();
             var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
 
             var validateUser = await _signInManager.CheckPasswordSignInAsync(user, updatePasswordDto.CurrentPassword, false);
-            if(!validateUser.Succeeded)
+            if (!validateUser.Succeeded)
             {
                 return BadRequest("Incorrect current password!");
             }
 
             var result = await _userManager.ChangePasswordAsync(user, updatePasswordDto.CurrentPassword, updatePasswordDto.NewPassword);
 
-            if(!result.Succeeded)
+            if (!result.Succeeded)
             {
                 return BadRequest("Failed to update password!");
             }
@@ -256,7 +258,7 @@ namespace API.Controllers
             var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username);
 
             var validateUser = await _signInManager.CheckPasswordSignInAsync(user, updateEmailDto.Password, false);
-            if(!validateUser.Succeeded)
+            if (!validateUser.Succeeded)
             {
                 return BadRequest("Wrong password!");
             }
@@ -266,7 +268,7 @@ namespace API.Controllers
 
             var result = await _userManager.UpdateAsync(user);
 
-            if(!result.Succeeded)
+            if (!result.Succeeded)
             {
                 return BadRequest(result.Errors);
             }

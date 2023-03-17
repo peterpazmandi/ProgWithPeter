@@ -10,14 +10,14 @@ export interface User {
     token: string;
 
     photoUrl: string;
-
-    roles: string;
     
     email: string;
     emailConfirmed: boolean;
 
     gender: string;
     country: string;
+
+    userRole: string,
 
     registrationDate: Date;
 }

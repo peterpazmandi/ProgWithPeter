@@ -25,6 +25,7 @@ export const AuthProvider: FC<AuthContextProps> = (children: AuthContextProps) =
             setIsLoading(false);
             return user;
         }, error => {
+            setIsLoading(false);
             return false;
         });
     }

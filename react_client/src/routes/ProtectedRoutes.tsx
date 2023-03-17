@@ -9,7 +9,7 @@ const useAuth = () => {
     if (currentUser) {
         return {
             auth: true,
-            role: currentUser.roles
+            role: currentUser.userRole
         }
     } else {
         return {

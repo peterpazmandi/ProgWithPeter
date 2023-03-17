@@ -36,7 +36,7 @@ const LoginModal = (props: LoginModalProps) => {
     const { setOpenLoginModal } = props;
 
     const [showPassword, setShowPassword] = useState(false);
-    const { isLoading, loginAsync, currentUser } = useContext(AuthContext) as AuthContextType;
+    const { isLoading, loginAsync } = useContext(AuthContext) as AuthContextType;
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -60,7 +60,6 @@ const LoginModal = (props: LoginModalProps) => {
     const onSubmit = async (loginRequest: LoginRequest) => {
         loginAsync(loginRequest).then(user => {
             if (user) {
-                console.log(loginRequest);
                 successToast(`Welcome back, ${(user as User).firstName}`);
                 setOpenLoginModal(false);
             }

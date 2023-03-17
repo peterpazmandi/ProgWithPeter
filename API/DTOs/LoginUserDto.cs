@@ -19,6 +19,8 @@ namespace API.DTOs
 
         public string Gender { get; set; }
 
+        public string UserRole { get; set; }
+
         public DateTime RegistrationDate { get; set; }
 
         public List<CourseEnrollmentDto> CourseEnrollments { get; set; }
