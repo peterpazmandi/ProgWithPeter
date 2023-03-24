@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, Container, Fab, Grid, Menu, MenuItem, Pagination, SpeedDial, SpeedDialAction, Typography } from "@mui/material";
+import { Box, Card, CardContent, Container, Grid, SpeedDial, SpeedDialAction, Typography, useTheme } from "@mui/material";
 import Button from "@mui/material/Button";
 import { DataGrid } from "@mui/x-data-grid";
 import { useContext, useEffect, useState } from "react";
@@ -11,9 +11,13 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import { tokens } from "../../../theme";
+import FabMenu, { FabAaction } from "../../../components/menu/FabMenu";
 
 
 const TutorialList = () => {
+	const theme = useTheme();
+	const colors = tokens(theme.palette.mode);
     const { isLoading, getTutorialsAsync, tutorialsToEdit } = useContext(TutorialsContext) as TutorialsContextType;
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -68,9 +72,9 @@ const TutorialList = () => {
     }
 
     const fabAactions = [
-        { icon: <FilterAltIcon />, name: 'Filter' },
-        { icon: <CreateIcon />, name: 'New' }
-    ];
+        { icon: <FilterAltIcon sx={{ color: "white" }} />, name: 'Filter' },
+        { icon: <CreateIcon sx={{ color: "white" }} />, name: 'New' }
+    ] as FabAaction[];
 
     return (
         !isLoading
@@ -140,24 +144,10 @@ const TutorialList = () => {
                             </Card>
                         </Grid>
                     </Grid>
-                    <Box
-                        mt={3} mb={3}
-                        sx={{
-                            position: 'absolute',
-                            top: "70%", left: "45%"
-                        }}>
-                        <SpeedDial
-                            ariaLabel=""
-                            icon={<SpeedDialIcon icon={<KeyboardArrowUpIcon />} openIcon={<KeyboardArrowDownIcon />} />} >
-                            {fabAactions.map((action) => (
-                                <SpeedDialAction
-                                    key={action.name}
-                                    icon={action.icon}
-                                    tooltipTitle={action.name}
-                                />
-                            ))}
-                        </SpeedDial>
-                    </Box>
+                    <FabMenu 
+                        actions={fabAactions}
+                        top="70%"
+                        left="45%" />
                 </Box>
             ) : (
                 <Box>
