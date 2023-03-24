@@ -1,5 +1,6 @@
 import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
+import TutorialList from '../pages/contentManagement/tutorial/TutorialList'
 import Home from '../pages/home/Home'
 import ProfilePage from '../pages/profile/ProfilePage'
 import TutorialPage from '../pages/tutorial/TutorialPage'
@@ -14,6 +15,7 @@ const AppRoutes = () => {
 
             {/* Protected Routes */}
             <Route path='/' element={<ProtectedRoutes />} >
+                <Route path='/content/tutorials' element={<TutorialList />} />
             </Route>
 
             {/* Public Routes */}

@@ -20,7 +20,7 @@ const useAuth = () => {
 }
 
 type ProtectedRouteType = {
-    adminRoleRequired?: "ADMIN"
+    adminRoleRequired?: "Admin"
 }
 
 const ProtectedRoutes = (props: ProtectedRouteType) => {

@@ -8,4 +8,8 @@ export type TutorialsContextType = {
     
     openedTutorial: TutorialEntity;
     getTutorialByTitle: (title: string) => void;
+
+    getTutorialsAsync: (pageNumber: number, pageSize: number) => void;
+
+    tutorialsToEdit: TutorialEntity[];
 }

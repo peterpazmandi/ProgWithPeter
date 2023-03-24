@@ -15,7 +15,7 @@ import { AuthContext } from '../../contexts/auth/authContext';
 import { AuthContextType } from '../../contexts/auth/authContext.type';
 import LoginModal from '../modal/LoginModal';
 import { Modal, Typography } from '@mui/material';
-import UserMenu from './UserMenu';
+import UserMenuItem from './UserMenuItem';
 import { useNavigate } from 'react-router-dom';
 
 export default function AccountMenu() {
@@ -98,7 +98,7 @@ export default function AccountMenu() {
                             alignItems: 'center',
                             flexDirection: 'column'
                         }}>
-                            <UserMenu />
+                            <UserMenuItem />
                         </MenuItem>
                         <Divider />
                         <MenuItem onClick={onCloseMenu}>

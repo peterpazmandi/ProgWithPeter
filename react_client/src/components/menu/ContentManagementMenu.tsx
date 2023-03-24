@@ -47,7 +47,7 @@ const ContentManagementMenu = () => {
                   vertical: 'top',
                   horizontal: 'right',
                 }} >
-                <MenuItem onClick={onCloseMenu}>
+                <MenuItem onClick={() => navigate("/content/tutorials")}>
                     <ListItemIcon>
                         <RttIcon />
                     </ListItemIcon>

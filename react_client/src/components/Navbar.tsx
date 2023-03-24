@@ -11,7 +11,7 @@ import { HideOnScroll } from './HideOnScroll';
 import { Divider } from '@mui/material';
 import { AuthContext } from '../contexts/auth/authContext';
 import { AuthContextType } from '../contexts/auth/authContext.type';
-import { UserRoles } from '../utils/UserRoles';
+import { UserRoles } from '../utils/enums';
 import ContentManagementMenu from './menu/ContentManagementMenu';
 
 
@@ -70,19 +70,17 @@ const Navbar = () => {
                                     sx={{ backgroundColor: 'white', height: '20px' }} />
                             </Box>
                         }
-                        <IconButton onClick={colorMode.toggleColorMode}>
-                            {
-                                theme.palette.mode === DARK ? (
-                                    <Tooltip title="Dark Mode" placement="bottom">
+                        <Tooltip title={`${theme.palette.mode} Mode`} inputMode="text" placement="bottom">
+                            <IconButton onClick={colorMode.toggleColorMode}>
+                                {
+                                    theme.palette.mode === DARK ? (
                                         <DarkModeOutlinedIcon />
-                                    </Tooltip>
-                                ) : (
-                                    <Tooltip title="Light Mode" placement="bottom">
+                                    ) : (
                                         <LightModeOutlinedIcon sx={{ color: "yellow" }} />
-                                    </Tooltip>
-                                )
-                            }
-                        </IconButton>
+                                    )
+                                }
+                            </IconButton>
+                        </Tooltip>
                         <AccountMenu />
                     </Box>
                 </Toolbar>

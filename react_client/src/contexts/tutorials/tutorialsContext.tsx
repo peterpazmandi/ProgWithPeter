@@ -1,6 +1,8 @@
-import { createContext, FC, useState } from "react";
+import { createContext, FC, useContext, useState } from "react";
 import { Tutorial as TutorialEntity } from "../../entities/tutorial.entity";
-import { getPublishedTutorialsOrderedByPublishDate, getTutorialByTitleAsync } from "../../services/tutorials/tutorialsService";
+import { getPublishedTutorialsOrderedByPublishDate, getTutorialByTitleAsync, getTutorialsOrderedByModificationDate } from "../../services/tutorials/tutorialsService";
+import { AuthContext } from "../auth/authContext";
+import { AuthContextType } from "../auth/authContext.type";
 
 type TutorialsContextPros = {
     children: React.ReactNode
@@ -12,6 +14,8 @@ export const TutorialsProvider: FC<TutorialsContextPros> = (children: TutorialsC
     const [isLoading, setIsLoading] = useState(false);
     const [tutorialsOnHome, setTutorialsOnHome] = useState([] as TutorialEntity[]);
     const [openedTutorial, setOpenedTutorial] = useState<TutorialEntity>();
+    const [tutorialsToEdit, setTutorialsToEdit] = useState<TutorialEntity[]>();
+    const { currentUser } = useContext(AuthContext) as AuthContextType;
 
     const getTutorialsForHomePage = () => {
         setIsLoading(true);
@@ -35,11 +39,23 @@ export const TutorialsProvider: FC<TutorialsContextPros> = (children: TutorialsC
         })
     }
 
+    const getTutorialsAsync = (pageNumber: number, pageSize: number) => {
+        setIsLoading(true);
+        getTutorialsOrderedByModificationDate(pageNumber, pageSize, currentUser.token).then(response => {
+            setTutorialsToEdit(response);
+            setIsLoading(false);
+        }, (error) => {
+            console.log(error);
+            setIsLoading(false);
+        })
+    }
+
 
     return <TutorialsContext.Provider value={{
         isLoading,
         tutorialsOnHome, getTutorialsForHomePage,
-        openedTutorial, getTutorialByTitle
+        openedTutorial, getTutorialByTitle,
+        getTutorialsAsync, tutorialsToEdit
     }} >
         {children.children}
     </TutorialsContext.Provider>

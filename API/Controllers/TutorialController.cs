@@ -38,6 +38,7 @@ namespace API.Controllers
             return tutorials;
         }
 
+        [Authorize(Roles = "Admin, Moderator")]
         [HttpGet("GetTutorialsOrderedByModificationDate")]
         public async Task<ActionResult<IEnumerable<UpsertTutorialListDto>>> GetTutorialsOrderedByModificationDate([FromQuery] TutorialParams tutorialParams)
         {

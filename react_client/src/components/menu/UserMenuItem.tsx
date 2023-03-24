@@ -3,7 +3,7 @@ import { useContext, useEffect } from 'react'
 import { AuthContext } from '../../contexts/auth/authContext';
 import { AuthContextType } from '../../contexts/auth/authContext.type';
 
-const UserMenu = () => {
+const UserMenuItem = () => {
     const { currentUser } = useContext(AuthContext) as AuthContextType;
 
     return (
@@ -47,4 +47,4 @@ const UserMenu = () => {
     )
 }
 
-export default UserMenu
+export default UserMenuItem

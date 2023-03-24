@@ -1,12 +1,11 @@
-import { Box, Card, CardContent, Container, Grid, Paper, Stack, Typography } from '@mui/material';
-import React, { useContext, useEffect, useRef } from 'react'
+import { Box, Grid, Paper, Typography } from '@mui/material';
+import { useContext, useEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import PostComp from '../../components/PostComp';
 import TableOfContent from '../../components/tableOfContent/TableOfContent';
 import { TutorialsContext } from '../../contexts/tutorials/tutorialsContext';
 import { TutorialsContextType } from '../../contexts/tutorials/tutorialsContext.type';
-import './tutorialPage.css';
 import ScrollToTopFab from '../../components/ScrollToTopFab';
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -46,8 +45,7 @@ const TutorialPage = () => {
                         marginBottom: "20px"
                     }}>
                         <Grid
-                            container
-                            spacing={{  }} >
+                            container >
                             <Grid item
                                 sm={3} md={3}
                                 sx={{
