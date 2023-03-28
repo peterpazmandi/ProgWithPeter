@@ -3,11 +3,12 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import { tokens } from '../../theme';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export interface FabAaction {
     icon: JSX.Element,
-    name: string
+    name: string,
+    onClick: React.MouseEventHandler<HTMLDivElement> | undefined
 }
 
 interface FabMenuProps {
@@ -16,14 +17,30 @@ interface FabMenuProps {
 }
 
 const FabMenu = (props: FabMenuProps) => {
-	const theme = useTheme();
-	const colors = tokens(theme.palette.mode);
+    const theme = useTheme();
+    const colors = tokens(theme.palette.mode);
 
     const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-  
-    
+    const handleOpen = () => {
+        console.log(open);
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    useEffect(() => {
+        console.log(open);
+    }, [open])
+
+    const onFabClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, action: FabAaction | null) => {
+        handleClose();
+        if (action?.onClick) {
+            action?.onClick(e);
+        }
+    }
+
+
     return (
         <Box
             mt={3} mb={3}
@@ -36,7 +53,7 @@ const FabMenu = (props: FabMenuProps) => {
                 ariaLabel=""
                 icon={<SpeedDialIcon icon={<KeyboardArrowUpIcon />} openIcon={<KeyboardArrowDownIcon />} />}
                 onClose={handleClose}
-                onOpen={handleOpen}
+                onOpen={() => handleOpen()}
                 open={open} >
                 {props.actions.map((action) => (
                     <SpeedDialAction
@@ -44,7 +61,7 @@ const FabMenu = (props: FabMenuProps) => {
                         icon={action.icon}
                         tooltipTitle={action.name}
                         sx={{ backgroundColor: colors.grey[400] }}
-                        onClick={handleClose}
+                        onClick={(e) => onFabClick(e, action)}
                     />
                 ))}
             </SpeedDial>

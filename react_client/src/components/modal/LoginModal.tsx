@@ -1,6 +1,6 @@
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { Box, Divider, FormControl, IconButton, InputAdornment, InputLabel, Modal, OutlinedInput, TextField, Typography } from '@mui/material';
-import { useContext, useEffect, useState } from 'react'
+import { Box, Divider, FormControl, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
+import { useContext, useState } from 'react'
 import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -77,7 +77,9 @@ const LoginModal = (props: LoginModalProps) => {
                     sx={{ marginTop: 4, marginBottom: 4 }}></Divider>
             </Box>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <FormControl sx={{ width: '100%', marginBottom: 2 }} variant="outlined">
+                <FormControl 
+                    sx={{ width: '100%', marginBottom: 2 }} 
+                    variant="outlined">
                     <TextField
                         label="Username"
                         error={errors.username !== undefined}

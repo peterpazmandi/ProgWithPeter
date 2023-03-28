@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, Container, Grid, SpeedDial, SpeedDialAction, Typography, useTheme } from "@mui/material";
+import { Box, Card, CardContent, Container, Grid, Modal, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import { DataGrid } from "@mui/x-data-grid";
 import { useContext, useEffect, useState } from "react";
@@ -8,26 +8,27 @@ import { Status } from "../../../utils/enums";
 import FilterPanel from "./FilterPanel";
 import CreateIcon from '@mui/icons-material/Create';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import SpeedDialIcon from '@mui/material/SpeedDialIcon';
-import { tokens } from "../../../theme";
-import FabMenu, { FabAaction } from "../../../components/menu/FabMenu";
+import FabMenu, { FabAaction as FabAction } from "../../../components/menu/FabMenu";
+
+const modalStyle = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 100,
+    bgcolor: 'background.paper',
+    border: '2px solid #fff',
+    borderRadius: 12,
+    boxShadow: 24,
+    p: 4,
+};
 
 
 const TutorialList = () => {
-	const theme = useTheme();
-	const colors = tokens(theme.palette.mode);
     const { isLoading, getTutorialsAsync, tutorialsToEdit } = useContext(TutorialsContext) as TutorialsContextType;
 
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const open = Boolean(anchorEl);
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+    const [openFilterModal, setOpenFilterModal] = useState(false);
+    const handleCloseFilterModal = () => setOpenFilterModal(false);
 
     const columns = [
         {
@@ -72,14 +73,16 @@ const TutorialList = () => {
     }
 
     const fabAactions = [
-        { icon: <FilterAltIcon sx={{ color: "white" }} />, name: 'Filter' },
+        { icon: <FilterAltIcon sx={{ color: "white" }} />, name: 'Filter', onClick: () => setOpenFilterModal(true) },
         { icon: <CreateIcon sx={{ color: "white" }} />, name: 'New' }
-    ] as FabAaction[];
+    ] as FabAction[];
 
     return (
         !isLoading
             ? (
-                <Box style={{ height: 600, width: '100%' }}>
+                <Box
+                    style={{ height: 600, width: '100%' }}
+                >
                     <Grid container>
                         <Grid item
                             sm={3} md={3}
@@ -144,10 +147,24 @@ const TutorialList = () => {
                             </Card>
                         </Grid>
                     </Grid>
-                    <FabMenu 
+                    <FabMenu
                         actions={fabAactions}
                         top="70%"
                         left="45%" />
+                    <Modal
+                        open={openFilterModal}
+                        onClose={handleCloseFilterModal}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description" >
+                        <Box sx={{
+                            position: 'absolute' as 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)'
+                        }}>
+                            <FilterPanel />
+                        </Box>
+                    </Modal>
                 </Box>
             ) : (
                 <Box>
