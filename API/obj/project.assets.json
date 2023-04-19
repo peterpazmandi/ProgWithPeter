@@ -8045,21 +8045,19 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Peter Pazmandi\\Desktop\\Trash\\CSharp_Angular_React\\ProgWithPeter\\api\\API.csproj",
+      "projectUniqueName": "C:\\Users\\Peter Pazmandi\\Desktop\\Trash\\CSharp_Angular_React\\ProgWithPeter\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "C:\\Users\\Peter Pazmandi\\Desktop\\Trash\\CSharp_Angular_React\\ProgWithPeter\\api\\API.csproj",
+      "projectPath": "C:\\Users\\Peter Pazmandi\\Desktop\\Trash\\CSharp_Angular_React\\ProgWithPeter\\API\\API.csproj",
       "packagesPath": "C:\\Users\\Peter Pazmandi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Peter Pazmandi\\Desktop\\Trash\\CSharp_Angular_React\\ProgWithPeter\\api\\obj\\",
+      "outputPath": "C:\\Users\\Peter Pazmandi\\Desktop\\Trash\\CSharp_Angular_React\\ProgWithPeter\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Peter Pazmandi\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Peter Pazmandi\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -8136,7 +8134,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.408\\RuntimeIdentifierGraph.json"
       }
     }
   }

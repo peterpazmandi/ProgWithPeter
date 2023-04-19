@@ -12,6 +12,7 @@ import { AuthContext } from '../../contexts/auth/authContext';
 import { AuthContextType } from '../../contexts/auth/authContext.type';
 import { toast } from "react-toastify";
 import { User } from '../../entities/user.entity';
+import { enqueueSnackbar } from 'notistack';
 
 const successToast = (message: string) => toast.success(message);
 
@@ -61,6 +62,9 @@ const LoginModal = (props: LoginModalProps) => {
         loginAsync(loginRequest).then(user => {
             if (user) {
                 successToast(`Welcome back, ${(user as User).firstName}`);
+                enqueueSnackbar(`Welcome back, ${(user as User).firstName}`, {
+                    variant: 'success'
+                })
                 setOpenLoginModal(false);
             }
         });

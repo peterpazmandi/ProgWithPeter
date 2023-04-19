@@ -13,7 +13,6 @@ const useAuth = () => {
 
 const PublicRoutes = () => {
     const auth = useAuth();
-    const lastRun = useRef(new Date());
 
     if (auth) {
         return <Outlet />

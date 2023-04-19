@@ -1,36 +1,36 @@
 import { Box, CssBaseline, ThemeProvider, useTheme } from '@mui/material';
-import { Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import Navbar from './components/Navbar';
 import AuthProvider from './contexts/auth/authContext';
 import TutorialsProvider from './contexts/tutorials/tutorialsContext';
-import Home from './pages/home/Home';
-import ProfilePage from './pages/profile/ProfilePage';
-import TutorialPage from './pages/tutorial/TutorialPage';
 import { ColorModeContext, tokens, useMode } from './theme';
 import 'react-toastify/dist/ReactToastify.css';
 import AppRoutes from './routes/AppRoutes';
+import FabProvider from './components/menu/fab/fabContext';
+import { SnackbarProvider } from 'notistack';
 
 function App() {
-	const currentTheme = useTheme();
-	const colors = tokens(currentTheme.palette.mode);
 	const [theme, colorMode] = useMode();
 
 	return (
 		<ColorModeContext.Provider value={colorMode as any}>
 			<ThemeProvider theme={theme as any} >
-				<AuthProvider>
-					<TutorialsProvider>
-						<CssBaseline />
-						<Box className="app">
-							<Navbar />
-							<Box m={2}>
-								<AppRoutes />
-								<ToastContainer />
+				<SnackbarProvider >
+					<AuthProvider>
+						<TutorialsProvider>
+							<CssBaseline />
+							<Box className="app">
+								<Navbar />
+								<FabProvider>
+									<Box m={2}>
+										<AppRoutes />
+										<ToastContainer />
+									</Box>
+								</FabProvider>
 							</Box>
-						</Box>
-					</TutorialsProvider>
-				</AuthProvider>
+						</TutorialsProvider>
+					</AuthProvider>
+				</SnackbarProvider>
 			</ThemeProvider>
 		</ColorModeContext.Provider>
 	);

@@ -2,6 +2,9 @@ import { useContext } from 'react'
 import { Navigate, Outlet } from 'react-router-dom';
 import { AuthContext } from '../contexts/auth/authContext'
 import { AuthContextType } from '../contexts/auth/authContext.type'
+import { toast } from "react-toastify";
+
+const errorToast = (message: string) => toast.error(message);
 
 const useAuth = () => {
     const { currentUser } = useContext(AuthContext) as AuthContextType;
@@ -27,13 +30,20 @@ const ProtectedRoutes = (props: ProtectedRouteType) => {
     const { auth, role } = useAuth();
 
     if (props.adminRoleRequired) {
-        return auth ? (
-            props.adminRoleRequired === role ? <Outlet /> : <Navigate to="denied" />
-        ) : (
-            <Navigate to="/" />
-        )
+        if (auth) {
+            if (props.adminRoleRequired === role) {
+                return <Outlet />
+            } else {
+                errorToast('You are not authorized to view this page.');
+                return <Navigate to="denied" />
+            }
+        } else {
+            errorToast('You are not authorized to view this page.');
+            return <Navigate to="/" />
+        }
     } else {
         if (!auth) {
+            errorToast('You are not authorized to view this page.');
             return <Navigate to="/" />
         } else {
             return <Outlet />

@@ -316,11 +316,6 @@ C:\Users\Peter Pazmandi\Desktop\Trash\CSharp_Angular_React\ProgWithPeter\api\obj
 C:\Users\Peter Pazmandi\Desktop\Trash\CSharp_Angular_React\ProgWithPeter\api\obj\Debug\net6.0\API.csproj.CoreCompileInputs.cache
 C:\Users\Peter Pazmandi\Desktop\Trash\CSharp_Angular_React\ProgWithPeter\api\obj\Debug\net6.0\API.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Peter Pazmandi\Desktop\Trash\CSharp_Angular_React\ProgWithPeter\api\obj\Debug\net6.0\API.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\Peter Pazmandi\Desktop\Trash\CSharp_Angular_React\ProgWithPeter\api\obj\Debug\net6.0\staticwebassets\msbuild.API.Microsoft.AspNetCore.StaticWebAssets.props
-C:\Users\Peter Pazmandi\Desktop\Trash\CSharp_Angular_React\ProgWithPeter\api\obj\Debug\net6.0\staticwebassets\msbuild.build.API.props
-C:\Users\Peter Pazmandi\Desktop\Trash\CSharp_Angular_React\ProgWithPeter\api\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.API.props
-C:\Users\Peter Pazmandi\Desktop\Trash\CSharp_Angular_React\ProgWithPeter\api\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.API.props
-C:\Users\Peter Pazmandi\Desktop\Trash\CSharp_Angular_React\ProgWithPeter\api\obj\Debug\net6.0\staticwebassets.pack.json
 C:\Users\Peter Pazmandi\Desktop\Trash\CSharp_Angular_React\ProgWithPeter\api\obj\Debug\net6.0\staticwebassets.build.json
 C:\Users\Peter Pazmandi\Desktop\Trash\CSharp_Angular_React\ProgWithPeter\api\obj\Debug\net6.0\staticwebassets.development.json
 C:\Users\Peter Pazmandi\Desktop\Trash\CSharp_Angular_React\ProgWithPeter\api\obj\Debug\net6.0\scopedcss\bundle\API.styles.css

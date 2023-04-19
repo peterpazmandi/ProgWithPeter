@@ -2,8 +2,10 @@ import { Box, SpeedDial, SpeedDialAction, useTheme } from '@mui/material'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
-import { tokens } from '../../theme';
-import { useEffect, useRef, useState } from 'react';
+import { tokens } from '../../../theme';
+import { useContext, useEffect, useRef, useState } from 'react';
+import { FabContextType } from './fabContext.type';
+import { FabContext } from './fabContext';
 
 export interface FabAaction {
     icon: JSX.Element,
@@ -19,25 +21,13 @@ interface FabMenuProps {
 const FabMenu = (props: FabMenuProps) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => {
-        console.log(open);
-        setOpen(true);
-    };
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-    useEffect(() => {
-        console.log(open);
-    }, [open])
+    const { open, onOpen, onClose } = useContext(FabContext) as FabContextType;
 
     const onFabClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, action: FabAaction | null) => {
-        handleClose();
         if (action?.onClick) {
             action?.onClick(e);
         }
+        onClose();
     }
 
 
@@ -52,8 +42,8 @@ const FabMenu = (props: FabMenuProps) => {
             <SpeedDial
                 ariaLabel=""
                 icon={<SpeedDialIcon icon={<KeyboardArrowUpIcon />} openIcon={<KeyboardArrowDownIcon />} />}
-                onClose={handleClose}
-                onOpen={() => handleOpen()}
+                onClose={onClose}
+                onOpen={onOpen}
                 open={open} >
                 {props.actions.map((action) => (
                     <SpeedDialAction

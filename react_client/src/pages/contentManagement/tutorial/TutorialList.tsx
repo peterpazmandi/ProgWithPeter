@@ -8,20 +8,7 @@ import { Status } from "../../../utils/enums";
 import FilterPanel from "./FilterPanel";
 import CreateIcon from '@mui/icons-material/Create';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import FabMenu, { FabAaction as FabAction } from "../../../components/menu/FabMenu";
-
-const modalStyle = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 100,
-    bgcolor: 'background.paper',
-    border: '2px solid #fff',
-    borderRadius: 12,
-    boxShadow: 24,
-    p: 4,
-};
+import FabMenu, { FabAaction as FabAction } from "../../../components/menu/fab/FabMenu";
 
 
 const TutorialList = () => {
@@ -62,6 +49,7 @@ const TutorialList = () => {
 
     useEffect(() => {
         getTutorialsAsync(1, 20);
+        
     }, [])
 
     const getStatusColor = (status: string) => {

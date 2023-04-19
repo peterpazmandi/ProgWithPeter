@@ -1,5 +1,4 @@
-import React from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import TutorialList from '../pages/contentManagement/tutorial/TutorialList'
 import Home from '../pages/home/Home'
 import ProfilePage from '../pages/profile/ProfilePage'

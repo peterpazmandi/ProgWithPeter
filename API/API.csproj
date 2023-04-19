@@ -14,6 +14,24 @@
 		<PackageReference Include="stripe.net" Version="39.107.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.12.2" />
+		<Content Include="photos\*">
+			<CopyToPublishDirectory>always</CopyToPublishDirectory>
+		</Content>
+		<Content Include="photos\profilephotos\*">
+			<CopyToPublishDirectory>always</CopyToPublishDirectory>
+		</Content>
+		<Content Include="photos\postphotos\*">
+			<CopyToPublishDirectory>always</CopyToPublishDirectory>
+		</Content>
+		<Content Include="photos\postphotos\featuredimages\*">
+			<CopyToPublishDirectory>always</CopyToPublishDirectory>
+		</Content>
+		<Content Include="SourceCodes\*">
+			<CopyToPublishDirectory>always</CopyToPublishDirectory>
+		</Content>
+		<Content Include="pwp.db">
+			<CopyToPublishDirectory>always</CopyToPublishDirectory>
+		</Content>
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\EmailService\EmailService.csproj" />
