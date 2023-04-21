@@ -118,7 +118,11 @@ export default function AccountMenu() {
                             <ListItemIcon>
                                 <PersonAdd />
                             </ListItemIcon>
-                            Sign up for free
+                            <Typography
+                                variant='body1'
+                                onClick={() => navigate("/register")} >
+                                Sign up for free
+                            </Typography>
                         </MenuItem>
                         <MenuItem onClick={onOpenLoginModal}>
                             <ListItemIcon>

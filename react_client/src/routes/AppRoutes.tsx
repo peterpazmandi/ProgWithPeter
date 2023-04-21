@@ -5,12 +5,14 @@ import ProfilePage from '../pages/profile/ProfilePage'
 import TutorialPage from '../pages/tutorial/TutorialPage'
 import ProtectedRoutes from './ProtectedRoutes'
 import PublicRoutes from './PublicRoutes'
+import RegisterPage from '../pages/register/RegisterPage'
 
 const AppRoutes = () => {
     return (
         <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/tutorial/:slug' element={<TutorialPage />} />
+            <Route path='/register' element={<RegisterPage />} />
 
             {/* Protected Routes */}
             <Route path='/' element={<ProtectedRoutes />} >
