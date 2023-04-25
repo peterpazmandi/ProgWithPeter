@@ -10,8 +10,7 @@ import { CountryType, countries } from "../../utils/countries";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
-
-const steps = ["Name", "Gender", "Country", "Login details"];
+import { useTranslation } from "../../utils/i18n/useTranslation";
 
 const RegisterPage = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -19,7 +18,10 @@ const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [country, setCountry] = useState<CountryType>();
   const [gender, setGender] = useState("");
+  const translate = useTranslation();
   const { isLoading } = useContext(AuthContext) as AuthContextType;
+
+  const steps = [translate("name"), translate("gender"), "Country", "Login details"];
 
   const isStepOptional = (step: number) => {
     return step === 0 || step === 1 || step === 2;

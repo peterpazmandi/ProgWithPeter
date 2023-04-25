@@ -4,5 +4,11 @@
     },
     "sign_in": {
         "message": "Sign In"
+    },
+    "name": {
+        "message": "Name"
+    },
+    "gender": {
+        "message": "Gender"
     }
 }

@@ -5,27 +5,25 @@ import { WebExtensionMessage } from "./WebExtensionMessage";
 import { IntlProvider } from "react-intl";
 
 export function TranslationProvider(props: {
-  children: ReactNode;
+	children: ReactNode;
+	langState: SupportedLanguages;
 }): ReactElement {
-  const [langState, setLangState] = useState<SupportedLanguages>(
-    SupportedLanguages.hu
-  );
-  const translations = Translations;
-  const translationsForLocale = translations[langState];
-  const messagesForLocale = mapWebExtensionsMessages(translationsForLocale);
-  return (
-    <IntlProvider locale={langState} messages={messagesForLocale}>
-      {props.children}
-    </IntlProvider>
-  );
+	const translations = Translations;
+	const translationsForLocale = translations[props.langState];
+	const messagesForLocale = mapWebExtensionsMessages(translationsForLocale);
+	return (
+		<IntlProvider locale={props.langState} messages={messagesForLocale}>
+			{props.children}
+		</IntlProvider>
+	);
 }
 
 function mapWebExtensionsMessages(messages: {
-  [key: string]: WebExtensionMessage;
+	[key: string]: WebExtensionMessage;
 }): Record<string, string> {
-  const result: Record<string, string> = {};
-  Object.keys(messages).forEach((key) => {
-    result[key] = messages[key].message;
-  });
-  return result;
+	const result: Record<string, string> = {};
+	Object.keys(messages).forEach((key) => {
+		result[key] = messages[key].message;
+	});
+	return result;
 }

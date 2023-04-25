@@ -13,9 +13,14 @@ import { AuthContext } from '../contexts/auth/authContext';
 import { AuthContextType } from '../contexts/auth/authContext.type';
 import { UserRoles } from '../utils/enums';
 import ContentManagementMenu from './menu/ContentManagementMenu';
+import { SupportedLanguages } from '../utils/i18n/SupportedLanguages';
 
+type NavbarProps = {
+    setLangState(supportedLanguages: SupportedLanguages): void;
+}
 
-const Navbar = () => {
+const Navbar = (props: NavbarProps) => {
+    const { setLangState } = props;
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const colorMode = useContext(ColorModeContext);
@@ -56,6 +61,12 @@ const Navbar = () => {
                         gap: "20px",
                         alignItems: "center"
                     }} >
+                        <Typography variant='body1' onClick={() => setLangState(SupportedLanguages.hu)}>
+                            HU
+                        </Typography>
+                        <Typography variant='body1' onClick={() => setLangState(SupportedLanguages.en)}>
+                            EN
+                        </Typography>
                         {currentUser && currentUser.userRole === UserRoles.ADMIN &&
                             <Box sx={{
                                 display: "flex",
