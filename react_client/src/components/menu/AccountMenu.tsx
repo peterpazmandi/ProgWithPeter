@@ -17,10 +17,12 @@ import LoginModal from '../modal/LoginModal';
 import { Modal, Typography } from '@mui/material';
 import UserMenuItem from './UserMenuItem';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from '../../utils/i18n/useTranslation';
 
 export default function AccountMenu() {
     const { currentUser, logOut } = useContext(AuthContext) as AuthContextType
     const navigate = useNavigate();
+    const translate = useTranslation();
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -121,14 +123,14 @@ export default function AccountMenu() {
                             <Typography
                                 variant='body1'
                                 onClick={() => navigate("/register")} >
-                                Sign up for free
+                                {translate('sign_up_for_free')}
                             </Typography>
                         </MenuItem>
                         <MenuItem onClick={onOpenLoginModal}>
                             <ListItemIcon>
                                 <LoginIcon />
                             </ListItemIcon>
-                            Sign in
+                                {translate('sign_in')}
                         </MenuItem>
                     </Box>
                 )

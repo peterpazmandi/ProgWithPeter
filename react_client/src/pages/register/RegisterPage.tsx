@@ -129,25 +129,6 @@ const RegisterPage = () => {
                 {...register("lastName")}
               />
             </FormControl>
-            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-              <Button
-                color="inherit"
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                sx={{ mr: 1 }}
-              >
-                Back
-              </Button>
-              <Box sx={{ flex: "1 1 auto" }} />
-              {isStepOptional(activeStep) && (
-                <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                  Skip
-                </Button>
-              )}
-              <Button onClick={handleNext}>
-                {activeStep === steps.length - 1 ? "Finish" : "Next"}
-              </Button>
-            </Box>
           </>
         );
       case 1:
@@ -155,9 +136,8 @@ const RegisterPage = () => {
           <>
             <Box
               sx={{
-                margin: "0 auto",
-                vdisplay: "flex",
-                vjustifyContent: "center",
+                display: "1 1 flex",
+                justifyContent: "center",
               }} >
               <FormControl>
                 <RadioGroup
@@ -175,18 +155,7 @@ const RegisterPage = () => {
                     {...register("gender")} />
                 </RadioGroup>
               </FormControl>
-            </Box>
-            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-              <Button color="inherit" onClick={handleBack} sx={{ mr: 1 }}>
-                Back
-              </Button>
-              <Box sx={{ flex: "1 1 auto" }} />
-              {isStepOptional(activeStep) && (
-                <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                  Skip
-                </Button>
-              )}
-              <Button onClick={handleNext}>Next</Button>
+              <Box sx={{ flexDirection: "column", flex: "1 1 auto" }} />
             </Box>
           </>
         );
@@ -224,20 +193,6 @@ const RegisterPage = () => {
                 )}
                 onChange={(event, data: any) => { setCountry(data)}} />
             </FormControl>
-            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-              <Button color="inherit" onClick={handleBack} sx={{ mr: 1 }}>
-                Back
-              </Button>
-              <Box sx={{ flex: "1 1 auto" }} />
-              {isStepOptional(activeStep) && (
-                <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                  Skip
-                </Button>
-              )}
-              <Button onClick={handleNext}>
-                {activeStep === steps.length - 1 ? "Finish" : "Next"}
-              </Button>
-            </Box>
           </>
         );
       case 3:
@@ -290,13 +245,6 @@ const RegisterPage = () => {
                   {...register('password')}
               />
             </FormControl>
-            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-              <Button color="inherit" onClick={handleBack} sx={{ mr: 1 }}>
-                Back
-              </Button>
-              <Box sx={{ flex: "1 1 auto" }} />
-              <Button type="submit">Finish</Button>
-            </Box>
           </>
         );
       default:
@@ -354,6 +302,33 @@ const RegisterPage = () => {
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <Box sx={{ width: 300, height: 300 }}>
                     {renderSteps(activeStep)}
+                  </Box>
+                  <Box sx={{ 
+                    display: "flex", 
+                    flexDirection: "row", 
+                    pt: 2 }}>
+                    {activeStep !== 0 &&
+                      <Button variant="outlined" color="inherit" onClick={handleBack} sx={{ mr: 1 }}>
+                        Back
+                      </Button>
+                    }
+                    <Box sx={{ flex: "1 1 auto" }} />
+                    {isStepOptional(activeStep) && (
+                      <Button variant="text" color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
+                        Skip
+                      </Button>
+                    )}
+                    {activeStep === steps.length-1
+                      ? (
+                        <Button variant="contained" type="submit">
+                          Register
+                        </Button>
+                      ) : (
+                        <Button variant="contained" onClick={handleNext}>
+                          Next
+                        </Button>
+                      )
+                    }
                   </Box>
                 </form>
               </Box>
